@@ -1,0 +1,504 @@
+import os
+
+## Tickets & Libraries for analysis
+library = config["library"]
+print('Outlier threshold is: ',config['outlier_threshold'])
+
+## Corrupt tree params
+SAVESTANDARDSTREAMS = config["saveStandardStreams"]
+RECORDGITINFO = config["recordGitInfo"]
+MANAGEDEXECUTIONFOLDER = config["managedExecutionFolder"]
+NEIGHBORHOODSIZE = config["neighborhoodSize"]
+LOWERFRACTION = config["lowerFraction"]
+GLOBALPARAMETERIZATION = config["globalParameterization"]
+FPRBOUND = config["fprBound"]
+FNRBOUND = config["fnrBound"]
+ENGINE = config["engine"]
+INITIALIZATION = config["initialization"]
+LADDER = config["ladder"]
+NSCANS = config["nScans"]
+NPASSESPERSCAN = config["nPassesPerScan"]
+NCHAINS = config["nChains"]
+NTHREADS = config["nThreads"]
+NTHREADSNUMBER = config["nThreadsNumber"]
+POSTPROCESSOR = config["postprocessor"]
+LOGISTICTRANSFORM = config["logisticTransform"]
+SIZEVAL = config["size_val"]
+THINNINGPERIOD = config["thinningPeriod"]
+SIZESHAPE = config["size_shape"]
+PHYLO = config["phylo"]
+READONLYMATRIX = config["read_only_matrix"]
+
+## Tree cut params
+MIN_FRAC = config["minimum_fraction"]
+MAX_FRAC = config["maximum_fraction"]
+
+default_mem=20
+
+rule all:
+    resources:
+        h_vmem = default_mem
+    """
+    Launches full snakemake pipeline, cleans up junk files at the end.
+    """
+    input:
+        os.path.join(config['results_dir'], 'corrupt_tree_heatmap.png'),
+        os.path.join(config['results_dir'], 'normalized_cell_cn_tree_heatmap.pdf'),
+        os.path.join(config['results_dir'], 'cell_cn_tree_heatmap.pdf'),
+        os.path.join(config['results_dir'], 'data_exploration_n_positive.pdf'),
+        os.path.join(config['results_dir'], 'trace-fnr.pdf'),
+        os.path.join(config['results_dir'], 'box-fnr.pdf'),
+        os.path.join(config['results_dir'], 'trace-fpr.pdf'),
+        os.path.join(config['results_dir'], 'box-fpr.pdf'),
+        os.path.join(config['results_dir'], 'trace-logDensity.pdf'),
+        os.path.join(config['results_dir'], 'output_veld.pdf'),
+        os.path.join(config['results_dir'], 'output_viz.pdf'),
+        os.path.join(config['results_dir'], 'trees_rank_loci.csv'),
+        os.path.join(config['results_dir'], 'detailed_viz')
+    run:
+        shell("mv arguments-details.txt {config[results_dir]}/corrupt_junk/")
+        shell("mv arguments.tsv {config[results_dir]}/corrupt_junk/")
+        shell("mv distances.csv {config[results_dir]}/corrupt_junk/")
+        shell("mv .trees.types.tsv {config[results_dir]}/corrupt_junk/")
+        shell("mv executionInfo/ {config[results_dir]}/corrupt_junk/executionInfo_02/")
+
+
+rule state_to_binary:
+    """
+    Convert CN states to binary matrix for corruptTree
+    """
+    params:
+        filterthrs=config['outlier_threshold']
+    input:
+        os.path.join(config['results_dir'], 'total_merged_filtered_states.csv')
+    output:
+        os.path.join(config['results_dir'], 'bin_cnvs_corrupt_double_padding.csv')
+    resources:
+        h_vmem=default_mem
+    shell:
+        'Rscript {config[project_dir]}/src/ss_dev/blob.R -i {input} -o {output} -f {params.filterthrs}'
+
+
+rule corrupt_straighten_jitter:
+    """
+    straighten jitter
+    """
+    input:
+        input_file = os.path.join(config['results_dir'], 'bin_cnvs_corrupt_double_padding.csv')
+    params:
+        save_standard_streams = SAVESTANDARDSTREAMS,
+        record_git_info = RECORDGITINFO,
+        managed_execution_folder = MANAGEDEXECUTIONFOLDER,
+        neighborhood_size = NEIGHBORHOODSIZE
+    output:
+        os.path.join(config['results_dir'], 'straighten_output.csv')
+    resources:
+        h_vmem=default_mem
+    run:
+        shell('{config[compiled_code_dir]}/corrupt-straighten '
+            '--experimentConfigs.saveStandardStreams {params.save_standard_streams} '
+            '--experimentConfigs.recordGitInfo {params.record_git_info} '
+            '--experimentConfigs.managedExecutionFolder {params.managed_execution_folder} '
+            '--input {input.input_file} '
+            '--neighborhoodSize {params.neighborhood_size}')
+        shell('mv output.csv {output}')
+
+rule corrupt_data_exploration:
+    """
+    data_exploration
+    """
+    input:
+        input_file = os.path.join(config['results_dir'], 'straighten_output.csv')
+    output:
+        os.path.join(config['results_dir'], 'data_exploration_n_positive.pdf')
+    resources:
+        h_vmem=default_mem
+    shell:
+        'Rscript {config[compiled_code_dir]}/data_exploration.R -i {input.input_file} -o {output}'
+
+rule corrupt_filter:
+    """
+    filter
+    """
+    input:
+        input_file = os.path.join(config['results_dir'], 'straighten_output.csv')
+    params:
+        save_standard_streams = SAVESTANDARDSTREAMS,
+        record_git_info = RECORDGITINFO,
+        managed_execution_folder = MANAGEDEXECUTIONFOLDER,
+        lower_fraction = LOWERFRACTION
+    output:
+        os.path.join(config['results_dir'], 'filtered.csv')
+    resources:
+        h_vmem=default_mem
+    run:
+        shell('{config[compiled_code_dir]}/corrupt-filter '
+            '--experimentConfigs.saveStandardStreams {params.save_standard_streams} '
+            '--experimentConfigs.recordGitInfo {params.record_git_info} '
+            '--experimentConfigs.managedExecutionFolder {params.managed_execution_folder} '
+            '--input {input.input_file} '
+            '--lowerFraction {params.lower_fraction}')
+        shell('mv filtered.csv {output}')
+
+rule corrupt_inference:
+    """
+    inference
+    """
+    input:
+        input_file = os.path.join(config['results_dir'], 'filtered.csv')
+    params:
+        save_standard_streams = SAVESTANDARDSTREAMS,
+        record_git_info = RECORDGITINFO,
+        managed_execution_folder = MANAGEDEXECUTIONFOLDER,
+        global_parameterization = GLOBALPARAMETERIZATION,
+        fpr_bound = FPRBOUND,
+        fnr_bound = FNRBOUND,
+        engine = ENGINE,
+        engine_initialization = INITIALIZATION,
+        engine_ladder = LADDER,
+        engine_nscans = NSCANS,
+        engine_npassesperscan = NPASSESPERSCAN,
+        engine_nchains = NCHAINS,
+        engine_nthreads = NTHREADS,
+        engine_nthreads_number = NTHREADSNUMBER,
+        postprocessor = POSTPROCESSOR
+    output:
+        inference_phylo = os.path.join(config['results_dir'], "inference_phylo.csv"),
+        inference_fnr = os.path.join(config['results_dir'], "inference_fnr.csv"),
+        inference_fpr = os.path.join(config['results_dir'], "inference_fpr.csv"),
+        inference_log_density = os.path.join(config['results_dir'], "inference_log_density.csv")
+    resources:
+        h_vmem=120
+    run:
+        shell("unset DISPLAY; xvfb-run -a {config[compiled_code_dir]}/corrupt-infer-with-noisy-params "
+            '--experimentConfigs.saveStandardStreams {params.save_standard_streams} '
+            '--experimentConfigs.recordGitInfo {params.record_git_info} '
+            '--experimentConfigs.managedExecutionFolder {params.managed_execution_folder} '
+            '--model.globalParameterization {params.global_parameterization} '
+            '--model.binaryMatrix {input.input_file} '
+            '--model.fprBound {params.fpr_bound} '
+            '--model.fnrBound {params.fnr_bound} '
+            '--engine {params.engine} '
+            '--engine.initialization {params.engine_initialization} '
+            '--engine.ladder {params.engine_ladder} '
+            '--engine.nScans {params.engine_nscans} '
+            '--engine.nPassesPerScan {params.engine_npassesperscan} '
+            '--engine.nChains {params.engine_nchains} '
+            '--engine.nThreads {params.engine_nthreads} '
+            '--engine.nThreads.number {params.engine_nthreads_number} '
+            '--postProcessor {params.postprocessor}')
+        shell("mkdir -p {config[results_dir]}/corrupt_junk/")
+        shell("rm -rf  {config[results_dir]}/corrupt_junk/*")
+        shell('mv samples/phylo.csv {output.inference_phylo}')
+        shell('mv samples/fnr.csv {output.inference_fnr}')
+        shell('mv samples/fpr.csv {output.inference_fpr}')
+        shell('mv samples/logDensity.csv {output.inference_log_density}')
+        shell("mv ess/ {config[results_dir]}/corrupt_junk/")
+        shell("mv executionInfo/ {config[results_dir]}/corrupt_junk/executionInfo_01/")
+        shell("mv monitoring/ {config[results_dir]}/corrupt_junk/")
+        shell("mv monitoringPlots/ {config[results_dir]}/corrupt_junk/")
+        shell("mv posteriorPlots/ {config[results_dir]}/corrupt_junk/")
+        shell("mv samples/ {config[results_dir]}/corrupt_junk/")
+        shell("mv summaries/ {config[results_dir]}/corrupt_junk/")
+        shell("mv tracePlots/ {config[results_dir]}/corrupt_junk/")
+        shell("mv tracePlotsFull/ {config[results_dir]}/corrupt_junk/")
+
+rule corrupt_find_consensus:
+    """
+    find consensus
+    """
+    input:
+        input_file = os.path.join(config['results_dir'], 'inference_phylo.csv')
+    params:
+        save_standard_streams = SAVESTANDARDSTREAMS,
+        record_git_info = RECORDGITINFO,
+        managed_execution_folder = MANAGEDEXECUTIONFOLDER
+    output:
+        os.path.join(config['results_dir'], 'consensus.newick')
+    resources:
+        h_vmem=default_mem
+    run:
+        shell('{config[compiled_code_dir]}/corrupt-l1-decode '
+            '--experimentConfigs.saveStandardStreams {params.save_standard_streams} '
+            '--experimentConfigs.recordGitInfo {params.record_git_info} '
+            '--experimentConfigs.managedExecutionFolder {params.managed_execution_folder} '
+            '--samples {input.input_file}')
+        shell('mv consensus.newick {output}')
+
+rule corrupt_error_rate_viz_fnr:
+    """
+    error rate viz
+    """
+    input:
+        input_file = os.path.join(config['results_dir'], 'inference_fnr.csv')
+    output:
+        trace = os.path.join(config['results_dir'], 'trace-fnr.pdf'),
+        box = os.path.join(config['results_dir'], 'box-fnr.pdf')
+    resources:
+        h_vmem=default_mem
+    shell:
+        'Rscript {config[compiled_code_dir]}/error_rates_viz.R -f {input.input_file} -t {output.trace} -b {output.box}'
+
+rule corrupt_error_rate_viz_fpr:
+    """
+    error rate viz
+    """
+    input:
+        input_file = os.path.join(config['results_dir'], 'inference_fpr.csv')
+    output:
+        trace = os.path.join(config['results_dir'], 'trace-fpr.pdf'),
+        box = os.path.join(config['results_dir'], 'box-fpr.pdf')
+    resources:
+        h_vmem=default_mem
+    shell:
+        'Rscript {config[compiled_code_dir]}/error_rates_viz.R -f {input.input_file} -t {output.trace} -b {output.box}'
+
+rule corrupt_logd:
+    """
+    logd
+    """
+    input:
+        input_file = os.path.join(config['results_dir'], 'inference_log_density.csv')
+    output:
+        os.path.join(config['results_dir'], 'trace-logDensity.pdf')
+    resources:
+        h_vmem=default_mem
+    shell:
+        'Rscript {config[compiled_code_dir]}/logd.R -i {input.input_file} -o {output}'
+
+rule corrupt_average_tip_indicator:
+    """
+    average tip indicators
+    """
+    input:
+        input_file = os.path.join(config['results_dir'], 'inference_phylo.csv')
+    params:
+        save_standard_streams = SAVESTANDARDSTREAMS,
+        record_git_info = RECORDGITINFO,
+        managed_execution_folder = MANAGEDEXECUTIONFOLDER,
+        logistic_transform = LOGISTICTRANSFORM
+    output:
+        os.path.join(config['results_dir'], 'average.csv')
+    resources:
+        h_vmem=default_mem
+    run:
+        shell('{config[compiled_code_dir]}/corrupt-average '
+            '--experimentConfigs.saveStandardStreams {params.save_standard_streams} '
+            '--experimentConfigs.recordGitInfo {params.record_git_info} '
+            '--experimentConfigs.managedExecutionFolder {params.managed_execution_folder} '
+            '--csvFile {input.input_file} '
+            '--logisticTransform {params.logistic_transform}')
+        shell('mv average.csv {output}')
+
+rule corrupt_viz_edge_locus_decode:
+    """
+    viz edge locus decode
+    """
+    input:
+        average = os.path.join(config['results_dir'], 'average.csv'),
+        filtered = os.path.join(config['results_dir'], 'filtered.csv'),
+        consensus = os.path.join(config['results_dir'], 'consensus.newick')
+    params:
+        save_standard_streams = SAVESTANDARDSTREAMS,
+        record_git_info = RECORDGITINFO,
+        managed_execution_folder = MANAGEDEXECUTIONFOLDER,
+        phylo = PHYLO,
+        size = SIZESHAPE,
+        size_val = SIZEVAL
+    output:
+        os.path.join(config['results_dir'], 'output_veld.pdf')
+    resources:
+        h_vmem=default_mem
+    run:
+        shell('xvfb-run -a {config[compiled_code_dir]}/corrupt-viz '
+            '--experimentConfigs.saveStandardStreams {params.save_standard_streams} '
+            '--experimentConfigs.recordGitInfo {params.record_git_info} '
+            '--experimentConfigs.managedExecutionFolder {params.managed_execution_folder} '
+            '--matrices {input.average} {input.filtered} '
+            '--phylo {params.phylo} {input.consensus} '
+            '--size {params.size} {params.size_val}')
+        shell('mv output.pdf {output}')
+
+rule corrupt_decode:
+    input:
+        input_file = os.path.join(config['results_dir'], 'average.csv')
+    params:
+        save_standard_streams = SAVESTANDARDSTREAMS,
+        record_git_info = RECORDGITINFO,
+        managed_execution_folder = MANAGEDEXECUTIONFOLDER,
+        read_only_CL_matrix = READONLYMATRIX
+    output:
+        newick = os.path.join(config['results_dir'], 'tree.newick'),
+        decode = os.path.join(config['results_dir'], 'trees.decode.csv')
+    resources:
+        h_vmem=default_mem
+    run:
+        shell('{config[compiled_code_dir]}/corrupt-greedy '
+            '--experimentConfigs.saveStandardStreams {params.save_standard_streams} '
+            '--experimentConfigs.recordGitInfo {params.record_git_info} '
+            '--experimentConfigs.managedExecutionFolder {params.managed_execution_folder} '
+            '--tipInclusionProbabilities {params.read_only_CL_matrix} {input.input_file}')
+        shell('mv tree.newick {output.newick}')
+        shell('mv trees.csv {output.decode}')
+
+rule corrupt_viz:
+    """
+    viz
+    """
+    input:
+        average = os.path.join(config['results_dir'], 'average.csv'),
+        filtered = os.path.join(config['results_dir'], 'filtered.csv'),
+        tree = os.path.join(config['results_dir'], 'tree.newick')
+    params:
+        save_standard_streams = SAVESTANDARDSTREAMS,
+        record_git_info = RECORDGITINFO,
+        managed_execution_folder = MANAGEDEXECUTIONFOLDER,
+        phylo = PHYLO,
+        size = SIZESHAPE,
+        size_val = SIZEVAL
+    output:
+        os.path.join(config['results_dir'], 'output_viz.pdf')
+    resources:
+        h_vmem=50
+    run:
+        shell('xvfb-run -a {config[compiled_code_dir]}/corrupt-viz '
+            '--experimentConfigs.saveStandardStreams {params.save_standard_streams} '
+            '--experimentConfigs.recordGitInfo {params.record_git_info} '
+            '--experimentConfigs.managedExecutionFolder {params.managed_execution_folder} '
+            '--matrices {input.average} {input.filtered} '
+            '--phylo {params.phylo} {input.tree} '
+            '--size {params.size} {params.size_val}')
+        shell('mv output.pdf {output}')
+
+rule corrupt_rank_loci:
+    """
+    ranked loci
+    """
+    input:
+        tree = os.path.join(config['results_dir'], 'tree.newick'),
+        filtered = os.path.join(config['results_dir'], 'filtered.csv')
+    params:
+        save_standard_streams = SAVESTANDARDSTREAMS,
+        record_git_info = RECORDGITINFO,
+        managed_execution_folder = MANAGEDEXECUTIONFOLDER,
+        phylo = PHYLO,
+        thinning_period = THINNINGPERIOD
+    output:
+        os.path.join(config['results_dir'], 'trees_rank_loci.csv')
+    resources:
+        h_vmem=default_mem
+    run:
+        shell('{config[compiled_code_dir]}/corrupt-rank-loci '
+            '--experimentConfigs.saveStandardStreams {params.save_standard_streams} '
+            '--experimentConfigs.recordGitInfo {params.record_git_info} '
+            '--experimentConfigs.managedExecutionFolder {params.managed_execution_folder} '
+            '--phylo {params.phylo} {input.tree} '
+            '--binaryMatrix {input.filtered} '
+            '--thinningPeriod {params.thinning_period}')
+        shell('mv trees.csv {output}')
+
+rule corrupt_detailed_viz:
+    """
+    detailed viz
+    """
+    input:
+        average = os.path.join(config['results_dir'], 'average.csv'),
+        filtered = os.path.join(config['results_dir'], 'filtered.csv'),
+        trees_rank_loci = os.path.join(config['results_dir'], 'trees_rank_loci.csv')
+    params:
+        save_standard_streams = SAVESTANDARDSTREAMS,
+        record_git_info = RECORDGITINFO,
+        managed_execution_folder = MANAGEDEXECUTIONFOLDER,
+        size = SIZESHAPE,
+        size_val = SIZEVAL
+    output:
+        directory(os.path.join(config['results_dir'], 'detailed_viz'))
+    resources:
+        h_vmem=120
+    run:
+        shell('mkdir -p {output}')
+        shell('xvfb-run -a {config[compiled_code_dir]}/corrupt-viz-growth '
+            '--experimentConfigs.saveStandardStreams {params.save_standard_streams} '
+            '--experimentConfigs.recordGitInfo {params.record_git_info} '
+            '--experimentConfigs.managedExecutionFolder {params.managed_execution_folder} '
+            '--phylogenies {input.trees_rank_loci} '
+            '--matrices {input.average} {input.filtered} '
+            '--size {params.size} {params.size_val}')
+        shell('mv *.pdf {output}')
+
+rule tree_cut:
+    """
+    Cut newick tree to identify clones
+    """
+    input:
+        tree = os.path.join(config['results_dir'], 'tree.newick'),
+        filtered_cnv_data = os.path.join(config['results_dir'], 'total_merged_filtered_states.csv')
+    output:
+        os.path.join(config['results_dir'], 'cell_clones.csv')
+    resources:
+        h_vmem=default_mem
+    shell:
+        'Rscript {config[project_dir]}/src/tree_cut/treecut.R -t {input.tree} -n {input.filtered_cnv_data} -o {output} -m {MIN_FRAC} -x {MAX_FRAC}'
+
+rule tree_viz:
+    """
+    visualize tree; heatmap and tree side by side
+    """
+    input:
+        tree = os.path.join(config['results_dir'], 'tree.newick'),
+        filtered_cnv_data = os.path.join(config['results_dir'], 'total_merged_filtered_states.csv'),
+        cell_clones = os.path.join(config['results_dir'], 'cell_clones.csv')
+    output:
+        os.path.join(config['results_dir'], 'corrupt_tree_heatmap.png')
+    resources:
+        h_vmem=default_mem
+    shell:
+        'Rscript {config[project_dir]}/src/tree_viz/tree_viz.R -t {input.tree} -n {input.filtered_cnv_data} -c {input.cell_clones} -o {output}'
+
+rule create_grouping_file:
+    """
+    create a grouping file for heatmap annotation
+    """
+    params:
+        library_ids = ",".join(list(library.keys())),
+        groupings = ",".join(list(config['library'][library_id]['grouping'] for library_id in library.keys())),
+        mainsites = ",".join(list(config['library'][library_id]['mainsite'] for library_id in library.keys())),
+        pdxids = ",".join(list(config['library'][library_id]['pdxid'] for library_id in library.keys()))
+    output:
+        os.path.join(config['results_dir'], 'library_groupings.csv')
+    resources:
+        h_vmem=default_mem
+    shell:
+        'python {config[project_dir]}/src/tree_viz/misc/library_grouping.py --library_ids {params.library_ids} --groupings {params.groupings} --mainsites {params.mainsites} --pdxids {params.pdxids} -o {output}'
+ 
+rule cell_cn_tree_viz:
+    """
+    Tyler's visualization scripts, which includes library/grouping annotation
+    """
+    input:
+        tree = os.path.join(config['results_dir'], 'tree.newick'),
+        filtered_cnv_data = os.path.join(config['results_dir'], 'total_merged_filtered_states.csv'),
+        grouping_file = os.path.join(config['results_dir'], 'library_groupings.csv'),
+        cell_clones = os.path.join(config['results_dir'], 'cell_clones.csv')
+    output:
+        os.path.join(config['results_dir'], 'cell_cn_tree_heatmap.pdf')
+    resources:
+        h_vmem=default_mem
+    shell:
+        'Rscript {config[project_dir]}/src/tree_viz/make_cell_copynumber_tree_heatmap.R -t {input.tree} -cn {input.filtered_cnv_data} -c {input.cell_clones} --grouping_file {input.grouping_file} -o {output}'
+
+rule cell_cn_tree_viz_normalized:
+    """
+    Tyler's visualization scripts, normalized chart, which includes library/grouping annotation
+    """
+    input:
+        tree = os.path.join(config['results_dir'], 'tree.newick'),
+        filtered_cnv_data = os.path.join(config['results_dir'], 'total_merged_filtered_states.csv'),
+        grouping_file = os.path.join(config['results_dir'], 'library_groupings.csv'),
+        cell_clones = os.path.join(config['results_dir'], 'cell_clones.csv')
+    output:
+        os.path.join(config['results_dir'], 'normalized_cell_cn_tree_heatmap.pdf')
+    resources:
+        h_vmem=default_mem
+    shell:
+        'Rscript {config[project_dir]}/src/tree_viz/make_cell_copynumber_tree_heatmap.R --normalize-ploidy -t {input.tree} -cn {input.filtered_cnv_data} -c {input.cell_clones} --grouping_file {input.grouping_file} -o {output}'

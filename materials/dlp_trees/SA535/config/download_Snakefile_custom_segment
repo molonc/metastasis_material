@@ -1,0 +1,80 @@
+import os
+
+## Tickets & Libraries for analysis
+library = config["library"]
+
+SOURCE_DIR = os.path.join(config['project_dir'], 'src')
+
+rule all:
+    """
+    Launches full snakemake pipeline, cleans up junk files at the end.
+    """
+    input:
+        os.path.join(config['results_dir'], 'total_merged_filtered_states_original.csv')
+        
+        
+
+rule download_data:
+    """
+    Runs a shell script that downloads all the data for corruptTree
+    """
+    output:
+        directory(os.path.join(config['download_dir'], '{library}'))
+    shell:
+        'python {SOURCE_DIR}/download_data-scgenome.py '
+        '--library_id {wildcards.library} '
+        '--download_dir {config[download_dir]}'
+
+
+
+rule filter_data:
+    """
+    filter the data for mappability, read quality, live cells, non-S phase cells, remove contaminants
+    """
+    params:
+        samples=lambda wildcards: config['library'][wildcards.library]['sample']
+    input:
+        os.path.join(config['download_dir'], '{library}')
+    output:
+        os.path.join(config['results_dir'], '{library}_filtered_states.csv')
+    run:
+        if os.path.isfile("{}/cell_state_prediction/{}_cell_state_prediction.csv".format(input, wildcards.library)):
+            if os.path.isfile("{}/hmmcopy_autoploidy/{}_multiplier0_metrics.csv".format(input, wildcards.library)):
+                shell('python {SOURCE_DIR}/filter_libs.py '
+                    '--metrics {input}/hmmcopy_autoploidy/{wildcards.library}_multiplier0_metrics.csv '
+                    '--reads {input}/hmmcopy_autoploidy/{wildcards.library}_multiplier0_reads.csv '
+                    '--cell_state_predict {input}/cell_state_prediction/{wildcards.library}_cell_state_prediction.csv '
+                    '--library_id {wildcards.library} '
+                    '--samples {params.samples} '
+                    '--output_file {output} '
+                    '--thrs_map_reads {THRES_LOW_READS}')
+            else:
+                shell('python {SOURCE_DIR}/filter_libs.py '
+                    '--metrics {input}/annotation/{wildcards.library}_metrics.csv '
+                    '--reads {input}/hmmcopy_autoploidy/{wildcards.library}_reads.csv '
+                    '--cell_state_predict {input}/cell_state_prediction/{wildcards.library}_cell_state_prediction.csv '
+                    '--library_id {wildcards.library} '
+                    '--samples {params.samples} '
+                    '--output_file {output} '
+                    '--thrs_map_reads {THRES_LOW_READS}')
+
+        else:
+            shell('python {SOURCE_DIR}/filter_libs.py '
+                '--metrics {input}/annotation/{wildcards.library}_metrics.csv '
+                '--reads {input}/hmmcopy/{wildcards.library}_reads.csv '
+                '--library_id {wildcards.library} '
+                '--samples {params.samples} '
+                '--output_file {output} '
+                '--thrs_map_reads {THRES_LOW_READS}')
+
+
+rule merge_data:
+    """
+    merge all data sets together, change input filename to correct name
+    """
+    input:
+        expand(os.path.join(config['results_dir'], '{library}_filtered_states.csv'), library=library)
+    output:
+        os.path.join(config['results_dir'], 'total_merged_filtered_states_original.csv')
+    shell:
+        'python {SOURCE_DIR}/merge_libs.py {input} {output}'

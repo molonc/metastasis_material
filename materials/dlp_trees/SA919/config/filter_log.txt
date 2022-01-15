@@ -1,0 +1,22 @@
+Run corrupt tree data
+Outlier threshold is:  0.9
+[1] "Filtered outlier threshold is: 0.9"
+[1] "Number of bad cells: "
+[1] 952
+[1] "Filtered output: 4375 5291"
+
+
+
+maybe sync or padding error:
+Warning messages:
+1: In parse_bin_names(rownames(the_mat)) : NAs introduced by coercion
+2: In parse_bin_names(rownames(the_mat)) : NAs introduced by coercion
+3: In sort_mat_by_bins(states) : NAs introduced by coercion
+4: In parse_bin_names(rownames(the_mat)) : NAs introduced by coercion
+5: In parse_bin_names(rownames(the_mat)) : NAs introduced by coercion
+6: In sort_mat_by_bins(features) : NAs introduced by coercion
+7: In parse_bin_names(rownames(states)) : NAs introduced by coercion
+8: In parse_bin_names(rownames(states)) : NAs introduced by coercion
+9: In parse_bin_names(rownames(the_mat)) : NAs introduced by coercion
+10: In parse_bin_names(rownames(the_mat)) : NAs introduced by coercion
+11: In sort_mat_by_bins(new_features) : NAs introduced by coercion

@@ -1,0 +1,136 @@
+import os
+
+## Tickets & Libraries for analysis
+library = config["library"]
+obs_clone = config["obs_clone"]
+print(obs_clone)
+
+SOURCE_DIR = os.path.join(config['project_10x_dir'], 'align_clones')
+SOURCE_DIR1 = os.path.join(config['project_10x_dir'])
+CUSTOM_SEGMENT_DIR = os.path.join(config['project_10x_fdir'], 'dlp','custom_segment')
+
+rule all:
+    """
+    Launches full snakemake pipeline, cleans up junk files at the end.
+    """
+    input:
+        os.path.join(config['download_dir'], 'SA535_custom_segment', 'segment_cn_total.csv')
+        
+   
+rule get_reads_CNV:
+    """
+    Get reads CN for each clone in order to run HMMCopy pipeline
+    """
+    params:
+        input_dir = os.path.join(config['download_dir']),
+        cellclones = os.path.join(config['results_dir'], 'cell_clones.csv')
+    output:
+        os.path.join(config['download_dir'], 'SA535_custom_segment', 'reads_clone_{obs_clone}.csv')
+    shell:
+        'Rscript {SOURCE_DIR}/get_segment_data_v2.R -cellclones {params.cellclones} -i {params.input_dir} -output_file {output}'
+        
+        
+rule get_normalized_hmm_data:
+    """
+    Runs a shell script that normalize reads counts data for hmmcopy pipeline
+    """
+    params:
+        read_file = os.path.join(config['download_dir'],'SA535_custom_segment','SA535_reads_clone_{obs_clone}.csv')
+    output:
+        os.path.join(config['download_dir'],'SA535_custom_segment','SA535_corrected_reads_clone_{obs_clone}.csv')
+    shell:
+        'python {CUSTOM_SEGMENT_DIR}/hmmcopy/scripts/correct_read_count_v2.py '
+        '--reads {params.read_file} '
+        '--output {output}'
+        
+rule get_segment_hmmcopy_results:
+    """
+    Runs a shell script calling HMMcopy segment function that segment normalized reads counts data for hmmcopy pipeline
+    """
+    params:
+        outdir=os.path.join(config['download_dir'],'SA535_custom_segment','clone{obs_clone}'),
+        sample_id='clone_{obs_clone}'
+    input:
+        os.path.join(config['download_dir'],'SA535_custom_segment','SA535_corrected_reads_clone_{obs_clone}.csv')
+    output:
+        os.path.join(config['download_dir'],'SA535_custom_segment','clone{obs_clone}','0','segs.csv')
+    shell:
+        'Rscript {CUSTOM_SEGMENT_DIR}/hmmcopy_single_cell/hmmcopy_single_cell_v2.R '
+        '--outdir {params.outdir} '
+        '--corrected_data {input}'
+        '--sample_id {params.sample_id} '
+        
+rule merge_data_custom:
+    """
+    Do nothing, just keep it here to run snakemake process 
+    """
+    input:
+        expand(os.path.join(config['download_dir'],'SA535_custom_segment','clone{obs_clone}','0','segs.csv'), obs_clone=obs_clone)
+    output:
+        os.path.join(config['download_dir'], 'SA535_custom_segment', 'SA535_normalize_log_4.csv')
+    shell:
+        'python {SOURCE_DIR1}/pipeline/utils/lib_info.py {input} {output}'
+        
+
+rule summary_segment_profile:
+    """
+    Combine all segment data into one file
+    """
+    params:
+        input_dir = os.path.join(config['download_dir'], 'SA535_custom_segment'),
+        cellclones = os.path.join(config['results_dir'], 'cell_clones.csv')
+    output:
+        os.path.join(config['download_dir'], 'SA535_custom_segment', 'segment_cn_total.csv')
+    shell:
+        'Rscript {CUSTOM_SEGMENT_DIR}/combine_segment.R --cellclones {params.cellclones} --input_dir {params.input_dir} --output_file {output}'   
+        
+        
+rule download_segment_data:
+    """
+    Runs a shell script that downloads all the data for corruptTree
+    """
+    params:
+        download_dir = os.path.join(config['download_dir'], 'clonealign')
+    output:
+        os.path.join(config['download_dir'], 'clonealign','{library}','hmmcopy','{library}_segments.csv')
+    shell:
+        'python {SOURCE_DIR}/download_segment_dlp.py '
+        '--library_id {wildcards.library} '
+        '--download_dir {params.download_dir}'
+    
+
+
+rule combine_segment_v2:
+    """
+    merge all data segment data together, change input filename to correct name
+    """
+    params:
+        input_dir = os.path.join(config['download_dir'], 'clonealign'),
+        library_grouping = os.path.join(config['results_dir'], 'library_groupings.csv')
+    input:
+        expand(os.path.join(config['download_dir'], 'clonealign', '{library}','hmmcopy','{library}_segments.csv'), library=library)
+    output:
+        os.path.join(config['results_10x_dir'], 'clonealign', 'raw_segments.rds')
+    shell:
+        'Rscript {SOURCE_DIR}/get_segment_data_v2.R -g {params.library_grouping} -i {params.input_dir} -o {output}'
+        
+        
+        
+rule combine_segment:
+    """
+    merge all data segment data together, change input filename to correct name
+    """
+    params:
+        library_ids = ",".join(list(library.keys())),
+        input_dir = os.path.join(config['download_dir'], 'clonealign'),
+        sample = ",".join(list(config['library'][library_id]['sample'] for library_id in library.keys()))
+    input:
+        expand(os.path.join(config['download_dir'], 'clonealign', '{library}','hmmcopy','{library}_segments.csv'), library=library)
+    output:
+        os.path.join(config['results_10x_dir'], 'clonealign', 'raw_segments_v1.rds')
+    shell:
+        'Rscript {SOURCE_DIR}/get_segment_data.R -l {params.library_ids} -i {params.input_dir} -s {params.sample} -o {output}'
+        
+        
+        
+        

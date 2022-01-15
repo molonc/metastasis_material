@@ -1,0 +1,34 @@
+import os
+
+## Tickets & Libraries for analysis
+library = config["library"]
+print(library)
+metasample = config["metasample"]
+print(metasample)
+SOURCE_DIR = os.path.join(config['project_10x_dir'], 'dlp','align_clones')
+
+rule all:
+    """
+    Launches full snakemake pipeline, cleans up junk files at the end.
+    """
+    input:
+        os.path.join(config['results_10x_dir'], 'clonealign', 'raw_segments.rds')
+    
+        
+        
+
+rule combine_segment:
+    """
+    merge all data segment data together, change input filename to correct name
+    """
+    params:
+        library_ids = ",".join(library),
+        input_dir = os.path.join(config['download_dir']),
+        sample = ",".join(metasample)
+    output:
+        os.path.join(config['results_10x_dir'], 'clonealign', 'raw_segments.rds')
+    shell:
+        'Rscript {SOURCE_DIR}/get_segment_data.R -l {params.library_ids} -i {params.input_dir} -s {params.sample} -o {output}'
+        
+        
+        

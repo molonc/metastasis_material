@@ -1,0 +1,278 @@
+###
+# Libraries and samples for analysis: please update all fields. Separate multiple samples with commas.
+######################################################
+library:
+  A98254A:  
+    sample: SA535X4XB09109
+    pdxid: X0011_2362
+    mainsite: Metastasis
+    origin: Left_Axillary
+    grouping: A98254A
+  A118855A:
+    sample: SA535X4XB05985
+    pdxid: X0011_2364
+    mainsite: Metastasis
+    origin: Axillary
+    grouping: A118855A
+  A98244A:  
+    sample: SA535X4XB09109
+    pdxid: X0011_2362
+    mainsite: Metastasis
+    origin: Left_Axillary
+    grouping: A98244A
+  A96201B:
+    sample: SA535X4XB05391
+    pdxid: X0011_2361
+    mainsite: Primary
+    origin: Primary
+    grouping: A96201B
+  A95721B:
+    sample: SA535X4XB05730
+    pdxid: X0011_2361
+    mainsite: Metastasis
+    origin: Tumor_Recur
+    grouping: A95721B
+  A95731A:
+    sample: SA535X4XB05723
+    pdxid: X0011_2361
+    mainsite: Metastasis
+    origin: Axillary
+    grouping: A95731A
+  A98232A:
+    sample: SA535X4XB05649
+    pdxid: X0011_2362
+    mainsite: Primary
+    origin: Primary
+    grouping: A98232A
+  A98277B: 
+    sample: SA535X4XB05649
+    pdxid: X0011_2362
+    mainsite: Primary
+    origin: Primary
+    grouping: A98277B
+  A98261A:
+    sample: SA535X4XB05649
+    pdxid: X0011_2362
+    mainsite: Primary
+    origin: Primary
+    grouping: A98261A
+  A98197B: 
+    sample: SA535X4XB05649
+    pdxid: X0011_2362
+    mainsite: Primary
+    origin: Primary
+    grouping: A98197B
+  A98165A: 
+    sample: SA535X4XB05649
+    pdxid: X0011_2362
+    mainsite: Primary
+    origin: Primary
+    grouping: A98165A
+  A96121A: 
+    sample: SA535X4XB09106
+    pdxid: X0011_2362
+    mainsite: Metastasis
+    origin: Right_Axillary
+    grouping: A96121A
+  A96253A: 
+    sample: SA535X4XB09106
+    pdxid: X0011_2362
+    mainsite: Metastasis
+    origin: Right_Axillary
+    grouping: A96253A
+  A98269A: 
+    sample: SA535X4XB09113
+    pdxid: X0011_2362
+    mainsite: Metastasis
+    origin: Inguinal
+    grouping: A98269A
+  A98194B: 
+    sample: SA535X4XB09113
+    pdxid: X0011_2362
+    mainsite: Metastasis
+    origin: Inguinal
+    grouping: A98194B
+  A98277A:
+    sample: SA535X4XB09109
+    pdxid: X0011_2362
+    mainsite: Metastasis
+    origin: Left_Axillary
+    grouping: A98277A
+  A98197A: 
+    sample: SA535X4XB09109
+    pdxid: X0011_2362
+    mainsite: Metastasis
+    origin: Left_Axillary
+    grouping: A98197A
+  A98194A:
+    sample: SA535X4XB05462
+    pdxid: X0011_2363
+    mainsite: Primary
+    origin: Primary
+    grouping: A98194A
+  A98169A:
+    sample: SA535X4XB05462
+    pdxid: X0011_2363
+    mainsite: Primary
+    origin: Primary
+    grouping: A98169A
+  A98174A:
+    sample: SA535X4XB05462
+    pdxid: X0011_2363
+    mainsite: Primary
+    origin: Primary
+    grouping: A98174A
+  A98282B:
+    sample: SA535X4XB05662
+    pdxid: X0011_2363
+    mainsite: Metastasis
+    origin: Tumor_Recur
+    grouping: A98282B
+  A98296A_05662:
+    sample: SA535X4XB05662
+    pdxid: X0011_2363
+    mainsite: Metastasis
+    origin: Tumor_Recur
+    grouping: A98296A_05662
+  A98296A_05667:
+    sample: SA535X4XB05667
+    pdxid: X0011_2363
+    mainsite: Metastasis
+    origin: Axillary
+    grouping: A98296A_05667
+  A98294B:
+    sample: SA535X4XB05667
+    pdxid: X0011_2363
+    mainsite: Metastasis
+    origin: Axillary
+    grouping: A98294B
+  A98169B: 
+    sample: SA535X4XB05667
+    pdxid: X0011_2363
+    mainsite: Metastasis
+    origin: Axillary
+    grouping: A98169B
+  A95697A:
+    sample: SA535X4XB02498
+    pdxid: X0011_2364
+    mainsite: Primary
+    origin: Primary
+    grouping: A95697A
+  A98163A:
+    sample: SA535X4XB02498
+    pdxid: X0011_2364
+    mainsite: Primary
+    origin: Primary
+    grouping: A98163A
+  A98210A: 
+    sample: SA535X4XB02498
+    pdxid: X0011_2364
+    mainsite: Primary
+    origin: Primary
+    grouping: A98210A
+  A98262A:
+    sample: SA535X4XB05985
+    pdxid: X0011_2364
+    mainsite: Metastasis
+    origin: Axillary
+    grouping: A98262A
+  A98303B:
+    sample: SA535X4XB05985
+    pdxid: X0011_2364
+    mainsite: Metastasis
+    origin: Axillary
+    grouping: A98303B
+  A98262B:  
+    sample: SA535X4XB05989
+    pdxid: X0011_2364
+    mainsite: Metastasis
+    origin: Inguinal
+    grouping: A98262B
+  A98303A:  
+    sample: SA535X4XB05989
+    pdxid: X0011_2364
+    mainsite: Metastasis
+    origin: Inguinal
+    grouping: A98303A
+
+    
+
+# Snakemake params: Please update all fields
+############################
+outlier_threshold: '0.9'
+thrs_map_reads: '10000'
+
+
+# Snakemake params: samples for clonealign
+############################
+#sample: raw_segments
+max_iteration: 150
+clone_probs: '0.45'
+execute_clonealign: True
+clone_assignment: False
+visualize_clonealign: True
+
+sample:
+  - SA535X4XB02498
+  - SA535X4XB05391
+  - SA535X4XB05462
+
+# Corrupt tree params; Adjust as necessary
+############################################
+saveStandardStreams: 'false'
+recordGitInfo: 'false'
+managedExecutionFolder: 'false'
+neighborhoodSize: '2'
+lowerFraction: '0.01'   #0.005
+globalParameterization: 'false'
+fprBound: '0.01'  # default 0.1 tested, 0.01
+fnrBound: '0.5'
+engine: 'PT'
+initialization : 'FORWARD'
+ladder: 'Polynomial'
+nScans: '2000'  # default 10000, can try different values 2000, 5000
+nPassesPerScan: '1'
+nChains: '3'  # default 10
+nThreads: 'Fixed'
+nThreadsNumber: '16'  # default 20
+postprocessor: 'DefaultPostProcessor'
+logisticTransform: 'false'
+size_shape: 'width'
+size_val: '300'
+thinningPeriod: '10'
+phylo: 'file'
+read_only_matrix: 'ReadOnlyCLMatrix'
+
+# Tree cut params: Adjust as necessary
+############################################
+minimum_fraction: "0.02"
+maximum_fraction: "0.55"  #default 0.45, vary in [0.1, 0.9]
+resolution_graph_cut: "0.01"  # in case we use Leiden graph cut algo, check again
+
+
+# Trajectory params
+############################################
+datatag: "SA535"
+ebola_trajectory: True
+graph_cut_tree_viz: False
+dream_tree: False
+prevalence_plot: True
+
+# Snakemake corrupt grow params
+############################
+corrupt_grow_fpRate: '0.01'  # 0.05
+corrupt_grow_fnRate: '0.1'  # 0.2
+min_nbclones: '28'
+resolution_graph_cut_cg: "0.02"
+
+# Directory parameters: Please update all fields
+############################################
+project_dir: '/home/htran/Projects/hakwoo_project/corrupt_tree'
+project_10x_dir: '/home/htran/Projects/hakwoo_project/rscript'
+compiled_code_dir: '/home/htran/Projects/hakwoo_project/corrupt_code/bin'
+nowellpack_dir: '/home/htran/storage/install_software/nowellpack/build/install/nowellpack/bin'
+nextflow_dir: '/home/htran/storage/install_software/corrupt-nextflow'
+download_dir: '/home/htran/storage/datasets/hakwoo_metastasis/SA535'
+results_dir: '/home/htran/storage/datasets/metastasis_results/SA535_new_encoding/SA535_wholedata_v2'
+results_10x_dir: '/home/htran/storage/datasets/metastasis_results/rnaseq_SA535'
+results_pseudobk_dir: '/home/htran/storage/datasets/metastasis_results/pseudobk_SA535'

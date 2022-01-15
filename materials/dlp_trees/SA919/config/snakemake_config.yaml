@@ -1,0 +1,224 @@
+###
+# Libraries and samples for analysis: please update all fields. Separate multiple samples with commas.
+######################################################
+library:
+  A96204B:
+    sample: SA919X7XB05691
+    grouping: A96204B
+    mainsite: Metastasis
+    origin: SupraSpinal
+    pdxid: X08472112251
+    passage: X7
+  A96200A:
+    sample: SA919X7XB05402
+    grouping: A96200A
+    mainsite: Primary
+    origin: Primary
+    pdxid: X08472112251
+    passage: X7
+  A96229A:
+    sample: SA919X7XB05692
+    grouping: A96229A
+    mainsite: Metastasis
+    origin: VentralSpinal
+    pdxid: X08472112251
+    passage: X7
+  A96117B:
+    sample: SA919X7XB05378
+    grouping: A96117B
+    mainsite: Primary
+    origin: Primary
+    pdxid: X08472112252
+    passage: X7
+  A96117A:
+    sample: SA919X7XB05604
+    grouping: A96117A
+    mainsite: Metastasis
+    origin: SupraSpinal
+    pdxid: X08472112252
+    passage: X7
+  A98232B:
+    sample: SA919X3XB08939
+    grouping: A98232B
+    mainsite: Primary
+    origin: Primary
+    pdxid: X0847216
+    passage: X3
+  A98306A:
+    sample: SA919X3XB08939
+    grouping: A98306A
+    mainsite: Primary
+    origin: Primary
+    pdxid: X0847216
+    passage: X3
+  A98261B:
+    sample: SA919X4XB09563
+    grouping: A98261B
+    mainsite: Primary
+    origin: Primary
+    pdxid: X08472164
+    passage: X4
+  A98217B:
+    sample: SA919X4XB40503
+    grouping: A98217B
+    mainsite: Metastasis
+    origin: Axillary
+    pdxid: X08472164
+    passage: X4
+  A98217A:
+    sample: SA919X4XB40509
+    grouping: A98217A
+    mainsite: Metastasis
+    origin: VentralSpinal
+    pdxid: X08472164
+    passage: X4
+  A98300B:
+    sample: SA919X7XB05298
+    grouping: A98300B
+    mainsite: Primary
+    origin: Primary
+    pdxid: X08472112253
+    passage: X7
+  A98290A:
+    sample: SA919X7XB05588
+    grouping: A98290A
+    mainsite: Metastasis
+    origin: VentralSpinal
+    pdxid: X08472112253
+    passage: X7
+  A98299A:
+    sample: SA919X7XB05588
+    grouping: A98299A
+    mainsite: Metastasis
+    origin: VentralSpinal
+    pdxid: X08472112253
+    passage: X7
+  A98236A:
+    sample: SA919X7XB05298
+    grouping: A98236A
+    mainsite: Primary
+    pdxid: X08472112253
+    origin: Primary
+  A98293A:
+    sample: SA919X7XB05608
+    grouping: A98293A
+    mainsite: Metastasis
+    origin: VentralSpinal
+    pdxid: X08472112254
+  A98181A:
+    sample: SA919X7XB05289
+    grouping: A98181A
+    mainsite: Primary
+    pdxid: X08472112254
+    origin: Primary
+    passage: X7
+  A108836B:
+    sample: SA919X4XB09552
+    grouping: A108836B
+    mainsite: Primary
+    pdxid: X08472161
+    origin: Primary
+    passage: X4
+
+# Snakemake params: Please update all fields
+############################
+download_data: True
+filter_data: True
+convert_state_format: True
+state_to_binary: True
+corrupt_tree_features: True
+corrupt_tree_straightened_features: True
+corrupt_tree_sync_cnv_features: True
+corrupt_filter: True
+outlier_threshold: '0.9'
+thrs_map_reads: '500000'
+
+# Snakemake params: samples for clonealign
+############################
+#sample: raw_segments
+max_iteration: 150
+clone_probs: '0.5'
+execute_clonealign: False
+clone_assignment: False
+visualize_clonealign: False
+
+sample:
+  - SA919X7XB05604
+  
+#  - SA919X7XB05402
+#  - SA919X7XB05691
+#  - SA919X7XB05692
+#  - SA919X7XB05378
+#  - SA919X7XB05604
+#  - SA919X3XB08939
+#  - SA919X4XB09563
+#  - SA919X4XB40503
+#  - SA919X4XB40509
+
+# SA919X7XB05692 lack of output, and raw segments
+#  SA919X7XB05402, SA919X7XB05691 contain dlp but not 10x
+
+# Corrupt tree params; Adjust as necessary
+############################################
+saveStandardStreams: 'false'
+recordGitInfo: 'false'
+managedExecutionFolder: 'false'
+neighborhoodSize: '2'
+lowerFraction: '0.01'   #0.005
+globalParameterization: 'false'
+fprBound: '0.1'  # default 0.1 tested, 0.01
+fnrBound: '0.5'
+engine: 'PT'
+initialization : 'FORWARD'
+ladder: 'Polynomial'
+nScans: '2000'  # default 10000, can try different values 2000, 5000
+nPassesPerScan: '1'
+nChains: '3'  # default 10
+nThreads: 'Fixed'
+nThreadsNumber: '16'  # default 20
+postprocessor: 'DefaultPostProcessor'
+logisticTransform: 'false'
+size_shape: 'width'
+size_val: '300'
+thinningPeriod: '10'
+phylo: 'file'
+read_only_matrix: 'ReadOnlyCLMatrix'
+
+
+# Snakemake corrupt grow params
+############################
+corrupt_grow_fpRate: '0.01'  # 0.05
+corrupt_grow_fnRate: '0.1'  # 0.2
+min_nbclones: '10'
+resolution_graph_cut_cg: "0.01"
+
+
+# Tree cut params: Adjust as necessary
+############################################
+minimum_fraction: "0.02"  #default 0.02, max 0.1
+maximum_fraction: "0.75"  #default 0.45, max 0.9
+resolution_graph_cut: "0.01"  # in case we use Leiden graph cut algo
+min_nb_clones: "8"
+
+
+# Trajectory params
+############################################
+datatag: "SA919"
+ebola_trajectory: True
+graph_cut_tree_viz: False
+dream_tree: False
+prevalence_plot: True
+
+
+# Directory parameters: Please update all fields
+############################################
+project_dir: '/home/htran/Projects/hakwoo_project/corrupt_tree'
+project_10x_dir: '/home/htran/Projects/hakwoo_project/rscript'
+compiled_code_dir: '/home/htran/Projects/hakwoo_project/corrupt_code/bin'
+nowellpack_dir: '/home/htran/storage/install_software/nowellpack/build/install/nowellpack/bin'
+nextflow_dir: '/home/htran/storage/install_software/corrupt-nextflow'
+download_dir: '/home/htran/storage/datasets/hakwoo_metastasis'
+results_dir: '/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata'
+results_10x_dir: '/home/htran/storage/datasets/metastasis_results/rnaseq_SA919'
+results_pseudobk_dir: '/home/htran/storage/datasets/metastasis_results/snv_analysis_SA919'
+

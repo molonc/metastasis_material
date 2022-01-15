@@ -1,0 +1,92 @@
+import os
+
+## Tickets & Libraries for analysis
+library = config["library"]
+
+SOURCE_DIR = os.path.join(config['project_10x_dir'], 'schnapp_haplo')
+
+rule all:
+    """
+    Launches full snakemake pipeline, cleans up junk files at the end.
+    """
+    input:
+        os.path.join(config['results_pseudobk_dir'], 'ascn_SA535', 'ascn_inference.rds')
+    
+        
+        
+
+
+rule combine_hmmcopy_reads:
+    """
+    merge all data segment data together, change input filename to correct name
+    """
+    params:
+        library_ids = ",".join(list(library.keys())),
+        input_dir = os.path.join(config['download_dir']),
+        sample = ",".join(list(config['library'][library_id]['sample'] for library_id in library.keys()))
+    input:
+        expand(os.path.join(config['download_dir'], '{library}','hmmcopy','{library}_reads.csv'), library=library)
+    output:
+        os.path.join(config['results_pseudobk_dir'], 'ascn_SA535', 'raw_cnbins.rds')
+    shell:
+        'Rscript {SOURCE_DIR}/load_hmmcopy_reads.R -l {params.library_ids} -i {params.input_dir} -s {params.sample} -o {output}'
+        
+
+rule combine_allele_counts:
+    """
+    merge all data segment data together, change input filename to correct name
+    """
+    params:
+        library_ids = ",".join(list(library.keys())),
+        input_dir = os.path.join(config['download_dir'],'SA535_pseudobulk'),
+        lib_ticket_fn = os.path.join(config['project_10x_dir'], 'schnapp_haplo','lib_ticket_SA535.csv'),
+        sample = ",".join(list(config['library'][library_id]['sample'] for library_id in library.keys()))
+    input:
+        expand(os.path.join(config['download_dir'], '{library}','hmmcopy','{library}_reads.csv'), library=library)
+    output:
+        os.path.join(config['results_pseudobk_dir'], 'ascn_SA535', 'raw_allele_data.rds')
+    shell:
+        'Rscript {SOURCE_DIR}/load_allele_counts.R -l {params.library_ids} -i {params.input_dir} -s {params.sample} -o {output} -t {params.lib_ticket_fn}'
+    
+    
+rule combine_allele_counts_duplicated_lib_index:
+    """
+    Merge all count haplotype data together
+    """
+    params:
+        input_dir = os.path.join(config['download_dir'],'SA535_pseudobulk'),
+        lib_ticket_fn = os.path.join(config['results_pseudobk_dir'], 'ascn_SA535','metadata_SA535.csv')
+    output:
+        os.path.join(config['results_pseudobk_dir'], 'ascn_SA535', 'raw_allele_data_v2.rds')
+    shell:
+        'Rscript {SOURCE_DIR}/load_allele_counts_duplicated_libraries.R -i {params.input_dir} -o {output} -t {params.lib_ticket_fn}'
+    
+    
+rule run_allele_process_data:
+    """
+    Get filtered cells, run ascn analysis
+    """
+    params:
+        total_bincnv_fn = os.path.join(config['results_pseudobk_dir'],'ascn_SA535','raw_cnbins.rds'),
+        filtered_cells_fn = os.path.join(config['results_dir'], 'corrupt_grow','observed_cells.txt')
+    input:
+        os.path.join(config['results_pseudobk_dir'],'ascn_SA535','raw_allele_data.rds')
+    output:
+        os.path.join(config['results_pseudobk_dir'], 'ascn_SA535', 'filtered_allele_data.rds')
+    shell:
+        'Rscript {SOURCE_DIR}/rn_schnapp_v2.R -a {input} -i {params.total_bincnv_fn} -f {params.filtered_cells_fn} -o {output}'
+    
+     
+rule run_allele_inference:
+    """
+    Get filtered cells, run ascn analysis
+    """
+    params:
+        total_bincnv_fn = os.path.join(config['results_pseudobk_dir'],'ascn_SA535','filtered_CNbins_data.rds')
+    input:
+        os.path.join(config['results_pseudobk_dir'],'ascn_SA535','filtered_allele_data.rds')
+    output:
+        os.path.join(config['results_pseudobk_dir'], 'ascn_SA535', 'ascn_inference.rds')
+    shell:
+        'Rscript {SOURCE_DIR}/run_schnapp_main.R -a {input} -i {params.total_bincnv_fn} -o {output}'
+       

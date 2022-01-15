@@ -1,0 +1,68 @@
+import os
+
+## Tickets & Libraries for analysis
+library = config["library"]
+
+## Tree cut params
+RES_CUT = config["resolution_graph_cut"]
+DATATAG = config["datatag"]
+default_mem=20
+
+rule all:
+    resources:
+        h_vmem = default_mem
+    """
+    Launches full snakemake pipeline, cleans up junk files at the end.
+    """
+    input:
+        os.path.join(config['results_dir'], 'tree_viz_dream', 'trajectory_clone_wholedata.png')
+        
+      
+  
+
+
+  
+rule prevalence_plot:
+    """
+    Generate prevalence_plot for this series
+    """
+    params:
+        input_dir = config['results_dir']
+    input:
+        os.path.join(config['results_dir'], 'cell_clones.csv')
+    output:
+        os.path.join(config['results_dir'], 'prevalences', 'clones_prevalence.csv')
+    shell:
+        'Rscript {config[project_dir]}/src/stat/prevalence_plots.R -i {params.input_dir} -o {output} -d {DATATAG} -c {input}'
+
+
+rule ebola_trajectory:
+    """
+    Generate ebola plot for this series
+    """
+    params:
+        input_dir = config['results_dir'],
+        cellclones = os.path.join(config['results_dir'], 'cell_clones.csv')
+    output:
+        os.path.join(config['results_dir'], 'tree_viz_dream', 'trajectory_clone_wholedata.png')
+    shell:
+        'Rscript {config[project_dir]}/src/tree_viz/run_ebola_tree.R -i {params.input_dir} -o {output} -d {DATATAG} -c {params.cellclones}'
+        
+        
+rule cell_cn_tree_viz_sorting:
+    """
+    Heatmap visualization scripts, sorting by origin, mainsite, pdx
+    """
+    input:
+        outdir = os.path.join(config['results_dir']),
+        tree = os.path.join(config['results_dir'], 'tree.newick'),
+        filtered_cnv_data = os.path.join(config['results_dir'], 'total_merged_filtered_states_original.csv'),
+        grouping_file = os.path.join(config['results_dir'], 'library_groupings.csv'),
+        cell_clones = os.path.join(config['results_dir'], 'cell_clones.csv')
+    output:
+        os.path.join(config['results_dir'], 'heatmap','hm_clone_id.png')
+    resources:
+        h_vmem=default_mem
+    shell:
+        'Rscript {config[project_dir]}/src/testing_only/make_cell_copynumber_tree_heatmap.R -t {input.tree} -cn {input.filtered_cnv_data} -c {input.cell_clones} --grouping_file {input.grouping_file} -od {input.outdir} -o {output} --datatag {DATATAG}'
+        

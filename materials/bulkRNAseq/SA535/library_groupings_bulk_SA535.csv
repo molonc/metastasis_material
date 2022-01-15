@@ -1,0 +1,7 @@
+mainsite,origin,pdxid,sample_id
+Primary,Primary,X0011_2361,SA535X4XB05391
+Primary,Tumor_Recur,X0011_2361,SA535X4XB05730
+Metastasis,Axillary,X0011_2361,SA535X4XB05723
+Metastasis,Axillary,X0011_2364,SA535X4XB05985
+Primary,Primary,X0011_2364,SA535X4XB02498
+Metastasis,Inguinal,X0011_2364,SA535X4XB05989

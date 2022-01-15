@@ -1,0 +1,8 @@
+Run corrupt tree data
+Outlier threshold is:  0.9
+[1] "Filtered outlier threshold is: 0.9"
+total: 4375 3476
+"Number of bad cells: 586"
+[1] "Outlier cells mtx: 4375 586"
+[1] "Filtered output mtx: 4375 2890"
+

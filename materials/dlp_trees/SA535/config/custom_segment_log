@@ -1,0 +1,798 @@
+Run custom segment data
+Complete
+Run custom segment data
+Complete
+Run custom segment data
+Complete
+Run custom segment data
+Complete
+Run custom segment data
+Complete
+Run custom segment data
+Complete
+Run custom segment data
+Complete
+Run custom segment data
+Complete
+Run custom segment data
+Complete
+Run custom segment data
+Complete
+Run custom segment data
+Complete
+Run custom segment data
+Complete
+Run custom segment data
+Complete
+Run custom segment data
+Complete
+Run custom segment data
+Complete
+Run custom segment data
+Complete
+Run custom segment data
+Complete
+Run custom segment data
+Complete
+Run custom segment data
+['A', 'B']
+Complete
+Complete
+Run custom segment data
+Complete
+Run custom segment data
+Complete
+Run custom segment data
+Complete
+Run custom segment data
+['A', 'B']
+Complete
+Run custom segment data
+['A', 'B']
+Complete
+Run custom segment data
+Complete
+Run custom segment data
+Complete
+Run custom segment data
+['A', 'B']
+Complete
+Run custom segment data
+['A', 'B']
+Complete
+Run custom segment data
+  chr    start      end   width        gc       map   reads
+0   1        1   500000  500000 -1.000000  0.348523   10229
+1   1   500001  1000000  500000 -1.000000  0.770391  107068
+2   1  1000001  1500000  500000  0.598332  0.982072  174415
+(6206, 7)
+Extracting data
+(6206, 7)
+Checking data quality
+Filtering and sorting
+Modal quantile regression
+Filter by mappability
+Save data to a file
+  chr    start      end   width        gc       map  reads
+0   1        1   500000  500000 -1.000000  0.348523   5703
+1   1   500001  1000000  500000 -1.000000  0.770391  57300
+2   1  1000001  1500000  500000  0.598332  0.982072  95336
+(6206, 7)
+Extracting data
+(6206, 7)
+Checking data quality
+Filtering and sorting
+Modal quantile regression
+Filter by mappability
+Save data to a file
+['A', 'B']
+Complete
+(6206, 7)
+Extracting data
+(6206, 7)
+Checking data quality
+Filtering and sorting
+Modal quantile regression
+Filter by mappability
+Save data to a file
+['A', 'B']
+Complete
+Run custom segment data
+['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']
+Complete
+Checking data quality
+Filtering and sorting
+Modal quantile regression
+Filter by mappability
+Save data to a file
+['A', 'B']
+Complete
+Run custom segment data
+['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']
+Complete
+Run custom segment data
+  chr    start      end   width        gc       map   reads
+0   1        1   500000  500000 -1.000000  0.348523    9768
+1   1   500001  1000000  500000 -1.000000  0.770391   85921
+2   1  1000001  1500000  500000  0.598332  0.982072  133158
+(6206, 7)
+Extracting data
+(6206, 7)
+Checking data quality
+Filtering and sorting
+Modal quantile regression
+Filter by mappability
+Save data to a file
+  chr    start      end   width        gc       map   reads
+0   1        1   500000  500000 -1.000000  0.348523   20001
+1   1   500001  1000000  500000 -1.000000  0.770391  156034
+2   1  1000001  1500000  500000  0.598332  0.982072  248095
+(6206, 7)
+Extracting data
+(6206, 7)
+Checking data quality
+Filtering and sorting
+Modal quantile regression
+Filter by mappability
+Save data to a file
+  chr    start      end   width        gc       map   reads
+0   1        1   500000  500000 -1.000000  0.348523   13622
+1   1   500001  1000000  500000 -1.000000  0.770391  106504
+2   1  1000001  1500000  500000  0.598332  0.982072  147901
+(6206, 7)
+Extracting data
+(6206, 7)
+Checking data quality
+Filtering and sorting
+Modal quantile regression
+Filter by mappability
+Save data to a file
+  chr    start      end   width        gc       map   reads
+0   1        1   500000  500000 -1.000000  0.348523   11404
+1   1   500001  1000000  500000 -1.000000  0.770391   91096
+2   1  1000001  1500000  500000  0.598332  0.982072  131333
+(6206, 7)
+Extracting data
+(6206, 7)
+Checking data quality
+Filtering and sorting
+Modal quantile regression
+Filter by mappability
+Save data to a file
+  chr    start      end   width        gc       map   reads
+0   1        1   500000  500000 -1.000000  0.348523   13509
+1   1   500001  1000000  500000 -1.000000  0.770391  110581
+2   1  1000001  1500000  500000  0.598332  0.982072  159564
+(6206, 7)
+Extracting data
+(6206, 7)
+Checking data quality
+Filtering and sorting
+Modal quantile regression
+Filter by mappability
+Save data to a file
+  chr    start      end   width        gc       map   reads
+0   1        1   500000  500000 -1.000000  0.348523   21161
+1   1   500001  1000000  500000 -1.000000  0.770391  191185
+2   1  1000001  1500000  500000  0.598332  0.982072  287586
+(6206, 7)
+Extracting data
+(6206, 7)
+Checking data quality
+Filtering and sorting
+Modal quantile regression
+Filter by mappability
+Save data to a file
+  chr    start      end   width        gc       map   reads
+0   1        1   500000  500000 -1.000000  0.348523   14020
+1   1   500001  1000000  500000 -1.000000  0.770391  119402
+2   1  1000001  1500000  500000  0.598332  0.982072  181322
+(6206, 7)
+Extracting data
+(6206, 7)
+Checking data quality
+Filtering and sorting
+Modal quantile regression
+Filter by mappability
+Save data to a file
+  chr    start      end   width        gc       map   reads
+0   1        1   500000  500000 -1.000000  0.348523   18070
+1   1   500001  1000000  500000 -1.000000  0.770391  168510
+2   1  1000001  1500000  500000  0.598332  0.982072  257661
+(6206, 7)
+Extracting data
+(6206, 7)
+Checking data quality
+Filtering and sorting
+Modal quantile regression
+Filter by mappability
+Save data to a file
+  chr    start      end   width        gc       map  reads
+0   1        1   500000  500000 -1.000000  0.348523   5163
+1   1   500001  1000000  500000 -1.000000  0.770391  46124
+2   1  1000001  1500000  500000  0.598332  0.982072  69773
+(6206, 7)
+Extracting data
+(6206, 7)
+Checking data quality
+Filtering and sorting
+Modal quantile regression
+Filter by mappability
+Save data to a file
+  chr    start      end   width        gc       map   reads
+0   1        1   500000  500000 -1.000000  0.348523   10246
+1   1   500001  1000000  500000 -1.000000  0.770391   98310
+2   1  1000001  1500000  500000  0.598332  0.982072  161787
+(6206, 7)
+Extracting data
+(6206, 7)
+Checking data quality
+Filtering and sorting
+Modal quantile regression
+Filter by mappability
+Save data to a file
+  chr    start      end   width        gc       map   reads
+0   1        1   500000  500000 -1.000000  0.348523    6564
+1   1   500001  1000000  500000 -1.000000  0.770391   66147
+2   1  1000001  1500000  500000  0.598332  0.982072  103998
+(6206, 7)
+Extracting data
+(6206, 7)
+Checking data quality
+Filtering and sorting
+Modal quantile regression
+Filter by mappability
+Save data to a file
+  chr    start      end   width        gc       map   reads
+0   1        1   500000  500000 -1.000000  0.348523    7038
+1   1   500001  1000000  500000 -1.000000  0.770391   63164
+2   1  1000001  1500000  500000  0.598332  0.982072  100352
+(6206, 7)
+Extracting data
+(6206, 7)
+Checking data quality
+Filtering and sorting
+Modal quantile regression
+Filter by mappability
+Save data to a file
+  chr    start      end   width        gc       map  reads
+0   1        1   500000  500000 -1.000000  0.348523   6654
+1   1   500001  1000000  500000 -1.000000  0.770391  64977
+2   1  1000001  1500000  500000  0.598332  0.982072  99833
+(6206, 7)
+Extracting data
+(6206, 7)
+Checking data quality
+Filtering and sorting
+Modal quantile regression
+Filter by mappability
+Save data to a file
+  chr    start      end   width        gc       map   reads
+0   1        1   500000  500000 -1.000000  0.348523   11940
+1   1   500001  1000000  500000 -1.000000  0.770391  111000
+2   1  1000001  1500000  500000  0.598332  0.982072  165242
+(6206, 7)
+Extracting data
+(6206, 7)
+Checking data quality
+Filtering and sorting
+Modal quantile regression
+Filter by mappability
+Save data to a file
+  chr    start      end   width        gc       map  reads
+0   1        1   500000  500000 -1.000000  0.348523   5998
+1   1   500001  1000000  500000 -1.000000  0.770391  54162
+2   1  1000001  1500000  500000  0.598332  0.982072  86904
+(6206, 7)
+Extracting data
+(6206, 7)
+Checking data quality
+Filtering and sorting
+Modal quantile regression
+Filter by mappability
+Save data to a file
+  chr    start      end   width        gc       map   reads
+0   1        1   500000  500000 -1.000000  0.348523   21391
+1   1   500001  1000000  500000 -1.000000  0.770391  198323
+2   1  1000001  1500000  500000  0.598332  0.982072  314481
+(6206, 7)
+Extracting data
+(6206, 7)
+Checking data quality
+Filtering and sorting
+Modal quantile regression
+Filter by mappability
+Save data to a file
+  chr    start      end   width        gc       map   reads
+0   1        1   500000  500000 -1.000000  0.348523   19115
+1   1   500001  1000000  500000 -1.000000  0.770391  161666
+2   1  1000001  1500000  500000  0.598332  0.982072  256282
+(6206, 7)
+Extracting data
+(6206, 7)
+Checking data quality
+Filtering and sorting
+Modal quantile regression
+Filter by mappability
+Save data to a file
+['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']
+Complete
+(6206, 7)
+Extracting data
+(6206, 7)
+Checking data quality
+Filtering and sorting
+Modal quantile regression
+Filter by mappability
+Save data to a file
+['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']
+Complete
+Run custom segment data
+[1] "Loading data table"
+[1] "Loading data table"
+[1] "Loading data table"
+[1] "Loading data table"
+[1] "Loading data table"
+[1] "Loading data table"
+[1] "Loading data table"
+[1] "Loading data table"
+[1] "Loading opt"
+[1] "Loading hmmcopy"
+[1] "Loading opt"
+[1] "Loading opt"
+[1] "Loading hmmcopy"
+[1] "Loading plyr"
+[1] "Loading hmmcopy"
+[1] "Loading plyr"
+[1] "Loading plyr"
+[1] "Loading opt"
+[1] "Loading opt"
+[1] "Loading opt"
+[1] "Loading opt"
+[1] "Loading opt"
+[1] "Loading hmmcopy"
+[1] "Loading hmmcopy"
+[1] "Loading hmmcopy"
+[1] "Loading hmmcopy"
+[1] "Loading hmmcopy"
+[1] "Loading plyr"
+[1] "Loading plyr"
+[1] "Loading plyr"
+[1] "Loading plyr"
+[1] "Loading plyr"
+[1] ‘1.32.0’
+[1] ‘1.32.0’
+[1] ‘1.32.0’
+[1] ‘1.32.0’
+[1] ‘1.32.0’
+[1] ‘1.32.0’
+[1] ‘1.32.0’
+[1] ‘1.32.0’
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']
+Complete
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']
+Complete
+Run custom segment data
+[1] "Loading data table"
+[1] "Loading data table"
+[1] "Loading data table"
+[1] "Loading data table"
+[1] "Loading data table"
+[1] "Loading data table"
+[1] "Loading data table"
+[1] "Loading data table"
+[1] "Loading opt"
+[1] "Loading opt"
+[1] "Loading opt"
+[1] "Loading hmmcopy"
+[1] "Loading hmmcopy"
+[1] "Loading hmmcopy"
+[1] "Loading opt"
+[1] "Loading opt"
+[1] "Loading plyr"
+[1] "Loading hmmcopy"
+[1] "Loading hmmcopy"
+[1] "Loading plyr"
+[1] "Loading plyr"
+[1] "Loading opt"
+[1] "Loading plyr"
+[1] "Loading opt"
+[1] "Loading plyr"
+[1] "Loading hmmcopy"
+[1] "Loading hmmcopy"
+[1] "Loading opt"
+[1] "Loading plyr"
+[1] "Loading plyr"
+[1] "Loading hmmcopy"
+[1] "Loading plyr"
+[1] ‘1.32.0’
+[1] ‘1.32.0’
+[1] ‘1.32.0’
+[1] ‘1.32.0’
+[1] ‘1.32.0’
+[1] ‘1.32.0’
+[1] ‘1.32.0’
+[1] ‘1.32.0’
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']
+Complete
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']
+Complete
+Run custom segment data
+['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']
+Complete
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']
+Complete
+Run custom segment data
+['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']
+Complete
+Run custom segment data
+['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']
+Complete
+No traceback available 
+No traceback available 
+['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']
+Complete
+Run custom segment data
+['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']
+Complete
+Run custom segment data
+['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']
+Complete
+Run custom segment data
+[1] "Loading data table"
+[1] "Loading data table"
+[1] "Loading data table"
+[1] "Loading data table"
+[1] "Loading data table"
+[1] "Loading data table"
+[1] "Loading data table"
+[1] "Loading data table"
+[1] "Loading opt"
+[1] "Loading hmmcopy"
+[1] "Loading opt"
+[1] "Loading plyr"
+[1] "Loading hmmcopy"
+[1] "Loading plyr"
+[1] "Loading opt"
+[1] "Loading hmmcopy"
+[1] "Loading opt"
+[1] "Loading opt"
+[1] "Loading hmmcopy"
+[1] "Loading plyr"
+[1] "Loading hmmcopy"
+[1] "Loading opt"
+[1] "Loading plyr"
+[1] "Loading opt"
+[1] "Loading hmmcopy"
+[1] "Loading plyr"
+[1] "Loading hmmcopy"
+[1] "Loading plyr"
+[1] "Loading opt"
+[1] "Loading plyr"
+[1] "Loading hmmcopy"
+[1] "Loading plyr"
+[1] ‘1.32.0’
+[1] ‘1.32.0’
+[1] ‘1.32.0’
+[1] ‘1.32.0’
+[1] ‘1.32.0’
+[1] ‘1.32.0’
+[1] ‘1.32.0’
+[1] ‘1.32.0’
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']
+Complete
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+No traceback available 
+['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']
+Complete
+Run custom segment data
+[1] "Loading data table"
+[1] "Loading data table"
+[1] "Loading opt"
+[1] "Loading hmmcopy"
+[1] "Loading plyr"
+[1] "Loading opt"
+[1] "Loading hmmcopy"
+[1] "Loading plyr"
+[1] ‘1.32.0’
+[1] ‘1.32.0’
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+1: print(opt$sample_id)
+1: print(opt$corrected_data)
+No traceback available 
+1: print(opt$sample_id)
+1: print(opt$corrected_data)
+['A', 'B']
+Complete
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+1: print(opt$sample_id)
+1: print(opt$corrected_data)
+No traceback available 
+1: print(opt$sample_id)
+1: print(opt$corrected_data)
+['A', 'B']
+Complete
+Run custom segment data
+[1] "Loading data table"
+[1] "Loading data table"
+[1] "Loading opt"
+[1] "Loading hmmcopy"
+[1] "Loading plyr"
+[1] "Loading opt"
+[1] "Loading hmmcopy"
+[1] "Loading plyr"
+[1] ‘1.32.0’
+[1] ‘1.32.0’
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+1: print(opt$sample_id)
+1: print(opt$corrected_data)
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+1: print(opt$sample_id)
+1: print(opt$corrected_data)
+['A', 'B']
+Complete
+1: print(opt$corrected_data)
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+1: print(opt$sample_id)
+1: print(opt$corrected_data)
+['A', 'B']
+Complete
+Run custom segment data
+[1] "Loading data table"
+[1] "Loading data table"
+[1] "Loading opt"
+[1] "Loading opt"
+[1] "Loading hmmcopy"
+[1] "Loading hmmcopy"
+[1] "Loading plyr"
+[1] "Loading plyr"
+[1] ‘1.32.0’
+[1] ‘1.32.0’
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+1: print(opt$sample_id)
+1: print(opt$corrected_data)
+No traceback available 
+1: print(opt$sample_id)
+1: print(opt$corrected_data)
+['A', 'B']
+Complete
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+1: print(opt$sample_id)
+1: print(opt$corrected_data)
+No traceback available 
+1: print(opt$sample_id)
+1: print(opt$corrected_data)
+['A', 'B']
+Complete
+Run custom segment data
+[1] "Loading data table"
+[1] "Loading data table"
+[1] "Loading opt"
+[1] "Loading hmmcopy"
+[1] "Loading opt"
+[1] "Loading plyr"
+[1] "Loading hmmcopy"
+[1] "Loading plyr"
+[1] ‘1.32.0’
+[1] ‘1.32.0’
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+No traceback available 
+['A', 'B']
+Complete
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+2: stop(paste("\"", optstring, "\" is not a valid option, or does not support an argument", 
+       sep = ""))
+1: getopt(spec)
+No traceback available 
+No traceback available 
+['A', 'B']
+Complete
+Run custom segment data
+  File "<stdin>", line 13
+SyntaxError: keyword argument repeated
+['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']
+Complete
+1: getopt(spec)
+No traceback available 
+No traceback available 
+['A', 'B']
+Complete
+Run custom segment data
+  File "<stdin>", line 13
+SyntaxError: keyword argument repeated
+['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']
+Complete
+Run custom segment data
+  File "<stdin>", line 13
+SyntaxError: keyword argument repeated
+['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']
+Complete

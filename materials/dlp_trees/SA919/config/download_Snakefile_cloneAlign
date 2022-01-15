@@ -1,0 +1,65 @@
+import os
+
+## Tickets & Libraries for analysis
+library = config["library"]
+
+SOURCE_DIR = os.path.join(config['project_10x_dir'], 'align_clones')
+
+rule all:
+    """
+    Launches full snakemake pipeline, cleans up junk files at the end.
+    """
+    input:
+        os.path.join(config['results_10x_dir'], 'clonealign', 'raw_segments.rds')
+    
+        
+        
+rule download_segment_data:
+    """
+    Runs a shell script that downloads all the data for corruptTree
+    """
+    params:
+        download_dir = os.path.join(config['download_dir'], 'clonealign')
+    output:
+        os.path.join(config['download_dir'], 'clonealign','{library}','hmmcopy','{library}_segments.csv')
+    shell:
+        'python {SOURCE_DIR}/download_segment_dlp.py '
+        '--library_id {wildcards.library} '
+        '--download_dir {params.download_dir}'
+    
+
+
+rule combine_segment_v2:
+    """
+    merge all data segment data together, change input filename to correct name
+    """
+    params:
+        input_dir = os.path.join(config['download_dir'], 'clonealign'),
+        library_grouping = os.path.join(config['results_dir'], 'library_groupings.csv')
+    input:
+        expand(os.path.join(config['download_dir'], 'clonealign', '{library}','hmmcopy','{library}_segments.csv'), library=library)
+    output:
+        os.path.join(config['results_10x_dir'], 'clonealign', 'raw_segments.rds')
+    shell:
+        'Rscript {SOURCE_DIR}/get_segment_data_v2.R -g {params.library_grouping} -i {params.input_dir} -o {output}'
+        
+        
+        
+rule combine_segment:
+    """
+    merge all data segment data together, change input filename to correct name
+    """
+    params:
+        library_ids = ",".join(list(library.keys())),
+        input_dir = os.path.join(config['download_dir'], 'clonealign'),
+        sample = ",".join(list(config['library'][library_id]['sample'] for library_id in library.keys()))
+    input:
+        expand(os.path.join(config['download_dir'], 'clonealign', '{library}','hmmcopy','{library}_segments.csv'), library=library)
+    output:
+        os.path.join(config['results_10x_dir'], 'clonealign', 'raw_segments_v1.rds')
+    shell:
+        'Rscript {SOURCE_DIR}/get_segment_data.R -l {params.library_ids} -i {params.input_dir} -s {params.sample} -o {output}'
+        
+        
+        
+        

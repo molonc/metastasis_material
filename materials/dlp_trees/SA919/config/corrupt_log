@@ -1,0 +1,2234 @@
+Generate schnapp
+[1] "/home/htran/storage/datasets/hakwoo_metastasis/SA919_pseudobulk/ticket_SA919.csv"
+[1] "/home/htran/storage/datasets/hakwoo_metastasis/SA919_pseudobulk"
+[1] "/home/htran/storage/datasets/metastasis_results/snv_analysis_SA919/ascn_SA919/raw_allele_data.rds"
+[1] "Samples are: "
+[1] "DEBUG_allele_load data \n"
+ [1] "A96204B"  "A96200A"  "A96229A"  "A96117B"  "A96117A"  "A98232B" 
+ [7] "A98306A"  "A98261B"  "A98217B"  "A98217A"  "A98300B"  "A98290A" 
+[13] "A98299A"  "A98236A"  "A98293A"  "A98181A"  "A108836B"
+ [1] "SA919X7XB05691" "SA919X7XB05402" "SA919X7XB05692" "SA919X7XB05378"
+ [5] "SA919X7XB05604" "SA919X3XB08939" "SA919X3XB08939" "SA919X4XB09563"
+ [9] "SA919X4XB40503" "SA919X4XB40509" "SA919X7XB05298" "SA919X7XB05588"
+[13] "SA919X7XB05588" "SA919X7XB05298" "SA919X7XB05608" "SA919X7XB05289"
+[17] "SA919X4XB09552"
+[1] "library_id"                "sample"                   
+[3] ""                          "jira_ticket"              
+[5] "available_breakpoints"     "available_haplotype"      
+[7] "available_variant_calling" "available_snv_genotyping" 
+[1] 17  8
+[1] 22870156        7
+[1] 16877979        7
+[1] 14631627        7
+[1] 26878233        7
+[1] 18419897        7
+[1] 13334595        7
+[1] 11228024        7
+[1] 22376428        7
+[1] 17596575        7
+[1] 18889448        7
+[1] 12857077        7
+[1] 14299069        7
+[1] 15105594        7
+[1] 17231979        7
+[1] 9667237       7
+[1] 19733734        7
+[1] 19777953        7
+[1] 291775605         7
+[1] "Completed!"
+[1] "/home/htran/Projects/hakwoo_project/rscript/schnapp_haplo"
+[1] "Allele counts: 291775605 7"
+[1] "total_bincnv: 119707534 7"
+[1] "Nb filtered cells:  7057"
+[1] "DEBUG 1: Nb observed cells after allele counts data intersection: 7057"
+[1] "DEBUG 1: Nb observed cells after bincn data intersection: 7057"
+[1] "After filtering: "
+[1] "Allele counts: 178936522 7"
+[1] "total_bincnv: 43795742 7"
+Complete
+[1] "/home/htran/Projects/hakwoo_project/rscript/schnapp_haplo"
+[1] "Allele counts: 291775605 7"
+[1] "total_bincnv: 119707534 7"
+[1] "Nb filtered cells:  7057"
+[1] "DEBUG 1: Nb observed cells after allele counts data intersection: 7057"
+[1] "DEBUG 1: Nb observed cells after bincn data intersection: 7057"
+[1] "After filtering: "
+[1] "Allele counts: 178936522 7"
+[1] "total_bincnv: 43795742 7"
+Complete
+Generate schnapp
+[1] "Hello"
+$allele_counts_fn
+[1] "/home/htran/storage/datasets/metastasis_results/snv_analysis_SA919/ascn_SA919/filtered_allele_data.rds"
+
+$total_bincnv_fn
+[1] "/home/htran/storage/datasets/metastasis_results/snv_analysis_SA919/ascn_SA919/filtered_CNbins_data.rds"
+
+$output_fn
+[1] "/home/htran/storage/datasets/metastasis_results/snv_analysis_SA919/ascn_SA919/ascn_inference.rds"
+
+$help
+[1] FALSE
+
+[1] "/home/htran/Projects/hakwoo_project/rscript/schnapp_haplo"
+[1] "HI there"
+[1] "Loading..."
+[1] 178936522         7
+[1] 43795742        7
+[1] "Execute allele specific..."
+[1] TRUE
+Complete
+[1] FALSE
+
+[1] "/home/htran/Projects/hakwoo_project/rscript/schnapp_haplo"
+[1] "HI there"
+[1] "Loading..."
+[1] 178936522         7
+[1] 43795742        7
+[1] "Execute allele specific..."
+[1] TRUE
+Complete
+Run corrupt grow
+Complete
+[1] "/home/htran/Projects/hakwoo_project/rscript/schnapp_haplo"
+[1] "HI there"
+[1] "Loading..."
+[1] 178936522         7
+[1] 43795742        7
+[1] "Execute allele specific..."
+[1] TRUE
+Complete
+Run corrupt grow
+Complete
+Run corrupt grow
+Complete
+[1] "Loading..."
+[1] 178936522         7
+[1] 43795742        7
+[1] "Execute allele specific..."
+[1] TRUE
+Complete
+Run corrupt grow
+Complete
+Run corrupt grow
+Complete
+Run corrupt grow
+[1] 519904      3
+[1] "Nb filtered loci: 88"
+[1] 4227
+[1] 1149
+[1] "Get filtered outliers mtx, done"
+executionMilliseconds : 808
+outputFolder : /home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/config/results/all/2020-10-15-18-07-10-pXI1lpgP.exec
+Complete
+Complete
+Run corrupt grow
+[1] 519904      3
+[1] "Nb filtered loci: 88"
+[1] 4227
+[1] 1149
+[1] "Get filtered outliers mtx, done"
+executionMilliseconds : 808
+outputFolder : /home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/config/results/all/2020-10-15-18-07-10-pXI1lpgP.exec
+Complete
+Run corrupt grow
+executionMilliseconds : 812
+outputFolder : /home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/config/results/all/2020-10-15-18-17-41-igitPSOA.exec
+Complete
+[1] 4227
+[1] 1149
+[1] "Get filtered outliers mtx, done"
+executionMilliseconds : 808
+outputFolder : /home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/config/results/all/2020-10-15-18-07-10-pXI1lpgP.exec
+Complete
+Run corrupt grow
+executionMilliseconds : 812
+outputFolder : /home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/config/results/all/2020-10-15-18-17-41-igitPSOA.exec
+Complete
+Run corrupt grow
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/grown_tree.newick"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/grown_tree.graphml"
+Complete
+outputFolder : /home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/config/results/all/2020-10-15-18-07-10-pXI1lpgP.exec
+Complete
+Run corrupt grow
+executionMilliseconds : 812
+outputFolder : /home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/config/results/all/2020-10-15-18-17-41-igitPSOA.exec
+Complete
+Run corrupt grow
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/grown_tree.newick"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/grown_tree.graphml"
+Complete
+Run corrupt grow
+Complete
+Run corrupt grow
+executionMilliseconds : 812
+outputFolder : /home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/config/results/all/2020-10-15-18-17-41-igitPSOA.exec
+Complete
+Run corrupt grow
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/grown_tree.newick"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/grown_tree.graphml"
+Complete
+Run corrupt grow
+Complete
+Run corrupt grow
+Init resolution: 0.01000213623046875 and minimum nb clusters: 3
+<class 'leidenalg.VertexPartition.RBConfigurationVertexPartition'>
+With init resolution 0.01000213623046875, nb clones is: 6
+Complete
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/grown_tree.newick"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/grown_tree.graphml"
+Complete
+Run corrupt grow
+Complete
+Run corrupt grow
+Init resolution: 0.01000213623046875 and minimum nb clusters: 3
+<class 'leidenalg.VertexPartition.RBConfigurationVertexPartition'>
+With init resolution 0.01000213623046875, nb clones is: 6
+Complete
+Run corrupt grow
+Init resolution: 0.01000213623046875 and minimum nb clusters: 3
+<class 'leidenalg.VertexPartition.RBConfigurationVertexPartition'>
+With init resolution 0.01000213623046875, nb clones is: 6
+Complete
+Run corrupt grow
+Init resolution: 0.01000213623046875 and minimum nb clusters: 3
+<class 'leidenalg.VertexPartition.RBConfigurationVertexPartition'>
+With init resolution 0.01000213623046875, nb clones is: 6
+Complete
+Run corrupt grow
+Init resolution: 0.01000213623046875 and minimum nb clusters: 3
+<class 'leidenalg.VertexPartition.RBConfigurationVertexPartition'>
+With init resolution 0.01000213623046875, nb clones is: 6
+Complete
+Run corrupt grow
+Init resolution: 0.01000213623046875 and minimum nb clusters: 3
+With init resolution 0.01000213623046875, nb clones is: 6
+88
+resolution 0.01 and output of graph cut is: 
+{0: 1543, 1: 1444, 2: 1262, 3: 1011, 4: 921, 5: 876}
+(6, 2)
+(7057, 3)
+Complete
+Complete
+Run corrupt grow
+Init resolution: 0.01000213623046875 and minimum nb clusters: 3
+With init resolution 0.01000213623046875, nb clones is: 6
+88
+resolution 0.01 and output of graph cut is: 
+{0: 1543, 1: 1444, 2: 1262, 3: 1011, 4: 921, 5: 876}
+(6, 2)
+(7057, 3)
+Complete
+Run corrupt grow
+Init resolution: 0.01000213623046875 and minimum nb clusters: 7
+With init resolution 0.01000213623046875, nb clones is: 6
+With resolution 0.020002136230468752, nb clones is: 9
+88
+resolution 0.020002136230468752 and output of graph cut is: 
+{0: 1444, 1: 1334, 2: 1262, 3: 813, 4: 540, 5: 533, 6: 471, 7: 451, 8: 209}
+(9, 2)
+(7057, 3)
+Complete
+Run corrupt grow
+Init resolution: 0.01000213623046875 and minimum nb clusters: 7
+With init resolution 0.01000213623046875, nb clones is: 6
+With resolution 0.020002136230468752, nb clones is: 9
+88
+resolution 0.020002136230468752 and output of graph cut is: 
+{0: 1444, 1: 1334, 2: 1262, 3: 813, 4: 540, 5: 533, 6: 471, 7: 451, 8: 209}
+(9, 2)
+(7057, 3)
+Complete
+Run corrupt grow
+Init resolution: 0.01000213623046875 and minimum nb clusters: 3
+With init resolution 0.01000213623046875, nb clones is: 6
+88
+resolution 0.01 and output of graph cut is: 
+{0: 1543, 1: 1444, 2: 1262, 3: 1011, 4: 921, 5: 876}
+(6, 2)
+(7057, 3)
+Complete
+Complete
+Run corrupt grow
+Init resolution: 0.01000213623046875 and minimum nb clusters: 3
+With init resolution 0.01000213623046875, nb clones is: 6
+88
+resolution 0.01 and output of graph cut is: 
+{0: 1543, 1: 1444, 2: 1262, 3: 1011, 4: 921, 5: 876}
+(6, 2)
+(7057, 3)
+Complete
+Run corrupt grow
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/grown_tree.newick"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/total_merged_filtered_states_original.csv"
+null device 
+          1 
+Complete
+{0: 1543, 1: 1444, 2: 1262, 3: 1011, 4: 921, 5: 876}
+(6, 2)
+(7057, 3)
+Complete
+Run corrupt grow
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/grown_tree.newick"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/total_merged_filtered_states_original.csv"
+null device 
+          1 
+Complete
+Run corrupt grow
+executionMilliseconds : 830
+outputFolder : /home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/config/results/all/2020-10-15-19-24-15-2nZkVgMU.exec
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/grown_tree.newick"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/grown_tree.graphml"
+Init resolution: 0.01000213623046875 and minimum nb clusters: 8
+With init resolution 0.01000213623046875, nb clones is: 6
+With resolution 0.011002136230468751, nb clones is: 7
+With resolution 0.012002136230468752, nb clones is: 7
+With resolution 0.013002136230468753, nb clones is: 8
+88
+resolution 0.013002136230468753 and output of graph cut is: 
+{0: 1370, 1: 1334, 2: 1267, 3: 915, 4: 862, 5: 592, 6: 511, 7: 206}
+(8, 2)
+(7057, 3)
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/grown_tree.newick"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/total_merged_filtered_states_original.csv"
+null device 
+          1 
+Complete
+88
+resolution 0.013002136230468753 and output of graph cut is: 
+{0: 1370, 1: 1334, 2: 1267, 3: 915, 4: 862, 5: 592, 6: 511, 7: 206}
+(8, 2)
+(7057, 3)
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/grown_tree.newick"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/total_merged_filtered_states_original.csv"
+null device 
+          1 
+Complete
+Run corrupt grow
+[1] "Generating heatmap object..."
+[1] "Warning! Sorting height dat in decreasing order..."
+[1] "SA919X7XB05604-A96117A-R29-C23"
+[1] "SA919X3XB08939-A98232B-R62-C60"
+[1] "Saving the heatmap object..."
+[1] "DONE!!"
+Complete
+          1 
+Complete
+Run corrupt grow
+[1] "Generating heatmap object..."
+[1] "Warning! Sorting height dat in decreasing order..."
+[1] "SA919X7XB05604-A96117A-R29-C23"
+[1] "SA919X3XB08939-A98232B-R62-C60"
+[1] "Saving the heatmap object..."
+[1] "DONE!!"
+Complete
+Run corrupt grow
+executionMilliseconds : 1114
+outputFolder : /home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/config/results/all/2020-10-15-20-02-06-4DOb7Pjw.exec
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/grown_tree.newick"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/grown_tree.graphml"
+Init resolution: 0.01000213623046875 and minimum nb clusters: 8
+With init resolution 0.01000213623046875, nb clones is: 7
+With resolution 0.011002136230468751, nb clones is: 7
+With resolution 0.012002136230468752, nb clones is: 7
+With resolution 0.013002136230468753, nb clones is: 7
+With resolution 0.014002136230468754, nb clones is: 7
+With resolution 0.015002136230468754, nb clones is: 8
+88
+resolution 0.015002136230468754 and output of graph cut is: 
+{0: 1318, 1: 1216, 2: 1164, 3: 891, 4: 824, 5: 720, 6: 741, 7: 183}
+(8, 2)
+(7057, 3)
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/grown_tree.newick"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/total_merged_filtered_states_original.csv"
+null device 
+          1 
+Complete
+88
+resolution 0.015002136230468754 and output of graph cut is: 
+{0: 1318, 1: 1216, 2: 1164, 3: 891, 4: 824, 5: 720, 6: 741, 7: 183}
+(8, 2)
+(7057, 3)
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/grown_tree.newick"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/total_merged_filtered_states_original.csv"
+null device 
+          1 
+Complete
+Run corrupt grow
+Complete
+{0: 1318, 1: 1216, 2: 1164, 3: 891, 4: 824, 5: 720, 6: 741, 7: 183}
+(8, 2)
+(7057, 3)
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/grown_tree.newick"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/total_merged_filtered_states_original.csv"
+null device 
+          1 
+Complete
+Run corrupt grow
+Complete
+Run corrupt grow
+Complete
+(7057, 3)
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/grown_tree.newick"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/total_merged_filtered_states_original.csv"
+null device 
+          1 
+Complete
+Run corrupt grow
+Complete
+Run corrupt grow
+Complete
+Run corrupt grow
+[1] "Nb exception cells: 1103"
+[1] 519904      3
+[1] "Nb filtered loci: 88"
+[1] "DEBUG"
+[1] 4662381       3
+[1] 1103
+[1] 4227
+[1] 1103
+[1] "Get filtered outliers mtx, done"
+Complete
+[1] "Nb exception cells: 1103"
+[1] 519904      3
+[1] "Nb filtered loci: 88"
+[1] "DEBUG"
+[1] 4662381       3
+[1] 1103
+[1] 4227
+[1] 1103
+[1] "Get filtered outliers mtx, done"
+Complete
+Run corrupt grow
+executionMilliseconds : 770
+outputFolder : /home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/config/results/all/2020-10-15-22-13-24-ZsdIz9mO.exec
+Complete
+[1] 4662381       3
+[1] 1103
+[1] 4227
+[1] 1103
+[1] "Get filtered outliers mtx, done"
+Complete
+Run corrupt grow
+executionMilliseconds : 770
+outputFolder : /home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/config/results/all/2020-10-15-22-13-24-ZsdIz9mO.exec
+Complete
+Run corrupt grow
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/grown_tree_total.newick"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/grown_tree_total.graphml"
+Init resolution: 0.01000213623046875 and minimum nb clusters: 8
+With init resolution 0.01000213623046875, nb clones is: 6
+With resolution 0.011002136230468751, nb clones is: 6
+With resolution 0.012002136230468752, nb clones is: 6
+With resolution 0.013002136230468753, nb clones is: 8
+88
+resolution 0.013002136230468753 and output of graph cut is: 
+{0: 1370, 1: 1336, 2: 1284, 3: 939, 4: 850, 5: 587, 6: 483, 7: 208}
+(8, 2)
+(7057, 3)
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/grown_tree_total.newick"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/total_merged_filtered_states_original.csv"
+null device 
+          1 
+Complete
+88
+resolution 0.013002136230468753 and output of graph cut is: 
+{0: 1370, 1: 1336, 2: 1284, 3: 939, 4: 850, 5: 587, 6: 483, 7: 208}
+(8, 2)
+(7057, 3)
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/grown_tree_total.newick"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/total_merged_filtered_states_original.csv"
+null device 
+          1 
+Complete
+Run corrupt grow
+Init resolution: 0.01000213623046875 and minimum nb clusters: 10
+With init resolution 0.01000213623046875, nb clones is: 6
+With resolution 0.011002136230468751, nb clones is: 6
+With resolution 0.012002136230468752, nb clones is: 6
+With resolution 0.013002136230468753, nb clones is: 8
+With resolution 0.014002136230468754, nb clones is: 8
+With resolution 0.015002136230468754, nb clones is: 9
+With resolution 0.016002136230468755, nb clones is: 9
+With resolution 0.017002136230468756, nb clones is: 9
+With resolution 0.018002136230468757, nb clones is: 9
+With resolution 0.019002136230468758, nb clones is: 9
+With resolution 0.02000213623046876, nb clones is: 9
+With resolution 0.02100213623046876, nb clones is: 9
+With resolution 0.02200213623046876, nb clones is: 9
+With resolution 0.02300213623046876, nb clones is: 9
+With resolution 0.024002136230468762, nb clones is: 9
+With resolution 0.025002136230468763, nb clones is: 9
+With resolution 0.026002136230468764, nb clones is: 9
+With resolution 0.027002136230468765, nb clones is: 9
+With resolution 0.028002136230468766, nb clones is: 9
+With resolution 0.029002136230468767, nb clones is: 9
+With resolution 0.030002136230468768, nb clones is: 9
+With resolution 0.03100213623046877, nb clones is: 9
+With resolution 0.03200213623046877, nb clones is: 9
+With resolution 0.03300213623046877, nb clones is: 9
+With resolution 0.03400213623046877, nb clones is: 9
+With resolution 0.03500213623046877, nb clones is: 9
+With resolution 0.03600213623046877, nb clones is: 9
+With resolution 0.037002136230468774, nb clones is: 9
+With resolution 0.038002136230468775, nb clones is: 9
+With resolution 0.039002136230468776, nb clones is: 10
+88
+resolution 0.039002136230468776 and output of graph cut is: 
+{0: 1336, 1: 1299, 2: 1284, 3: 850, 4: 587, 5: 466, 6: 483, 7: 473, 8: 208, 9: 71}
+(10, 2)
+(7057, 3)
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/grown_tree_total.newick"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/total_merged_filtered_states_original.csv"
+null device 
+          1 
+Complete
+88
+resolution 0.039002136230468776 and output of graph cut is: 
+{0: 1336, 1: 1299, 2: 1284, 3: 850, 4: 587, 5: 466, 6: 483, 7: 473, 8: 208, 9: 71}
+(10, 2)
+(7057, 3)
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/grown_tree_total.newick"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/total_merged_filtered_states_original.csv"
+null device 
+          1 
+Complete
+Run corrupt grow
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/grown_tree_total.newick"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/total_merged_filtered_states_original.csv"
+[1] "Generating heatmap object..."
+[1] "Warning! Sorting height dat in decreasing order..."
+[1] "SA919X7XB05604-A96117A-R29-C23"
+[1] "SA919X3XB08939-A98232B-R62-C60"
+null device 
+          1 
+[1] "Saving the heatmap object..."
+[1] "DONE!!"
+Complete
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/corrupt_grow/total_merged_filtered_states_original.csv"
+[1] "Generating heatmap object..."
+[1] "Warning! Sorting height dat in decreasing order..."
+[1] "SA919X7XB05604-A96117A-R29-C23"
+[1] "SA919X3XB08939-A98232B-R62-C60"
+null device 
+          1 
+[1] "Saving the heatmap object..."
+[1] "DONE!!"
+Complete
+Generate trajectory
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/tree.newick"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/graph_cut/tree.graphml"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/tree_viz_dream/trajectory_clone_wholedata.png"
+[1] "SA919"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/cell_clones.csv"
+[1] "Generating ebola tree plots..."
+[1] "Get clone metadata"
+<class 'leidenalg.VertexPartition.RBConfigurationVertexPartition'>
+88
+resolution 0.01 and output of graph cut is: 
+{0: 1501, 1: 1216, 2: 1164, 3: 891, 4: 824, 5: 720, 6: 741}
+(7, 2)
+(7057, 3)
+Complete
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/cell_clones.csv"
+[1] "Generating ebola tree plots..."
+[1] "Get clone metadata"
+<class 'leidenalg.VertexPartition.RBConfigurationVertexPartition'>
+88
+resolution 0.01 and output of graph cut is: 
+{0: 1501, 1: 1216, 2: 1164, 3: 891, 4: 824, 5: 720, 6: 741}
+(7, 2)
+(7057, 3)
+Complete
+Generate trajectory
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/prevalences/clones_prevalence.csv"
+[1] "SA919"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/cell_clones.csv"
+[1] "Generating prevalence plots..."
+[1] "DEBUG: myColors"
+        F         G         A         D         E         B         C 
+"#66C2A5" "#FC8D62" "#8DA0CB" "#E78AC3" "#A6D854" "#FFD92F" "#E5C494" 
+[1] "Debug"
+[1] 2537    8
+           origin clone_id       Freq      desc
+A_Primary Primary        A 0.20181317 A_Primary
+B_Primary Primary        B 0.29798975 B_Primary
+C_Primary Primary        C 0.01418999 C_Primary
+D_Primary Primary        D 0.23768230 D_Primary
+E_Primary Primary        E 0.08789909 E_Primary
+F_Primary Primary        F 0.07213244 F_Primary
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/tree_viz_dream/trajectory_clone_wholedata.png"
+[1] "SA919"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/cell_clones.csv"
+[1] "Generating ebola tree plots..."
+[1] "Get clone metadata"
+[1] 7
+[1] "Get main tree trajectory"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/tree_viz_dream//ebola_tree_fixed_SA919.rds"
+                      pdxid clone_id        Freq           desc
+A_X08472112251 X08472112251        A 0.015625000 A_X08472112251
+A_X08472112252 X08472112252        A 0.008064516 A_X08472112252
+A_X08472112253 X08472112253        A 0.009677419 A_X08472112253
+A_X08472112254 X08472112254        A 0.254545455 A_X08472112254
+A_X0847216         X0847216        A 0.733021077     A_X0847216
+A_X08472161       X08472161        A 0.350961538    A_X08472161
+[1] "Debug"
+[1] 4520    8
+                       origin clone_id        Freq            desc
+A_Axillary           Axillary        A 0.744744745      A_Axillary
+A_SupraSpinal     SupraSpinal        A 0.003649635   A_SupraSpinal
+A_VentralSpinal VentralSpinal        A 0.196457327 A_VentralSpinal
+B_Axillary           Axillary        B 0.001501502      B_Axillary
+B_SupraSpinal     SupraSpinal        B 0.275182482   B_SupraSpinal
+B_VentralSpinal VentralSpinal        B 0.033011272 B_VentralSpinal
+                      pdxid clone_id        Freq           desc
+A_X08472112251 X08472112251        A 0.001407460 A_X08472112251
+A_X08472112252 X08472112252        A 0.008752735 A_X08472112252
+A_X08472112253 X08472112253        A 0.002892960 A_X08472112253
+A_X08472112254 X08472112254        A 0.000000000 A_X08472112254
+A_X08472164       X08472164        A 0.643889619    A_X08472164
+B_X08472112251 X08472112251        B 0.273047150 B_X08472112251
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00   20.75   45.50  110.05   81.25 1100.00 
+[1] "Constructing network "
+[1] "Generating main layout..."
+[1] "Get color cluster assignment for each loci based on clustering"
+[1] 7
+[1] "DEBUG: plot_clone_colour...."
+  clone_id   color
+1        F #66C2A5
+2        G #FC8D62
+3        A #8DA0CB
+4        D #E78AC3
+5        E #A6D854
+6        B #FFD92F
+7        C #E5C494
+8        0 #000000
+[1] TRUE
+[1] "Metastasis"
+[1] "Plot tree trajectory at the condition: mainsite_Metastasis"
+[1] 4520
+[1] "Main site: Metastasis library id is: "
+[1] "A98217B" "A98299A" "A96229A" "A98217A" "A96204B" "A98293A" "A96117A"
+[8] "A98290A"
+[1] "Primary"
+[1] "Plot tree trajectory at the condition: mainsite_Primary"
+[1] 2537
+[1] "Main site: Primary library id is: "
+[1] "A98232B"  "A98236A"  "A96200A"  "A98306A"  "A96117B"  "A98261B"  "A98181A" 
+[8] "A108836B" "A98300B" 
+[1] "X08472112251"
+[1] "Plot tree trajectory at the condition: pdx_X08472112251"
+[1] 1613
+[1] "Pdx id: X08472112251 library id is: "
+[1] "A96229A" "A96200A" "A96204B"
+[1] "X08472112252"
+[1] "Plot tree trajectory at the condition: pdx_X08472112252"
+[1] 1201
+[1] "Pdx id: X08472112252 library id is: "
+[1] "A96117B" "A96117A"
+[1] "X0847216"
+[1] "Plot tree trajectory at the condition: pdx_X0847216"
+[1] 427
+[1] "Pdx id: X0847216 library id is: "
+[1] "A98232B" "A98306A"
+[1] "X08472164"
+[1] "Plot tree trajectory at the condition: pdx_X08472164"
+[1] 1648
+[1] "Pdx id: X08472164 library id is: "
+[1] "A98217B" "A98217A" "A98261B"
+[1] "X08472112253"
+[1] "Plot tree trajectory at the condition: pdx_X08472112253"
+[1] 1657
+[1] "Pdx id: X08472112253 library id is: "
+[1] "A98299A" "A98236A" "A98300B" "A98290A"
+[1] "X08472112254"
+[1] "Plot tree trajectory at the condition: pdx_X08472112254"
+[1] 303
+[1] "Pdx id: X08472112254 library id is: "
+[1] "A98293A" "A98181A"
+[1] "X08472161"
+[1] "Plot tree trajectory at the condition: pdx_X08472161"
+[1] 208
+[1] "Pdx id: X08472161 library id is: "
+[1] "A108836B"
+[1] "SupraSpinal"
+[1] "Plot tree trajectory at the condition: origin_SupraSpinal"
+[1] 1370
+[1] "Origin id: SupraSpinal library id is: "
+[1] "A96204B" "A96117A"
+[1] "Primary"
+[1] "Plot tree trajectory at the condition: origin_Primary"
+[1] 2537
+[1] "Origin id: Primary library id is: "
+[1] "A98232B"  "A98236A"  "A96200A"  "A98306A"  "A96117B"  "A98261B"  "A98181A" 
+[8] "A108836B" "A98300B" 
+[1] "VentralSpinal"
+[1] "Plot tree trajectory at the condition: origin_VentralSpinal"
+[1] 2484
+[1] "Origin id: VentralSpinal library id is: "
+[1] "A98299A" "A96229A" "A98217A" "A98293A" "A98290A"
+[1] "Axillary"
+[1] "Plot tree trajectory at the condition: origin_Axillary"
+[1] 666
+[1] "Origin id: Axillary library id is: "
+[1] "A98217B"
+[1] "Plot whole tree trajectory"
+null device 
+          1 
+Complete
+[1] "A98299A" "A96229A" "A98217A" "A98293A" "A98290A"
+[1] "Axillary"
+[1] "Plot tree trajectory at the condition: origin_Axillary"
+[1] 666
+[1] "Origin id: Axillary library id is: "
+[1] "A98217B"
+[1] "Plot whole tree trajectory"
+null device 
+          1 
+Complete
+Generate trajectory
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/prevalences/clones_prevalence.csv"
+[1] "SA919"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/cell_clones.csv"
+[1] "Generating prevalence plots..."
+[1] "DEBUG: myColors"
+        A         B         C      None 
+"#66C2A5" "#FC8D62" "#8DA0CB" "#E78AC3" 
+[1] "Debug"
+[1] 2537    7
+              origin clone_id       Freq         desc
+A_Primary    Primary        A 0.27197477    A_Primary
+B_Primary    Primary        B 0.65510445    B_Primary
+C_Primary    Primary        C 0.02207331    C_Primary
+None_Primary Primary     None 0.05084746 None_Primary
+                      pdxid clone_id       Freq           desc
+A_X08472112251 X08472112251        A 0.02083333 A_X08472112251
+A_X08472112252 X08472112252        A 0.01075269 A_X08472112252
+A_X08472112253 X08472112253        A 0.01451613 A_X08472112253
+A_X08472112254 X08472112254        A 0.27727273 A_X08472112254
+A_X0847216         X0847216        A 0.88992974     A_X0847216
+A_X08472161       X08472161        A 0.66346154    A_X08472161
+[1] "Debug"
+[1] 4520    7
+                       origin clone_id        Freq            desc
+A_Axillary           Axillary        A 0.945945946      A_Axillary
+A_SupraSpinal     SupraSpinal        A 0.005839416   A_SupraSpinal
+A_VentralSpinal VentralSpinal        A 0.277375201 A_VentralSpinal
+B_Axillary           Axillary        B 0.027027027      B_Axillary
+B_SupraSpinal     SupraSpinal        B 0.648175182   B_SupraSpinal
+B_VentralSpinal VentralSpinal        B 0.256038647 B_VentralSpinal
+                      pdxid clone_id        Freq           desc
+A_X08472112251 X08472112251        A 0.002111189 A_X08472112251
+A_X08472112252 X08472112252        A 0.013129103 A_X08472112252
+A_X08472112253 X08472112253        A 0.007714561 A_X08472112253
+A_X08472112254 X08472112254        A 0.012048193 A_X08472112254
+A_X08472164       X08472164        A 0.860052562    A_X08472164
+B_X08472112251 X08472112251        B 0.882477129 B_X08472112251
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/tree_viz_dream/trajectory_clone_wholedata.png"
+[1] "SA919"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/cell_clones.csv"
+[1] "Generating ebola tree plots..."
+[1] "Get clone metadata"
+[1] 4
+[1] "Get main tree trajectory"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/tree_viz_dream//ebola_tree_fixed_SA919.rds"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00   20.75   45.50  110.05   81.25 1100.00 
+[1] "Constructing network "
+[1] "Generating main layout..."
+[1] "Get color cluster assignment for each loci based on clustering"
+[1] 4
+[1] "DEBUG: plot_clone_colour...."
+  clone_id   color
+1        A #66C2A5
+2        B #FC8D62
+3        C #8DA0CB
+4     None #E78AC3
+5        0 #000000
+[1] TRUE
+[1] "Metastasis"
+[1] "Plot tree trajectory at the condition: mainsite_Metastasis"
+[1] 4520
+[1] "Main site: Metastasis library id is: "
+[1] "A98217B" "A98299A" "A96229A" "A98217A" "A96204B" "A98293A" "A96117A"
+[8] "A98290A"
+[1] "Primary"
+[1] "Plot tree trajectory at the condition: mainsite_Primary"
+[1] 2537
+[1] "Main site: Primary library id is: "
+[1] "A98232B"  "A98236A"  "A96200A"  "A98306A"  "A96117B"  "A98261B"  "A98181A" 
+[8] "A108836B" "A98300B" 
+[1] "X08472112251"
+[1] "Plot tree trajectory at the condition: pdx_X08472112251"
+[1] 1613
+[1] "Pdx id: X08472112251 library id is: "
+[1] "A96229A" "A96200A" "A96204B"
+[1] "X08472112252"
+[1] "Plot tree trajectory at the condition: pdx_X08472112252"
+[1] 1201
+[1] "Pdx id: X08472112252 library id is: "
+[1] "A96117B" "A96117A"
+[1] "X0847216"
+[1] "Plot tree trajectory at the condition: pdx_X0847216"
+[1] 427
+[1] "Pdx id: X0847216 library id is: "
+[1] "A98232B" "A98306A"
+[1] "X08472164"
+[1] "Plot tree trajectory at the condition: pdx_X08472164"
+[1] 1648
+[1] "Pdx id: X08472164 library id is: "
+[1] "A98217B" "A98217A" "A98261B"
+[1] "X08472112253"
+[1] "Plot tree trajectory at the condition: pdx_X08472112253"
+[1] 1657
+[1] "Pdx id: X08472112253 library id is: "
+[1] "A98299A" "A98236A" "A98300B" "A98290A"
+[1] "X08472112254"
+[1] "Plot tree trajectory at the condition: pdx_X08472112254"
+[1] 303
+[1] "Pdx id: X08472112254 library id is: "
+[1] "A98293A" "A98181A"
+[1] "X08472161"
+[1] "Plot tree trajectory at the condition: pdx_X08472161"
+[1] 208
+[1] "Pdx id: X08472161 library id is: "
+[1] "A108836B"
+[1] "SupraSpinal"
+[1] "Plot tree trajectory at the condition: origin_SupraSpinal"
+[1] 1370
+[1] "Origin id: SupraSpinal library id is: "
+[1] "A96204B" "A96117A"
+[1] "Primary"
+[1] "Plot tree trajectory at the condition: origin_Primary"
+[1] 2537
+[1] "Origin id: Primary library id is: "
+[1] "A98232B"  "A98236A"  "A96200A"  "A98306A"  "A96117B"  "A98261B"  "A98181A" 
+[8] "A108836B" "A98300B" 
+[1] "VentralSpinal"
+[1] "Plot tree trajectory at the condition: origin_VentralSpinal"
+[1] 2484
+[1] "Origin id: VentralSpinal library id is: "
+[1] "A98299A" "A96229A" "A98217A" "A98293A" "A98290A"
+[1] "Axillary"
+[1] "Plot tree trajectory at the condition: origin_Axillary"
+[1] 666
+[1] "Origin id: Axillary library id is: "
+[1] "A98217B"
+[1] "Plot whole tree trajectory"
+null device 
+          1 
+Complete
+[1] "A98299A" "A96229A" "A98217A" "A98293A" "A98290A"
+[1] "Axillary"
+[1] "Plot tree trajectory at the condition: origin_Axillary"
+[1] 666
+[1] "Origin id: Axillary library id is: "
+[1] "A98217B"
+[1] "Plot whole tree trajectory"
+null device 
+          1 
+Complete
+Generate trajectory
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/prevalences/clones_prevalence.csv"
+[1] "SA919"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/cell_clones.csv"
+[1] "Generating prevalence plots..."
+[1] 6591    2
+[1] "DEBUG: myColors"
+        A         B         C 
+"#66C2A5" "#FC8D62" "#8DA0CB" 
+[1] "Debug"
+[1] 2408    7
+           origin clone_id       Freq      desc
+A_Primary Primary        A 0.28654485 A_Primary
+B_Primary Primary        B 0.69019934 B_Primary
+C_Primary Primary        C 0.02325581 C_Primary
+                      pdxid clone_id       Freq           desc
+A_X08472112251 X08472112251        A 0.02162162 A_X08472112251
+A_X08472112252 X08472112252        A 0.01081081 A_X08472112252
+A_X08472112253 X08472112253        A 0.01487603 A_X08472112253
+A_X08472112254 X08472112254        A 0.29901961 A_X08472112254
+A_X0847216         X0847216        A 0.97435897     A_X0847216
+A_X08472161       X08472161        A 0.76243094    A_X08472161
+[1] "Debug"
+[1] 4183    7
+                       origin clone_id        Freq            desc
+A_Axillary           Axillary        A 0.969230769      A_Axillary
+A_SupraSpinal     SupraSpinal        A 0.006259781   A_SupraSpinal
+A_VentralSpinal VentralSpinal        A 0.305543237 A_VentralSpinal
+B_Axillary           Axillary        B 0.027692308      B_Axillary
+B_SupraSpinal     SupraSpinal        B 0.694835681   B_SupraSpinal
+B_VentralSpinal VentralSpinal        B 0.282039911 B_VentralSpinal
+                      pdxid clone_id        Freq           desc
+A_X08472112251 X08472112251        A 0.002380952 A_X08472112251
+A_X08472112252 X08472112252        A 0.013274336 A_X08472112252
+A_X08472112253 X08472112253        A 0.007804878 A_X08472112253
+A_X08472112254 X08472112254        A 0.012987013 A_X08472112254
+A_X08472164       X08472164        A 0.956172389    A_X08472164
+B_X08472112251 X08472112251        B 0.995238095 B_X08472112251
+Complete
+B_SupraSpinal     SupraSpinal        B 0.694835681   B_SupraSpinal
+B_VentralSpinal VentralSpinal        B 0.282039911 B_VentralSpinal
+                      pdxid clone_id        Freq           desc
+A_X08472112251 X08472112251        A 0.002380952 A_X08472112251
+A_X08472112252 X08472112252        A 0.013274336 A_X08472112252
+A_X08472112253 X08472112253        A 0.007804878 A_X08472112253
+A_X08472112254 X08472112254        A 0.012987013 A_X08472112254
+A_X08472164       X08472164        A 0.956172389    A_X08472164
+B_X08472112251 X08472112251        B 0.995238095 B_X08472112251
+Complete
+Generate trajectory
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/tree_viz_dream/trajectory_clone_wholedata.png"
+[1] "SA919"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/cell_clones.csv"
+[1] "Generating ebola tree plots..."
+[1] "Get clone metadata"
+[1] 4
+[1] "Get main tree trajectory"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/tree_viz_dream//ebola_tree_fixed_SA919.rds"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00   20.75   45.50  110.05   81.25 1100.00 
+[1] "Constructing network "
+[1] "Generating main layout..."
+[1] "Get color cluster assignment for each loci based on clustering"
+[1] 4
+[1] "DEBUG: plot_clone_colour...."
+  clone_id   color
+1        A #66C2A5
+2        B #FC8D62
+3        C #8DA0CB
+4     None #E78AC3
+[1] TRUE
+[1] "Metastasis"
+[1] "Plot tree trajectory at the condition: mainsite_Metastasis"
+[1] 4520
+[1] "Main site: Metastasis library id is: "
+[1] "A98217B" "A98299A" "A96229A" "A98217A" "A96204B" "A98293A" "A96117A"
+[8] "A98290A"
+[1] "Primary"
+[1] "Plot tree trajectory at the condition: mainsite_Primary"
+[1] 2537
+[1] "Main site: Primary library id is: "
+[1] "A98232B"  "A98236A"  "A96200A"  "A98306A"  "A96117B"  "A98261B"  "A98181A" 
+[8] "A108836B" "A98300B" 
+[1] "X08472112251"
+[1] "Plot tree trajectory at the condition: pdx_X08472112251"
+[1] 1613
+[1] "Pdx id: X08472112251 library id is: "
+[1] "A96229A" "A96200A" "A96204B"
+[1] "X08472112252"
+[1] "Plot tree trajectory at the condition: pdx_X08472112252"
+[1] 1201
+[1] "Pdx id: X08472112252 library id is: "
+[1] "A96117B" "A96117A"
+[1] "X0847216"
+[1] "Plot tree trajectory at the condition: pdx_X0847216"
+[1] 427
+[1] "Pdx id: X0847216 library id is: "
+[1] "A98232B" "A98306A"
+[1] "X08472164"
+[1] "Plot tree trajectory at the condition: pdx_X08472164"
+[1] 1648
+[1] "Pdx id: X08472164 library id is: "
+[1] "A98217B" "A98217A" "A98261B"
+[1] "X08472112253"
+[1] "Plot tree trajectory at the condition: pdx_X08472112253"
+[1] 1657
+[1] "Pdx id: X08472112253 library id is: "
+[1] "A98299A" "A98236A" "A98300B" "A98290A"
+[1] "X08472112254"
+[1] "Plot tree trajectory at the condition: pdx_X08472112254"
+[1] 303
+[1] "Pdx id: X08472112254 library id is: "
+[1] "A98293A" "A98181A"
+[1] "X08472161"
+[1] "Plot tree trajectory at the condition: pdx_X08472161"
+[1] 208
+[1] "Pdx id: X08472161 library id is: "
+[1] "A108836B"
+[1] "SupraSpinal"
+[1] "Plot tree trajectory at the condition: origin_SupraSpinal"
+[1] 1370
+[1] "Origin id: SupraSpinal library id is: "
+[1] "A96204B" "A96117A"
+[1] "Primary"
+[1] "Plot tree trajectory at the condition: origin_Primary"
+[1] 2537
+[1] "Origin id: Primary library id is: "
+[1] "A98232B"  "A98236A"  "A96200A"  "A98306A"  "A96117B"  "A98261B"  "A98181A" 
+[8] "A108836B" "A98300B" 
+[1] "VentralSpinal"
+[1] "Plot tree trajectory at the condition: origin_VentralSpinal"
+[1] 2484
+[1] "Origin id: VentralSpinal library id is: "
+[1] "A98299A" "A96229A" "A98217A" "A98293A" "A98290A"
+[1] "Axillary"
+[1] "Plot tree trajectory at the condition: origin_Axillary"
+[1] 666
+[1] "Origin id: Axillary library id is: "
+[1] "A98217B"
+[1] "Plot whole tree trajectory"
+null device 
+          1 
+Complete
+[1] "A98299A" "A96229A" "A98217A" "A98293A" "A98290A"
+[1] "Axillary"
+[1] "Plot tree trajectory at the condition: origin_Axillary"
+[1] 666
+[1] "Origin id: Axillary library id is: "
+[1] "A98217B"
+[1] "Plot whole tree trajectory"
+null device 
+          1 
+Complete
+Generate trajectory
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/tree_viz_dream/trajectory_clone_wholedata.png"
+[1] "SA919"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/cell_clones.csv"
+[1] "Generating ebola tree plots..."
+[1] "Get clone metadata"
+[1] 4
+[1] "Exist none clone"
+[1] "Get main tree trajectory"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/tree_viz_dream//ebola_tree_fixed_SA919.rds"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00   20.75   45.50  110.05   81.25 1100.00 
+[1] "Constructing network "
+[1] "Generating main layout..."
+[1] "Get color cluster assignment for each loci based on clustering"
+[1] 4
+[1] "Exist none clone"
+[1] "DEBUG: plot_clone_colour...."
+  clone_id   color
+1        A #66C2A5
+2        B #FC8D62
+3        C #8DA0CB
+4     None #000000
+[1] TRUE
+[1] "Metastasis"
+[1] "Plot tree trajectory at the condition: mainsite_Metastasis"
+[1] 4520
+[1] "Main site: Metastasis library id is: "
+[1] "A98217B" "A98299A" "A96229A" "A98217A" "A96204B" "A98293A" "A96117A"
+[8] "A98290A"
+[1] "Primary"
+[1] "Plot tree trajectory at the condition: mainsite_Primary"
+[1] 2537
+[1] "Main site: Primary library id is: "
+[1] "A98232B"  "A98236A"  "A96200A"  "A98306A"  "A96117B"  "A98261B"  "A98181A" 
+[8] "A108836B" "A98300B" 
+[1] "X08472112251"
+[1] "Plot tree trajectory at the condition: pdx_X08472112251"
+[1] 1613
+[1] "Pdx id: X08472112251 library id is: "
+[1] "A96229A" "A96200A" "A96204B"
+[1] "X08472112252"
+[1] "Plot tree trajectory at the condition: pdx_X08472112252"
+[1] 1201
+[1] "Pdx id: X08472112252 library id is: "
+[1] "A96117B" "A96117A"
+[1] "X0847216"
+[1] "Plot tree trajectory at the condition: pdx_X0847216"
+[1] 427
+[1] "Pdx id: X0847216 library id is: "
+[1] "A98232B" "A98306A"
+[1] "X08472164"
+[1] "Plot tree trajectory at the condition: pdx_X08472164"
+[1] 1648
+[1] "Pdx id: X08472164 library id is: "
+[1] "A98217B" "A98217A" "A98261B"
+[1] "X08472112253"
+[1] "Plot tree trajectory at the condition: pdx_X08472112253"
+[1] 1657
+[1] "Pdx id: X08472112253 library id is: "
+[1] "A98299A" "A98236A" "A98300B" "A98290A"
+[1] "X08472112254"
+[1] "Plot tree trajectory at the condition: pdx_X08472112254"
+[1] 303
+[1] "Pdx id: X08472112254 library id is: "
+[1] "A98293A" "A98181A"
+[1] "X08472161"
+[1] "Plot tree trajectory at the condition: pdx_X08472161"
+[1] 208
+[1] "Pdx id: X08472161 library id is: "
+[1] "A108836B"
+[1] "SupraSpinal"
+[1] "Plot tree trajectory at the condition: origin_SupraSpinal"
+[1] 1370
+[1] "Origin id: SupraSpinal library id is: "
+[1] "A96204B" "A96117A"
+[1] "Primary"
+[1] "Plot tree trajectory at the condition: origin_Primary"
+[1] 2537
+[1] "Origin id: Primary library id is: "
+[1] "A98232B"  "A98236A"  "A96200A"  "A98306A"  "A96117B"  "A98261B"  "A98181A" 
+[8] "A108836B" "A98300B" 
+[1] "VentralSpinal"
+[1] "Plot tree trajectory at the condition: origin_VentralSpinal"
+[1] 2484
+[1] "Origin id: VentralSpinal library id is: "
+[1] "A98299A" "A96229A" "A98217A" "A98293A" "A98290A"
+[1] "Axillary"
+[1] "Plot tree trajectory at the condition: origin_Axillary"
+[1] 666
+[1] "Origin id: Axillary library id is: "
+[1] "A98217B"
+[1] "Plot whole tree trajectory"
+null device 
+          1 
+Complete
+[1] "A98299A" "A96229A" "A98217A" "A98293A" "A98290A"
+[1] "Axillary"
+[1] "Plot tree trajectory at the condition: origin_Axillary"
+[1] 666
+[1] "Origin id: Axillary library id is: "
+[1] "A98217B"
+[1] "Plot whole tree trajectory"
+null device 
+          1 
+Complete
+Generate trajectory
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/tree_viz_dream/trajectory_clone_wholedata.png"
+[1] "SA919"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/cell_clones.csv"
+[1] "Generating ebola tree plots..."
+[1] "Get clone metadata"
+[1] 4
+[1] "Exist none clone"
+[1] "Get main tree trajectory"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/tree_viz_dream//ebola_tree_fixed_SA919.rds"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00   20.75   45.50  110.05   81.25 1100.00 
+[1] "Constructing network "
+[1] "Generating main layout..."
+[1] "Get color cluster assignment for each loci based on clustering"
+[1] "DEBUG*******"
+   A    B    C None 
+2017 3204 1370  466 
+[1] 7057
+[1] 89
+[1] 4
+[1] "Exist none clone"
+[1] "DEBUG: plot_clone_colour...."
+  clone_id   color
+1        A #66C2A5
+2        B #FC8D62
+3        C #8DA0CB
+4     None #000000
+ 0  A  B  C 
+17  9 28 34 
+[1] TRUE
+[1] "Metastasis"
+[1] "Plot tree trajectory at the condition: mainsite_Metastasis"
+[1] 4520
+[1] "Main site: Metastasis library id is: "
+[1] "A98217B" "A98299A" "A96229A" "A98217A" "A96204B" "A98293A" "A96117A"
+[8] "A98290A"
+[1] "Primary"
+[1] "Plot tree trajectory at the condition: mainsite_Primary"
+[1] 2537
+[1] "Main site: Primary library id is: "
+[1] "A98232B"  "A98236A"  "A96200A"  "A98306A"  "A96117B"  "A98261B"  "A98181A" 
+[8] "A108836B" "A98300B" 
+[1] "X08472112251"
+[1] "Plot tree trajectory at the condition: pdx_X08472112251"
+[1] 1613
+[1] "Pdx id: X08472112251 library id is: "
+[1] "A96229A" "A96200A" "A96204B"
+[1] "X08472112252"
+[1] "Plot tree trajectory at the condition: pdx_X08472112252"
+[1] 1201
+[1] "Pdx id: X08472112252 library id is: "
+[1] "A96117B" "A96117A"
+[1] "X0847216"
+[1] "Plot tree trajectory at the condition: pdx_X0847216"
+[1] 427
+[1] "Pdx id: X0847216 library id is: "
+[1] "A98232B" "A98306A"
+[1] "X08472164"
+[1] "Plot tree trajectory at the condition: pdx_X08472164"
+[1] 1648
+[1] "Pdx id: X08472164 library id is: "
+[1] "A98217B" "A98217A" "A98261B"
+[1] "X08472112253"
+[1] "Plot tree trajectory at the condition: pdx_X08472112253"
+[1] 1657
+[1] "Pdx id: X08472112253 library id is: "
+[1] "A98299A" "A98236A" "A98300B" "A98290A"
+[1] "X08472112254"
+[1] "Plot tree trajectory at the condition: pdx_X08472112254"
+[1] 303
+[1] "Pdx id: X08472112254 library id is: "
+[1] "A98293A" "A98181A"
+[1] "X08472161"
+[1] "Plot tree trajectory at the condition: pdx_X08472161"
+[1] 208
+[1] "Pdx id: X08472161 library id is: "
+[1] "A108836B"
+[1] "SupraSpinal"
+[1] "Plot tree trajectory at the condition: origin_SupraSpinal"
+[1] 1370
+[1] "Origin id: SupraSpinal library id is: "
+[1] "A96204B" "A96117A"
+[1] "Primary"
+[1] "Plot tree trajectory at the condition: origin_Primary"
+[1] 2537
+[1] "Origin id: Primary library id is: "
+[1] "A98232B"  "A98236A"  "A96200A"  "A98306A"  "A96117B"  "A98261B"  "A98181A" 
+[8] "A108836B" "A98300B" 
+[1] "VentralSpinal"
+[1] "Plot tree trajectory at the condition: origin_VentralSpinal"
+[1] 2484
+[1] "Origin id: VentralSpinal library id is: "
+[1] "A98299A" "A96229A" "A98217A" "A98293A" "A98290A"
+[1] "Axillary"
+[1] "Plot tree trajectory at the condition: origin_Axillary"
+[1] 666
+[1] "Origin id: Axillary library id is: "
+[1] "A98217B"
+[1] "Plot whole tree trajectory"
+null device 
+          1 
+Complete
+[1] "A98299A" "A96229A" "A98217A" "A98293A" "A98290A"
+[1] "Axillary"
+[1] "Plot tree trajectory at the condition: origin_Axillary"
+[1] 666
+[1] "Origin id: Axillary library id is: "
+[1] "A98217B"
+[1] "Plot whole tree trajectory"
+null device 
+          1 
+Complete
+------------------------
+
+Generate trajectory
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/tree.newick"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/tree.graphml"
+Init resolution: 0.01000213623046875 and minimum nb clusters: 8
+With init resolution 0.01000213623046875, nb clones is: 6
+With resolution 0.011002136230468751, nb clones is: 6
+With resolution 0.012002136230468752, nb clones is: 6
+With resolution 0.013002136230468753, nb clones is: 7
+With resolution 0.014002136230468754, nb clones is: 7
+With resolution 0.015002136230468754, nb clones is: 8
+88
+resolution 0.015002136230468754 and output of graph cut is: 
+{0: 1274, 1: 1093, 2: 981, 3: 750, 4: 723, 5: 487, 6: 437, 7: 163}
+(8, 2)
+(5908, 3)
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/tree.newick"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/total_merged_filtered_states.csv"
+[1] "DEBUG"
+[1] 5908    2
+[1] 5908    6
+[1] "DEBUG"
+[1] 5908    2
+[1] 5908    6
+null device 
+          1 
+Complete
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/total_merged_filtered_states.csv"
+[1] "DEBUG"
+[1] 5908    2
+[1] 5908    6
+[1] "DEBUG"
+[1] 5908    2
+[1] 5908    6
+null device 
+          1 
+Complete
+------------------------
+
+Generate trajectory
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/tree.newick"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/total_merged_filtered_states.csv"
+[1] "DEBUG"
+[1] 5908    2
+[1] 5908    6
+[1] "DEBUG"
+[1] 5908    2
+[1] 5908    6
+null device 
+          1 
+Complete
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/total_merged_filtered_states.csv"
+[1] "DEBUG"
+[1] 5908    2
+[1] 5908    6
+[1] "DEBUG"
+[1] 5908    2
+[1] 5908    6
+null device 
+          1 
+Complete
+------------------------
+
+Generate trajectory
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/prevalences/clones_prevalence.csv"
+[1] "SA919"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/cell_clones.csv"
+[1] "Generating prevalence plots..."
+[1] 5471    2
+[1] 5471    8
+[1] "DEBUG: myColors"
+        A         B         C 
+"#66C2A5" "#FC8D62" "#8DA0CB" 
+[1] "Debug"
+[1] 2014    8
+           origin clone_id       Freq      desc
+A_Primary Primary        A 0.28301887 A_Primary
+B_Primary Primary        B 0.70307845 B_Primary
+C_Primary Primary        C 0.01390268 C_Primary
+                      pdxid clone_id       Freq           desc
+A_X08472112251 X08472112251        A 0.04697987 A_X08472112251
+A_X08472112252 X08472112252        A 0.01062215 A_X08472112252
+A_X08472112253 X08472112253        A 0.02048417 A_X08472112253
+A_X08472112254 X08472112254        A 0.33152174 A_X08472112254
+A_X0847216         X0847216        A 1.00000000     A_X0847216
+A_X08472161       X08472161        A 1.00000000    A_X08472161
+[1] "DEBUG 1"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/total_merged_filtered_states.csv"
+[1] "Debug"
+[1] 3457    8
+                       origin clone_id        Freq            desc
+A_Axillary           Axillary        A 0.996820350      A_Axillary
+A_SupraSpinal     SupraSpinal        A 0.008628955   A_SupraSpinal
+A_VentralSpinal VentralSpinal        A 0.402240896 A_VentralSpinal
+B_Axillary           Axillary        B 0.003179650      B_Axillary
+B_SupraSpinal     SupraSpinal        B 0.755512943   B_SupraSpinal
+B_VentralSpinal VentralSpinal        B 0.201680672 B_VentralSpinal
+                      pdxid clone_id        Freq           desc
+A_X08472112251 X08472112251        A 0.006517691 A_X08472112251
+A_X08472112252 X08472112252        A 0.021505376 A_X08472112252
+A_X08472112253 X08472112253        A 0.002728513 A_X08472112253
+A_X08472112254 X08472112254        A 0.000000000 A_X08472112254
+A_X08472164       X08472164        A 0.998508576    A_X08472164
+B_X08472112251 X08472112251        B 0.992551210 B_X08472112251
+                       origin clone_id       Freq            desc
+A_Axillary           Axillary        A 0.99682035      A_Axillary
+A_VentralSpinal VentralSpinal        A 1.00000000 A_VentralSpinal
+B_Axillary           Axillary        B 0.00317965      B_Axillary
+B_VentralSpinal VentralSpinal        B 0.00000000 B_VentralSpinal
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/tree_viz_dream/trajectory_clone_wholedata.png"
+[1] "SA919"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/cell_clones.csv"
+[1] "Generating ebola tree plots..."
+[1] "Get clone metadata"
+[1] 3
+                       origin clone_id        Freq            desc
+A_SupraSpinal     SupraSpinal        A 0.003926702   A_SupraSpinal
+A_VentralSpinal VentralSpinal        A 0.012903226 A_VentralSpinal
+B_SupraSpinal     SupraSpinal        B 0.996073298   B_SupraSpinal
+B_VentralSpinal VentralSpinal        B 0.983870968 B_VentralSpinal
+C_SupraSpinal     SupraSpinal        C 0.000000000   C_SupraSpinal
+C_VentralSpinal VentralSpinal        C 0.003225806 C_VentralSpinal
+[1] "Get main tree trajectory"
+                   origin clone_id       Freq          desc
+A_SupraSpinal SupraSpinal        A 0.02150538 A_SupraSpinal
+B_SupraSpinal SupraSpinal        B 0.09677419 B_SupraSpinal
+C_SupraSpinal SupraSpinal        C 0.88172043 C_SupraSpinal
+                       origin clone_id        Freq            desc
+A_VentralSpinal VentralSpinal        A 0.002728513 A_VentralSpinal
+B_VentralSpinal VentralSpinal        B 0.034106412 B_VentralSpinal
+C_VentralSpinal VentralSpinal        C 0.963165075 C_VentralSpinal
+                       origin clone_id Freq            desc
+B_VentralSpinal VentralSpinal        B    1 B_VentralSpinal
+[1] 4375 5908
+[1] "X08472112251"
+[1] 4375 1223
+[1] "DEBUG 3"
+[1] "DEBUG 4"
+[1] "DEBUG 5"
+[1] "X08472112252"
+[1] 4375  938
+[1] "DEBUG 3"
+[1] "DEBUG 4"
+[1] "DEBUG 5"
+[1] "X0847216"
+[1] 4375  375
+[1] "DEBUG 3"
+[1] "DEBUG 4"
+[1] "DEBUG 5"
+[1] "X08472164"
+[1] 4375 1425
+[1] "DEBUG 3"
+[1] "DEBUG 4"
+[1] "DEBUG 5"
+[1] "X08472112253"
+[1] 4375 1270
+[1] "DEBUG 3"
+[1] "DEBUG 4"
+[1] "DEBUG 5"
+[1] "X08472112254"
+[1] 4375  214
+[1] "DEBUG 3"
+[1] "DEBUG 4"
+[1] "DEBUG 5"
+[1] "X08472161"
+[1] 4375   26
+[1] "DEBUG 3"
+[1] "DEBUG 4"
+[1] "DEBUG 5"
+[1] "SupraSpinal"
+[1] 4375 1043
+[1] "DEBUG 3"
+[1] "DEBUG 4"
+[1] "DEBUG 5"
+[1] "Primary"
+[1] 4375 2014
+[1] "DEBUG 3"
+[1] "DEBUG 4"
+[1] "DEBUG 5"
+[1] "VentralSpinal"
+[1] 4375 1785
+[1] "DEBUG 3"
+[1] "DEBUG 4"
+[1] "DEBUG 5"
+[1] "Axillary"
+[1] 4375  629
+[1] "DEBUG 3"
+[1] "DEBUG 4"
+[1] "DEBUG 5"
+Complete
+[1] 4375 1785
+[1] "DEBUG 3"
+[1] "DEBUG 4"
+[1] "DEBUG 5"
+[1] "Axillary"
+[1] 4375  629
+[1] "DEBUG 3"
+[1] "DEBUG 4"
+[1] "DEBUG 5"
+Complete
+------------------------
+
+Generate trajectory
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/tree_viz_dream/trajectory_clone_wholedata.png"
+[1] "SA919"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/cell_clones.csv"
+[1] "Generating ebola tree plots..."
+[1] "Get clone metadata"
+[1] 3
+[1] "Get main tree trajectory"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/tree_viz_dream//ebola_tree_fixed_SA919.rds"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00   17.00   32.00   96.59   58.00 1076.00 
+[1] "Constructing network "
+[1] "Generating main layout..."
+[1] "Get color cluster assignment for each loci based on clustering"
+[1] 5908
+[1] 70
+  clone_id   color
+1        A #66C2A5
+2        B #FC8D62
+3        C #8DA0CB
+ 0  A  B  C 
+20 17 25  8 
+[1] TRUE
+[1] "Metastasis"
+[1] "Plot tree trajectory at the condition: main site Metastasis"
+[1] 3825
+[1] "Main site: Metastasis library id is: "
+[1] "A98217B" "A98299A" "A96229A" "A98217A" "A96204B" "A98293A" "A96117A"
+[8] "A98290A"
+Complete
+ 0  A  B  C 
+20 17 25  8 
+[1] TRUE
+[1] "Metastasis"
+[1] "Plot tree trajectory at the condition: main site Metastasis"
+[1] 3825
+[1] "Main site: Metastasis library id is: "
+[1] "A98217B" "A98299A" "A96229A" "A98217A" "A96204B" "A98293A" "A96117A"
+[8] "A98290A"
+Complete
+------------------------
+
+Generate trajectory
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/tree_viz_dream/trajectory_clone_wholedata.png"
+[1] "SA919"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/cell_clones.csv"
+[1] "Generating ebola tree plots..."
+[1] "Get clone metadata"
+[1] 3
+  clone_id   color
+1        A #66C2A5
+2        B #FC8D62
+3        C #8DA0CB
+[1] "Get main tree trajectory"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/tree_viz_dream//ebola_tree_fixed_SA919.rds"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00   17.00   32.00   96.59   58.00 1076.00 
+[1] "Constructing network "
+[1] "Generating main layout..."
+[1] "Get color cluster assignment for each loci based on clustering"
+[1] "Metastasis"
+[1] "Plot tree trajectory at the condition: main site Metastasis"
+[1] 3825
+[1] "Main site: Metastasis library id is: "
+[1] "A98217B" "A98299A" "A96229A" "A98217A" "A96204B" "A98293A" "A96117A"
+[8] "A98290A"
+#66C2A5 #8DA0CB #FC8D62 #FF0000    NA's 
+     16       7      24       1      13 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+Complete
+[1] "Plot tree trajectory at the condition: main site Metastasis"
+[1] 3825
+[1] "Main site: Metastasis library id is: "
+[1] "A98217B" "A98299A" "A96229A" "A98217A" "A96204B" "A98293A" "A96117A"
+[8] "A98290A"
+#66C2A5 #8DA0CB #FC8D62 #FF0000    NA's 
+     16       7      24       1      13 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+Complete
+------------------------
+
+Generate trajectory
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/tree_viz_dream/trajectory_clone_wholedata.png"
+[1] "SA919"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/cell_clones.csv"
+[1] "Generating ebola tree plots..."
+[1] "Get clone metadata"
+[1] 3
+  clone_id   color
+1        A #66C2A5
+2        B #FC8D62
+3        C #8DA0CB
+[1] "A"
+[1] "B"
+[1] "C"
+[1] 1
+[1] "Joining "                   "locus_10_38000201_38000202"
+[3] "locus_7_0_1"               
+[1] "locus_10_38000201_38000202"
+[1] "locus_7_0_1"
+[1] "Joining "                   "locus_10_38000201_38000202"
+[3] "root"                      
+[1] "locus_10_38000201_38000202"
+[1] "root"
+[1] "MRCA was "   "locus_7_0_1"
+[1] 2
+[1] "Joining "    "locus_7_0_1" "locus_7_0_1"
+[1] "Joining "    "locus_7_0_1" "root"       
+[1] "locus_7_0_1"
+[1] "root"
+[1] "MRCA was "   "locus_7_0_1"
+[1] "Get main tree trajectory"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/tree_viz_dream//ebola_tree_fixed_SA919.rds"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    7.0    18.5    32.0   116.2    63.5  1076.0 
+[1] "Constructing network "
+[1] "Generating main layout..."
+[1] "Get color cluster assignment for each loci based on clustering"
+[1] "Metastasis"
+[1] "Plot tree trajectory at the condition: main site Metastasis"
+[1] 3457
+[1] "Main site: Metastasis library id is: "
+[1] "A98217B" "A98217A" "A96204B" "A96229A" "A96117A" "A98290A" "A98299A"
+[8] "A98293A"
+#66C2A5 #8DA0CB #FC8D62 #FF0000 
+     15       7      24       1 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+[1] "Primary"
+[1] "Plot tree trajectory at the condition: main site Primary"
+[1] 2014
+[1] "Main site: Primary library id is: "
+[1] "A98232B"  "A98306A"  "A108836B" "A98181A"  "A98236A"  "A98300B"  "A96117B" 
+[8] "A96200A"  "A98261B" 
+#000000 #66C2A5 #8DA0CB #FC8D62 #FF0000 
+      4      15       4      23       1 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+[1] "X08472112251"
+[1] "Plot tree trajectory at the condition: pdx X08472112251"
+[1] 1223
+[1] "Pdx id: X08472112251 library id is: "
+[1] "A96200A" "A96204B" "A96229A"
+#000000 #66C2A5 #8DA0CB #FC8D62 #FF0000 
+     17       4       1      24       1 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+[1] "X08472112252"
+[1] "Plot tree trajectory at the condition: pdx X08472112252"
+[1] 938
+[1] "Pdx id: X08472112252 library id is: "
+[1] "A96117B" "A96117A"
+#000000 #66C2A5 #8DA0CB #FC8D62 #FF0000 
+     11       6       7      22       1 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+[1] "X0847216"
+[1] "Plot tree trajectory at the condition: pdx X0847216"
+[1] 375
+[1] "Pdx id: X0847216 library id is: "
+[1] "A98232B" "A98306A"
+#000000 #66C2A5 #FF0000 
+     31      15       1 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+[1] "X08472164"
+[1] "Plot tree trajectory at the condition: pdx X08472164"
+[1] 1425
+[1] "Pdx id: X08472164 library id is: "
+[1] "A98217B" "A98217A" "A98261B"
+#000000 #66C2A5 #FC8D62 #FF0000 
+     29      15       2       1 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+[1] "X08472112253"
+[1] "Plot tree trajectory at the condition: pdx X08472112253"
+[1] 1270
+[1] "Pdx id: X08472112253 library id is: "
+[1] "A98236A" "A98300B" "A98290A" "A98299A"
+#000000 #66C2A5 #8DA0CB #FC8D62 #FF0000 
+     16       4       7      19       1 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+[1] "X08472112254"
+[1] "Plot tree trajectory at the condition: pdx X08472112254"
+[1] 214
+[1] "Pdx id: X08472112254 library id is: "
+[1] "A98181A" "A98293A"
+#000000 #66C2A5 #8DA0CB #FC8D62 #FF0000 
+     19       6       2      19       1 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+[1] "X08472161"
+[1] "Plot tree trajectory at the condition: pdx X08472161"
+[1] 26
+[1] "Pdx id: X08472161 library id is: "
+[1] "A108836B"
+#000000 #66C2A5 #FF0000 
+     41       5       1 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+[1] "SupraSpinal"
+[1] "Plot tree trajectory at the condition: origin SupraSpinal"
+[1] 1043
+[1] "Origin id: SupraSpinal library id is: "
+[1] "A96204B" "A96117A"
+#000000 #66C2A5 #8DA0CB #FC8D62 #FF0000 
+     12       4       7      23       1 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+[1] "Primary"
+[1] "Plot tree trajectory at the condition: origin Primary"
+[1] 2014
+[1] "Origin id: Primary library id is: "
+[1] "A98232B"  "A98306A"  "A108836B" "A98181A"  "A98236A"  "A98300B"  "A96117B" 
+[8] "A96200A"  "A98261B" 
+#000000 #66C2A5 #8DA0CB #FC8D62 #FF0000 
+      4      15       4      23       1 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+[1] "VentralSpinal"
+[1] "Plot tree trajectory at the condition: origin VentralSpinal"
+[1] 1785
+[1] "Origin id: VentralSpinal library id is: "
+[1] "A98217A" "A96229A" "A98290A" "A98299A" "A98293A"
+#000000 #66C2A5 #8DA0CB #FC8D62 #FF0000 
+      2      15       7      22       1 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+[1] "Axillary"
+[1] "Plot tree trajectory at the condition: origin Axillary"
+[1] 629
+[1] "Origin id: Axillary library id is: "
+[1] "A98217B"
+#000000 #66C2A5 #FC8D62 #FF0000 
+     29      15       2       1 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+[1] "Plot whole tree trajectory"
+null device 
+          1 
+Complete
+[1] "Origin id: Axillary library id is: "
+[1] "A98217B"
+#000000 #66C2A5 #FC8D62 #FF0000 
+     29      15       2       1 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+[1] "Plot whole tree trajectory"
+null device 
+          1 
+Complete
+------------------------
+
+Generate trajectory
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/tree_viz_dream/trajectory_clone_wholedata.png"
+[1] "SA919"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/cell_clones.csv"
+[1] "Generating ebola tree plots..."
+[1] "Get clone metadata"
+[1] 3
+  clone_id   color
+1        A #66C2A5
+2        B #FC8D62
+3        C #8DA0CB
+[1] "A"
+[1] "B"
+[1] "C"
+[1] 1
+[1] "Joining "                   "locus_10_38000201_38000202"
+[3] "locus_7_0_1"               
+[1] "locus_10_38000201_38000202"
+[1] "locus_7_0_1"
+[1] "Joining "                   "locus_10_38000201_38000202"
+[3] "root"                      
+[1] "locus_10_38000201_38000202"
+[1] "root"
+[1] "MRCA was "   "locus_7_0_1"
+[1] 2
+[1] "Joining "    "locus_7_0_1" "locus_7_0_1"
+[1] "Joining "    "locus_7_0_1" "root"       
+[1] "locus_7_0_1"
+[1] "root"
+[1] "MRCA was "   "locus_7_0_1"
+[1] "Get main tree trajectory"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/tree_viz_dream//ebola_tree_fixed_SA919.rds"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    7.0    18.5    32.0   116.2    63.5  1076.0 
+[1] "Constructing network "
+[1] "Generating main layout..."
+[1] "Get color cluster assignment for each loci based on clustering"
+[1] "Metastasis"
+[1] "Plot tree trajectory at the condition: main site Metastasis"
+[1] 3457
+[1] "Main site: Metastasis library id is: "
+[1] "A98217B" "A98217A" "A96204B" "A96229A" "A96117A" "A98290A" "A98299A"
+[8] "A98293A"
+#66C2A5 #8DA0CB #FC8D62 #FF0000 
+     15       7      24       1 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+[1] "Primary"
+[1] "Plot tree trajectory at the condition: main site Primary"
+[1] 2014
+[1] "Main site: Primary library id is: "
+[1] "A98232B"  "A98306A"  "A108836B" "A98181A"  "A98236A"  "A98300B"  "A96117B" 
+[8] "A96200A"  "A98261B" 
+#000000 #66C2A5 #8DA0CB #FC8D62 #FF0000 
+      4      15       4      23       1 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+[1] "X08472112251"
+[1] "Plot tree trajectory at the condition: pdx X08472112251"
+[1] 1223
+[1] "Pdx id: X08472112251 library id is: "
+[1] "A96200A" "A96204B" "A96229A"
+#000000 #66C2A5 #8DA0CB #FC8D62 #FF0000 
+     17       4       1      24       1 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+[1] "X08472112252"
+[1] "Plot tree trajectory at the condition: pdx X08472112252"
+[1] 938
+[1] "Pdx id: X08472112252 library id is: "
+[1] "A96117B" "A96117A"
+#000000 #66C2A5 #8DA0CB #FC8D62 #FF0000 
+     11       6       7      22       1 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+[1] "X0847216"
+[1] "Plot tree trajectory at the condition: pdx X0847216"
+[1] 375
+[1] "Pdx id: X0847216 library id is: "
+[1] "A98232B" "A98306A"
+#000000 #66C2A5 #FF0000 
+     31      15       1 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+[1] "X08472164"
+[1] "Plot tree trajectory at the condition: pdx X08472164"
+[1] 1425
+[1] "Pdx id: X08472164 library id is: "
+[1] "A98217B" "A98217A" "A98261B"
+#000000 #66C2A5 #FC8D62 #FF0000 
+     29      15       2       1 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+[1] "X08472112253"
+[1] "Plot tree trajectory at the condition: pdx X08472112253"
+[1] 1270
+[1] "Pdx id: X08472112253 library id is: "
+[1] "A98236A" "A98300B" "A98290A" "A98299A"
+#000000 #66C2A5 #8DA0CB #FC8D62 #FF0000 
+     16       4       7      19       1 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+[1] "X08472112254"
+[1] "Plot tree trajectory at the condition: pdx X08472112254"
+[1] 214
+[1] "Pdx id: X08472112254 library id is: "
+[1] "A98181A" "A98293A"
+#000000 #66C2A5 #8DA0CB #FC8D62 #FF0000 
+     19       6       2      19       1 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+[1] "X08472161"
+[1] "Plot tree trajectory at the condition: pdx X08472161"
+[1] 26
+[1] "Pdx id: X08472161 library id is: "
+[1] "A108836B"
+#000000 #66C2A5 #FF0000 
+     41       5       1 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+[1] "SupraSpinal"
+[1] "Plot tree trajectory at the condition: origin SupraSpinal"
+[1] 1043
+[1] "Origin id: SupraSpinal library id is: "
+[1] "A96204B" "A96117A"
+#000000 #66C2A5 #8DA0CB #FC8D62 #FF0000 
+     12       4       7      23       1 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+[1] "Primary"
+[1] "Plot tree trajectory at the condition: origin Primary"
+[1] 2014
+[1] "Origin id: Primary library id is: "
+[1] "A98232B"  "A98306A"  "A108836B" "A98181A"  "A98236A"  "A98300B"  "A96117B" 
+[8] "A96200A"  "A98261B" 
+#000000 #66C2A5 #8DA0CB #FC8D62 #FF0000 
+      4      15       4      23       1 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+[1] "VentralSpinal"
+[1] "Plot tree trajectory at the condition: origin VentralSpinal"
+[1] 1785
+[1] "Origin id: VentralSpinal library id is: "
+[1] "A98217A" "A96229A" "A98290A" "A98299A" "A98293A"
+#000000 #66C2A5 #8DA0CB #FC8D62 #FF0000 
+      2      15       7      22       1 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+[1] "Axillary"
+[1] "Plot tree trajectory at the condition: origin Axillary"
+[1] 629
+[1] "Origin id: Axillary library id is: "
+[1] "A98217B"
+#000000 #66C2A5 #FC8D62 #FF0000 
+     29      15       2       1 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+[1] "Plot whole tree trajectory"
+null device 
+          1 
+Complete
+[1] "Origin id: Axillary library id is: "
+[1] "A98217B"
+#000000 #66C2A5 #FC8D62 #FF0000 
+     29      15       2       1 
+[1] "DEBUG 1"
+[1] "DEBUG 2"
+[1] "Plot whole tree trajectory"
+null device 
+          1 
+Complete
+------------------------
+
+Generate trajectory
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/tree.newick"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/tree.graphml"
+Init resolution: 0.01000213623046875 and minimum nb clusters: 8
+With init resolution 0.01000213623046875, nb clones is: 6
+With resolution 0.011002136230468751, nb clones is: 6
+With resolution 0.012002136230468752, nb clones is: 6
+With resolution 0.013002136230468753, nb clones is: 6
+With resolution 0.014002136230468754, nb clones is: 7
+With resolution 0.015002136230468754, nb clones is: 7
+With resolution 0.016002136230468755, nb clones is: 7
+With resolution 0.017002136230468756, nb clones is: 7
+With resolution 0.018002136230468757, nb clones is: 7
+With resolution 0.019002136230468758, nb clones is: 7
+With resolution 0.02000213623046876, nb clones is: 7
+With resolution 0.02100213623046876, nb clones is: 8
+49
+resolution 0.02100213623046876 and output of graph cut is: 
+{0: 1274, 1: 1093, 2: 981, 3: 750, 4: 487, 5: 369, 6: 354, 7: 163}
+(8, 2)
+(5471, 3)
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/tree.newick"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/total_merged_filtered_states.csv"
+[1] "DEBUG 1"
+[1] "DEBUG"
+[1] 5471    2
+[1] 5471    6
+[1] "DEBUG 2"
+[1] "DEBUG"
+[1] 5471    2
+[1] 5471    6
+[1] "DEBUG 3"
+[1] "DEBUG 4"
+[1] "DEBUG 5"
+[1] "DEBUG 6"
+[1] "MainSite" "Pdx"      "Clone"   
+$MainSite
+Metastasis    Primary 
+ "#E41A1C"  "#377EB8" 
+
+$Pdx
+    X0847216    X08472161    X08472164 X08472112251 X08472112252 X08472112253 
+   "#7FC97F"    "#BEAED4"    "#FDC086"    "#FFFF99"    "#386CB0"    "#F0027F" 
+X08472112254 
+   "#BF5B17" 
+
+$Clone
+ A (1274)  B (1093)   C (981)   D (750)   E (487)   F (369)   G (354)   H (163) 
+"#8DD3C7" "#FFFFB3" "#BEBADA" "#FB8072" "#80B1D3" "#FDB462" "#B3DE69" "#FCCDE5" 
+
+null device 
+          1 
+Complete
+X08472112254 
+   "#BF5B17" 
+
+$Clone
+ A (1274)  B (1093)   C (981)   D (750)   E (487)   F (369)   G (354)   H (163) 
+"#8DD3C7" "#FFFFB3" "#BEBADA" "#FB8072" "#80B1D3" "#FDB462" "#B3DE69" "#FCCDE5" 
+
+null device 
+          1 
+Complete
+------------------------
+
+Run download segment data for clonealign
+/home/htran/storage/datasets/hakwoo_metastasis/clonealign
+A98181A
+Latest Jira ticket  is: SC-3073 correspond to library id: A98181A
+SC-3073 is a valid analysis ticket
+
+cell state results; analysis type: hmmcopy;  files: A98181A_segments.csv.gz
+Downloading A98181A_segments.csv.gz to /home/htran/storage/datasets/hakwoo_metastasis/clonealign/A98181A/hmmcopy
+
+********** Download complete **********
+
+
+/home/htran/storage/datasets/hakwoo_metastasis/clonealign/A98181A/hmmcopy/A98181A_segments.csv.gz
+/home/htran/storage/datasets/hakwoo_metastasis/clonealign
+A108836B
+Latest Jira ticket  is: SC-3675 correspond to library id: A108836B
+SC-3675 is a valid analysis ticket
+
+cell state results; analysis type: hmmcopy;  files: A108836B_segments.csv.gz
+Downloading A108836B_segments.csv.gz to /home/htran/storage/datasets/hakwoo_metastasis/clonealign/A108836B/hmmcopy
+
+********** Download complete **********
+
+
+/home/htran/storage/datasets/hakwoo_metastasis/clonealign/A108836B/hmmcopy/A108836B_segments.csv.gz
+/home/htran/storage/datasets/hakwoo_metastasis/clonealign
+A98236A
+Latest Jira ticket  is: SC-3793 correspond to library id: A98236A
+SC-3793 is a valid analysis ticket
+
+cell state results; analysis type: hmmcopy;  files: A98236A_segments.csv.gz
+Downloading A98236A_segments.csv.gz to /home/htran/storage/datasets/hakwoo_metastasis/clonealign/A98236A/hmmcopy
+
+********** Download complete **********
+
+
+/home/htran/storage/datasets/hakwoo_metastasis/clonealign/A98236A/hmmcopy/A98236A_segments.csv.gz
+[1] "/home/htran/storage/datasets/hakwoo_metastasis/clonealign"
+[1] "/home/htran/storage/datasets/metastasis_results/rnaseq_SA919/clonealign/raw_segments.rds"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/library_groupings.csv"
+[1] "/home/htran/Projects/hakwoo_project/rscript/align_clones"
+Complete
+
+********** Download complete **********
+
+
+/home/htran/storage/datasets/hakwoo_metastasis/clonealign/A98236A/hmmcopy/A98236A_segments.csv.gz
+[1] "/home/htran/storage/datasets/hakwoo_metastasis/clonealign"
+[1] "/home/htran/storage/datasets/metastasis_results/rnaseq_SA919/clonealign/raw_segments.rds"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/library_groupings.csv"
+[1] "/home/htran/Projects/hakwoo_project/rscript/align_clones"
+Complete
+------------------------
+
+Run clonealign
+[1] "/home/htran/Projects/hakwoo_project/rscript/align_clones"
+[1] "/home/htran/storage/datasets/metastasis_results/rnaseq_SA919/clonealign/SA919X7XB05692/SA919X7XB05692.rds"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/cell_clones.csv"
+NULL
+NULL
+[1] "/home/htran/storage/datasets/metastasis_results/rnaseq_SA919/clonealign/SA919X7XB05692/SA919X7XB05692.feather"
+[1] "SA919X7XB05692"
+[1] 155869      8
+[1] "Colnames of raw_segments"
+[1] "chr"         "start"       "end"         "copy_number" "median"     
+[6] "multiplier"  "cell_names"  "sample"     
+[1] "/home/htran/storage/datasets/metastasis_results/rnaseq_SA919/clonealign/SA919X7XB05692/"
+[1] "Read clone labels file"
+[1] 5908    2
+[1] 449   2
+[1] "Clones id: A"    "Clones id: B"    "Clones id: C"    "Clones id: None"
+[1] "DEBUG: cell_clones: 449 2"
+[1] "Sampling cells, for each clone"
+[1] "DEBUG: double check this step, clone: A nb cells: 4"
+[1] "Extract 0 from clone: A"
+[1] "Extract 305 from clone: B"
+[1] "DEBUG: double check this step, clone: C nb cells: 1"
+[1] "Extract 0 from clone: C"
+[1] "Extract 139 from clone: None"
+[1] 444
+[1] "Get gene coordinates"
+[1] 9949120       8
+[1] "Read clone labels and merge to gene_cn...\n"
+[1] "entrezgene"      "percent_overlap" "ensembl_gene_id" "copy_number"    
+[5] "median"          "multiplier"      "cell_names"      "sample"         
+[9] "cluster"        
+[1] 9949120       9
+[1] "entrezgene"      "percent_overlap" "ensembl_gene_id" "copy_number"    
+[5] "median"          "multiplier"      "cell_names"      "sample"         
+[9] "cluster"        
+['SA919X7XB05692']
+Complete
+[1] "Read clone labels and merge to gene_cn...\n"
+[1] "entrezgene"      "percent_overlap" "ensembl_gene_id" "copy_number"    
+[5] "median"          "multiplier"      "cell_names"      "sample"         
+[9] "cluster"        
+[1] 9949120       9
+[1] "entrezgene"      "percent_overlap" "ensembl_gene_id" "copy_number"    
+[5] "median"          "multiplier"      "cell_names"      "sample"         
+[9] "cluster"        
+['SA919X7XB05692']
+Complete
+------------------------
+
+Run clonealign
+[1] "/home/htran/Projects/hakwoo_project/rscript/align_clones"
+[1] "/home/htran/storage/datasets/metastasis_results/rnaseq_SA919/clonealign/SA919X7XB05692/SA919X7XB05692.rds"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/cell_clones.csv"
+NULL
+NULL
+[1] "/home/htran/storage/datasets/metastasis_results/rnaseq_SA919/clonealign/SA919X7XB05692/SA919X7XB05692.feather"
+[1] "SA919X7XB05692"
+[1] 155869      8
+[1] "Colnames of raw_segments"
+[1] "chr"         "start"       "end"         "copy_number" "median"     
+[6] "multiplier"  "cell_names"  "sample"     
+[1] "/home/htran/storage/datasets/metastasis_results/rnaseq_SA919/clonealign/SA919X7XB05692/"
+[1] "Read clone labels file"
+[1] 5908    2
+[1] 449   2
+[1] "Clones id: A"    "Clones id: B"    "Clones id: C"    "Clones id: None"
+[1] "DEBUG: cell_clones: 449 2"
+[1] "Sampling cells, for each clone"
+[1] "DEBUG: double check this step, clone: A nb cells: 4"
+[1] "Extract 0 from clone: A"
+[1] "Extract 305 from clone: B"
+[1] "DEBUG: double check this step, clone: C nb cells: 1"
+[1] "Extract 0 from clone: C"
+[1] "Extract 139 from clone: None"
+[1] 444
+[1] "Get gene coordinates"
+[1] 9949120       8
+[1] "Read clone labels and merge to gene_cn...\n"
+[1] "entrezgene"      "percent_overlap" "ensembl_gene_id" "copy_number"    
+[5] "median"          "multiplier"      "cell_names"      "sample"         
+[9] "cluster"        
+[1] 9949120       9
+[1] "entrezgene"      "percent_overlap" "ensembl_gene_id" "copy_number"    
+[5] "median"          "multiplier"      "cell_names"      "sample"         
+[9] "cluster"        
+[1] 9949120       9
+['SA919X7XB05692']
+Complete
+[1] "entrezgene"      "percent_overlap" "ensembl_gene_id" "copy_number"    
+[5] "median"          "multiplier"      "cell_names"      "sample"         
+[9] "cluster"        
+[1] 9949120       9
+[1] "entrezgene"      "percent_overlap" "ensembl_gene_id" "copy_number"    
+[5] "median"          "multiplier"      "cell_names"      "sample"         
+[9] "cluster"        
+[1] 9949120       9
+['SA919X7XB05692']
+Complete
+------------------------
+
+Run clonealign
+[1] "/home/htran/Projects/hakwoo_project/rscript/align_clones"
+[1] "/home/htran/storage/datasets/metastasis_results/rnaseq_SA919/clonealign/SA919X7XB05692/SA919X7XB05692.rds"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/cell_clones.csv"
+NULL
+NULL
+[1] "/home/htran/storage/datasets/metastasis_results/rnaseq_SA919/clonealign/SA919X7XB05692/SA919X7XB05692.feather"
+[1] "SA919X7XB05692"
+[1] 155869      8
+[1] "Colnames of raw_segments"
+[1] "chr"         "start"       "end"         "copy_number" "median"     
+[6] "multiplier"  "cell_names"  "sample"     
+[1] "/home/htran/storage/datasets/metastasis_results/rnaseq_SA919/clonealign/SA919X7XB05692/"
+[1] "Read clone labels file"
+[1] 5908    2
+[1] 449   2
+[1] "Clones id: A"    "Clones id: B"    "Clones id: C"    "Clones id: None"
+[1] "DEBUG: cell_clones: 449 2"
+[1] "Sampling cells, for each clone"
+[1] "DEBUG: double check this step, clone: A nb cells: 4"
+[1] "Extract 0 from clone: A"
+[1] "Extract 305 from clone: B"
+[1] "DEBUG: double check this step, clone: C nb cells: 1"
+[1] "Extract 0 from clone: C"
+[1] "Extract 139 from clone: None"
+[1] 444
+[1] "Get gene coordinates"
+[1] 9949120       8
+[1] "Read clone labels and merge to gene_cn...\n"
+[1] "entrezgene"      "percent_overlap" "ensembl_gene_id" "copy_number"    
+[5] "median"          "multiplier"      "cell_names"      "sample"         
+[9] "cluster"        
+[1] 9949120       9
+[1] "entrezgene"      "percent_overlap" "ensembl_gene_id" "copy_number"    
+[5] "median"          "multiplier"      "cell_names"      "sample"         
+[9] "cluster"        
+[1] 9949120       9
+[1] 8942818       9
+['SA919X7XB05692']
+Complete
+[5] "median"          "multiplier"      "cell_names"      "sample"         
+[9] "cluster"        
+[1] 9949120       9
+[1] "entrezgene"      "percent_overlap" "ensembl_gene_id" "copy_number"    
+[5] "median"          "multiplier"      "cell_names"      "sample"         
+[9] "cluster"        
+[1] 9949120       9
+[1] 8942818       9
+['SA919X7XB05692']
+Complete
+------------------------
+
+Run clonealign
+[1] "/home/htran/Projects/hakwoo_project/rscript/align_clones"
+[1] "/home/htran/storage/datasets/metastasis_results/rnaseq_SA919/clonealign/SA919X7XB05692/SA919X7XB05692.rds"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/cell_clones.csv"
+NULL
+NULL
+[1] "/home/htran/storage/datasets/metastasis_results/rnaseq_SA919/clonealign/SA919X7XB05692/SA919X7XB05692.feather"
+[1] "SA919X7XB05692"
+[1] 155869      8
+[1] "Colnames of raw_segments"
+[1] "chr"         "start"       "end"         "copy_number" "median"     
+[6] "multiplier"  "cell_names"  "sample"     
+[1] "/home/htran/storage/datasets/metastasis_results/rnaseq_SA919/clonealign/SA919X7XB05692/"
+[1] "Read clone labels file"
+[1] 5908    2
+[1] 449   2
+[1] "Clones id: A"    "Clones id: B"    "Clones id: C"    "Clones id: None"
+[1] "DEBUG: cell_clones: 449 2"
+[1] "Sampling cells, for each clone"
+[1] "DEBUG: double check this step, clone: A nb cells: 4"
+[1] "Extract 0 from clone: A"
+[1] "Extract 305 from clone: B"
+[1] "DEBUG: double check this step, clone: C nb cells: 1"
+[1] "Extract 0 from clone: C"
+[1] "Extract 139 from clone: None"
+[1] 444
+[1] "Get gene coordinates"
+[1] 9949120       8
+[1] "Read clone labels and merge to gene_cn...\n"
+[1] "entrezgene"      "percent_overlap" "ensembl_gene_id" "copy_number"    
+[5] "median"          "multiplier"      "cell_names"      "sample"         
+[9] "cluster"        
+[1] 9949120       9
+[1] "entrezgene"      "percent_overlap" "ensembl_gene_id" "copy_number"    
+[5] "median"          "multiplier"      "cell_names"      "sample"         
+[9] "cluster"        
+[1] 9949120       9
+[1] 8942818       9
+[1] "DEBUG..."
+[1] 8942818      10
+['SA919X7XB05692']
+Complete
+[1] 9949120       9
+[1] "entrezgene"      "percent_overlap" "ensembl_gene_id" "copy_number"    
+[5] "median"          "multiplier"      "cell_names"      "sample"         
+[9] "cluster"        
+[1] 9949120       9
+[1] 8942818       9
+[1] "DEBUG..."
+[1] 8942818      10
+['SA919X7XB05692']
+Complete
+------------------------
+
+Run clonealign
+[1] "/home/htran/Projects/hakwoo_project/rscript/align_clones"
+[1] "/home/htran/storage/datasets/metastasis_results/rnaseq_SA919/clonealign/SA919X7XB05692/SA919X7XB05692.rds"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/cell_clones.csv"
+NULL
+NULL
+[1] "/home/htran/storage/datasets/metastasis_results/rnaseq_SA919/clonealign/SA919X7XB05692/SA919X7XB05692.feather"
+[1] "SA919X7XB05692"
+[1] 155869      8
+[1] "Colnames of raw_segments"
+[1] "chr"         "start"       "end"         "copy_number" "median"     
+[6] "multiplier"  "cell_names"  "sample"     
+[1] "/home/htran/storage/datasets/metastasis_results/rnaseq_SA919/clonealign/SA919X7XB05692/"
+[1] "Read clone labels file"
+[1] 5908    2
+[1] 449   2
+[1] "Clones id: A"    "Clones id: B"    "Clones id: C"    "Clones id: None"
+[1] "DEBUG: cell_clones: 449 2"
+[1] "Sampling cells, for each clone"
+[1] "DEBUG: double check this step, clone: A nb cells: 4"
+[1] "Extract 0 from clone: A"
+[1] "Extract 305 from clone: B"
+[1] "DEBUG: double check this step, clone: C nb cells: 1"
+[1] "Extract 0 from clone: C"
+[1] "Extract 139 from clone: None"
+[1] 444
+[1] "Get gene coordinates"
+[1] 9949120       8
+[1] "Read clone labels and merge to gene_cn...\n"
+[1] "entrezgene"      "percent_overlap" "ensembl_gene_id" "copy_number"    
+[5] "median"          "multiplier"      "cell_names"      "sample"         
+[9] "cluster"        
+[1] 9949120       9
+[1] "entrezgene"      "percent_overlap" "ensembl_gene_id" "copy_number"    
+[5] "median"          "multiplier"      "cell_names"      "sample"         
+[9] "cluster"        
+[1] 9949120       9
+[1] 8942818       9
+[1] "DEBUG..."
+[1] 8942818      10
+[1] 20069
+[1] "Save_gene_cn"
+[1] "Get gene_cn_summarized"
+[1] "Get gene_cn_summarized2"
+Summarizing to gene specific CN...
+[1] "Save output to feather files"
+Completed.
+[1] "/home/htran/storage/datasets/metastasis_results/rnaseq_SA919/clonealign/SA919X7XB05692/SA919X7XB05692.txt"
+[1] "/home/htran/storage/datasets/metastasis_results/rnaseq_SA919/clonealign/SA919X7XB05692/"
+[1] 6121045       8
+[1] "Length of bad genes: 8"
+[1] "cluster_variability: 20021" "cluster_variability: 7"    
+[1] "Nb exclude_genes: 428"
+[1] "Save output: cluster_cn_summarized 200219"
+[1] "Completed"
+['SA919X7XB05692']
+Complete

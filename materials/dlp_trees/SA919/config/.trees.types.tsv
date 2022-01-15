@@ -1,0 +1,4 @@
+iteration	java.lang.Integer
+locus	corrupt.Locus
+logPr	java.lang.Double
+value	corrupt.CorruptPhylo

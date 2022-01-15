@@ -1,0 +1,115 @@
+import os
+
+## Tickets & Libraries for analysis
+library = config["library"]
+
+## Corrupt tree params
+SAVESTANDARDSTREAMS = config["saveStandardStreams"]
+RECORDGITINFO = config["recordGitInfo"]
+MANAGEDEXECUTIONFOLDER = config["managedExecutionFolder"]
+NEIGHBORHOODSIZE = config["neighborhoodSize"]
+LOWERFRACTION = config["lowerFraction"]
+GLOBALPARAMETERIZATION = config["globalParameterization"]
+FPRBOUND = config["fprBound"]
+FNRBOUND = config["fnrBound"]
+ENGINE = config["engine"]
+INITIALIZATION = config["initialization"]
+LADDER = config["ladder"]
+NSCANS = config["nScans"]
+NPASSESPERSCAN = config["nPassesPerScan"]
+NCHAINS = config["nChains"]
+NTHREADS = config["nThreads"]
+NTHREADSNUMBER = config["nThreadsNumber"]
+POSTPROCESSOR = config["postprocessor"]
+LOGISTICTRANSFORM = config["logisticTransform"]
+SIZEVAL = config["size_val"]
+THINNINGPERIOD = config["thinningPeriod"]
+SIZESHAPE = config["size_shape"]
+PHYLO = config["phylo"]
+READONLYMATRIX = config["read_only_matrix"]
+
+## Tree cut params
+MIN_FRAC = config["minimum_fraction"]
+MAX_FRAC = config["maximum_fraction"]
+
+default_mem=30
+
+rule all:
+    resources:
+        h_vmem = default_mem
+    """
+    Launches full snakemake pipeline, cleans up junk files at the end.
+    """
+    input:
+        os.path.join(config['results_dir'], 'ascn_plot','cell_cn_tree_heatmap_ascn_cutoff.png')
+        
+        
+    
+rule create_grouping_file:
+    """
+    create a grouping file for heatmap annotation
+    """
+    params:
+        library_ids = ",".join(list(library.keys())),
+        groupings = ",".join(list(config['library'][library_id]['grouping'] for library_id in library.keys())),
+        mainsites = ",".join(list(config['library'][library_id]['mainsite'] for library_id in library.keys())),
+        origin = ",".join(list(config['library'][library_id]['origin'] for library_id in library.keys())),
+        pdxids = ",".join(list(config['library'][library_id]['pdxid'] for library_id in library.keys()))
+    output:
+        os.path.join(config['results_dir'], 'library_groupings.csv')
+    resources:
+        h_vmem=default_mem
+    shell:
+        'python {config[project_dir]}/src/tree_viz/misc/library_grouping_metastasis.py --library_ids {params.library_ids} --groupings {params.groupings} --mainsites {params.mainsites} --pdxids {params.pdxids} --origin {params.origin} -o {output}'
+ 
+rule tree_viz:
+    """
+    visualize tree; heatmap and tree side by side
+    """
+    input:
+        tree = os.path.join(config['results_dir'], 'tree.newick'),
+        filtered_cnv_data = os.path.join(config['results_dir'], 'total_merged_filtered_states.csv'),
+        cell_clones = os.path.join(config['results_dir'], 'cell_clones.csv')
+    output:
+        os.path.join(config['results_dir'], 'corrupt_tree_heatmap.png')
+    resources:
+        h_vmem=default_mem
+    shell:
+        'Rscript {config[project_dir]}/src/tree_viz/tree_viz.R -t {input.tree} -n {input.filtered_cnv_data} -c {input.cell_clones} -o {output}'
+        
+
+rule cell_cn_tree_viz_original:
+    """
+    Tyler's visualization scripts, which includes library/grouping annotation
+    """
+    input:
+        outdir = os.path.join(config['results_dir']),
+        tree = os.path.join(config['results_dir'], 'tree.newick'),
+        filtered_cnv_data = os.path.join(config['results_dir'], 'total_merged_filtered_states.csv'),
+        grouping_file = os.path.join(config['results_dir'], 'library_groupings.csv'),
+        cell_clones = os.path.join(config['results_dir'], 'cell_clones.csv')
+    output:
+        os.path.join(config['results_dir'], 'cell_cn_tree_heatmap.png')
+    resources:
+        h_vmem=default_mem
+    shell:
+        'Rscript {config[project_dir]}/src/testing_only/make_cell_copynumber_tree_heatmap.R -t {input.tree} -cn {input.filtered_cnv_data} -c {input.cell_clones} --grouping_file {input.grouping_file} -od {input.outdir} -o {output}'
+
+
+rule cell_cn_tree_viz:
+    """
+    Tyler's visualization scripts, which includes library/grouping annotation
+    """
+    input:
+        outdir = os.path.join(config['results_dir'],'ascn_plot'),
+        tree = os.path.join(config['results_dir'],'ascn_plot','ascn_tree.newick'),
+        filtered_cnv_data = os.path.join(config['results_dir'], 'ascn_plot', 'ascn_total_merged_filtered_states.csv'),
+        grouping_file = os.path.join(config['results_dir'], 'library_groupings_v2.csv'),
+        cell_clones = os.path.join(config['results_dir'], 'ascn_plot', 'ascn_cell_clones.csv')
+    output:
+        os.path.join(config['results_dir'], 'ascn_plot','cell_cn_tree_heatmap_ascn_cutoff.png')
+    resources:
+        h_vmem=default_mem
+    shell:
+        'Rscript {config[project_dir]}/src/tree_viz/make_cell_copynumber_tree_heatmap.R  -t {input.tree} -cn {input.filtered_cnv_data} -c {input.cell_clones} --grouping_file {input.grouping_file} -o {output}'
+

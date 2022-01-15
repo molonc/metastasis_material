@@ -1,0 +1,117 @@
+import os
+
+## Tickets & Libraries for analysis
+## library = config["library"]
+sample = config["sample"]
+print(sample)
+
+SOURCE_DIR = os.path.join(config['project_10x_dir'],'align_clones')
+DATATAG = config["datatag"]
+
+rule all:
+    """
+    Launches full snakemake pipeline, cleans up junk files at the end.
+    """
+    input:
+        os.path.join(config['project_10x_dir'], 'clonealign', 'raw_segments.rds')
+   
+
+
+rule format_segments:
+    """
+    Format segment data
+    """
+    params:
+        cellclones = os.path.join(config['results_dir'], 'cell_clones.csv')
+    input:
+        os.path.join(config['results_dir'], 'clonealign', '{sample}.rds')
+    output:
+        os.path.join(config['results_10x_dir'], 'clonealign', '{sample}','{sample}.feather')
+    shell:
+        'Rscript {SOURCE_DIR}/format_segments.R --segment_file {input} --output_file {output} --cellclones {params.cellclones} --sample_id {wildcards.sample}'
+        
+        
+rule select_genes:
+    """
+    Select variant genes as input
+    """
+    input:
+        os.path.join(config['results_10x_dir'], 'clonealign', '{sample}', '{sample}.feather')
+    output:
+        os.path.join(config['results_10x_dir'], 'clonealign', '{sample}', '{sample}.txt')
+    shell:
+        'Rscript {SOURCE_DIR}/select_genes.R --gene_cn {input} --output_file {output}'
+        
+
+if config["execute_clonealign"]:
+  rule execute_clonealign:
+      """
+      Execute clone align function, genomic transcriptomic correlation
+      """
+      params:
+          cellclones = os.path.join(config['results_dir'], 'cell_clones.csv'),
+          sce=os.path.join(config['results_10x_dir'], 'normalized', '{sample}.rds')
+      input:
+          os.path.join(config['results_10x_dir'], 'clonealign', '{sample}', '{sample}.txt')
+      output:
+          os.path.join(config['results_10x_dir'], 'clonealign', '{sample}', '{sample}_ca.rds')
+      shell:
+          'Rscript {SOURCE_DIR}/run_clonealign.R --sce {params.sce} --cnv {input} --output_file {output} --max_iteration {MAX_ITER} --cellclones {params.cellclones}'
+
+
+if config["clone_assignment"]:
+  rule clone_assignment:
+      """
+      Execute clone align function, genomic transcriptomic correlation
+      """
+      input:
+          os.path.join(config['results_10x_dir'], 'clonealign', '{sample}', '{sample}_ca.rds')
+      output:
+          os.path.join(config['results_10x_dir'], 'clonealign', '{sample}', '{sample}_clones_045.csv')
+      shell:
+          'Rscript {SOURCE_DIR}/write_clones_assignment.R --clone_probs {CLONE_PROB} --input_file {input} --output_file {output}'
+
+
+if config["visualize_clonealign"]:
+  rule visualize_clonealign:
+      """
+      Visualize tsne, umap clonealign
+      """
+      params:
+          sample_ids = ",".join(sample),
+          input_dir = os.path.join(config['results_10x_dir'], 'clonealign')
+      input:
+          os.path.join(config['results_10x_dir'], 'normalized', 'SA535_normalized_output.rds')
+      output:
+          os.path.join(config['results_10x_dir'], 'clonealign', 'SA535_normalized_clones.rds')
+      shell:
+          'Rscript {SOURCE_DIR}/visualize_10x.R --sce {input} --output_file {output} --sample_ids {params.sample_ids} --input_dir {params.input_dir} --datatag {DATATAG}'
+
+
+rule deg_clones:
+    """
+    Visualize tsne, umap clonealign
+    """
+    params:
+        input_dir = os.path.join(config['project_10x_dir'])
+    input:
+        os.path.join(config['results_10x_dir'], 'clonealign', 'SA535_normalized_clones.rds')
+    output:
+        os.path.join(config['results_10x_dir'], 'clonealign', 'SA535_pathway.rds')
+    shell:
+        'Rscript {SOURCE_DIR}/deg_clones.R --sce {input} --output_file {output} --script_dir {params.input_dir}'
+
+
+
+rule merge_data:
+    """
+    merge all data sets together, change input filename to correct name
+    """
+    input:
+        expand(os.path.join(config['results_10x_dir'], 'clonealign', '{sample}','{sample}_ca.rds'), sample=sample)
+    output:
+        os.path.join(config['results_10x_dir'], 'clonealign', 'SA535_cys_log.csv')
+    shell:
+        'python {SOURCE_DIR}/lib_info.py {input} {output}'
+      
+

@@ -1,0 +1,147 @@
+import os
+
+## Tickets & Libraries for analysis
+library = config["library"]
+print('Outlier threshold is: ',config['outlier_threshold'])
+
+## Corrupt tree params
+SAVESTANDARDSTREAMS = config["saveStandardStreams"]
+RECORDGITINFO = config["recordGitInfo"]
+MANAGEDEXECUTIONFOLDER = config["managedExecutionFolder"]
+NEIGHBORHOODSIZE = config["neighborhoodSize"]
+LOWERFRACTION = config["lowerFraction"]
+GLOBALPARAMETERIZATION = config["globalParameterization"]
+FPRBOUND = config["fprBound"]
+FNRBOUND = config["fnrBound"]
+ENGINE = config["engine"]
+INITIALIZATION = config["initialization"]
+LADDER = config["ladder"]
+NSCANS = config["nScans"]
+NPASSESPERSCAN = config["nPassesPerScan"]
+NCHAINS = config["nChains"]
+NTHREADS = config["nThreads"]
+NTHREADSNUMBER = config["nThreadsNumber"]
+POSTPROCESSOR = config["postprocessor"]
+LOGISTICTRANSFORM = config["logisticTransform"]
+SIZEVAL = config["size_val"]
+THINNINGPERIOD = config["thinningPeriod"]
+SIZESHAPE = config["size_shape"]
+PHYLO = config["phylo"]
+READONLYMATRIX = config["read_only_matrix"]
+
+## Tree cut params
+MIN_FRAC = config["minimum_fraction"]
+MAX_FRAC = config["maximum_fraction"]
+
+default_mem=20
+
+rule all:
+    resources:
+        h_vmem = default_mem
+    """
+    Launches full snakemake pipeline, cleans up junk files at the end.
+    """
+    input:
+        os.path.join(config['results_dir'], 'corrupt_tree_features.csv'),
+        os.path.join(config['results_dir'], 'corrupt_tree_straightened_features.csv'),
+        os.path.join(config['results_dir'], 'corrupt_tree_sync-cnv_features.csv'),
+        os.path.join(config['results_dir'], 'filtered.csv')
+    
+
+if config["state_to_binary"]:
+    rule state_to_binary:
+        """
+        Convert CN states to binary matrix for corruptTree
+        """
+        input:
+            os.path.join(config['results_dir'], 'total_merged_filtered_states_chr.csv')
+        output:
+            os.path.join(config['results_dir'], 'bin_cnvs_corrupt_double_padding.csv')
+        resources:
+            h_vmem=default_mem
+        shell:
+            'python {config[project_dir]}/src/ct_tyler/pad_hmmcopy_chroms.py {input} {output}'
+                  
+            
+if config["corrupt_tree_features"]:
+    rule corrupt_tree_features:
+        """
+        Convert binary matrix to tree features
+        """
+        input:
+            os.path.join(config['results_dir'], 'bin_cnvs_corrupt_double_padding_original.csv')
+        output:
+            os.path.join(config['results_dir'], 'corrupt_tree_features.csv')
+        resources:
+            h_vmem=default_mem
+        shell:
+            'python {config[project_dir]}/src/ct_tyler/hmmcopy_to_corrupt_tree_features.py {input} {output}'
+      
+      
+if config["corrupt_tree_straightened_features"]:
+    rule corrupt_straighten_jitter:
+        input:
+            input_file = os.path.join(config['results_dir'], 'corrupt_tree_features.csv')
+        output:
+            os.path.join(config['results_dir'], 'corrupt_tree_straightened_features.csv')
+        resources:
+            h_vmem=default_mem
+        run:
+            shell('{config[nowellpack_dir]}/corrupt-straighten '
+                '--experimentConfigs.saveStandardStreams false '
+            '--experimentConfigs.recordGitInfo false '
+            '--experimentConfigs.managedExecutionFolder false '
+            '--input {input.input_file} '
+            '--neighborhoodSize 2')
+            shell('mv output.csv {output}')
+           
+           
+           
+
+        
+if config["corrupt_tree_sync_cnv_features"]:
+    rule corrupt_tree_sync_cnv_features:
+        """
+        From features to sync cnv features
+        """
+        params:
+            filterthrs=config['outlier_threshold']
+        input:
+            in_st=os.path.join(config['results_dir'], 'corrupt_tree_straightened_features.csv'),
+            in_bn=os.path.join(config['results_dir'], 'bin_cnvs_corrupt_double_padding_original.csv')
+        output:
+            os.path.join(config['results_dir'], 'corrupt_tree_sync-cnv_features.csv')
+        resources:
+            h_vmem=default_mem
+        run:
+            shell('{config[project_dir]}/src/ct_tyler/insert_sync_cnv_features.R '
+            '-s {input.in_bn} '
+            '-b {input.in_st} '
+            '-o {output}')
+            
+  
+if config["corrupt_filter"]:          
+    rule corrupt_filter:
+        """
+        filter
+        """
+        input:
+            input_file = os.path.join(config['results_dir'], 'corrupt_tree_sync-cnv_features.csv')
+        params:
+            save_standard_streams = SAVESTANDARDSTREAMS,
+            record_git_info = RECORDGITINFO,
+            managed_execution_folder = MANAGEDEXECUTIONFOLDER,
+            lower_fraction = LOWERFRACTION
+        output:
+            os.path.join(config['results_dir'], 'filtered.csv')
+        resources:
+            h_vmem=default_mem
+        run:
+            shell('{config[compiled_code_dir]}/corrupt-filter '
+                '--experimentConfigs.saveStandardStreams {params.save_standard_streams} '
+                '--experimentConfigs.recordGitInfo {params.record_git_info} '
+                '--experimentConfigs.managedExecutionFolder {params.managed_execution_folder} '
+                '--input {input.input_file} '
+                '--lowerFraction {params.lower_fraction}')
+            shell('mv filtered.csv {output}')
+    

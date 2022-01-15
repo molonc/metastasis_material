@@ -1,0 +1,193 @@
+import os
+
+CG_FPRATE = config["corrupt_grow_fpRate"]
+CG_FNRATE = config["corrupt_grow_fnRate"]
+
+## Tree cut params
+RES_CUT_CG = config["resolution_graph_cut_cg"]
+MIN_NBCLONES = config["min_nbclones"]
+MIN_SUBCLONES = '4'
+RES_CUT_SUBCLONES = '0.02'
+
+default_mem=30
+
+
+
+rule all:
+    resources:
+        h_vmem = default_mem
+    """
+    Launches full snakemake pipeline, cleans up junk files at the end.
+    """
+    input:
+        os.path.join(config['results_dir'], 'corrupt_tree_heatmap.png')
+        
+        
+        
+
+         
+rule corrupt_jitter:
+    """
+    Run corrupt grow function, map cells back to existing tree
+    """
+    input:
+        binary_mtx = os.path.join(config['results_dir'],'corrupt_grow', 'filtered_outliers.csv')
+    output:
+        os.path.join(config['results_dir'],'corrupt_grow', 'bin_cnvs_corrupt_double_padding_jitter.csv')
+    resources:
+        h_vmem=default_mem
+    run:
+        shell('{config[nextflow_dir]}/nextflow run '
+            '{config[nextflow_dir]}/binary-infer-pipeline-short-jitter-no-filter.nf '
+            '-resume '
+            '--tipInclusionProbabilities {input.binary_mtx}')
+        shell('mv deliverables/binary-infer-pipeline-short-jitter-no-filter/output.csv {output}')
+        shell('rm -fr deliverables/')
+            
+            
+rule get_filtered_outliers_mtx:
+    """
+    Get filtered features from syn cnv mtx 
+    """
+    params:
+        filtered_fn = os.path.join(config['results_dir'],'filtered.csv')
+    input:
+        os.path.join(config['results_dir'],'corrupt_grow','corrupt_tree_sync-cnv_features_jumps_outliers.csv')
+    output:
+        os.path.join(config['results_dir'], 'corrupt_grow','filtered_outliers.csv')
+    resources:
+        h_vmem=default_mem
+    shell:
+        'Rscript {config[project_dir]}/src/corrupt_grow/get_filtered_outliers.R -i {input} -o {output} -f {params.filtered_fn}'   
+      
+      
+      
+rule corrupt_grow:
+    """
+    Run corrupt grow function, map cells back to existing tree
+    """
+    input:
+        binary_mtx = os.path.join(config['results_dir'],'corrupt_grow', 'filtered_outliers.csv'),
+        newickpath = os.path.join(config['results_dir'],'tree.newick')
+    params:
+        corrupt_grow_fpRate = CG_FPRATE,
+        corrupt_grow_fnRate = CG_FNRATE
+    output:
+        os.path.join(config['results_dir'],'corrupt_grow', 'grown_tree.newick')
+    resources:
+        h_vmem=default_mem
+    run:
+        shell('{config[nowellpack_dir]}/corrupt-grow '
+            '--matrix NoisyBinaryCLMatrix '
+            '--matrix.binaryMatrix {input.binary_mtx} '
+            '--matrix.fpRate {params.corrupt_grow_fpRate} '
+            '--matrix.fnRate {params.corrupt_grow_fnRate} '
+            '--phylo file {input.newickpath}')
+        shell('mv results/latest/grown.newick {output}')
+        shell('rm -fr results/')
+
+
+rule convert_newick_to_graphml:
+    """
+    Convert newick tree format to tree graphml format, so python igraph can read tree
+    """
+    input:
+        os.path.join(config['results_dir'],'corrupt_grow','grown_tree.newick')
+    output:
+        os.path.join(config['results_dir'], 'corrupt_grow','grown_tree.graphml')
+    resources:
+        h_vmem=default_mem
+    shell:
+        'Rscript {config[project_dir]}/src/tree_cut/convert_newick_to_graphml.R -i {input} -o {output}'    
+      
+      
+   
+        
+rule leiden_graph_cut:
+    """
+    Get cell clone labels using Leiden graph cut algorithm
+    """
+    input:
+        os.path.join(config['results_dir'],'corrupt_grow','grown_tree.graphml')
+    output:
+        os.path.join(config['results_dir'],'corrupt_grow', 'cell_clones.csv')
+    shell:
+        'python {config[project_dir]}/src/tree_cut/graph_cut_modified.py --input_file {input} --resolution {RES_CUT_CG} --min_nbclones {MIN_NBCLONES} --output_file {output}'
+    
+    
+  
+
+
+rule cell_cn_tree_viz:
+    """
+    Visulization cell heatmap
+    """
+    input:
+        tree = os.path.join(config['results_dir'], 'tree.newick'),
+        filtered_cnv_data = os.path.join(config['results_dir'],'corrupt_grow', 'total_merged_filtered_states_original.csv'),
+        grouping_file = os.path.join(config['results_dir'], 'library_groupings_v2.csv'),
+        cell_clones = os.path.join(config['results_dir'],'cell_clones.csv')
+    output:
+        os.path.join(config['results_dir'], 'cell_cn_tree_heatmap.png')
+    resources:
+        h_vmem=default_mem
+    shell:
+        'Rscript {config[project_dir]}/src/tree_viz/make_cell_copynumber_tree_heatmap.R -t {input.tree} -cn {input.filtered_cnv_data} -c {input.cell_clones} --grouping_file {input.grouping_file} -o {output}'
+
+
+rule graph_cut_tree_viz:
+    """
+    visualize tree; heatmap and tree side by side
+    """
+    input:
+        tree = os.path.join(config['results_dir'], 'tree.newick'),
+        filtered_cnv_data = os.path.join(config['results_dir'],'corrupt_grow', 'total_merged_filtered_states_original.csv'),
+        cell_clones = os.path.join(config['results_dir'],'cell_clones.csv')
+    output:
+        os.path.join(config['results_dir'], 'corrupt_tree_heatmap.png')
+    resources:
+        h_vmem=default_mem
+    shell:
+        'Rscript {config[project_dir]}/src/tree_viz/tree_viz.R -t {input.tree} -n {input.filtered_cnv_data} -c {input.cell_clones} -o {output}'
+  
+  
+  
+rule convert_newick_to_graphml_v2:
+    """
+    Convert newick tree format to tree graphml format, so python igraph can read tree
+    """
+    input:
+        os.path.join(config['results_dir'],'corrupt_grow','clone_L.newick')
+    output:
+        os.path.join(config['results_dir'], 'corrupt_grow','clone_L.graphml')
+    resources:
+        h_vmem=default_mem
+    shell:
+        'Rscript {config[project_dir]}/src/tree_cut/convert_newick_to_graphml.R -i {input} -o {output}'    
+   
+  
+rule convert_newick_to_graphml_subtree:
+    """
+    Convert newick tree format to tree graphml format, so python igraph can read tree
+    """
+    input:
+        os.path.join(config['results_dir'],'corrupt_grow','clone_I_v2','cloneI.newick')
+    output:
+        os.path.join(config['results_dir'], 'corrupt_grow','clone_I_v2','cloneI.graphml')
+    resources:
+        h_vmem=default_mem
+    shell:
+        'Rscript {config[project_dir]}/src/tree_cut/convert_newick_to_graphml.R -i {input} -o {output}'    
+      
+      
+rule leiden_graph_cut_subtree:
+    """
+    Get cell clone labels using Leiden graph cut algorithm
+    """
+    input:
+        os.path.join(config['results_dir'], 'corrupt_grow','clone_I_v2','cloneI.graphml')
+    output:
+        os.path.join(config['results_dir'],'corrupt_grow','clone_I_v2', 'cell_clone_I.csv')
+    shell:
+        'python {config[project_dir]}/src/tree_cut/graph_cut_modified.py --input_file {input} --resolution {RES_CUT_SUBCLONES} --min_nbclones {MIN_SUBCLONES} --output_file {output}'
+ 

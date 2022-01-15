@@ -1,0 +1,82 @@
+import os
+
+## Tickets & Libraries for analysis
+library = config["library"]
+
+## Corrupt tree params
+SAVESTANDARDSTREAMS = config["saveStandardStreams"]
+RECORDGITINFO = config["recordGitInfo"]
+MANAGEDEXECUTIONFOLDER = config["managedExecutionFolder"]
+NEIGHBORHOODSIZE = config["neighborhoodSize"]
+LOWERFRACTION = config["lowerFraction"]
+GLOBALPARAMETERIZATION = config["globalParameterization"]
+FPRBOUND = config["fprBound"]
+FNRBOUND = config["fnrBound"]
+ENGINE = config["engine"]
+INITIALIZATION = config["initialization"]
+LADDER = config["ladder"]
+NSCANS = config["nScans"]
+NPASSESPERSCAN = config["nPassesPerScan"]
+NCHAINS = config["nChains"]
+NTHREADS = config["nThreads"]
+NTHREADSNUMBER = config["nThreadsNumber"]
+POSTPROCESSOR = config["postprocessor"]
+LOGISTICTRANSFORM = config["logisticTransform"]
+SIZEVAL = config["size_val"]
+THINNINGPERIOD = config["thinningPeriod"]
+SIZESHAPE = config["size_shape"]
+PHYLO = config["phylo"]
+READONLYMATRIX = config["read_only_matrix"]
+
+## Tree cut params
+MIN_FRAC = config["minimum_fraction"]
+MAX_FRAC = config["maximum_fraction"]
+
+default_mem=30
+
+rule all:
+    resources:
+        h_vmem = default_mem
+    """
+    Launches full snakemake pipeline, cleans up junk files at the end.
+    """
+    input:
+        os.path.join(config['results_dir'],'graph_cut', 'corrupt_tree_heatmap_001.png')
+        
+        
+        
+    
+rule cell_cn_tree_viz_original1:
+    """
+    Tyler's visualization scripts, which includes library/grouping annotation
+    """
+    input:
+        outdir = os.path.join(config['results_dir']),
+        tree = os.path.join(config['results_dir'], 'tree.newick'),
+        filtered_cnv_data = os.path.join(config['results_dir'], 'total_merged_filtered_states.csv'),
+        grouping_file = os.path.join(config['results_dir'], 'library_groupings.csv'),
+        cell_clones = os.path.join(config['results_dir'],'graph_cut', 'cell_clones_0.01.csv')
+    output:
+        os.path.join(config['results_dir'],'graph_cut','cell_cn_tree_heatmap_001.png')
+    resources:
+        h_vmem=default_mem
+    shell:
+        'Rscript {config[project_dir]}/src/tree_viz/make_cell_copynumber_tree_heatmap.R -t {input.tree} -cn {input.filtered_cnv_data} -c {input.cell_clones} --grouping_file {input.grouping_file} -o {output}'
+
+
+rule tree_viz:
+    """
+    visualize tree; heatmap and tree side by side
+    """
+    input:
+        tree = os.path.join(config['results_dir'], 'tree.newick'),
+        filtered_cnv_data = os.path.join(config['results_dir'], 'total_merged_filtered_states.csv'),
+        cell_clones = os.path.join(config['results_dir'],'graph_cut', 'cell_clones_0.01.csv')
+    output:
+        os.path.join(config['results_dir'],'graph_cut', 'corrupt_tree_heatmap_001.png')
+    resources:
+        h_vmem=default_mem
+    shell:
+        'Rscript {config[project_dir]}/src/tree_viz/tree_viz.R -t {input.tree} -n {input.filtered_cnv_data} -c {input.cell_clones} -o {output}'
+    
+    

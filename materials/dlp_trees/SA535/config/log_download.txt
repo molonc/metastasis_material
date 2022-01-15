@@ -1,0 +1,185 @@
+home/htran/storage/datasets/metastasis_results/SA535_new_encoding/Tyler_whole/A98197B_filtered_states.csv
+samples
+SA535X4XB05649
+/home/htran/storage/datasets/metastasis_results/SA535_new_encoding/Tyler_whole/A98262B_filtered_states.csv
+samples
+SA535X4XB05989
+/home/htran/storage/datasets/metastasis_results/SA535_new_encoding/Tyler_whole/A95721B_filtered_states.csv
+samples
+SA535X4XB05730
+/home/htran/storage/datasets/metastasis_results/SA535_new_encoding/Tyler_whole/A98261A_filtered_states.csv
+samples
+SA535X4XB05649
+Only 1 analysis info found SC-3403, correspond to library id: A98197B. Now processing
+/home/htran/storage/datasets/metastasis_results/SA535_new_encoding/Tyler_whole/A98165A_filtered_states.csv
+samples
+SA535X4XB05649
+/home/htran/storage/datasets/metastasis_results/SA535_new_encoding/Tyler_whole/A98294B_filtered_states.csv
+samples
+SA535X4XB05667
+Only 1 analysis info found SC-2735, correspond to library id: A98262B. Now processing
+Only 1 analysis info found SC-3213, correspond to library id: A98261A. Now processing
+Only 1 analysis info found SC-2912, correspond to library id: A95721B. Now processing
+Only 1 analysis info found SC-2732, correspond to library id: A98294B. Now processing
+Only 1 analysis info found SC-3377, correspond to library id: A98165A. Now processing
+/home/htran/storage/datasets/metastasis_results/SA535_new_encoding/Tyler_whole/A98262A_filtered_states.csv
+samples
+SA535X4XB05985
+Only 1 analysis info found SC-2785, correspond to library id: A98262A. Now processing
+/home/htran/storage/datasets/metastasis_results/SA535_new_encoding/Tyler_whole/A98269A_filtered_states.csv
+samples
+SA535X4XB09113
+Only 1 analysis info found SC-2913, correspond to library id: A98269A. Now processing
+______Before remove low mapped reads:
+(694, 62)
+______After remove low mapped reads:
+(636, 62)
+______Before remove mouse cells:
+(636, 62)
+______After remove mouse cells:
+(571, 62)
+**** Validate: Nb NaN values: 0.0
+dimensions of total filtered data 0, 0
+Filtered data frame is empty, please double check the input data, lib id: A98197B
+______Before remove low mapped reads:
+(718, 64)
+______After remove low mapped reads:
+(513, 64)
+______Before remove mouse cells:
+(513, 64)
+______After remove mouse cells:
+(451, 64)
+______Before remove low mapped reads:
+(593, 64)
+______After remove low mapped reads:
+(591, 64)
+______Before remove mouse cells:
+(591, 64)
+______After remove mouse cells:
+(454, 64)
+______Before remove low mapped reads:
+(809, 62)
+______After remove low mapped reads:
+(799, 62)
+______Before remove mouse cells:
+(799, 62)
+______After remove mouse cells:
+(637, 62)
+______Before remove low mapped reads:
+(885, 64)
+______After remove low mapped reads:
+(626, 64)
+______Before remove mouse cells:
+(626, 64)
+______After remove mouse cells:
+(584, 64)
+______Before remove low mapped reads:
+(806, 64)
+______After remove low mapped reads:
+(782, 64)
+______Before remove mouse cells:
+(782, 64)
+______After remove mouse cells:
+(736, 64)
+**** Validate: Nb NaN values: 0
+dimensions of total filtered data 4375, 78
+______Final output for library id: A98262B
+(4375, 78)
+Save filtered data -lib id:A98262B into dir: /home/htran/storage/datasets/metastasis_results/SA535_new_encoding/Tyler_whole/A98262B_filtered_states.csv
+**** Validate: Nb NaN values: 0
+dimensions of total filtered data 4375, 11
+______Final output for library id: A98294B
+(4375, 11)
+Save filtered data -lib id:A98294B into dir: /home/htran/storage/datasets/metastasis_results/SA535_new_encoding/Tyler_whole/A98294B_filtered_states.csv
+**** Validate: Nb NaN values: 0
+dimensions of total filtered data 4375, 62
+______Final output for library id: A98261A
+(4375, 62)
+Save filtered data -lib id:A98261A into dir: /home/htran/storage/datasets/metastasis_results/SA535_new_encoding/Tyler_whole/A98261A_filtered_states.csv
+______Before remove low mapped reads:
+(843, 64)
+______After remove low mapped reads:
+(663, 64)
+______Before remove mouse cells:
+(663, 64)
+______After remove mouse cells:
+(559, 64)
+**** Validate: Nb NaN values: 0
+dimensions of total filtered data 4375, 15
+______Final output for library id: A98262A
+(4375, 15)
+Save filtered data -lib id:A98262A into dir: /home/htran/storage/datasets/metastasis_results/SA535_new_encoding/Tyler_whole/A98262A_filtered_states.csv
+______Before remove low mapped reads:
+(1434, 62)
+______After remove low mapped reads:
+(1307, 62)
+______Before remove mouse cells:
+(1307, 62)
+______After remove mouse cells:
+(1180, 62)
+/home/htran/storage/datasets/metastasis_results/SA535_new_encoding/Tyler_whole/A96121A_filtered_states.csv
+samples
+SA535X4XB09106
+Only 1 analysis info found SC-3070, correspond to library id: A96121A. Now processing
+/home/htran/storage/datasets/metastasis_results/SA535_new_encoding/Tyler_whole/A98194B_filtered_states.csv
+samples
+SA535X4XB09113
+Only 1 analysis info found SC-2914, correspond to library id: A98194B. Now processing
+/home/htran/storage/datasets/metastasis_results/SA535_new_encoding/Tyler_whole/A96253A_filtered_states.csv
+samples
+SA535X4XB09106
+Only 1 analysis info found SC-3010, correspond to library id: A96253A. Now processing
+**** Validate: Nb NaN values: 0
+dimensions of total filtered data 4375, 292
+______Final output for library id: A98269A
+(4375, 292)
+Save filtered data -lib id:A98269A into dir: /home/htran/storage/datasets/metastasis_results/SA535_new_encoding/Tyler_whole/A98269A_filtered_states.csv
+**** Validate: Nb NaN values: 0
+dimensions of total filtered data 4375, 304
+______Final output for library id: A95721B
+(4375, 304)
+Save filtered data -lib id:A95721B into dir: /home/htran/storage/datasets/metastasis_results/SA535_new_encoding/Tyler_whole/A95721B_filtered_states.csv
+______Before remove low mapped reads:
+(499, 64)
+______After remove low mapped reads:
+(462, 64)
+______Before remove mouse cells:
+(462, 64)
+______After remove mouse cells:
+(381, 64)
+______Before remove low mapped reads:
+(590, 64)
+______After remove low mapped reads:
+(529, 64)
+______Before remove mouse cells:
+(529, 64)
+______After remove mouse cells:
+(422, 64)
+______Before remove low mapped reads:
+(521, 64)
+______After remove low mapped reads:
+(521, 64)
+______Before remove mouse cells:
+(521, 64)
+______After remove mouse cells:
+(381, 64)
+**** Validate: Nb NaN values: 0
+dimensions of total filtered data 4375, 109
+______Final output for library id: A96253A
+(4375, 109)
+Save filtered data -lib id:A96253A into dir: /home/htran/storage/datasets/metastasis_results/SA535_new_encoding/Tyler_whole/A96253A_filtered_states.csv
+**** Validate: Nb NaN values: 0
+dimensions of total filtered data 4375, 151
+______Final output for library id: A98194B
+(4375, 151)
+Save filtered data -lib id:A98194B into dir: /home/htran/storage/datasets/metastasis_results/SA535_new_encoding/Tyler_whole/A98194B_filtered_states.csv
+**** Validate: Nb NaN values: 0
+dimensions of total filtered data 4375, 259
+______Final output for library id: A96121A
+(4375, 259)
+Save filtered data -lib id:A96121A into dir: /home/htran/storage/datasets/metastasis_results/SA535_new_encoding/Tyler_whole/A96121A_filtered_states.csv
+**** Validate: Nb NaN values: 0
+dimensions of total filtered data 4375, 573
+______Final output for library id: A98165A
+(4375, 573)
+Save filtered data -lib id:A98165A into dir: /home/htran/storage/datasets/metastasis_results/SA535_new_encoding/Tyler_whole/A98165A_filtered_states.csv
