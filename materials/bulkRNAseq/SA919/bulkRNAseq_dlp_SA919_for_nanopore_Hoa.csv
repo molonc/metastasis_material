@@ -1,0 +1,15 @@
+mainsite,origin,pdxid,sample_id,bulk_sid,bulk_original_sid,dlp_prevalence,nanopore_priority,noted
+Metastasis,SupraSpinal,X08472112251,SA919X7XB05691,SA919X7XB05691,SA919X7XB05691,B(761),priority1,"Bulk, dlp, good purity"
+Primary,Primary,X08472112251,SA919X7XB05402,SA919X7XB05402,SA919X7XB05402,B(142),priority1,"Bulk, dlp, good purity"
+Metastasis,VentralSpinal,X08472112251,SA919X7XB05692,SA919X7XB05692,SA919X7XB05692,B(305),priority1,"Bulk, dlp, good purity"
+Primary,Primary,X08472112252,SA919X7XB05378,SA919X7XB05378,SA919X7XB05378,B(648),priority1,"Bulk, dlp, good purity"
+Metastasis,SupraSpinal,X08472112252,SA919X7XB05604,SA919X7XB05604,SA919X7XB05604,B(27) C(246),priority1,"Bulk, dlp, good purity"
+Primary,Primary,X0847216,SA919X3XB08939,SA919X3XB08939,SA_2403_AT9931,A(375),priority1,"Bulk, dlp, good purity"
+Primary,Primary,X08472164,SA919X4XB09563,SA919X4XB09563,SA_2406_AT9934,A(83),priority1,"Bulk, dlp, good purity"
+Metastasis,Axillary,X08472164,SA919X4XB40503,SA919X4XB40503,SA_2404_AT9932,A(627),priority1,"Bulk, dlp, good purity"
+Metastasis,VentralSpinal,X08472164,SA919X4XB40509,SA919X4XB40509,SA_2405_AT9933,A(712),priority1,"Bulk, dlp, good purity"
+Primary,Primary,X08472112253,SA919X7XB05298,,,B(504) C(22),priority2,Dlp but no bulk data
+Metastasis,VentralSpinal,X08472112253,SA919X7XB05588,,,B(25) C(706),priority1,"Dlp, clone C important"
+Metastasis,VentralSpinal,X08472112254,SA919X7XB05608,,,B(30),priority3,Low dlp number of cells and no bulk data
+Primary,Primary,X08472112254,SA919X7XB05289,,,A(61) B(121),priority2,Dlp but no bulk data
+Primary,Primary,X08472161,SA919X4XB09552,,,A(26),priority3,Low dlp number of cells and no bulk data
