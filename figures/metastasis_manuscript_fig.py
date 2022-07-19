@@ -91,17 +91,18 @@ if __name__ == '__main__':
 
     fig8_markers = pd.read_csv("figures/Fig8_markers.csv", index_col=0)
 
-    fig, ax = plt.subplots(1, 1, figsize=(2.5, 1.5))
+    fig, ax = plt.subplots(1, 1, figsize=(2.5, 1.75))
     cmap = ["#5a0064d9", "#fb8811d9"]
     sns.heatmap(fig8_markers, cmap=cmap, cbar=False, linewidth=0.75)
     legend_handles = [Patch(color=cmap[True], label='Positive'),
                       Patch(color=cmap[False], label='Negative')]
-    plt.legend(handles=legend_handles, ncol=2, bbox_to_anchor=[0.5, 1.0], loc='lower center',
+    plt.legend(handles=legend_handles, ncol=2, bbox_to_anchor=[0.5, -0.8], loc='lower center',
                frameon=False, fontsize=7.5)
     plt.xticks(rotation=90, fontsize=7.5)
     plt.yticks(rotation=0, fontsize=7.5)
+    plt.title("SA919", weight='bold', fontsize=8)
     box = ax.get_position()
-    ax.set_position([box.x0, box.y0 + box.height * 0.3, box.width, box.height * 0.65])
+    ax.set_position([box.x0, box.y0 + box.height * 0.35, box.width, box.height * 0.65])
     plt.savefig("figures/output/fig8_markers.png", dpi=500)
     plt.clf()
 
