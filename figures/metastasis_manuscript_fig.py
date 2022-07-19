@@ -89,11 +89,11 @@ if __name__ == '__main__':
     plt.savefig("figures/output/fig2_markers.png", dpi=500)
     plt.clf()
 
-    fig8_markers = pd.read_csv("figures/Fig8_markers.csv", index_col=0)
+    fig8_919_markers = pd.read_csv("figures/Fig8_919_markers.csv", index_col=0)
 
     fig, ax = plt.subplots(1, 1, figsize=(2.5, 1.75))
     cmap = ["#5a0064d9", "#fb8811d9"]
-    sns.heatmap(fig8_markers, cmap=cmap, cbar=False, linewidth=0.75)
+    sns.heatmap(fig8_919_markers, cmap=cmap, cbar=False, linewidth=0.75)
     legend_handles = [Patch(color=cmap[True], label='Positive'),
                       Patch(color=cmap[False], label='Negative')]
     plt.legend(handles=legend_handles, ncol=2, bbox_to_anchor=[0.5, -0.8], loc='lower center',
@@ -103,13 +103,31 @@ if __name__ == '__main__':
     plt.title("SA919", weight='bold', fontsize=8)
     box = ax.get_position()
     ax.set_position([box.x0, box.y0 + box.height * 0.35, box.width, box.height * 0.65])
-    plt.savefig("figures/output/fig8_markers.png", dpi=500)
+    plt.savefig("figures/output/fig8_919_markers.png", dpi=500)
+    plt.clf()
+
+    fig8_535_markers = pd.read_csv("figures/Fig8_535_markers.csv", index_col=0)
+
+    fig, ax = plt.subplots(1, 1, figsize=(2.5, 1.75))
+    cmap = ["#5a0064d9", "#fb8811d9"]
+    sns.heatmap(fig8_535_markers, cmap=cmap, cbar=False, linewidth=0.75)
+    legend_handles = [Patch(color=cmap[True], label='Positive'),
+                      Patch(color=cmap[False], label='Negative')]
+    plt.legend(handles=legend_handles, ncol=2, bbox_to_anchor=[0.5, -0.8], loc='lower center',
+               frameon=False, fontsize=7.5)
+    plt.xticks(rotation=90, fontsize=7.5)
+    plt.yticks(rotation=0, fontsize=7.5)
+    plt.title("SA535", weight='bold', fontsize=8)
+    box = ax.get_position()
+    ax.set_position([box.x0, box.y0 + box.height * 0.35, box.width, box.height * 0.65])
+    plt.savefig("figures/output/fig8_535_markers.png", dpi=500)
     plt.clf()
 
     """
-    4. Plot EGFR
+    4. Plot EGFR 919
     """
     fig8_919 = pd.read_csv("figures/Fig8_919_EGFR.csv")
+
     fig, ax = plt.subplots(1, 1, figsize=(3.8, 2.5))
     sns.boxplot(x="group", y="H-score", data=fig8_919, linewidth=1.5, ax=ax)
     for i, box in enumerate(ax.artists):
@@ -124,11 +142,49 @@ if __name__ == '__main__':
     plt.xlabel("", fontsize=6)
     plt.ylabel("H-score", fontsize=7.5)
     plt.title("SA919 EGFR H-Score", weight='bold', fontsize=8)
-    plt.savefig("figures/output/fig8_919_egfr.png", dpi=500)
+    plt.savefig("figures/output/fig8_919_egfr_hscore.png", dpi=500)
     plt.clf()
 
+    fig, ax = plt.subplots(1, 1, figsize=(3.8, 2.5))
+    sns.boxplot(x="group", y="Intensity", data=fig8_919, linewidth=1.5, ax=ax)
+    for i, box in enumerate(ax.artists):
+        box.set_edgecolor('black')
+        box.set_facecolor('white')
+    sns.swarmplot(x="group", y="Intensity", data=fig8_919, linewidth=1, ax=ax, size=7)
+    sns.despine()
+    plt.ylim(-0.5, 5)
+    plt.xticks(fontsize=7.5)
+    plt.yticks(fontsize=7.5)
+    ax.set_xticklabels(["Passage 3 & 4", "Passage 7"])
+    plt.xlabel("", fontsize=6)
+    plt.ylabel("Intensity", fontsize=7.5)
+    plt.title("SA919 EGFR Intensity", weight='bold', fontsize=8)
+    plt.savefig("figures/output/fig8_919_egfr_intensity.png", dpi=500)
+    plt.clf()
+
+    fig, ax = plt.subplots(1, 1, figsize=(3.8, 2.5))
+    sns.boxplot(x="group", y="percentage", data=fig8_919, linewidth=1.5, ax=ax)
+    for i, box in enumerate(ax.artists):
+        box.set_edgecolor('black')
+        box.set_facecolor('white')
+    sns.swarmplot(x="group", y="percentage", data=fig8_919, linewidth=1, ax=ax, size=7)
+    sns.despine()
+    plt.ylim(-5, 100)
+    plt.xticks(fontsize=7.5)
+    plt.yticks(fontsize=7.5)
+    ax.set_xticklabels(["Passage 3 & 4", "Passage 7"])
+    plt.xlabel("", fontsize=6)
+    plt.ylabel("Percentage", fontsize=7.5)
+    plt.title("SA919 EGFR Percentage", weight='bold', fontsize=8)
+    plt.savefig("figures/output/fig8_919_egfr_percentage.png", dpi=500)
+    plt.clf()
+
+    """
+    5. Plot EGFR 535
+    """
     fig8_535 = pd.read_csv("figures/Fig8_535_EGFR.csv")
     fig8_535 = fig8_535[fig8_535["group"] == "X4"]
+
     fig, ax = plt.subplots(1, 1, figsize=(3.8, 2.5))
     sns.boxplot(x="group", y="H-score", data=fig8_535, linewidth=1.5, ax=ax)
     for i, box in enumerate(ax.artists):
@@ -136,7 +192,7 @@ if __name__ == '__main__':
         box.set_facecolor('white')
     sns.swarmplot(x="group", y="H-score", hue="site", data=fig8_535, linewidth=1, ax=ax, size=7)
     sns.despine()
-    plt.ylim(0, 200)
+    plt.ylim(-10, 200)
     plt.xticks(fontsize=7.5)
     plt.yticks(fontsize=7.5)
     ax.set_xticklabels(["Passage 4"])
@@ -156,7 +212,7 @@ if __name__ == '__main__':
         box.set_facecolor('white')
     sns.swarmplot(x="group", y="Intensity", hue="site", data=fig8_535, linewidth=1, ax=ax, size=7)
     sns.despine()
-    plt.ylim(0, 5)
+    plt.ylim(-0.5, 5)
     plt.xticks(fontsize=7.5)
     plt.yticks(fontsize=7.5)
     ax.set_xticklabels(["Passage 4"])
@@ -176,7 +232,7 @@ if __name__ == '__main__':
         box.set_facecolor('white')
     sns.swarmplot(x="group", y="percentage", hue="site", data=fig8_535, linewidth=1, ax=ax, size=7)
     sns.despine()
-    plt.ylim(0, 100)
+    plt.ylim(-5, 100)
     plt.xticks(fontsize=7.5)
     plt.yticks(fontsize=7.5)
     ax.set_xticklabels(["Passage 4"])
@@ -190,7 +246,7 @@ if __name__ == '__main__':
     plt.clf()
 
     """
-    5. Plot Ki67
+    6. Plot Ki67
     """
     fig2_ki67 = pd.read_csv("figures/Fig2_ki67.csv")
     fig, ax = plt.subplots(1, 1, figsize=(3.8, 2.5))
