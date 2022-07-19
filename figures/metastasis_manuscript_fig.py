@@ -122,7 +122,7 @@ if __name__ == '__main__':
     ax.set_xticklabels(["Passage 3 & 4", "Passage 7"])
     plt.xlabel("", fontsize=6)
     plt.ylabel("H-score", fontsize=7.5)
-    plt.title("EGFR SA919", weight='bold', fontsize=8)
+    plt.title("SA919 EGFR H-Score", weight='bold', fontsize=8)
     plt.savefig("figures/output/fig8_919_egfr.png", dpi=500)
     plt.clf()
 
