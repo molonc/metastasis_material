@@ -1,0 +1,16 @@
+logFC_X34,gene_symbol,logFC_X7,description,chr
+2.2,TFAP2B,1.68,transcription factor AP-2 beta [Source:HGNC Symbol;Acc:HGNC:11743],6
+1.05,SAMD4A,1.19,sterile alpha motif domain containing 4A [Source:HGNC Symbol;Acc:HGNC:23023],14
+1.76,FHL1,4.69,four and a half LIM domains 1 [Source:HGNC Symbol;Acc:HGNC:3702],X
+1.12,ATP2B4,0.96,ATPase plasma membrane Ca2+ transporting 4 [Source:HGNC Symbol;Acc:HGNC:817],1
+0.75,CYBRD1,0.74,cytochrome b reductase 1 [Source:HGNC Symbol;Acc:HGNC:20797],2
+1.07,OLFM4,0.68,olfactomedin 4 [Source:HGNC Symbol;Acc:HGNC:17190],13
+11.86,MYH1,10.1,myosin heavy chain 1 [Source:HGNC Symbol;Acc:HGNC:7567],17
+0.9,NR3C1,0.59,nuclear receptor subfamily 3 group C member 1 [Source:HGNC Symbol;Acc:HGNC:7978],5
+1.7,ACTA1,5.81,"actin, alpha 1, skeletal muscle [Source:HGNC Symbol;Acc:HGNC:129]",1
+1.42,TTN,4.29,titin [Source:HGNC Symbol;Acc:HGNC:12403],2
+8.37,ACTC1,9.29,"actin, alpha, cardiac muscle 1 [Source:HGNC Symbol;Acc:HGNC:143]",15
+1.79,SOX11,2.34,SRY-box 11 [Source:HGNC Symbol;Acc:HGNC:11191],2
+1.21,PCLO,0.8,piccolo presynaptic cytomatrix protein [Source:HGNC Symbol;Acc:HGNC:13406],7
+1.05,WNT7B,1.47,Wnt family member 7B [Source:HGNC Symbol;Acc:HGNC:12787],22
+1.24,DMD,0.71,dystrophin [Source:HGNC Symbol;Acc:HGNC:2928],X

@@ -1,0 +1,15 @@
+Organ,color_code
+Primary,#0076BA
+Supral Spinal,#EE220C
+Ventral Spinal,#D41876
+Axillary,#85851A
+Tumour Recur,#E2AF17
+Inguinal,#381E76
+Right Axillary,#17100
+Left Axillary,1A4A5E
+Lumbar,#000000
+Lung,#000000
+Axillary_1,#000000
+Axillary_2,#000000
+Subcutaneous mass,#000000
+Abdominal mass,#000000

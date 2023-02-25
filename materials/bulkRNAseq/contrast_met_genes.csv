@@ -1,0 +1,28 @@
+logFC_X34,gene_symbol,logFC_X7,description,chr
+-0.95,LTF,-1.55,lactotransferrin [Source:HGNC Symbol;Acc:HGNC:6720],3
+-0.96,GAL,-0.8,galanin and GMAP prepropeptide [Source:HGNC Symbol;Acc:HGNC:4114],11
+-0.84,HES2,-1.02,hes family bHLH transcription factor 2 [Source:HGNC Symbol;Acc:HGNC:16005],1
+-1.52,CAPN6,-1.61,calpain 6 [Source:HGNC Symbol;Acc:HGNC:1483],X
+-1.26,TF,-1.48,transferrin [Source:HGNC Symbol;Acc:HGNC:11740],3
+-1.25,PLTP,-0.97,phospholipid transfer protein [Source:HGNC Symbol;Acc:HGNC:9093],20
+-3.17,CST3,-2.24,cystatin C [Source:HGNC Symbol;Acc:HGNC:2475],20
+-1.28,LIPG,-2.7,"lipase G, endothelial type [Source:HGNC Symbol;Acc:HGNC:6623]",18
+-1.18,MDK,-1.04,midkine (neurite growth-promoting factor 2) [Source:HGNC Symbol;Acc:HGNC:6972],11
+-1.12,SCNN1A,-1.13,sodium channel epithelial 1 alpha subunit [Source:HGNC Symbol;Acc:HGNC:10599],12
+-0.98,MFAP2,-1.7,microfibril associated protein 2 [Source:HGNC Symbol;Acc:HGNC:7033],1
+-1.37,PI3,-1.34,peptidase inhibitor 3 [Source:HGNC Symbol;Acc:HGNC:8947],20
+-1.4,GDF15,-0.89,growth differentiation factor 15 [Source:HGNC Symbol;Acc:HGNC:30142],19
+-0.98,TRPC4,-1.11,transient receptor potential cation channel subfamily C member 4 [Source:HGNC Symbol;Acc:HGNC:12336],13
+-1.47,IER3,-0.77,immediate early response 3 [Source:HGNC Symbol;Acc:HGNC:5392],6
+-1.22,FAM83A,-1.53,family with sequence similarity 83 member A [Source:HGNC Symbol;Acc:HGNC:28210],8
+-0.67,UCHL1,-1.61,ubiquitin C-terminal hydrolase L1 [Source:HGNC Symbol;Acc:HGNC:12513],4
+-0.9,GALNT14,-1.38,polypeptide N-acetylgalactosaminyltransferase 14 [Source:HGNC Symbol;Acc:HGNC:22946],2
+-1.25,S100A9,-1.91,S100 calcium binding protein A9 [Source:HGNC Symbol;Acc:HGNC:10499],1
+-1.24,TMPRSS5,-1.19,"transmembrane protease, serine 5 [Source:HGNC Symbol;Acc:HGNC:14908]",11
+-1.31,KLK4,-0.86,kallikrein related peptidase 4 [Source:HGNC Symbol;Acc:HGNC:6365],19
+-1.08,LRG1,-1.36,leucine rich alpha-2-glycoprotein 1 [Source:HGNC Symbol;Acc:HGNC:29480],19
+-1.36,C8orf31,-3.58,chromosome 8 open reading frame 31 [Source:HGNC Symbol;Acc:HGNC:26731],8
+-1,KRT6B,-1.08,keratin 6B [Source:HGNC Symbol;Acc:HGNC:6444],12
+-1.1,SERPINA3,-2.14,serpin family A member 3 [Source:HGNC Symbol;Acc:HGNC:16],14
+-1.09,AKR1C3,-1.09,aldo-keto reductase family 1 member C3 [Source:HGNC Symbol;Acc:HGNC:386],10
+-0.88,LAMB3,-0.74,laminin subunit beta 3 [Source:HGNC Symbol;Acc:HGNC:6490],1
