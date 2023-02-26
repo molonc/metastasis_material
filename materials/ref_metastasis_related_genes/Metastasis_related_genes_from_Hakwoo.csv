@@ -1,0 +1,355 @@
+gene_symbol,gene,attribute,Reference
+SNRPF,,positive,"Nature Genetics volume 33, pages 49–54 (2003)"
+EIF4EL3,,positive,"Nature Genetics volume 33, pages 49–54 (2003)"
+HNRPAB,,positive,"Nature Genetics volume 33, pages 49–54 (2003)"
+DHPS,,positive,"Nature Genetics volume 33, pages 49–54 (2003)"
+PTTG1,,positive,"Nature Genetics volume 33, pages 49–54 (2003)"
+COL1A1,,positive,"Nature Genetics volume 33, pages 49–54 (2003)"
+COL1A2,,positive,"Nature Genetics volume 33, pages 49–54 (2003)"
+LMNB1,,positive,"Nature Genetics volume 33, pages 49–54 (2003)"
+ACTG2,,negative,"Nature Genetics volume 33, pages 49–54 (2003)"
+MYLK,,negative,"Nature Genetics volume 33, pages 49–54 (2003)"
+MYH11,,negative,"Nature Genetics volume 33, pages 49–54 (2003)"
+CNN1,,negative,"Nature Genetics volume 33, pages 49–54 (2003)"
+HLA-DPB1,,negative,"Nature Genetics volume 33, pages 49–54 (2003)"
+RUNX1,,negative,"Nature Genetics volume 33, pages 49–54 (2003)"
+MT3,,negative,"Nature Genetics volume 33, pages 49–54 (2003)"
+NR4A1,,negative,"Nature Genetics volume 33, pages 49–54 (2003)"
+RBM5,,negative,"Nature Genetics volume 33, pages 49–54 (2003)"
+IFI6,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CHGB,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+IFI27,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+AQP3,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+B2M,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+UPK1B,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+SLPI,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+SNCG,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CFD,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+IGFBP3,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+TXNRD1,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+POLR2L,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+LY6E,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+BSG,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+ASS1,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CYBA,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+RPS13,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CLU,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+RPL26,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+NQO1,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+TSPAN4,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+GAPDH,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+RPL18A,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+RPS2,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+HLA-B,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+RPS23,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+RPL27A,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+S100A4,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+RPL23A,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+RPL12,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+TM4SF20,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CTSB,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+KRT19,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+ALDH3A1,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+AKR1B1,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CES1,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+AKR1B10,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+SERPINE2,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+LGALS1,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+IGFL2,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+LGALS3,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+ANXA13,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+AKR1C3,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+ALDH1A1,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CD70,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+SH3BGRL3,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+ANXA3,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CAPG,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+ANXA2,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+HMGA1,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+EPHX1,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+KRT8,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+GCNT3,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CDH17,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+IGFBP6,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+RAB11FIP1,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+MAP1B,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+MT-CO1,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+NRG1,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+S100A10,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+TSPAN8,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+LCN2,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+NEAT1,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+RPS4Y1,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CST3,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+TIMP1,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+AGR3,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+LYZ,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CD63,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+TPPP3,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CRABP2,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+FN1,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+TM4SF4,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CRIP2,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CST4,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+PSAP,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+ETFB,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+REG4,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+PRKCDBP,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+TNNT1,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+SEPW1,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CXCL5,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+TFF1,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+PRSS3,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+MT-CO2,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+DPYSL3,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+TAGLN2,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CEACAM6,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+MUC5AC,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+MT-CO3,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+MT-CYB,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+MT-ATP6,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CRIP1,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+STC1,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+ATP1B1,,positive,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+KRT6A,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CCL20,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CXCL3,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+PMEPA1,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CXCL1,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+IL8,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CXCL2,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+KRT17,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+FN1,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+C12ORF75,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+TM4SF20,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CXCL5,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+SPP1,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+TSPAN8,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+PGM2L1,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+GLIPR1,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+TGFBI,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+HSPA1A,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+LGALS4,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+IL32,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+TNFAIP3,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+NFKBIA,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+AMIGO2,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+RND1,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CFI,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+JUN,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+ETS2,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+KRT7,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+MAP7,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+IGFL2,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+HPD,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+INSL4,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+FGA,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CHGB,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+MUC5B,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CPS1,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CFD,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+ASS1,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+ISG20,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+PRSS23,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+FOS,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+BASP1,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+MFAP5,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+FKBP11,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+S100P,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+RABAC1,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+SLC26A2,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+RPS16,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+RSPO3,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+SLPI,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+AKAP12,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+TESC,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+RPL10,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CP,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+TMED3,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+RPLP1,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+PPIB,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+RPL13A,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+SSR4,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+FKBP2,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CXCL8,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+KRT81,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+ACTG1,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+RPS19,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CEACAM5,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+RPS3,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+RPS5,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+EEF1A1,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+VIM,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+RPL18A,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+ALDH1A1,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+RPSA,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+RPS24,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+ACTB,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+DUSP1,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+RHOB,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+RPL18,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+FAM83A,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+MSLN,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+FGB,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+DKK1,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+RPS3A,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+RPS4Y1,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+FXYD2,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+ID3,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+EFNA1,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+FOSB,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+RIMKLB,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+JUNB,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CASC15,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+CYP24A1,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+ATP6V1A,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+LDHB,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+FGG,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+PHPT1,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+ANXA4,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+SOX4,,negative,"J. J. Quinn et al., Science 10.1126/science.abc1944 (2021)"
+NM23,,negative,"Laboratory Investigation volume 98, pages 198–210 (2018)"
+RKIP,,negative,"Laboratory Investigation volume 98, pages 198–210 (2018)"
+MKK4,,negative,"Laboratory Investigation volume 98, pages 198–210 (2018)"
+MKK6,,negative,"Laboratory Investigation volume 98, pages 198–210 (2018)"
+MKK7,,negative,"Laboratory Investigation volume 98, pages 198–210 (2018)"
+KAI1,,negative,"Laboratory Investigation volume 98, pages 198–210 (2018)"
+CD44,,negative,"Laboratory Investigation volume 98, pages 198–210 (2018)"
+E-cadherin,,negative,"Laboratory Investigation volume 98, pages 198–210 (2018)"
+Gelsolin,,negative,"Laboratory Investigation volume 98, pages 198–210 (2018)"
+RhoGDI2,,negative,"Laboratory Investigation volume 98, pages 198–210 (2018)"
+DLC-1,,negative,"Laboratory Investigation volume 98, pages 198–210 (2018)"
+KISS1,,negative,"Laboratory Investigation volume 98, pages 198–210 (2018)"
+SSeCKS,,negative,"Laboratory Investigation volume 98, pages 198–210 (2018)"
+Gravin,,negative,"Laboratory Investigation volume 98, pages 198–210 (2018)"
+AKAP12,,negative,"Laboratory Investigation volume 98, pages 198–210 (2018)"
+Caspase-8,,negative,"Laboratory Investigation volume 98, pages 198–210 (2018)"
+GAS1,,negative,"Laboratory Investigation volume 98, pages 198–210 (2018)"
+BRMS1,,negative,"Laboratory Investigation volume 98, pages 198–210 (2018)"
+MYC,,negative,"Laboratory Investigation volume 98, pages 198–210 (2018)"
+miR-146a/b,,negative,"Laboratory Investigation volume 98, pages 198–210 (2018)"
+miR-206,,negative,"Laboratory Investigation volume 98, pages 198–210 (2018)"
+miR-335,,negative,"Laboratory Investigation volume 98, pages 198–210 (2018)"
+LncRNA LET,,negative,"Laboratory Investigation volume 98, pages 198–210 (2018)"
+NKILA,,negative,"Laboratory Investigation volume 98, pages 198–210 (2018)"
+Cadm1,,negative,"Laboratory Investigation volume 98, pages 198–210 (2018)"
+Amf,,positive,Biochimica et Biophysica Acta (BBA)-Reviews on Cancer 1786.2 (2008): 87-104.
+Hgf,,positive,Biochimica et Biophysica Acta (BBA)-Reviews on Cancer 1786.2 (2008): 87-104.
+TGFB,,positive,Biochimica et Biophysica Acta (BBA)-Reviews on Cancer 1786.2 (2008): 87-104.
+MMP,,positive,Biochimica et Biophysica Acta (BBA)-Reviews on Cancer 1786.2 (2008): 87-104.
+uPA/PLAU,,positive,Biochimica et Biophysica Acta (BBA)-Reviews on Cancer 1786.2 (2008): 87-104.
+NM23,,negative,Biochimica et Biophysica Acta (BBA)-Reviews on Cancer 1786.2 (2008): 87-104.
+KISS1,,negative,Biochimica et Biophysica Acta (BBA)-Reviews on Cancer 1786.2 (2008): 87-104.
+MKK4,,negative,Biochimica et Biophysica Acta (BBA)-Reviews on Cancer 1786.2 (2008): 87-104.
+CDH1,,negative,Biochimica et Biophysica Acta (BBA)-Reviews on Cancer 1786.2 (2008): 87-104.
+NDRG1,,negative,Biochimica et Biophysica Acta (BBA)-Reviews on Cancer 1786.2 (2008): 87-104.
+IRF7,,negative,"Nature Medicine volume 18, pages1224–1231(2012)"
+CLN8,219340_s_at,,The Lancet 365.9460 (2005): 671-679.
+,217771_at,,The Lancet 365.9460 (2005): 671-679.
+,202418_at,,The Lancet 365.9460 (2005): 671-679.
+IL18,206295_at,,The Lancet 365.9460 (2005): 671-679.
+,201091_s_at,,The Lancet 365.9460 (2005): 671-679.
+,204015_s_at,,The Lancet 365.9460 (2005): 671-679.
+,200726_at,,The Lancet 365.9460 (2005): 671-679.
+,200965_s_at,,The Lancet 365.9460 (2005): 671-679.
+,210314_x_at,,The Lancet 365.9460 (2005): 671-679.
+,221882_s_at,,The Lancet 365.9460 (2005): 671-679.
+,217767_at,,The Lancet 365.9460 (2005): 671-679.
+,219588_s_at,,The Lancet 365.9460 (2005): 671-679.
+C11ORF9,204073_s_at,,The Lancet 365.9460 (2005): 671-679.
+,212567_s_at,,The Lancet 365.9460 (2005): 671-679.
+,211382_s_at,,The Lancet 365.9460 (2005): 671-679.
+CAP-C,201663_s_at,,The Lancet 365.9460 (2005): 671-679.
+OR12D2,221344_at,,The Lancet 365.9460 (2005): 671-679.
+ORC3,210028_s_at,,The Lancet 365.9460 (2005): 671-679.
+PRO2000,218782_s_at,,The Lancet 365.9460 (2005): 671-679.
+,201664_at,,The Lancet 365.9460 (2005): 671-679.
+KIAA0748,219724_s_at,,The Lancet 365.9460 (2005): 671-679.
+DUSP4,204014_at,,The Lancet 365.9460 (2005): 671-679.
+,212014_x_at,,The Lancet 365.9460 (2005): 671-679.
+PLK,202240_at,,The Lancet 365.9460 (2005): 671-679.
+CNK1,204740_at,,The Lancet 365.9460 (2005): 671-679.
+H4FH,208180_s_at,,The Lancet 365.9460 (2005): 671-679.
+FEN1,204768_s_at,,The Lancet 365.9460 (2005): 671-679.
+FKBP2,203391_at,,The Lancet 365.9460 (2005): 671-679.
+,211762_s_at,,The Lancet 365.9460 (2005): 671-679.
+LOC51093,218914_at,,The Lancet 365.9460 (2005): 671-679.
+MGC11335,221028_s_at,,The Lancet 365.9460 (2005): 671-679.
+,211779_x_at,,The Lancet 365.9460 (2005): 671-679.
+FLJ23468,218883_s_at,,The Lancet 365.9460 (2005): 671-679.
+,204888_s_at,,The Lancet 365.9460 (2005): 671-679.
+FACTP140,217815_at,,The Lancet 365.9460 (2005): 671-679.
+,201368_at,,The Lancet 365.9460 (2005): 671-679.
+ARHGDIB,201288_at,,The Lancet 365.9460 (2005): 671-679.
+PSMC2,201068_s_at,,The Lancet 365.9460 (2005): 671-679.
+,218478_s_at,,The Lancet 365.9460 (2005): 671-679.
+,214919_s_at,,The Lancet 365.9460 (2005): 671-679.
+,209835_x_at,,The Lancet 365.9460 (2005): 671-679.
+,217471_at,,The Lancet 365.9460 (2005): 671-679.
+SLC35A1,203306_s_at,,The Lancet 365.9460 (2005): 671-679.
+CCNE2,205034_at,,The Lancet 365.9460 (2005): 671-679.
+,221816_s_at,,The Lancet 365.9460 (2005): 671-679.
+POLQ,219510_at,,The Lancet 365.9460 (2005): 671-679.
+,217102_at,,The Lancet 365.9460 (2005): 671-679.
+CANP,208683_at,,The Lancet 365.9460 (2005): 671-679.
+,215510_at,,The Lancet 365.9460 (2005): 671-679.
+FLJ20517,218533_s_at,,The Lancet 365.9460 (2005): 671-679.
+,215633_x_at,,The Lancet 365.9460 (2005): 671-679.
+,221928_at,,The Lancet 365.9460 (2005): 671-679.
+,214806_at,,The Lancet 365.9460 (2005): 671-679.
+EEF1A2,204540_at,,The Lancet 365.9460 (2005): 671-679.
+,221916_at,,The Lancet 365.9460 (2005): 671-679.
+,216693_x_at,,The Lancet 365.9460 (2005): 671-679.
+,209500_x_at,,The Lancet 365.9460 (2005): 671-679.
+,209524_at,,The Lancet 365.9460 (2005): 671-679.
+MMP23A,207118_s_at,,The Lancet 365.9460 (2005): 671-679.
+,211040_x_at,,The Lancet 365.9460 (2005): 671-679.
+FLJ12994,218430_s_at,,The Lancet 365.9460 (2005): 671-679.
+,217404_s_at,,The Lancet 365.9460 (2005): 671-679.
+GAS2,205848_at,,The Lancet 365.9460 (2005): 671-679.
+,214915_at,,The Lancet 365.9460 (2005): 671-679.
+,216010_x_at,,The Lancet 365.9460 (2005): 671-679.
+MYH2,204631_at,,The Lancet 365.9460 (2005): 671-679.
+,202687_s_at,,The Lancet 365.9460 (2005): 671-679.
+,221634_at,,The Lancet 365.9460 (2005): 671-679.
+GABBQ,220886_at,,The Lancet 365.9460 (2005): 671-679.
+ADPRTL1,202239_at,,The Lancet 365.9460 (2005): 671-679.
+DKFZP564M082,204218_at,,The Lancet 365.9460 (2005): 671-679.
+BCLG,221241_s_at,,The Lancet 365.9460 (2005): 671-679.
+,209862_s_at,,The Lancet 365.9460 (2005): 671-679.
+RPS4X,217019_at,,The Lancet 365.9460 (2005): 671-679.
+,210593_at,,The Lancet 365.9460 (2005): 671-679.
+,216103_at,,The Lancet 365.9460 (2005): 671-679.
+LIMK1,,negative,"Nature Reviews Cancer volume 7, pages429–440(2007)"
+ATM,,positive,"Journal of Molecular Cell Biology, Volume 4, Issue 5, October 2012, Pages 304–315"
+GAPDH,,positive,IET systems biology 8.2 (2014): 47-55.
+PGK1,,positive,IET systems biology 8.2 (2014): 47-55.
+ITGA6,,positive,IET systems biology 8.2 (2014): 47-55.
+HLA-G,,positive,IET systems biology 8.2 (2014): 47-55.
+HLA-DRA,,positive,IET systems biology 8.2 (2014): 47-55.
+ADIPOQ,,positive,IET systems biology 8.2 (2014): 47-55.
+FABP4,,positive,IET systems biology 8.2 (2014): 47-55.
+LPL,,positive,IET systems biology 8.2 (2014): 47-55.
+CD2,,positive,IET systems biology 8.2 (2014): 47-55.
+CD247,,positive,IET systems biology 8.2 (2014): 47-55.
+CD3D,,positive,IET systems biology 8.2 (2014): 47-55.
+LCK,,positive,IET systems biology 8.2 (2014): 47-55.
+CD27,,positive,IET systems biology 8.2 (2014): 47-55.
+CXCL9,,positive,IET systems biology 8.2 (2014): 47-55.
+LTB,,positive,IET systems biology 8.2 (2014): 47-55.
+XCL1,,positive,IET systems biology 8.2 (2014): 47-55.
+XCL2,,positive,IET systems biology 8.2 (2014): 47-55.
+CCL19,,positive,IET systems biology 8.2 (2014): 47-55.
+PRKCB,,positive,IET systems biology 8.2 (2014): 47-55.
+CCL5,,positive,IET systems biology 8.2 (2014): 47-55.
+CXCL10,,positive,IET systems biology 8.2 (2014): 47-55.
+CXCL11,,positive,IET systems biology 8.2 (2014): 47-55.
+IGKC,,positive,IET systems biology 8.2 (2014): 47-55.
+CKAP2,,positive,IET systems biology 8.2 (2014): 47-55.
+IGLC1,,positive,IET systems biology 8.2 (2014): 47-55.
+IGLV-44,,positive,IET systems biology 8.2 (2014): 47-55.
+PTPRC,,positive,IET systems biology 8.2 (2014): 47-55.
+COL1A1,,positive,IET systems biology 8.2 (2014): 47-55.
+COL6A1,,positive,IET systems biology 8.2 (2014): 47-55.
+FLNA,,positive,IET systems biology 8.2 (2014): 47-55.
+MYL9,,positive,IET systems biology 8.2 (2014): 47-55.
