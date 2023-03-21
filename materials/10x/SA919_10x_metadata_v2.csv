@@ -1,0 +1,15 @@
+mainsite,origin,pdxid,sample_id,bulk_sid,bulk_original_sid,dlp_prevalence,nanopore_priority,noted,prior,our_out,library_id
+Metastasis,SupraSpinal,X08472112251,SA919X7XB05691,SA919X7XB05691,SA919X7XB05691,B(761),priority1,"Bulk, dlp, good purity",M51_SupraSpinal_B,6,SCRNA10X_SA_CHIP0077_001
+Primary,Primary,X08472112251,SA919X7XB05402,SA919X7XB05402,SA919X7XB05402,B(142),priority1,"Bulk, dlp, good purity",M51_Primary_B,101,SCRNA10X_SA_CHIP0077_002
+Metastasis,VentralSpinal,X08472112251,SA919X7XB05692,SA919X7XB05692,SA919X7XB05692,B(305),priority1,"Bulk, dlp, good purity",M51_VentralSpinal_B,0,SCRNA10X_SA_CHIP0077_003
+Primary,Primary,X08472112252,SA919X7XB05378,SA919X7XB05378,SA919X7XB05378,B(648),priority1,"Bulk, dlp, good purity",M52_Primary_B,42,SCRNA10X_SA_CHIP0078_001
+Metastasis,SupraSpinal,X08472112252,SA919X7XB05604,SA919X7XB05604,SA919X7XB05604,C(246)B(27),priority1,"Bulk, dlp, good purity",M52_SupraSpinal_C,108,SCRNA10X_SA_CHIP0078_002
+Primary,Primary,X0847216,SA919X3XB08939,SA919X3XB08939,SA_2403_AT9931,A(375),priority1,"Bulk, dlp, good purity",M16_Primary_A,168,SCRNA10X_SA_CHIP0191_001
+Primary,Primary,X08472164,SA919X4XB09563,SA919X4XB09563,SA_2406_AT9934,A(83),priority1,"Bulk, dlp, good purity",M64_Primary_A,153,SCRNA10X_SA_CHIP0190_003
+Metastasis,Axillary,X08472164,SA919X4XB40503,SA919X4XB40503,SA_2404_AT9932,A(627),priority1,"Bulk, dlp, good purity",M64_Axillary_A,72,SCRNA10X_SA_CHIP0190_001
+Metastasis,VentralSpinal,X08472164,SA919X4XB40509,SA919X4XB40509,SA_2405_AT9933,A(712),priority1,"Bulk, dlp, good purity",M64_VentralSpinal_A,578,SCRNA10X_SA_CHIP0190_002
+Primary,Primary,X08472112253,SA919X7XB05298,"","",B(504) C(22),priority2,Dlp but no bulk data,M53_Primary_B,,
+Metastasis,VentralSpinal,X08472112253,SA919X7XB05588,"","",C(706)B(25),priority1,"Dlp, clone C important",M53_VentralSpinal_C,,
+Metastasis,VentralSpinal,X08472112254,SA919X7XB05608,"","",B(30),priority3,Low dlp number of cells and no bulk data,M54_VentralSpinal_B,,
+Primary,Primary,X08472112254,SA919X7XB05289,"","",B(121)A(61),priority2,Dlp but no bulk data,M54_Primary_B,,
+Primary,Primary,X08472161,SA919X4XB09552,"","",A(26),priority3,Low dlp number of cells and no bulk data,M61_Primary_A,502,SCRNA10X_SA_CHIP0191_002
