@@ -1,0 +1,6 @@
+jira_ticket,sample_id,origin,mainsite,nb_filtered_cells,grouping
+SC-7469,52098-BB,Primary,Primary,521,A118376A
+SC-7456,55323-BB,Neck,Metastasis,421,A98206B
+SC-7551,55326-BB,Axillary,Metastasis,540,A118376B
+SC-7549,55333-BB,Flank_Mass,Metastasis,615,A118392B
+SC-8003,55337-BB,Abdominal,Metastasis,603,A118348A

@@ -1,0 +1,4 @@
+library_labels,grouping,mainsite,origin,pdxid,sample_id,series,jira_ticket,mouse_id,hq_cells
+A98170A,A98170A,Metastasis,abdominal_mass,X0011-23615222,AT13666,SA535,SC-8348,04279,10
+A98191A,A98191A,Metastasis,axillary_2,X0011-23615222,AT13650,SA535,SC-7995,04279,37
+A98170B,A98170B,Metastasis,axillary_1,X0011-23615222,AT13644,SA535,SC-8024,04279,92
