@@ -1,0 +1,23 @@
+###
+
+# Snakemake parameters
+############################
+observed_library:
+  - SA535X4XB02498
+  - SA535X4XB05391
+  - SA535X4XB05462
+#  - SA535X4XB05649
+  
+
+exe_pert: True
+merge_data: True
+
+############################
+nb_iterations: 1000
+# Directory parameters: Please update all fields
+# nextflow_dir: for corrupt-grow pipeline only
+############################################
+script_dir: '/home/htran/Projects/hakwoo_project/testing_methods/scdna_replication_tools/testing'
+results_dir: '/home/htran/storage/datasets/metastasis_results/replication_timing'
+download_dir: '/home/htran/storage/raw_DLP/metastasis_DLP/SA535'
+

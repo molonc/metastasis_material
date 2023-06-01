@@ -1,0 +1,6 @@
+python_dir <- "/home/htran/anaconda3/envs/myPython37/bin/python"
+script_fn <- "/home/htran/Projects/hakwoo_project/testing_methods/scdna_replication_tools/testing/run_RT.py"
+input_dir <- "/home/htran/storage/datasets/metastasis_results/replication_timing/"
+output_dir <- "/home/htran/storage/datasets/metastasis_results/replication_timing/RT_results/"
+exe_str <- paste0(python_dir," ",script_fn," --input_gfn ",input_dir,sid,"_filtered_reads_RT_g_cells.csv.gz --input_sfn ",input_dir, sid,"_filtered_reads_RT_s_cells.csv.gz"," --output_fn ",output_dir,sid,"_clonal_RT.csv.gz"," --cell_clones_fn ",input_dir,sid,"_total_cells_clones.csv.gz"," --datatag ",sid," --output_dir ",output_dir," --nb_iterations 500")
+exe_str

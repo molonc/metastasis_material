@@ -1,0 +1,62 @@
+import os
+
+## Tickets & Libraries for analysis
+library = config["observed_library"]
+print(library)
+
+## Quality control params
+NB_ITERATIONS = config["nb_iterations"]
+SOURCE_DIR = config['script_dir']
+
+rule all:
+    """
+    Launches full snakemake pipeline, cleans up junk files at the end.
+    """
+    input:
+        os.path.join(config['results_dir'], 'SA535_RT_log2.csv')
+        
+   
+
+if config["exe_pert"]:  
+    rule exe_PERT_scdna_data:
+        """
+        Run PERT scdna replication tool
+        """
+        params:
+            input_gfn=os.path.join(config['results_dir'],'{library}_filtered_reads_RT_g_cells.csv.gz'), 
+            input_sfn=os.path.join(config['results_dir'],'{library}_filtered_reads_RT_s_cells.csv.gz'), 
+            cell_clones_fn=os.path.join(config['results_dir'],'{library}_total_cells_clones.csv.gz'),
+            output_dir=os.path.join(config['results_dir'],'RT_results'),
+            datatag='{library}'
+        input:
+            os.path.join(config['results_dir'],'{library}_filtered_reads_RT_g_cells.csv.gz')
+        output:
+            os.path.join(config['results_dir'],'RT_results','{library}_clonal_RT.csv.gz')
+        shell:
+            '/home/htran/anaconda3/envs/myPython37/bin/python {SOURCE_DIR}/run_RT.py '
+            '--input_gfn {params.input_gfn} '
+            '--input_sfn {params.input_sfn} '
+            '--output_fn {output} '
+            '--cell_clones_fn {params.cell_clones_fn} '
+            '--datatag {params.datatag} '
+            '--output_dir {params.output_dir} '
+            '--nb_iterations {NB_ITERATIONS}'
+    
+    
+
+            
+            
+           
+if config["merge_data"]:
+    rule merge_data:
+        """
+        Do nothing, just keep it here to run snakemake process of downloading data
+        """
+        input:
+            expand(os.path.join(config['results_dir'],'RT_results','{library}_clonal_RT.csv.gz'), library=library)
+        output:
+            os.path.join(config['results_dir'], 'SA535_RT_log2.csv')
+        shell:
+            '/home/htran/anaconda3/envs/myPython37/bin/python {SOURCE_DIR}/lib_info.py {input} {output}'
+            
+            
