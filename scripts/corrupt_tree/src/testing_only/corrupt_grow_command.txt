@@ -1,0 +1,4 @@
+/home/htran/storage/install_software/nowellpack/build/install/nowellpack/bin/corrupt-grow --matrix NoisyBinaryCLMatrix --matrix.binaryMatrix /home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919X7_whole_local/corrupt_grow/filtered_none_cells.csv --matrix.fpRate 0.1 --matrix.fnRate 0.2 --phylo file /home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919X7_whole_local/corrupt_grow/subtree1.newick
+
+
+/home/htran/storage/install_software/nowellpack/build/install/nowellpack/bin/corrupt-grow --matrix NoisyBinaryCLMatrix --matrix.binaryMatrix /home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919X7_whole_local/corrupt_grow/filtered_none_cells.csv --matrix.fpRate 0.1 --matrix.fnRate 0.5 --phylo file /home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919X7_whole_local/corrupt_grow/subtree1.newick

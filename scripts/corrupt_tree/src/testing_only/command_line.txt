@@ -1,0 +1,9 @@
+python /home/htran/Projects/hakwoo_project/corrupt_tree/src/filter_libs.py --metrics /home/htran/storage/datasets/hakwoo_metastasis/A98181A/annotation/A98181A_metrics.csv --reads /home/htran/storage/datasets/hakwoo_metastasis/A98181A/hmmcopy/A98181A_reads.csv --library_id A98181A --samples SA919X7XB05289 --output_file /home/htran/storage/datasets/hakwoo_metastasis/A98181A/A98181A_filtered_states.csv
+
+
+python /home/htran/Projects/hakwoo_project/corrupt_tree/src/filter_libs.py --metrics /home/htran/storage/datasets/drug_resistance_DLP/SA535/A95625A/annotation/A95625A_metrics.csv --reads /home/htran/storage/datasets/drug_resistance_DLP/SA535/A95625A/hmmcopy/A95625A_reads.csv --library_id A95625A --samples SA535X5XB02891 --output_file /home/htran/storage/datasets/drug_resistance_DLP/SA535/A95625A/A95625A_SA535X5XB02891_filtered_states.csv --low_read_thrs 10000
+
+
+
+
+/home/htran/storage/datasets/hakwoo_metastasis/A98181A

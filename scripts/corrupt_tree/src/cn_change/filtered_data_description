@@ -1,0 +1,41 @@
+############ SA535 
+# Filtered data: all cells that use to build phylogenie tree, include cells that are assigned to clones label, and unassigned cells. 
+
+# Filtered data, sort by origin
+[1] "for a total of 1933 metastasis single cells ; (mean = 386.6, sigma = 219.98, max = 771, min = 233 per origin)."
+[1] "for a total of 2004 primary single cells ; (mean = 2004, sigma = NA, max = 2004, min = 2004 per origin)."
+
+# Filtered data, sort by sample
+"for a total of 1933 metastasis single cells ; (mean = 214.78, sigma = 147.75, max = 420, min = 0 per sample)."
+[1] "for a total of 2004 primary single cells ; (mean = 501, sigma = 228.37, max = 743, min = 276 per sample)."
+
+# Filtered data, sort by pdx then by sample
+"For a total of 1768 single cells in X0011_2362: (mean = 442, sigma = 211.46, max = 743, min = 257 per sample)."
+[1] "For a total of 997 single cells in X0011_2364: (mean = 332.33, sigma = 323.4, max = 646, min = 0 per sample)."
+[1] "For a total of 732 single cells in X0011_2361: (mean = 244, sigma = 110.32, max = 339, min = 123 per sample)."
+[1] "For a total of 440 single cells in X0011_2363: (mean = 146.67, sigma = 115.45, max = 276, min = 54 per sample)."
+
+
+
+
+###############SA919
+# Filtered data: all cells that use to build phylogenie tree, include cells that are assigned to clones label, and unassigned cells. 
+
+# Filtered data, sort by origin
+[1] "for a total of 3457 metastasis single cells ; (mean = 1152.33, sigma = 585.7, max = 1785, min = 629 per origin)."
+[1] "for a total of 2014 primary single cells ; (mean = 2014, sigma = NA, max = 2014, min = 2014 per origin)."
+
+# Filtered data, sort by sample
+"for a total of 3457 metastasis single cells ; (mean = 493.86, sigma = 286.11, max = 764, min = 30 per sample)."
+[1] "for a total of 2014 primary single cells ; (mean = 287.71, sigma = 240.7, max = 659, min = 26 per sample)."
+
+
+# Filtered data, sort by pdx then by sample
+"For a total of 1223 single cells in X08472112251: (mean = 407.67, sigma = 318.92, max = 764, min = 149 per sample)."
+[1] "For a total of 938 single cells in X08472112252: (mean = 469, sigma = 268.7, max = 659, min = 279 per sample)."
+[1] "For a total of 375 single cells in X0847216: (mean = 375, sigma = NA, max = 375, min = 375 per sample)."
+[1] "For a total of 1425 single cells in X08472164: (mean = 475, sigma = 341.15, max = 712, min = 84 per sample)."
+[1] "For a total of 1270 single cells in X08472112253: (mean = 635, sigma = 138.59, max = 733, min = 537 per sample)."
+[1] "For a total of 214 single cells in X08472112254: (mean = 107, sigma = 108.89, max = 184, min = 30 per sample)."
+[1] "For a total of 26 single cells in X08472161: (mean = 26, max = 26, min = 26 per sample)."
+

@@ -1,0 +1,131 @@
+import os
+
+## Tickets & Libraries for analysis
+library = config["library"]
+
+## Corrupt tree params
+SAVESTANDARDSTREAMS = config["saveStandardStreams"]
+RECORDGITINFO = config["recordGitInfo"]
+MANAGEDEXECUTIONFOLDER = config["managedExecutionFolder"]
+NEIGHBORHOODSIZE = config["neighborhoodSize"]
+LOWERFRACTION = config["lowerFraction"]
+GLOBALPARAMETERIZATION = config["globalParameterization"]
+FPRBOUND = config["fprBound"]
+FNRBOUND = config["fnrBound"]
+ENGINE = config["engine"]
+INITIALIZATION = config["initialization"]
+LADDER = config["ladder"]
+NSCANS = config["nScans"]
+NPASSESPERSCAN = config["nPassesPerScan"]
+NCHAINS = config["nChains"]
+NTHREADS = config["nThreads"]
+NTHREADSNUMBER = config["nThreadsNumber"]
+POSTPROCESSOR = config["postprocessor"]
+LOGISTICTRANSFORM = config["logisticTransform"]
+SIZEVAL = config["size_val"]
+THINNINGPERIOD = config["thinningPeriod"]
+SIZESHAPE = config["size_shape"]
+PHYLO = config["phylo"]
+READONLYMATRIX = config["read_only_matrix"]
+CG_FPRATE = config["corrupt_grow_fpRate"]
+CG_FNRATE = config["corrupt_grow_fnRate"]
+
+## Tree cut params
+MIN_FRAC = config["minimum_fraction"]
+MAX_FRAC = config["maximum_fraction"]
+
+default_mem=20
+
+
+
+rule all:
+    resources:
+        h_vmem = default_mem
+    """
+    Launches full snakemake pipeline, cleans up junk files at the end.
+    """
+    input:
+        os.path.join(config['results_dir'],'corrupt_grow', 'grown_total_s2161.newick')
+        os.path.join(config['results_dir'],'corrupt_grow', 'cell_clones_s2161.csv'),
+        os.path.join(config['results_dir'],'corrupt_grow', 'cell_cn_tree_heatmap.png')
+ 
+
+if config["corrupt_jitter"]:          
+    rule corrupt_jitter:
+        """
+        Run corrupt grow function, map cells back to existing tree
+        """
+        input:
+            binary_mtx = os.path.join(config['results_dir'],'corrupt_grow', 'filtered_outliers.csv')
+        output:
+            os.path.join(config['results_dir'],'corrupt_grow', 'bin_cnvs_corrupt_double_padding_jitter.csv')
+        resources:
+            h_vmem=default_mem
+        run:
+            shell('{config[nextflow_dir]}/nextflow run '
+                '{config[nextflow_dir]}/binary-infer-pipeline-short-jitter-no-filter.nf '
+                '-resume '
+                '--tipInclusionProbabilities {input.binary_mtx}')
+            shell('mv deliverables/binary-infer-pipeline-short-jitter-no-filter/output.csv {output}')
+            shell('rm -fr deliverables/')
+            
+            
+
+if config["corrupt_grow"]:          
+    rule corrupt_grow:
+        """
+        Run corrupt grow function, map cells back to existing tree
+        """
+        input:
+            binary_mtx = os.path.join(config['results_dir'],'corrupt_grow', 'filtered_outliers.csv'),
+            newickpath = os.path.join(config['results_dir'],'tree.newick')
+        params:
+            corrupt_grow_fpRate = CG_FPRATE,
+            corrupt_grow_fnRate = CG_FNRATE
+        output:
+            os.path.join(config['results_dir'],'corrupt_grow', 'grown_total_s2161.newick')
+        resources:
+            h_vmem=default_mem
+        run:
+            shell('{config[nowellpack_dir]}/corrupt-grow '
+                '--matrix NoisyBinaryCLMatrix '
+                '--matrix.binaryMatrix {input.binary_mtx} '
+                '--matrix.fpRate {params.corrupt_grow_fpRate} '
+                '--matrix.fnRate {params.corrupt_grow_fnRate} '
+                '--phylo file {input.newickpath}')
+            shell('find results -name "grown.newick" -print0 | xargs -0 -I {} mv {} {output}')
+            shell('rm -fr results/')
+
+        
+rule tree_cut:
+    """
+    Cut newick tree to identify clones
+    """
+    input:
+        tree = os.path.join(config['results_dir'],'corrupt_grow','grown_total.newick'),
+        filtered_cnv_data = os.path.join(config['results_dir'],'corrupt_grow','total_merged_filtered_states_original.csv')
+    output:
+        os.path.join(config['results_dir'],'corrupt_grow', 'cell_clones.csv')
+    resources:
+        h_vmem=default_mem
+    shell:
+        'Rscript {config[project_dir]}/src/tree_cut/treecut.R -t {input.tree} -n {input.filtered_cnv_data} -o {output} -m {MIN_FRAC} -x {MAX_FRAC}'
+
+
+        
+rule cell_cn_tree_viz:
+    """
+    Tyler's visualization scripts, which includes library/grouping annotation
+    """
+    input:
+        tree = os.path.join(config['results_dir'],'corrupt_grow', 'grown_total.newick'),
+        filtered_cnv_data = os.path.join(config['results_dir'],'corrupt_grow', 'total_merged_filtered_states_original.csv'),
+        grouping_file = os.path.join(config['results_dir'], 'library_groupings.csv'),
+        cell_clones = os.path.join(config['results_dir'],'corrupt_grow', 'cell_clones.csv')
+    output:
+        os.path.join(config['results_dir'],'corrupt_grow', 'cell_cn_tree_heatmap.png')
+    resources:
+        h_vmem=default_mem
+    shell:
+        'Rscript {config[project_dir]}/src/tree_viz/make_cell_copynumber_tree_heatmap.R -t {input.tree} -cn {input.filtered_cnv_data} -c {input.cell_clones} --grouping_file {input.grouping_file} -o {output}'
+

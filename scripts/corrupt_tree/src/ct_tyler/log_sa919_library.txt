@@ -1,0 +1,196 @@
+Tyler_2253
+
+1] "A98300B" "A98236B" "A98290A" "A98299A"
+
+dont have "A98236B" in snakemake config
+
+
+2254 
+ "A98293A"
+ dont have "A98181B"
+ 
+ # SA919
+ 
+ [1] "X0847-2112254"
+[1] 25664973        3
+[1] "A98181B" "A98293A"
+[1] 33
+[1] 50
+[1] "Divide filter loci mtx into filtered cells and outlier cells mtx"
+[1] 135663      3  outliers cells are more than filtered cells
+[1] 205550      3
+
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/Tyler_2251"
+[1] "X0847-2112251"
+[1] 25664973        3
+[1] "A96200A" "A96204B" "A96229A"
+[1] 1356
+[1] 187
+[1] "Divide filter loci mtx into filtered cells and outlier cells mtx"
+[1] 5574516       3
+[1] 768757      3
+[1] "Save data, Completed"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/Tyler_2252"
+[1] "X0847-2112252"
+[1] 25664973        3
+[1] "A96117B" "A96117A"
+[1] 919
+[1] 288
+[1] "Divide filter loci mtx into filtered cells and outlier cells mtx"
+[1] 3778009       3
+[1] 1183968       3
+[1] "Save data, Completed"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/Tyler_2253"
+[1] "X0847-2112253"
+[1] 25664973        3
+[1] "A98300B" "A98236B" "A98290A"
+[4] "A98299A"
+[1] 1036
+[1] 299
+[1] "Divide filter loci mtx into filtered cells and outlier cells mtx"
+[1] 4258996       3
+[1] 1229189       3
+[1] "Save data, Completed"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/Tyler_2254"
+[1] "X0847-2112254"
+[1] 25664973        3
+[1] "A98181B" "A98293A"
+[1] 33
+[1] 50
+[1] "Divide filter loci mtx into filtered cells and outlier cells mtx"
+[1] 135663      3
+[1] 205550      3
+[1] "Save data, Completed"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/Tyler_216"
+[1] "X0847-216"
+[1] 25664973        3
+[1] "A98232B" "A98306A"
+[1] 401
+[1] 26
+[1] "Divide filter loci mtx into filtered cells and outlier cells mtx"
+[1] 1648511       3
+[1] 106886      3
+[1] "Save data, Completed"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/Tyler_2164"
+[1] "X0847-2164"
+[1] 25664973        3
+[1] "A98261B" "A98217B" "A98217A"
+[1] 1546
+[1] 102
+[1] "Divide filter loci mtx into filtered cells and outlier cells mtx"
+[1] 6355606       3
+[1] 419322      3
+[1] "Save data, Completed"
+> output_dir
+
+
+
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/Tyler_2251"
+[1] "X0847-2112251"
+[1] "A96200A" "A96204B"
+[3] "A96229A"
+[1] 1356
+[1] 187
+[1] "Divide filter loci mtx into filtered cells and outlier cells mtx"
+[1] 4375 1356
+[1] 4375  187
+[1] "Save data, Completed"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/Tyler_2252"
+[1] "X0847-2112252"
+[1] "A96117B" "A96117A"
+[1] 919
+[1] 288
+[1] "Divide filter loci mtx into filtered cells and outlier cells mtx"
+[1] 4375  919
+[1] 4375  288
+[1] "Save data, Completed"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/Tyler_2253"
+[1] "X0847-2112253"
+[1] "A98300B" "A98236B"
+[3] "A98290A" "A98299A"
+[1] 1036
+[1] 299
+[1] "Divide filter loci mtx into filtered cells and outlier cells mtx"
+[1] 4375 1036
+[1] 4375  299
+[1] "Save data, Completed"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/Tyler_2254"
+[1] "X0847-2112254"
+[1] "A98181B" "A98293A"
+[1] 33
+[1] 50
+[1] "Divide filter loci mtx into filtered cells and outlier cells mtx"
+[1] 4375   33
+[1] 4375   50
+[1] "Save data, Completed"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/Tyler_216"
+[1] "X0847-216"
+[1] "A98232B" "A98306A"
+[1] 401
+[1] 26
+[1] "Divide filter loci mtx into filtered cells and outlier cells mtx"
+[1] 4375  401
+[1] 4375   26
+[1] "Save data, Completed"
+[1] "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/Tyler_2164"
+[1] "X0847-2164"
+[1] "A98261B" "A98217B"
+[3] "A98217A"
+[1] 1546
+[1] 102
+[1] "Divide filter loci mtx into filtered cells and outlier cells mtx"
+[1] 4375 1546
+[1] 4375  102
+[1] "Save data, Completed"
+
+
+
+
+# log SA535
+
+
+[1] "/home/htran/storage/datasets/metastasis_results/SA535_new_encoding/Tyler_2361"
+[1] "X0011-2361"
+[1] 15575956        3
+[1] "A96201B" "A95721B" "A95731A"
+[1] 700
+[1] 83
+[1] "Divide filter loci mtx into filtered cells and outlier cells mtx"
+[1] 3136700       3
+[1] 371923      3
+[1] "Save data, Completed"
+[1] "/home/htran/storage/datasets/metastasis_results/SA535_new_encoding/Tyler_2362"
+[1] "X0011-2362"
+[1] 15575956        3
+ [1] "A98277B" "A98232A" "A98261A"
+ [4] "A98165A" "A98197B" "A96121A"
+ [7] "A96253A" "A98277A" "A98254B"
+[10] "A98197A" "A98194B" "A98269A"
+[1] 1456
+[1] 347
+[1] "Divide filter loci mtx into filtered cells and outlier cells mtx"
+[1] 6524336       3
+[1] 1554907       3
+[1] "Save data, Completed"
+[1] "/home/htran/storage/datasets/metastasis_results/SA535_new_encoding/Tyler_2363"
+[1] "X0011-2363"
+[1] 15575956        3
+[1] "A98194A" "A98169A" "A98174A"
+[4] "A98282B" "A98294B" "A98296A"
+[1] 357
+[1] 43
+[1] "Divide filter loci mtx into filtered cells and outlier cells mtx"
+[1] 1599717       3
+[1] 192683      3
+[1] "Save data, Completed"
+[1] "/home/htran/storage/datasets/metastasis_results/SA535_new_encoding/Tyler_2364"
+[1] "X0011-2364"
+[1] 15575956        3
+[1] "A95697A" "A98163A" "A98262A"
+[4] "A98303B" "A98262B"
+[1] 377
+[1] 113
+[1] "Divide filter loci mtx into filtered cells and outlier cells mtx"
+[1] 1689337       3
+[1] 506353      3
+[1] "Save data, Completed"
