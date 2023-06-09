@@ -220,9 +220,10 @@ input_dir <- '/home/htran/storage/rnaseq_datasets/hakwoo_metastasis_RNAseq/'
 fns <- basename(list.dirs(paste0(input_dir, 'SA535_human_introns/')))
 fns <- fns[grepl('SCRNA', fns)]
 fns
+# fns <- c('SCRNA10X_SA_CHIP0220_001','SCRNA10X_SA_CHIP0220_002')
 output_dir <- '/home/htran/storage/datasets/metastasis_results/rnaseq_SA535/filtered_introns/'
   
-for(library_id in fns[9:15]){
+for(library_id in fns){
   # library_id <- 'SCRNA10X_SA_CHIP0176_001'
   print('')
   print('_____________________________')
@@ -246,7 +247,65 @@ for(library_id in fns[9:15]){
 }
 
 
+meta <- data.table::fread('/home/htran/Projects/hakwoo_project/metastasis_material/materials/10x/SA535_10x_metadata.csv')
 
+meta <- meta %>% 
+  dplyr::filter(mouse_id=='SA535X4XB05462')
+dim(meta)
+meta$library_id
+
+# base_dir <- '/home/htran/storage/rnaseq_datasets/hakwoo_metastasis_RNAseq/'
+output_dir <- '/home/htran/storage/datasets/metastasis_results/rnaseq_SA535/filtered_introns/'
+sce_list <- list()
+for(lid in meta$library_id){
+  sce <- readRDS(paste0(output_dir, lid, '.rds'))
+  sce_list[[lid]] <- sce
+}
+assay_counts <- do.call(cbind, lapply(sce_list, function(y) assay(y, 'counts')))
+names(assay_counts) <- 'counts'
+colData_names <- c('Barcode','Sample')
+
+colData_list <- do.call(DelayedArray::rbind, 
+                        lapply(sce_list, function(y) colData(y)[, colData_names, drop = FALSE]))
+sce_combine <- SingleCellExperiment::SingleCellExperiment(assays = list(counts=assay_counts), 
+                                                          colData = colData_list)
+dim(sce_combine)
+save_dir <- '/home/htran/storage/rnaseq_datasets/testing_space/clonealign2/SA535X4XB05462/'
+saveRDS(sce_combine, paste0(save_dir, 'SA535X4XB05462_introns_sce.rds'))
+assayNames(sce_combine)
+colnames(sce_combine) <- sce_combine$Barcode
+mtx <- as.data.frame(counts(sce_combine))
+dim(mtx)
+rownames(mtx)[1]
+cnv <- data.table::fread(paste0(save_dir, 'SA535X4XB05462_clones_cnv.csv.gz'))
+genes_used <- intersect(cnv$V1, rownames(mtx))
+mtx <- mtx[genes_used,]
+head(cnv)
+data.table::fwrite(mtx, paste0(save_dir, 'SA535X4XB05462_expr_introns.csv.gz'), row.names = T)
+dim(mtx)
+# /home/htran/anaconda3/envs/sisyphus/bin/python exe_TreeAlign.py --expr_fn /home/htran/storage/rnaseq_datasets/testing_space/clonealign2/SA535X4XB05462/SA535X4XB05462_expr_introns.csv.gz --cnv_fn /home/htran/storage/rnaseq_datasets/testing_space/clonealign2/SA535X4XB05462/SA535X4XB05462_clones_cnv.csv.gz --cell_clones_fn /home/htran/storage/rnaseq_datasets/testing_space/clonealign2/SA535X4XB05462/SA535X4XB05462_cell_clones.csv.gz --datatag SA535X4XB05462 --save_dir /home/htran/storage/rnaseq_datasets/testing_space/clonealign2/SA535X4XB05462/
+# meta <- data.table::fread('/home/htran/storage/datasets/drug_resistance/rna_results/SA604_rna/normalized/SA604_sctransform_colData.csv.gz')
+# 
+# head(meta)
+# table(meta$library_id, meta$Sample)
+# unique(meta$material)
+# meta <- meta %>%
+#   dplyr::group_by(tenx,Sample) %>%
+#   dplyr::summarise(nb_sample=n())
+# 
+# dim(meta)
+# View(meta)
+# 
+# colnames(meta) <- c('sample_id','library_id','nb_cells')
+# 
+# sids <- c('SA501X2XB00096','SA530X3XB03295')
+# lids <- c('SCRNA10X_SA_CHIP0008_000','SCRNA10X_SA_CHIP0164_002')
+# 
+# extra <- tibble(sample_id=sids, library_id=lids)
+# extra$nb_cells <- NULL
+# t <- dplyr::bind_rows(meta, extra)
+# View(t)
+# data.table::fwrite(t, '/home/htran/Projects/farhia_project/drug_resistant_material/materials/metadata_drug_resistance/untreated_Pts_SA501_SA530_SA604.csv')
 # /usr/local/bin/Rscript /home/htran/Projects/farhia_project/rnaseq/pipeline/utils/identify_doublet_v2.R --sce_file /home/htran/storage/images_dataset/merfish_rnaseq/SITTA12_XP6873/analysis/filtered/SITTA12_XP6873_filtered.rds --sce_output /home/htran/Projects/farhia_project/rnaseq/pipeline/utils/identify_doublet_v2.R --sce_file /home/htran/storage/images_dataset/merfish_rnaseq/SITTA12_XP6873/analysis/filtered/SITTA12_XP6873_f_dt.rds --doublet_score 0 --output_csv /home/htran/Projects/farhia_project/rnaseq/pipeline/utils/identify_doublet_v2.R --sce_file /home/htran/storage/images_dataset/merfish_rnaseq/SITTA12_XP6873/analysis/filtered/SITTA12_XP6873_filtered.rds --sce_output /home/htran/Projects/farhia_project/rnaseq/pipeline/utils/identify_doublet_v2.R --sce_file /home/htran/storage/images_dataset/merfish_rnaseq/SITTA12_XP6873/analysis/filtered/SITTA12_XP6873__doublet_filtered.csv --summary_csv /home/htran/storage/images_dataset/merfish_rnaseq/SITTA12_XP6873/analysis/filtered/SITTA12_XP6873_qc.csv
 
 # checking <- function(){
