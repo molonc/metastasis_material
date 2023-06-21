@@ -13,3 +13,4 @@ Metastasis,VentralSpinal,X08472112253,SA919X7XB05588,"","",C(706)B(25),priority1
 Metastasis,VentralSpinal,X08472112254,SA919X7XB05608,"","",B(30),priority3,Low dlp number of cells and no bulk data,M54_VentralSpinal_B,,
 Primary,Primary,X08472112254,SA919X7XB05289,"","",B(121)A(61),priority2,Dlp but no bulk data,M54_Primary_B,,
 Primary,Primary,X08472161,SA919X4XB09552,"","",A(26),priority3,Low dlp number of cells and no bulk data,M61_Primary_A,502,SCRNA10X_SA_CHIP0191_002
+Primary,Primary,X0847XXX,SA919X7XB05298,"","","","",No 10x sequencing data,"","",SCRNA10X_SA_CHIP0211_001

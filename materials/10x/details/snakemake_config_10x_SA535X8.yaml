@@ -1,0 +1,86 @@
+###
+## Libraries and samples for analysis SA1035 10x
+######################################################
+### Note: do not exist: https://www.bcgsc.ca/jira/browse/SC-4096
+### SA919X7XB05298 or SA535X4XB02498,M2364,Primary,Primary,SCRNA10X_SA_CHIP0211_001,Do not exist,excluded
+
+library:
+  SCRNA10X_SA_CHIP0249_001:
+    mouse_id: SA535X8
+    pdxid: X0011
+    Site_origin: Primary
+    Grouping: Primary
+    library_id: SCRNA10X_SA_CHIP0249_001
+    batch_info: CHIP0249
+  SCRNA10X_SA_CHIP0249_002:
+    mouse_id: SA535X8
+    pdxid: X0011
+    Site_origin: Primary
+    Grouping: Primary
+    library_id: SCRNA10X_SA_CHIP0249_002
+    batch_info: CHIP0249
+  SCRNA10X_SA_CHIP0250_001:
+    mouse_id: SA535X8
+    pdxid: X0011
+    Site_origin: Primary
+    Grouping: Primary
+    library_id: SCRNA10X_SA_CHIP0250_001
+    batch_info: CHIP0250
+    
+  
+    
+   
+
+
+
+# Snakemake parameters
+############################
+observed_library:
+  - SCRNA10X_SA_CHIP0249_001
+  - SCRNA10X_SA_CHIP0249_002
+  - SCRNA10X_SA_CHIP0250_001
+  
+
+
+# Snakemake activated rules
+############################
+download_data: False
+merge_data: False
+cell_cycle_detection: False
+verification_qc: False
+filter_data: False
+merge_filter_data: True
+normalize_data: False
+clustering_data: False
+deg_analysis: False
+batch_effect_estimation: False
+normalized_samples: False
+identify_doublets: False
+mutation_detection: True
+# Snakemake filtering data params
+############################
+max_mito: 20
+max_ribo: 60
+#min_pc_detected: 100
+min_features: 1000
+#min_pc_sum: 500
+
+## double score 0 mean using default NULL value
+doublet_score: '0'
+# Snakemake clustering params
+############################
+resolution: 0.1
+
+# Snakemake DEG params
+############################
+p_adjust: 0.0125
+min_logfc: 0.25
+#cluster_rm: '2'
+
+# Directory parameters: Please update all fields
+# nextflow_dir: for corrupt-grow pipeline only
+############################################
+project_10x_dir: '/home/htran/Projects/farhia_project/rnaseq/'
+download_10x_dir: '/home/htran/storage/rnaseq_datasets/hakwoo_metastasis_RNAseq'
+download_mouse_dir: '/home/htran/storage/rnaseq_datasets/hakwoo_metastasis_RNAseq/SA535_mouse'
+results_dir: '/home/htran/storage/datasets/metastasis_results/rnaseq_SA535'

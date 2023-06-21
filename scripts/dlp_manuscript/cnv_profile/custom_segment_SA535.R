@@ -419,6 +419,6 @@ tag <- 'SA535'
 get_reads_per_clone(input_dir, cellclones_fn, output_file, obs_clones, tag, cores_use=NULL)
 
 
-
+# paste0(output_dir,'mapped_wholedata_',tag,'_v2.csv.gz')
 
 # /home/htran/anaconda3/envs/sisyphus38/bin/python jira_ticket_from_file.py --input_library_fn /home/htran/storage/raw_DLP/metastasis_DLP/SA535/missing_libraries.csv --output_dir /home/htran/storage/raw_DLP/metastasis_DLP/SA535/

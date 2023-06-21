@@ -2,6 +2,60 @@
 library(SingleCellExperiment)
 library(Seurat)
 # library(DelayedArray) # need to install this package
+sce_cbind_func_v3 <- function(sce_list, min_cells = 50, 
+                              exprs = c("counts", "logcounts","normcounts"), 
+                              colData_names = NULL, save_raw=T, save_dir='',tag='SA') { #, meta_data=NULL
+  n_batch <- length(sce_list)
+  # method = "intersect"
+  
+  assay_list <- list()
+  for (i in seq_len(length(exprs))) {
+    assay_list[[i]] <- do.call(cbind, lapply(sce_list, 
+                                             function(y) assay(y, exprs[i])))
+  }
+  names(assay_list) <- exprs
+  if(is.null(colData_names)){ 
+    # print('Combining all meta cells features in colData(sce)')
+    colData_names <- colnames(colData(sce_list[[1]]))
+    for(i in rep(2:length(sce_list),1)){
+      colData_names <- intersect(colData_names, colnames(colData(sce_list[[i]])))
+    }
+    # colData_list <- do.call(DelayedArray::rbind, 
+    #                         lapply(sce_list, function(y) colData(y)))
+  }
+  colData_list <- do.call(DelayedArray::rbind, 
+                          lapply(sce_list, function(y) colData(y)[, colData_names, drop = FALSE]))
+  # genes_df <- as.data.frame(rowData(sce_list[[1]]))
+  # genes_df <- genes_df %>%
+  #   dplyr::rename(geo_strand=strand,
+  #                 geo_chr=chr,
+  #                 geo_start=start,
+  #                 geo_end=end)%>%
+  #   as.matrix()
+  sce_combine <- SingleCellExperiment::SingleCellExperiment(assay = assay_list, 
+                                                            colData = colData_list,
+                                                            rowData=rowData(sce_list[[1]]))
+  
+  
+  
+  # sce_combine$mouse_id <- meta_data$mouse_id
+  # sce_combine$passage <- meta_data$passage
+  # sce_combine$treatmentSt <- meta_data$treatmentSt
+  
+  print(paste0("Dim sce combine: ",dim(sce_combine)))
+  # print(colnames(colData(sce_combine)))
+  print(paste0("sce combine assay name: ",assayNames(sce_combine)))
+  if(save_raw){
+    saveRDS(sce_combine, file = paste0(save_dir,"filtered_combined_",tag,".rds"))
+  }
+  if(min_cells > 0){
+    nonzero_cbind <- DelayedArray::rowSums(assay(sce_combine, exprs[1]) > 0)
+    sce_combine <- sce_combine[names(nonzero_cbind[nonzero_cbind >= min_cells]), ]
+  }
+  
+  return(sce_combine)
+}
+
 sce_cbind_func_v2 <- function(sce_list, cut_off_overall = 0.01, exprs = c("counts", "logcounts","normcounts"), 
                               colData_names = NULL, save_raw=T, save_dir='',tag='SA') { #, meta_data=NULL
   # n_batch <- length(sce_list)
@@ -128,7 +182,7 @@ load_data <- function(input_dir, suffixes, tag=''){
 }
 
 
-normalize_scTransform_v3 <- function(mtx){
+normalize_scTransform_v3 <- function(sce, max_dim=25){
   library(Seurat)
   library(ggplot2)
   library(sctransform)
@@ -159,16 +213,17 @@ normalize_scTransform_v3 <- function(mtx){
   # pbmc <- SCTransform(pbmc, method = "glmGamPoi", vars.to.regress = "percent.mt", verbose = FALSE)
   
   pbmc <- RunPCA(pbmc, verbose = FALSE)
-  pbmc <- RunUMAP(pbmc, dims = 1:25, verbose = FALSE)
+  pbmc <- RunUMAP(pbmc, dims = 1:max_dim, verbose = FALSE)
   
-  pbmc <- FindNeighbors(pbmc, dims = 1:25, verbose = FALSE)
+  pbmc <- FindNeighbors(pbmc, dims = 1:max_dim, verbose = FALSE)
   res = 0.3
   pbmc <- FindClusters(pbmc, verbose = FALSE, resolution = res)
   p1 <- DimPlot(pbmc, label = TRUE, group.by = 'seurat_clusters') #+ NoLegend()
   rownames(meta_cells)[1:3]
   sum(colnames(pbmc)==meta_cells$cell_id)
   dim(pbmc)
-  is_lowquality <- ifelse(meta_cells$library_id=='SCRNA10X_SA_CHIP0250_001','CHIP0250_001','Others')
+  is_lowquality <- ifelse(meta_cells$library_id=='SCRNA10X_SA_CHIP0250_001',
+                          'CHIP0250_001','Others')
   summary(as.factor(is_lowquality))
   df <- data.frame(lowQuality_lib=is_lowquality)
   rownames(df) <- meta_cells$cell_id

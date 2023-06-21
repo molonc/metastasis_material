@@ -15,3 +15,6 @@ SA535X4XB05649,M2362,Primary,Primary,SCRNA10X_SA_CHIP0239_006,616 cells after do
 SA535X4XB09106,M2362,Right Axillary,Metastasis,SCRNA10X_SA_CHIP0239_004,886 cells after doublet detection (1848 in total),included
 SA535X4XB05462,M2363,Primary,Primary,SCRNA10X_SA_CHIP0239_007,92 cells after doublet detection (190 in total),included
 SA535X4XB05662,M2363,Tumor_Recur,Tumor_Recur,SCRNA10X_SA_CHIP0239_008,629 cells (1608 cells in total),included
+AT13645,X0011-23615222,Axillary_1,Metastasis,SCRNA10X_SA_CHIP0249_001,340 cells (569 cells in total),included
+AT13667,X0011-23615222,Abdominal_mass,Metastasis,SCRNA10X_SA_CHIP0249_002,181 cells (344 cells in total),included
+AT13667,X0011-23615222,Axillary_2,Metastasis,SCRNA10X_SA_CHIP0250_001,1751 cells (2223 cells in total),excluded
