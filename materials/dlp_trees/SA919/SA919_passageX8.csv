@@ -1,6 +1,11 @@
-jira_ticket,sample_id,origin,mainsite,nb_filtered_cells,grouping
-SC-7469,52098-BB,Primary,Primary,521,A118376A
-SC-7456,55323-BB,Neck,Metastasis,421,A98206B
-SC-7551,55326-BB,Axillary,Metastasis,540,A118376B
-SC-7549,55333-BB,Flank_Mass,Metastasis,615,A118392B
-SC-8003,55337-BB,Abdominal,Metastasis,603,A118348A
+jira_ticket,sample_id,origin,mainsite,nb_filtered_cells,grouping,sql_barcode,Pdxid
+SC-7469,52098-BB,Primary,Primary,521,A118376A,2959,X0847-2112253M3
+SC-7456,55323-BB,Neck,Metastasis,421,A98206B,,X0847-2112253M3
+SC-7551,55326-BB,Axillary,Metastasis,540,A118376B,,X0847-2112253M3
+SC-7549,55333-BB,Flank_Mass,Metastasis,615,A118392B,,X0847-2112253M3
+SC-8003,55337-BB,Abdominal,Metastasis,603,A118348A,,X0847-2112253M3
+SC-8352,"AT13582
+",Primary,Primary,620,A138967B,4410,"X0847-21122516
+"
+SC-8277,AT13804,Posterior_Neck,Metastasis,843,A138895B,4410,"X0847-21122516
+"
