@@ -6,6 +6,7 @@ script_exe=/home/htran/Projects/hakwoo_project/metastasis_material/scripts/metho
 python_env=/home/htran/anaconda3/envs/sisyphus/bin/python
 meta_sample_ids=/home/htran/storage/datasets/metastasis_results/rnaseq_SA535/clonealign_introns/samples_run_list.txt
 
+## Read list of samples into an array
 IFS=$'\n' read -d '' -r -a datatags < $meta_sample_ids
 
 

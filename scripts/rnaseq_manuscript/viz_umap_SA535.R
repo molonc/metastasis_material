@@ -27,7 +27,186 @@ main(){
   base_dir <- '/home/htran/storage/datasets/metastasis_results/rnaseq_SA535/'
   output_dir <- '/home/htran/storage/datasets/metastasis_results/rnaseq_SA535/normalized_introns/'
   datatag <- 'SA535' 
+  umap_df <- data.table::fread(paste0(output_dir, datatag, "_scTransform_umap_filtered_cells_clones.csv.gz"))
+  dim(umap_df)  
+  summary(as.factor(umap_df$clone_id))
+  umap_backup <- umap_df
   
+  
+}
+viz_umap_clones <- function(umap_df, output_dir, datatag){
+  
+  
+  obs_clones <- sort(unique(umap_df$clone_id))
+  unassign_clones <- c('unassigned','Unassigned','Un','un','None')
+  obs_clones <- obs_clones[!obs_clones %in% unassign_clones]
+  print(obs_clones)
+  # cols_use <- make_clone_palette(obs_clones)
+  color_df <- data.table::fread('/home/htran/Projects/hakwoo_project/metastasis_material/materials/dlp_trees/colorCode_clones/color_code_SA535.csv')
+  cols_use <- color_df$color
+  names(cols_use) <- color_df$clone_id
+  cols_use[cols_use=='#E7EBFA'] <- '#ABB9ED'
+  cols_use <- cols_use[obs_clones]
+  other_clones <- '#F0F0F0'
+  names(other_clones) <- 'Others'
+  cols_use <- c(cols_use,other_clones)
+  
+  
+  rna_SA535 <- list()
+  for(obs_given_clone in obs_clones){
+    tmp1 <- umap_df %>%
+      dplyr::filter(clone_id==obs_given_clone)
+    res <- viz_umap_given_clones(umap_df, datatag, output_dir,
+                                 obs_given_clone=obs_given_clone, 
+                                 obs_site=NULL,
+                                 cols_use=cols_use,
+                                 plottitle='', plotlegend=F)
+    rna_SA535[[paste0('Cls',obs_given_clone)]] <- res 
+    # for(st in unique(tmp1$Grouping)){
+    #   res <- viz_umap_given_clones(umap_df, datatag, output_dir,
+    #                                obs_given_clone=obs_given_clone, 
+    #                                obs_site=st,
+    #                                cols_use=cols_use,
+    #                                plottitle='', plotlegend=F)
+    #   rna_SA535[[paste0(obs_given_clone,'_',st)]] <- res  
+    # }
+    
+    
+  }
+  names(rna_SA535)
+  obs_cls1 <- c('A','B','C','D','E','F','G','H')
+  obs_cls1 <- obs_cls1[obs_cls1 %in% obs_clones]
+  obs_cls1 <- paste0('Cls',obs_cls1)
+  plts <- list()
+  for(c in obs_cls1){
+    plts[[c]] <- rna_SA535[[c]]$p
+  }
+  p535_total <- cowplot::plot_grid(plotlist = plts,
+                                   ncol=4)
+  # p535_total
+  png(paste0(output_dir,datatag,"_branch1.png"), height = 2*600, width=2*1200,res = 2*72)
+  print(p535_total)
+  dev.off()
+  
+  
+  obs_cls2 <- c('I','M','J','K','L','N','O','P','Q','R','S','T')
+  obs_cls2 <- obs_cls2[obs_cls2 %in% obs_clones]
+  obs_cls2 <- paste0('Cls',obs_cls2)
+  plts <- list()
+  for(c in obs_cls2){
+    plts[[c]] <- rna_SA535[[c]]$p
+  }
+  p535_total <- cowplot::plot_grid(plotlist = plts,
+                                   ncol=5)
+  png(paste0(output_dir,datatag,"_branch2.png"), height = 2*500, width=2*1250,res = 2*72)
+  print(p535_total)
+  dev.off()
+  
+  
+  
+  rna_SA535 <- list()
+  for(obs_given_clone in obs_clones){
+    tmp1 <- umap_df %>%
+      dplyr::filter(clone_id==obs_given_clone)
+    for(st in unique(tmp1$Grouping)){
+      res <- viz_umap_given_clones(umap_df, datatag, output_dir,
+                                   obs_given_clone=obs_given_clone,
+                                   obs_site=st,
+                                   cols_use=cols_use,
+                                   plottitle='', plotlegend=F)
+      rna_SA535[[paste0(obs_given_clone,'_',st)]] <- res
+    }
+    
+  }
+  names(rna_SA535)
+  obs_groups <- c('G_Primary','H_Primary','H_Metastasis')
+  plts <- list()
+  for(c in obs_groups){
+    plts[[c]] <- rna_SA535[[c]]$p
+  }
+  wd <- length(obs_groups)
+  ht <- 1
+  p535_total <- cowplot::plot_grid(plotlist = plts, ncol=wd)
+  # p535_total
+  png(paste0(output_dir,datatag,"_GH",".png"), height = 2*350*ht, width=2*350*wd,res = 2*72)
+  print(p535_total)
+  dev.off()
+  
+  
+  obs_groups <- c('M_Primary','M_Metastasis','J_Primary','J_Metastasis')
+  obs_groups <- c('M_Primary','M_Metastasis','P_Primary','P_Metastasis')
+  lbs <- 'MP'
+  
+  obs_groups <- c('S_Primary','S_Metastasis','T_Primary','T_Metastasis')
+  lbs <- 'ST'
+  
+  obs_groups <- c('R_Primary','R_Metastasis','T_Primary','T_Metastasis')
+  lbs <- 'RT'
+  
+  obs_groups <- c('M_Primary','M_Metastasis','N_Primary','N_Metastasis','O_Primary','O_Metastasis')
+  lbs <- 'MNO'
+  
+  obs_groups <- obs_groups[obs_groups %in% names(rna_SA535)]
+  plts <- list()
+  for(c in obs_groups){
+    plts[[c]] <- rna_SA535[[c]]$p  
+  }
+  wd <- length(obs_groups)
+  wd <- 3
+  ht <- 2
+  p535_total <- cowplot::plot_grid(plotlist = plts, ncol=wd)
+  # p535_total
+  png(paste0(output_dir,datatag,"_",lbs,".png"), height = 2*300*ht, width=2*300*wd,res = 2*72)
+  print(p535_total)
+  dev.off()
+  
+  summary(as.factor(umap_df$clone_id))
+  umap_df <- umap_df %>%
+    dplyr::mutate(clone_id=
+                    case_when(
+                      clone_id=='None' ~ 'C',
+                      TRUE ~ clone_id
+                    ))
+  
+  rna_SA535 <- list()
+  for(obs_given_clone in obs_clones){
+    tmp1 <- umap_df %>%
+      dplyr::filter(clone_id==obs_given_clone)
+    for(st in unique(tmp1$Grouping)){
+      res <- viz_umap_given_clones(umap_df, datatag, output_dir,
+                                   obs_given_clone=obs_given_clone,
+                                   obs_site=st,
+                                   cols_use=cols_use,
+                                   plottitle='', plotlegend=F)
+      rna_SA535[[paste0(obs_given_clone,'_',st)]] <- res
+    }
+    
+  }
+  
+  obs_groups <- c('C_Primary','C_Tumor_Recur','E_Tumor_Recur','E_Metastasis',
+                  'F_Tumor_Recur','G_Primary','G_Tumor_Recur','H_Metastasis')
+  
+  obs_groups <- c('C_Primary','C_Tumor_Recur','E_Tumor_Recur','E_Metastasis',
+                  'F_Tumor_Recur','G_Primary','G_Tumor_Recur','H_Metastasis')
+  
+  obs_groups <- c('D_Primary','G_Primary','G_Tumor_Recur','H_Metastasis')
+  lbs <- 'DGH'
+  
+  obs_groups <- c('G_Primary','G_Tumor_Recur','H_Primary','H_Metastasis')
+  lbs <- 'GH'
+  obs_groups <- obs_groups[obs_groups %in% names(rna_SA535)]
+  plts <- list()
+  for(c in obs_groups){
+    plts[[c]] <- rna_SA535[[c]]$p  
+  }
+  wd <- length(obs_groups)
+  # wd <- 4
+  ht <- 1
+  p535_total <- cowplot::plot_grid(plotlist = plts, ncol=wd)
+  # p535_total
+  png(paste0(output_dir,datatag,"_",lbs,".png"), height = 2*300*ht, width=2*300*wd,res = 2*72)
+  print(p535_total)
+  dev.off()
   
 }
 get_clone_labels <- function(output_dir, meta_data){
@@ -115,51 +294,7 @@ get_clone_labels <- function(output_dir, meta_data){
   # output_dir <- '/home/htran/storage/datasets/drug_resistance/rna_results/manuscript/umap_figs/'
   # data.table::fwrite(clonealign_stat, paste0(output_dir,'clonealign_labels.csv'))
   # View(head(clonealign_stat))
-  cls <- unique(umap_df$clone_id)
-  unassign_clones <- c('unassigned','Unassigned','Un','un','None')
-  cls <- cls[!cls %in% unassign_clones]
-  print(cls)
   
-  obs_clones <- sort(unique(umap_df$clone_id))
-  unassign_clones <- c('unassigned','Unassigned','Un','un','None')
-  obs_clones <- obs_clones[!obs_clones %in% unassign_clones]
-  print(obs_clones)
-  cols_use <- make_clone_palette(obs_clones)
-  cols_use <- cols_use[obs_clones]
-  other_clones <- '#F0F0F0'
-  names(other_clones) <- 'Others'
-  cols_use <- c(cols_use,other_clones)
-  rna_SA535 <- list()
-  for(obs_given_clone in cls){
-    tmp1 <- umap_df %>%
-      dplyr::filter(clone_id==obs_given_clone)
-    for(st in unique(tmp1$Grouping)){
-      res <- viz_umap_given_clones(umap_df, datatag, output_dir,
-                                   obs_given_clone=obs_given_clone, 
-                                   obs_site=st,
-                                   cols_use=cols_use,
-                                   plottitle='', plotlegend=F)
-      rna_SA535[[paste0(obs_given_clone,'_',st)]] <- res  
-    }
-    
-    
-  }
-  names(rna_SA535)
-  p535_total <- cowplot::plot_grid(rna_SA535[['A_Primary']]$p,rna_SA535[['C_Primary']]$p,
-                                   rna_SA535[['D_Primary']]$p,rna_SA535[['E_Tumor_Recur']]$p,
-                                   rna_SA535[['E_Metastasis']]$p,rna_SA535[['F_Tumor_Recur']]$p,
-                                   rna_SA535[['F_Metastasis']]$p,rna_SA535[['F_Metastasis']]$p,
-                                   rna_SA535[['G_Primary']]$p, rna_SA535[['G_Tumor_Recur']]$p,
-                                   ncol=5, align = 'hv')
-  
-  p535_total <- cowplot::plot_grid(rna_SA535$A$p,rna_SA535$C$p,rna_SA535$D$p,rna_SA535$E$p,rna_SA535[['F']]$p,
-                                   rna_SA535$G$p, rna_SA535$M$p, rna_SA535$N$p, rna_SA535$O$p, rna_SA535$P$p,
-                                   rna_SA535$Q$p, rna_SA535$R$p, rna_SA535$S$p, rna_SA535[['T']]$p, rna_SA535$J$p,
-                                   ncol=5, align = 'hv')
-  # p535_total1 <- cowplot::plot_grid(res_SA535_UnRx$plg, p535_total, ncol=1, rel_heights = c(1,10), labels = c('SA535',''))
-  png(paste0(output_dir,datatag,".png"), height = 2*500, width=2*1250,res = 2*72)
-  print(p535_total)
-  dev.off()
 }  
 viz_umap_given_clones <- function(umap_df, datatag, output_dir, 
                                 obs_given_clone=NULL, obs_site=NULL,cols_use=NULL, 
@@ -175,18 +310,29 @@ viz_umap_given_clones <- function(umap_df, datatag, output_dir,
   if(!is.null(obs_given_clone)){
     tmp <- umap_df %>%
       dplyr::filter(clone_id==obs_given_clone)
-    plottitle=paste0(plottitle, ' Clone-',obs_given_clone)
+    plottitle=paste0(plottitle, ' Cls ',obs_given_clone)
   }else{
     tmp <- umap_df 
   }  
   if(!is.null(obs_site)){
     tmp <- tmp %>%
       dplyr::filter(Grouping==obs_site)
-    plottitle=paste0(plottitle, ', Site-', obs_site)
-  }else{
-    print('Observe all sites')
-  }  
-  
+    plottitle=paste0(plottitle, ', ', obs_site)
+  }
+
+  plottitle=paste0(plottitle, ' (',dim(tmp)[1],')')
+  # desc <- summary(as.factor(tmp$Grouping))
+  # 
+  # 
+  sites <- c('P','M','TR')
+  names(sites) <- c('Primary','Metastasis','Tumor_Recur')
+  # for(s in names(sites)){
+  #   if(s %in% names(desc)){
+  #     plottitle=paste0(plottitle, ' ',sites[s],desc[s])
+  #   }
+  # }
+  # plottitle=paste0(plottitle,')')
+  # paste0(, collapse = ',')
   if(dim(tmp)[1]==0){
     print('No cell, check input data')
     return(NULL)
@@ -196,7 +342,7 @@ viz_umap_given_clones <- function(umap_df, datatag, output_dir,
   obs_clones <- sort(unique(umap_df$clone_id))
   unassign_clones <- c('unassigned','Unassigned','Un','un','None')
   obs_clones <- obs_clones[!obs_clones %in% unassign_clones]
-  print(obs_clones)
+  # print(obs_clones)
   if(is.null(cols_use)){
     cols_use <- make_clone_palette(obs_clones)
     cols_use <- cols_use[obs_clones]
@@ -217,16 +363,21 @@ viz_umap_given_clones <- function(umap_df, datatag, output_dir,
   # umap_df <- umap_df %>%
   #   dplyr::filter(cell_id %in% tmp$cell_id)
   # print(summary(as.factor(umap_df$clone)))
-  
+  used_shapes <- c(1, 18, 3)
+  names(used_shapes) <- names(sites)
+  used_sizes <- c(0.6, 0.85, 0.65)
+  names(used_sizes) <- names(sites)
   thesis_theme <- get_theme()
   umap_df$clone_id <- factor(umap_df$clone_id, levels = sort(unique(umap_df$clone_id)))
-  summary(as.factor(umap_df$clone_id))
+  # summary(as.factor(umap_df$clone_id))
   p <- ggplot(umap_df, aes(UMAP_1, UMAP_2)) + 
     geom_point(size=0.5, shape=1, color='#e0e0e0') +
-    geom_point(data=tmp, size=0.5, shape=1, aes(color=clone_id)) +  # color='#e0e0e0', grey color for all cells landscape displaying in background
+    geom_point(data=tmp, aes(color=clone_id, shape=Grouping, size=Grouping)) +  # size=0.6, shape=1, color='#e0e0e0', grey color for all cells landscape displaying in background
     # geom_point(data=tmp, aes(color=clone), size=0.5, shape=1) +
     # facet_wrap(~ clone_id, nrow=3) +
     scale_color_manual(values=cols_use, name='') +
+    scale_shape_manual(values=used_shapes)+
+    scale_size_manual(values=used_sizes)+
     labs(title = plottitle, x=' ') +
     xlim(xl[1], xl[2]) + 
     ylim(yl[1], yl[2])
@@ -428,7 +579,7 @@ get_theme <- function(){
     axis.line = element_blank(),
     axis.text = element_blank(),
     axis.title = element_blank(),
-    plot.title = element_text(color="black",size=11, face="bold",family=my_font, hjust = 0.5),
+    plot.title = element_text(color="black",size=14, face="bold",family=my_font, hjust = 0.5),
     # legend.title=element_text(color="black",size=7, hjust = 0.5, family=my_font),
     # legend.text=element_text(color="black",size=7, hjust = 0.5, family=my_font),
     strip.text.x = element_text(color="black",size=11, family=my_font),

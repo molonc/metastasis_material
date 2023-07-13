@@ -8,6 +8,31 @@ from treealign import CloneAlignTree
 # from Bio import Phylo
 
 
+# expr fn is gene expression with cells in columns, and genes in rows. 
+# First column is row name - gene id
+# index is cell id
+# cells are filtered, high quality cells from QC functions
+# Format is .csv or .csv.gz
+#                 c1,c2,c3,c4,c5,c6
+# ENSG00000000003,0,5,0,3,0,2
+# ENSG00000000005,0,0,0,0,0,0
+
+# cnv_fn is a csv or csv.gz file with clonal profiles in columns, and genes in rows
+#                 cell_C,cell_G,cell_I,cell_M,cell_N,cell_R,cell_S
+# ensembl_gene_id                
+# ENSG00000000003,2,3,3,3,3,3,3
+# ENSG00000000005,2,3,3,3,3,3,3
+
+# cell_clones_fn: with cell_id, and clone_id. Here we use median CN profile for cells in each clone
+# cell_id,clone_id
+# cell_C,C
+# cell_G,G
+# cell_I,I
+# cell_M,M
+# cell_N,N
+# cell_R,R
+# cell_S,S
+
 def load_input_data(expr_fn, cnv_fn, cell_clones_fn=None, tree_fn=None):
     # scRNA read count matrix where each row represents a gene, 
     # each column represents a cell
@@ -54,7 +79,7 @@ def load_input_data(expr_fn, cnv_fn, cell_clones_fn=None, tree_fn=None):
     else:
         tree = None
         
-    input_dic = {"expr":expr,"cnv":cnv,"clone":clone,"tree":tree}
+    input_dic = {"expr":expr, "cnv":cnv, "clone":clone, "tree":tree}
 
     return input_dic
 

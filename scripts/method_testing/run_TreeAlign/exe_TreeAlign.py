@@ -10,7 +10,6 @@ import numpy as np
 from datetime import datetime
 import logging
 from logging.handlers import TimedRotatingFileHandler
-
 import utils
 
 if __name__ == '__main__':
@@ -22,7 +21,7 @@ if __name__ == '__main__':
     parser.add_argument('--tree_fn', required=False, default=None)
     parser.add_argument('--TreeAlign_mode', required=False, default='clonal_infer') #TreeAlign_mode can be 'clonal_infer' or 'tree_infer'
     parser.add_argument('--datatag', required=False, default='SA')
-    parser.add_argument('--assign_prob', required=False, default='0.6') # from 0.5 to 1, 0.6 means 60% of gene follow CN to assign a clonal label
+    parser.add_argument('--assign_prob', required=False, default='0.8') # from 0.5 to 1, 0.6 means 60% of gene follow CN to assign a clonal label
     parser.add_argument('--iterations', required=False, default='500')
     parser.add_argument('--save_dir', required=False, default=None) # if None, save data into input folder
     
@@ -31,25 +30,19 @@ if __name__ == '__main__':
 
     # (expr_fn, cnv_fn, cell_clones_fn=None, tree_fn=None)
     # min_clone_assign_prob=0.8, max_iter=400
-
-    expr_fn = args['expr_fn']
-    cnv_fn = args['cnv_fn'] 
-    cell_clones_fn = args['cell_clones_fn'] 
-    tree_fn = args['tree_fn']
-    TreeAlign_mode = args['TreeAlign_mode']
-    datatag = args['datatag']
+    
     min_clone_assign_prob = float(args['assign_prob']) 
     iterations = int(args['iterations'])
     save_dir = args['save_dir']
     # print(output_file)
-    print('expr_fn {0}'.format(expr_fn))
-    print('cnv_fn {0}'.format(cnv_fn))
-    print('cell_clones_fn {0}'.format(cell_clones_fn))
-    print('TreeAlign_mode {0}'.format(TreeAlign_mode))
+    print('expr_fn {0}'.format(args['expr_fn']))
+    print('cnv_fn {0}'.format(args['cnv_fn']))
+    print('cell_clones_fn {0}'.format(args['cell_clones_fn'] ))
+    print('TreeAlign_mode {0}'.format(args['TreeAlign_mode']))
     print('min_clone_assign_prob {0} iterations: {1}'.format(min_clone_assign_prob, iterations))
     
     if save_dir==None: 
-        save_dir = os.path.join(os.path.dirname(expr_fn),'TreeAlign_output')
+        save_dir = os.path.join(os.path.dirname(args['expr_fn']),'TreeAlign_output')
         
     if not os.path.exists(save_dir): 
         os.makedirs(save_dir)
@@ -59,31 +52,34 @@ if __name__ == '__main__':
     
     start = datetime.now()
     
-    input_dic = utils.load_input_data(expr_fn, cnv_fn, cell_clones_fn, tree_fn)
+    input_dic = utils.load_input_data(args['expr_fn'], args['cnv_fn'], 
+    args['cell_clones_fn'] , args['tree_fn'])
         
-    if cell_clones_fn is not None and TreeAlign_mode=='clonal_infer': 
+    if args['cell_clones_fn'] is not None and args['TreeAlign_mode']=='clonal_infer': 
         print('Run TreeAlign using clonal inference mode')
-        utils.run_clone_TreeAlign(input_dic["expr"], input_dic["cnv"], input_dic["clone"], save_dir, datatag,
+        utils.run_clone_TreeAlign(input_dic["expr"], input_dic["cnv"], input_dic["clone"], 
+        save_dir, args['datatag'],
                         min_clone_assign_prob=min_clone_assign_prob, max_iter=iterations, min_clone_cell_count=1, cnv_cutoff=8)
     else:
         print('Run TreeAlign using tree phylogenetic as input for inference')
-        utils.run_phylo_TreeAlign(expr, cnv, tree, save_dir, datatag)
+        utils.run_phylo_TreeAlign(input_dic["expr"], input_dic["expr"], 
+        input_dic["tree"], save_dir, args['datatag'])
         
     end = datetime.now()
     td = (end - start).total_seconds() / 60 
 #     print(f"The time of execution of above program is : {td:.03f} mins")  
     log_time = f"The time of execution of above program is : {td:.03f} mins"
     print(log_time)
-    mode_desc = 'TreeAlign_mode: ' + TreeAlign_mode
+    mode_desc = 'TreeAlign_mode: ' + args['TreeAlign_mode']
     prob_desc = 'min_clone_assign_prob: ' + str(min_clone_assign_prob)
     ite_desc = 'Iterations: ' + str(iterations)
-    log_fn = os.path.join(save_dir, datatag+'_log_params.txt')
+    log_fn = os.path.join(save_dir, args['datatag']+'_log_params.txt')
     h = TimedRotatingFileHandler(log_fn)
     
-    logging.basicConfig(filename=os.path.join(save_dir, datatag+'_log_params.txt'), level=logging.DEBUG, filemode='w')#encoding='utf-8', 
-    logging.info(expr_fn)
-    logging.info(cnv_fn)
-    logging.info(datatag)
+    logging.basicConfig(filename=os.path.join(save_dir, args['datatag']+'_log_params.txt'), level=logging.DEBUG, filemode='w')#encoding='utf-8', 
+    logging.info(args['expr_fn'])
+    logging.info(args['cnv_fn'])
+    logging.info(args['datatag'])
     logging.info(mode_desc)
     logging.info(prob_desc)
     logging.info(ite_desc)

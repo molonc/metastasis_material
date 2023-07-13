@@ -50,10 +50,19 @@ get_metric_df <- function(sce) {
     as_tibble() %>% 
     dplyr::select(Barcode, total_counts)
 }
-qc_metrics <- function(sce) {
-  mito_genes <- str_detect(rowData(sce)$Symbol, "^MT\\-")
+qc_metrics <- function(sce, is_mouse=F) {
+  pattern_str <- "^MT\\-"
+  if(is_mouse){
+    pattern_str <- "^mt\\-"
+  }
+  mito_genes <- stringr::str_detect(rowData(sce)$Symbol, pattern_str)
   per.cell <- perCellQCMetrics(sce, subsets=list(Mito=mito_genes))
   colData(sce) <- cbind(colData(sce), per.cell)
+  if(!'total_counts' %in% colnames(colData(sce)) & 'total' %in% colnames(colData(sce))){
+    sce$total_counts <- sce$total
+  }else{
+    stop('Do not exist the column name total_counts or total in the QC output, double check version of QC function')
+  }
   sce
 }  
 #args$output_figure
@@ -66,7 +75,7 @@ detect_mouse_cells <- function(sce_human, sce_mouse){
   
   if(sum(obs_qc_features %in% colnames(colData(sce_mouse)))!=2){
     # sce_mouse <- calculateQCMetrics(sce_mouse)
-    sce_mouse <- qc_metrics(sce_mouse)
+    sce_mouse <- qc_metrics(sce_mouse, is_mouse = T)
   }
   
   df_hm <- inner_join(

@@ -107,61 +107,61 @@ normalize_scTransform_v3 <- function(sce, datatag='SA', max_dim=25){
   # dim(filtered_umap_df)
   # 
   saveRDS(srt, paste0(output_dir, datatag, "_scTransform_srt.rds"))
-  p1 <- DimPlot(srt, label = TRUE, group.by = 'seurat_clusters') #+ NoLegend()
-  
-  p2 <- DimPlot(srt, label = F, group.by = 'Sample') #+ NoLegend()
-  
-  
-  rownames(meta_cells)[1:3]
-  sum(colnames(srt)==meta_cells$cell_id)
-  dim(srt)
-  is_lowquality <- ifelse(meta_cells$library_id=='SCRNA10X_SA_CHIP0250_001',
-                          'CHIP0250_001','Others')
-  summary(as.factor(is_lowquality))
-  df <- data.frame(lowQuality_lib=is_lowquality)
-  rownames(df) <- meta_cells$cell_id
-  srt <- AddMetaData(object = srt, metadata = df, 
-                      col.name = 'lowQuality_lib')
-  p2 <- DimPlot(srt, reduction = "umap", group.by = 'lowQuality_lib')
-  
-  p2  
-  output_dir <- input_dir
-  datatag <- tag
-  pumap <- p1 + p2 + patchwork::plot_layout(ncol=2)
-  png(paste0(output_dir,datatag,"_clusters_umap.png"), height = 2*400, width=2*1000,res = 2*72)
-  print(pumap)
-  dev.off()
-  
-  metasamples <- data.table::fread(paste0(dirname(input_dir),'/snakemake_10x_v2/SA535_10x_metadata.csv'))
-  unique(metasamples$Grouping)
-  unique(metasamples$library_id)
-  colnames(metasamples)
-  dim(meta_cells)
-  library(dplyr)
-  meta_cells <- meta_cells %>%
-    as.data.frame() %>%
-    dplyr::left_join(metasamples, by='library_id')
-  # sum(unique(meta_cells$library_id) %in% metasamples$library_id)
-  sid_df <- meta_cells %>%
-    select(cell_id, Grouping) %>%
-    rename(MainSite=Grouping)
-  rownames(sid_df) <- sid_df$cell_id
-  sid_df$cell_id <- NULL
-  srt <- AddMetaData(object = srt, metadata = sid_df, col.name = 'MainSite')
-  
-  lid_df <- data.frame(lid=gsub('SCRNA10X_SA_CHIP0','C',meta_cells$library_id), row.names = meta_cells$cell_id)
-  srt <- AddMetaData(object = srt, metadata = lid_df, col.name = 'library_id')
-  p3 <- DimPlot(srt, reduction = "umap", group.by = 'library_id')
-  p4 <- DimPlot(srt, reduction = "umap", group.by = 'MainSite')
-  pumap <- p1 + p3 + p4 + patchwork::plot_layout(ncol=3)
-  png(paste0(output_dir,datatag,"_clusters_umap.png"), height = 2*350, width=2*1200,res = 2*72)
-  print(pumap)
-  dev.off()
-  
-  umap_SA535 <- Embeddings(object = srt, reduction = "umap") #_200123
-  data.table::fwrite(as.matrix(umap_SA535), paste0(dirname(input_dir),'/normalized/', 'umap_SA535_200123.csv'))
-  
-  saveRDS(srt, paste0(dirname(input_dir),'/normalized/', 'SA535_sctransform_normalized_srt_200123.rds'))
+  # p1 <- DimPlot(srt, label = TRUE, group.by = 'seurat_clusters') #+ NoLegend()
+  # 
+  # p2 <- DimPlot(srt, label = F, group.by = 'Sample') #+ NoLegend()
+  # 
+  # 
+  # rownames(meta_cells)[1:3]
+  # sum(colnames(srt)==meta_cells$cell_id)
+  # dim(srt)
+  # is_lowquality <- ifelse(meta_cells$library_id=='SCRNA10X_SA_CHIP0250_001',
+  #                         'CHIP0250_001','Others')
+  # summary(as.factor(is_lowquality))
+  # df <- data.frame(lowQuality_lib=is_lowquality)
+  # rownames(df) <- meta_cells$cell_id
+  # srt <- AddMetaData(object = srt, metadata = df, 
+  #                     col.name = 'lowQuality_lib')
+  # p2 <- DimPlot(srt, reduction = "umap", group.by = 'lowQuality_lib')
+  # 
+  # p2  
+  # output_dir <- input_dir
+  # datatag <- tag
+  # pumap <- p1 + p2 + patchwork::plot_layout(ncol=2)
+  # png(paste0(output_dir,datatag,"_clusters_umap.png"), height = 2*400, width=2*1000,res = 2*72)
+  # print(pumap)
+  # dev.off()
+  # 
+  # metasamples <- data.table::fread(paste0(dirname(input_dir),'/snakemake_10x_v2/SA535_10x_metadata.csv'))
+  # unique(metasamples$Grouping)
+  # unique(metasamples$library_id)
+  # colnames(metasamples)
+  # dim(meta_cells)
+  # library(dplyr)
+  # meta_cells <- meta_cells %>%
+  #   as.data.frame() %>%
+  #   dplyr::left_join(metasamples, by='library_id')
+  # # sum(unique(meta_cells$library_id) %in% metasamples$library_id)
+  # sid_df <- meta_cells %>%
+  #   select(cell_id, Grouping) %>%
+  #   rename(MainSite=Grouping)
+  # rownames(sid_df) <- sid_df$cell_id
+  # sid_df$cell_id <- NULL
+  # srt <- AddMetaData(object = srt, metadata = sid_df, col.name = 'MainSite')
+  # 
+  # lid_df <- data.frame(lid=gsub('SCRNA10X_SA_CHIP0','C',meta_cells$library_id), row.names = meta_cells$cell_id)
+  # srt <- AddMetaData(object = srt, metadata = lid_df, col.name = 'library_id')
+  # p3 <- DimPlot(srt, reduction = "umap", group.by = 'library_id')
+  # p4 <- DimPlot(srt, reduction = "umap", group.by = 'MainSite')
+  # pumap <- p1 + p3 + p4 + patchwork::plot_layout(ncol=3)
+  # png(paste0(output_dir,datatag,"_clusters_umap.png"), height = 2*350, width=2*1200,res = 2*72)
+  # print(pumap)
+  # dev.off()
+  # 
+  # umap_SA535 <- Embeddings(object = srt, reduction = "umap") #_200123
+  # data.table::fwrite(as.matrix(umap_SA535), paste0(dirname(input_dir),'/normalized/', 'umap_SA535_200123.csv'))
+  # 
+  # saveRDS(srt, paste0(dirname(input_dir),'/normalized/', 'SA535_sctransform_normalized_srt_200123.rds'))
 }
 
 

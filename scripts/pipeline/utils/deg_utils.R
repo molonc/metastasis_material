@@ -229,6 +229,7 @@ calculate_DE_analysis_v2 <- function(base_name, meta_data, cells_use_g1, cells_u
   markers_ls$GENEID <- rownames(markers_ls)
   # View(head(markers_ls))
   # markers_ls$avg_log2FC
+  markers_ls$avg_log2FC <- round(markers_ls$avg_log2FC,2)
   # Get top marker genes
   markers_ls_output <- markers_ls[markers_ls$p_val_adj<pAdjustThrs & abs(markers_ls$avg_log2FC)>minLogFC,]
   markers_ls_output <- markers_ls_output[order(markers_ls_output$avg_log2FC,decreasing = T),]  
@@ -268,10 +269,10 @@ calculate_DE_analysis_v2 <- function(base_name, meta_data, cells_use_g1, cells_u
     # write.table(genes_deg_df, paste0(save_dir_pw,"de_topup_",nbtopup,"_topdown_",nbtopdown,".txt"),sep="\t",col.names=NA,quote=F)
   }
     
-  print("Plot DE genes")
-  # plttitle <- paste0(base_name,"; ",groups_use[1]," vs. ",groups_use[2])
-  plttitle <- base_name
-  topGenes <- genes_deg_df$gene_symb
+  # print("Plot DE genes")
+  # # plttitle <- paste0(base_name,"; ",groups_use[1]," vs. ",groups_use[2])
+  # plttitle <- base_name
+  # topGenes <- genes_deg_df$gene_symb
   # markers_ls_tmp <- markers_ls
   # rownames(markers_ls_tmp) <- markers_ls_tmp$gene_symb
   # plot_DE_genes(markers_ls_tmp, topGenes, nrow(markers_ls_output), 
@@ -286,10 +287,10 @@ calculate_DE_analysis_v2 <- function(base_name, meta_data, cells_use_g1, cells_u
   #   saveRDS(summary_genes_ls,file = paste0(save_dir_pw,'summary_genes_ls.rds'))
   # }
   
-  p <- plot_DE_genes_ggplot(markers_ls, topGenes, capstr="", 
-                       FDRcutoff=0.01, logFCcutoff=0.25, pValuecutoff=0.05,
-                       plttitle, save_dir_pw, legendVisible=F,
-                       iscaption=TRUE, legend_verbose='none', save_plot=TRUE, xl=NULL)
+  # p <- plot_DE_genes_ggplot(markers_ls, topGenes, capstr="", 
+  #                      FDRcutoff=0.01, logFCcutoff=0.25, pValuecutoff=0.05,
+  #                      plttitle, save_dir_pw, legendVisible=F,
+  #                      iscaption=TRUE, legend_verbose='none', save_plot=TRUE, xl=NULL)
   # p  
   # Plot heatmap
   # norm_df <- GetAssayData(object = srt2, slot = "data")
@@ -351,50 +352,50 @@ calculate_DE_analysis_v2 <- function(base_name, meta_data, cells_use_g1, cells_u
   
   
   
-  # Pathway analysis
-  print("Pathway analysis....")
-  # gmt_dir <- paste0(input_dir,"biodatabase/")
-  gmt_dir <- '/home/htran/storage/datasets/drug_resistance/rna_results/biodatabase/pathway_set/'
-  deg_stat <- markers_ls_output$avg_log2FC
-  names(deg_stat) <- markers_ls_output$gene_symb
-  # # print(head(deg_stat))
-  
-  # comment back
-  method_use <- paste0("seurat_DEG_",test_use)
-  gmt_ls <- c("h.all.v7.0.symbols.gmt") #,"c2.cp.kegg.v7.1.symbols.gmt","GO_c5.all.v7.1.symbols.gmt"
-  # pathway_names <- c("hallmark","kegg") #,"go"
-  pathway_names <- c("hallmark")
-  
-  gmtfile <- paste0(gmt_dir, gmt_ls[1])
-  
-  # de_genes <- markers_ls_upreg
-  # if(viz){
-  #   viz_pathway(gmt_dir, markers_ls_upreg, save_dir_pw, base_name, tag='up_pathway')
-  #   viz_pathway(gmt_dir, markers_ls_downreg, save_dir_pw, base_name, tag='down_pathway')
-  # }
-    
-  print("Get pathway")
-  # if(!viz){
-    # Deal with overlapping and NA gene symbols
-    markers_ls <- markers_ls %>%
-      dplyr::select(gene_symb, avg_log2FC) %>%
-      na.omit() %>%
-      distinct() %>%
-      group_by(gene_symb) %>%
-      summarize(avg_log2FC=mean(avg_log2FC))
-
-    for(i in rep(1:length(gmt_ls),1)){
-      # gmt_fn <- paste0(gmt_dir, gmt_ls[i])
-      print(gmt_ls[i])
-      cat(paste0("\n Pathway analysis, and using gene sets: ",gmt_ls[i]," pathway is: ",pathway_names[i]), file = paste0(save_dir_pw,"de_analysis_log.txt"), append = TRUE)
-      print(pathway_names[i])
-      markers_ls$avg_logFC <- markers_ls$avg_log2FC
-      pathway_ls <- get_pathway_results(markers_ls, method_use,
-                                        base_name, paste0(gmt_dir, gmt_ls[i]), 
-                                        pathway_names[i],
-                                        groups_use,
-                                        save_dir_pw, 30)
-    }
+  # # Pathway analysis
+  # print("Pathway analysis....")
+  # # gmt_dir <- paste0(input_dir,"biodatabase/")
+  # gmt_dir <- '/home/htran/storage/datasets/drug_resistance/rna_results/biodatabase/pathway_set/'
+  # deg_stat <- markers_ls_output$avg_log2FC
+  # names(deg_stat) <- markers_ls_output$gene_symb
+  # # # print(head(deg_stat))
+  # 
+  # # comment back
+  # method_use <- paste0("seurat_DEG_",test_use)
+  # gmt_ls <- c("h.all.v7.0.symbols.gmt") #,"c2.cp.kegg.v7.1.symbols.gmt","GO_c5.all.v7.1.symbols.gmt"
+  # # pathway_names <- c("hallmark","kegg") #,"go"
+  # pathway_names <- c("hallmark")
+  # 
+  # gmtfile <- paste0(gmt_dir, gmt_ls[1])
+  # 
+  # # de_genes <- markers_ls_upreg
+  # # if(viz){
+  # #   viz_pathway(gmt_dir, markers_ls_upreg, save_dir_pw, base_name, tag='up_pathway')
+  # #   viz_pathway(gmt_dir, markers_ls_downreg, save_dir_pw, base_name, tag='down_pathway')
+  # # }
+  #   
+  # print("Get pathway")
+  # # if(!viz){
+  #   # Deal with overlapping and NA gene symbols
+  #   markers_ls <- markers_ls %>%
+  #     dplyr::select(gene_symb, avg_log2FC) %>%
+  #     na.omit() %>%
+  #     distinct() %>%
+  #     group_by(gene_symb) %>%
+  #     summarize(avg_log2FC=mean(avg_log2FC))
+  # 
+  #   for(i in rep(1:length(gmt_ls),1)){
+  #     # gmt_fn <- paste0(gmt_dir, gmt_ls[i])
+  #     print(gmt_ls[i])
+  #     cat(paste0("\n Pathway analysis, and using gene sets: ",gmt_ls[i]," pathway is: ",pathway_names[i]), file = paste0(save_dir_pw,"de_analysis_log.txt"), append = TRUE)
+  #     print(pathway_names[i])
+  #     markers_ls$avg_logFC <- markers_ls$avg_log2FC
+  #     pathway_ls <- get_pathway_results(markers_ls, method_use,
+  #                                       base_name, paste0(gmt_dir, gmt_ls[i]), 
+  #                                       pathway_names[i],
+  #                                       groups_use,
+  #                                       save_dir_pw, 30)
+  #   }
 
   # # return(pathway_ls)
   # }
@@ -1582,12 +1583,12 @@ plot_DE_genes_ggplot <- function(df, topGenes, capstr='', FDRcutoff=0.01, logFCc
     plttitle <- gsub(':','_',plttitle)
     plttitle <- gsub(' ','_',plttitle)
     tag <- ''
-    saveRDS(p, file=paste0(save_dir,"DE_",plttitle,".rds"))
-    ggsave(paste0(save_dir,"DE_",gsub(' ','_',plttitle),tag,".pdf"),
-           plot = p,
-           height = 5.5,
-           width = 6.5,
-           useDingbats=F)
+    # saveRDS(p, file=paste0(save_dir,"DE_",plttitle,".rds"))
+    # ggsave(paste0(save_dir,"DE_",gsub(' ','_',plttitle),tag,".pdf"),
+    #        plot = p,
+    #        height = 5.5,
+    #        width = 6.5,
+    #        useDingbats=F)
     ggsave(paste0(save_dir,"DE_",gsub(' ','_',plttitle),tag,".png"),
            plot = p,
            height = 5.5,
