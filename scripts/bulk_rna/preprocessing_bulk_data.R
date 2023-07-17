@@ -168,6 +168,35 @@ normalize_by_size_factor <- function(df_counts_fn, datatag, save_dir){
   return(norm_counts_mtx)
 }
 
+get_mito_genes <- function(meta_genes){
+  mito_gene_regex = '^MT-' # for human
+  # mito_gene_regex = '^Mt-' # for mouse
+  mt_genes_symbols <- meta_genes$symbol[grepl(mito_gene_regex,meta_genes$symbol)]
+  # [1] "MT-ND6"  "MT-CO2" 
+  # [3] "MT-CYB"  "MT-ND2" 
+  # [5] "MT-ND5"  "MT-CO1" 
+  # [7] "MT-ND3"  "MT-ND4" 
+  # [9] "MT-ND1"  "MT-ATP6"
+  # [11] "MT-CO3"  "MT-ND4L"
+  # [13] "MT-ATP8"
+  
+  mt_genes_ens <-meta_genes$ens_gene_id[grepl(mito_gene_regex,meta_genes$symbol)]
+  # [1] "ENSG00000198695"
+  # [2] "ENSG00000198712"
+  # [3] "ENSG00000198727"
+  # [4] "ENSG00000198763"
+  # [5] "ENSG00000198786"
+  # [6] "ENSG00000198804"
+  # [7] "ENSG00000198840"
+  # [8] "ENSG00000198886"
+  # [9] "ENSG00000198888"
+  # [10] "ENSG00000198899"
+  # [11] "ENSG00000198938"
+  # [12] "ENSG00000212907"
+  # [13] "ENSG00000228253"
+  return(mt_genes_ens)
+  
+}
 
 main <- function(){
   input_dir <- '/home/htran/storage/rnaseq_datasets/bulk_metastasis/mixing_exp_SA919_bulkRNAseq/'  
