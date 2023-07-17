@@ -128,6 +128,8 @@ normalize_by_size_factor <- function(df_counts_fn, datatag, save_dir){
   meta_genes <- meta_genes %>%
     dplyr::left_join(ref, by='ens_gene_id')
   dim(meta_genes)
+  head(meta_genes)
+  data.table::fwrite(meta_genes, paste0(save_dir, datatag, '_meta_genes.csv.gz'))
   sum(rownames(df)==meta_genes$ens_gene_id)==dim(df)[1]
   
   sce <- SingleCellExperiment::SingleCellExperiment(list(counts=as.matrix(df)))
