@@ -1,4 +1,4 @@
-library_id,Sample_Name,AT_ID,MainSite,Tumor_ID,jira_ticket,Hoa QC,Athena QC,Total cells,Mixing experiment,Expected,Achieved Results,Noted,Sample_Name,Patient_ID,SA_ID,exp,sid1,sid1_detail,sid2,sid2_detail,out_sid,r1,r2
+library_id,transplanted_mouse,AT_ID,MainSite,Tumor_ID,jira_ticket,Hoa QC,Athena QC,Total cells,Mixing experiment,Expected,Achieved Results,Noted,Sample_Name,Patient_ID,SA_ID,exp,sid1,sid1_detail,sid2,sid2_detail,out_sid,r1,r2
 A130839B,04342 - primary,AT11424,Primary,X0847-216421122521,SC-8363,744,769,1187,"Metastasis X4 (X0847-2164 Axim)
 + Metastasis X7 (X0847-2112252 spinal met)",1A : 1C,1.64A : 0.06B : 0.3C,A dominant in primary,04342 - primary,VBA0847,SA919,Exp1,M64,X0847-2164,M2,X0847-2112252,MIX_A130839B,1,1
 A130854B,04342 - axillary,AT13696,Axillary,X0847-216421122521,,,,,"Metastasis X4 (X0847-2164 Axim)
