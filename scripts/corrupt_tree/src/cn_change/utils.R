@@ -1238,11 +1238,11 @@ get_median_genotype_v3 <- function(copynumber_fn,
     dplyr::group_by(clone_label, chr_desc) %>%
     dplyr::summarise(median_cn=median(copy_number)) %>%
     dplyr::ungroup()
-  dim(stat_cnv)
+  # dim(stat_cnv)
   # median_cnv <- stat_cnv %>%
   #   dplyr::select(chr_desc, median_cn, clone_id, clone_label) %>%
   #   group_by(clone_label) 
-  head(stat_cnv)
+  # head(stat_cnv)
   
   median_cnv_pivot <- stat_cnv %>%
     pivot_wider(names_from = clone_label, values_from = median_cn)

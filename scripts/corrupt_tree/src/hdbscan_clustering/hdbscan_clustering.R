@@ -45,7 +45,7 @@ options(tidyverse.quiet = TRUE)
 
 
 
-## Yaniv Note: copy number file name with row name is chr regions, and column name is cell id
+## Note: copy number file name with row name is chr regions, and column name is cell id
 ## filtered_CNV_fn file has this format: 
 #                         AT11391-A98166B-R45-C08
 # 1_2000001_2500000                       1
@@ -60,10 +60,10 @@ get_filtered_data <- function(filtered_CNV_fn){
   rownames(cnv) <- cnv$V1 # chr regions are row names
   cnv$V1 <- NULL
   print(dim(cnv))
-  ## Yaniv Note: format of cell id is: sampleId-libraryId-rowId-colId, ex: "AT11391-A98166B-R45-C08"
+  ##  Note: format of cell id is: sampleId-libraryId-rowId-colId, ex: "AT11391-A98166B-R45-C08"
   filtered_cells <- colnames(cnv)
   
-  ## Yaniv Note: format of chr region is: chr_start_end, ex: '1_2000001_2500000'
+  ##  Note: format of chr region is: chr_start_end, ex: '1_2000001_2500000'
   filtered_chr_regions <- rownames(cnv)
   return(list(copynumber=cnv,
               filtered_cells=filtered_cells, 
@@ -97,7 +97,7 @@ hdbscran_viz <- function(filtered_CNV_fn, reads_fn,
   ncells <- length(unique(reads_df$cell_id))
   
   
-  ##Note: Yaniv here I use field = "copy", copy number values as the input for cell clustering,
+  ##Note:  here I use field = "copy", copy number values as the input for cell clustering,
   ## instead of copy number state at 'state' column
   ## you can use different columns, and comparing the results of clustering
   clusters <- signals::umap_clustering(reads_df,
@@ -132,12 +132,12 @@ hdbscran_viz <- function(filtered_CNV_fn, reads_fn,
 
 
 main <- function(){
-  ## Yaniv Note: please change the directory to your script dir here. 
+  ##  Note: please change the directory to your script dir here. 
   script_dir <- '/home/htran/Projects/hakwoo_project/corrupt_tree/src/hdbscan_clustering/'
   source(paste0(script_dir,'make_cell_copynumber_tree_heatmap.R'))
   
   
-  ## Yaniv: you can change the input directory to point to hdbscan_clustering/testing_data/ 
+  ## Note: you can change the input directory to point to hdbscan_clustering/testing_data/ 
   
   results_dir <- '/home/htran/Projects/hakwoo_project/corrupt_tree/src/hdbscan_clustering/testing_data/'
   save_dir <- paste0(results_dir,'output/')

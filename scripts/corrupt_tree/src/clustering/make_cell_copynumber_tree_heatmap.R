@@ -247,12 +247,20 @@ format_copynumber <- function(copynumber, tree_plot_dat, spacer_cols=20) {
         copynumber$width <- (copynumber$end - copynumber$start + 1)
     }
     copynumber$chr <- gsub("chr", "", copynumber$chr)
-    copynumber <- arrange(copynumber, as.numeric(chr), chr, start)
+    chr_val <- seq(1:24)
+    chrs <- c(as.character(seq(1:22)),'X','Y')
+    desc_chrs <- data.frame(chr=chrs, chr_val=chr_val)
+    copynumber <- copynumber %>%
+        left_join(desc_chrs, by='chr')
+    copynumber <- arrange(copynumber, as.numeric(chr_val), chr_val, start)
+    # copynumber <- arrange(copynumber, as.numeric(chr), chr, start)
 
     rownames(copynumber) <- paste0(
         copynumber$chr, ":", copynumber$start, ":", copynumber$end
     )
-    copynumber <- subset(copynumber, select=-c(chr, start, end, width))
+    # copynumber <- subset(copynumber, select=-c(chr, start, end, width))
+    copynumber <- subset(copynumber, select=-c(chr, chr_val, start, end, width))
+    
     copynumber <- as.data.frame(t(copynumber))
 
     copynumber <- copynumber[get_ordered_cell_ids(tree_plot_dat), ]
@@ -514,7 +522,12 @@ make_left_annot_v2 <- function(copynumber, clones, grouping_file) {
         # grouping_labels <- get_library_grouping(rownames(copynumber), grouping_file)
         grouping_labels <- lib_group_meta$library_id
         grouping_levels <- mixedsort(unique(lib_group_meta$library_id))
-        annot_colours$Groupings <- make_discrete_palette("Set2", grouping_levels)
+        if(length(grouping_levels)<=8){
+            annot_colours$Groupings <- make_discrete_palette("Set2", grouping_levels)    
+        }else{
+            annot_colours$Groupings <- colorRampPalette(brewer.pal(8, "Set2"))(length(grouping_levels))
+        }
+        
         grouping_legend <- list(nrow=10)
         annot_cols <- 5
         print(grouping_levels)
@@ -528,12 +541,18 @@ make_left_annot_v2 <- function(copynumber, clones, grouping_file) {
         # treatment_labels <- lib_group_meta$treatment_st
         # treatment_levels <- mixedsort(unique(treatment_labels))
         # annot_colours$TreatmentSt <- make_discrete_palette("Set1", treatment_levels)
-        print("DEBUG 2")
+        print("DEBUG 4")
         # lib_group_meta <- get_library_grouping(rownames(copynumber), grouping_file)
         # lib_group_meta <- get_library_grouping_v2(rownames(copynumber), grouping_file) # for special case where library_id is not unique, use library_id and sample_id as composite key
         mainsite_labels <- lib_group_meta$mainsite
         mainsite_levels <- mixedsort(unique(mainsite_labels))
-        annot_colours$MainSite <- make_discrete_palette("Set1", mainsite_levels)
+        mainsite_levels[is.na(mainsite_levels)] <- 'No_def'
+        print(mainsite_levels)
+        mainsite_labels <- ifelse(is.na(mainsite_labels),'No_def',mainsite_labels)
+        mt_cols <- c('red','blue','black')
+        names(mt_cols) <- c('Metastasis','Primary','No_def')
+        # annot_colours$MainSite <- make_discrete_palette("Set1", mainsite_levels)
+        annot_colours$MainSite <- mt_cols[mainsite_levels]
         mainsite_legend_rows <- length(mainsite_levels)
         
         library_legend_rows <- 10
@@ -566,7 +585,7 @@ make_left_annot_v2 <- function(copynumber, clones, grouping_file) {
     # print(annot_colours)
     
     if(!is.null(clones)) {
-        print("DEBUG 3")
+        print("DEBUG 5")
         clone_levels <- unique(clones$clone_label)
         clone_level_none <- clone_levels[grepl("None", clone_levels)]
         clone_levels <- mixedsort(clone_levels[!grepl("None", clone_levels)])
@@ -598,7 +617,7 @@ make_left_annot_v2 <- function(copynumber, clones, grouping_file) {
         left_annot <- HeatmapAnnotation(
             Clone=clones$clone_label, clone_label=clone_label_generator, 
             #drug=drug_labels, celltype=celltype_labels, 
-            MainSite=mainsite_labels, 
+            MainSite=mainsite_labels,
             Groupings=grouping_labels,
             col=annot_colours, show_annotation_name=c(TRUE, FALSE, TRUE, TRUE),  #, TRUE
             which="row", annotation_width=unit(rep(0.7, annot_cols), "cm"),
@@ -897,13 +916,15 @@ make_copynumber_heatmap_v2 <- function(copynumber, clones, grouping_file) {
 }
 
 make_cell_copynumber_tree_heatmap <- function(tree, copynumber, clones,
-                                              brlen, grouping_file) {
+                                              brlen=NULL, grouping_file) {
     print('format tree')
     tree <- format_tree(tree, brlen)
     print('tree_ggplot')
     tree_ggplot <- make_tree_ggplot(tree, clones)
     print('format_copynumber')
     copynumber <- format_copynumber(copynumber, tree_ggplot$data)
+    
+    # copynumber <- copynumber[,clones$cell_id]
     # copynumber <- format_copynumber(copynumber)
     if(!is.null(clones)) {
         # clones <- format_clones(clones)
@@ -911,9 +932,11 @@ make_cell_copynumber_tree_heatmap <- function(tree, copynumber, clones,
         clones <- format_clones(clones, tree_ggplot$data)
         # copynumber <- copynumber[,clones$cell_id]
     }
+    # copynumber <- t(copynumber)
     print('tree_hm')
     tree_hm <- make_corrupt_tree_heatmap(tree_ggplot)
     print('copynumber_hm')
+    
     copynumber_hm <- make_copynumber_heatmap(copynumber, clones, grouping_file)
     print('visualize tree')
     h <- tree_hm + copynumber_hm

@@ -44,8 +44,6 @@ hdbscran_viz <- function(download_dir, results_dir, library_id, grouping_file, p
   
   tree <- clusters$tree
   clones <- clusters$clustering
-  print(unique(clones$clone_id))
-  
   
   ## Save output of clones here
   
@@ -60,6 +58,13 @@ hdbscran_viz <- function(download_dir, results_dir, library_id, grouping_file, p
   # clones$clone_id <- ifelse(clones$clone_id %in% c('A','0'),'C',
   #                           ifelse(clones$clone_id=='B','A','D'))
   # summary(as.factor(clones$clone_id))
+  res_clones <- unique(clones$clone_id)
+  print(res_clones)
+  if('0' %in% res_clones & !'None' %in% res_clones){
+    clones <- ifelse(clones=='0','None',clones)
+  }
+  data.table::fwrite(clones, paste0(save_dir,library_id,'_cell_clones.csv'))
+  
   save_dir <- paste0(results_dir,'hdbscan_results/')
   if(!dir.exists(save_dir)){
     dir.create(save_dir)
@@ -67,7 +72,7 @@ hdbscran_viz <- function(download_dir, results_dir, library_id, grouping_file, p
   tree_fn <- paste0(save_dir,library_id,'_tree.newick')
   ape::write.tree(phy = tree, file = tree_fn, tree.names = F)
   
-  data.table::fwrite(clones, paste0(save_dir,library_id,'_cell_clones.csv'))
+  
   output_fn <- paste0(save_dir, library_id,'_hdbscan_cell_cn_tree_heatmap.png')
   png(output_fn, height = 2*700, width=2*1200, res = 2*72)
   make_cell_copynumber_tree_heatmap(
