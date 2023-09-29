@@ -3,6 +3,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
+import re
 
 
 if __name__ == '__main__':
@@ -31,10 +32,100 @@ if __name__ == '__main__':
     max_tumour_volume = 1600
 
     """
+    2supp. Plot SA501, 604, 1139 Met and nonMet
+    """
+    # Can't generalize since only these ones are in common
+    # {'SA609X4_1', 'SA919X4M1_1', 'SA919X4M2_2'}
+    # id_in_common = set(met.ID).intersection(set(nonmet.ID))
+    # id_rep_in_common = set(met.ID_rep).intersection(set(nonmet.ID_rep))
+    # code = "501"
+    # subset = met[met["ID"].str.startswith(f"SA{code}")]
+
+    SA919_subset = pd.concat([met[met["ID"].str.startswith("SA919X4")], nonmet[nonmet["ID"].str.startswith("SA919X4")]])
+    fig, ax = plt.subplots(1, 1, figsize=(5, 2.8))
+    sns.lineplot(data=SA919_subset, x="Weeks", y="Tumour Volume", hue="Site", style="Replicates",
+                 markers=True, dashes=False, linewidth=1, markersize=5, ax=ax)
+    plt.axvline(x=14, color='red', linestyle='--', linewidth=1)
+    sns.despine()
+    plt.legend(bbox_to_anchor=(1, 1), frameon=False, fontsize=7)
+    plt.xlabel("Weeks", fontsize=8)
+    plt.ylabel("Tumour Volume $mm^3$", fontsize=8)
+    plt.xticks(fontsize=7.5)
+    plt.yticks(fontsize=7.5)
+    plt.xlim(0, 30)
+    plt.ylim(0, max_tumour_volume)
+    box = ax.get_position()
+    ax.set_position([box.x0 + box.height * 0.02, box.y0 + box.height * 0.05, box.width * 0.85, box.height * 0.95])
+    plt.title(f"SA919 Tumour Growth", weight='bold', fontsize=10)
+    plt.savefig(f"figures/output/fig2supp_SA919.svg", dpi=500)
+    plt.clf()
+
+    SA609_subset = pd.concat([met[met["ID"].str.startswith("SA609X4")], nonmet[nonmet["ID"].str.startswith("SA609X4")]])
+    fig, ax = plt.subplots(1, 1, figsize=(5, 2.8))
+    sns.lineplot(data=SA609_subset, x="Weeks", y="Tumour Volume", hue="Site", style="Replicates",
+                 markers=True, dashes=False, linewidth=1, markersize=5, ax=ax)
+    plt.axvline(x=14, color='red', linestyle='--', linewidth=1)
+    sns.despine()
+    plt.legend(bbox_to_anchor=(1, 1), frameon=False, fontsize=7)
+    plt.xlabel("Weeks", fontsize=8)
+    plt.ylabel("Tumour Volume $mm^3$", fontsize=8)
+    plt.xticks(fontsize=7.5)
+    plt.yticks(fontsize=7.5)
+    plt.xlim(0, 30)
+    plt.ylim(0, max_tumour_volume)
+    box = ax.get_position()
+    ax.set_position([box.x0 + box.height * 0.02, box.y0 + box.height * 0.05, box.width * 0.85, box.height * 0.95])
+    plt.title(f"SA604 Tumour Growth", weight='bold', fontsize=10)
+    plt.savefig(f"figures/output/fig2supp_SA604.svg", dpi=500)
+    plt.clf()
+
+    for i in pd.unique(met.ID):
+        subset = met[met.ID == i]
+
+        fig, ax = plt.subplots(1, 1, figsize=(5, 2.8))
+        sns.lineplot(data=subset, x="Weeks", y="Tumour Volume", hue="ID_rep", style="Replicates",
+                     markers=True, dashes=False, linewidth=1, markersize=5, ax=ax)
+        plt.axvline(x=14, color='red', linestyle='--', linewidth=1)
+        sns.despine()
+        plt.legend(bbox_to_anchor=(1, 1), frameon=False, fontsize=7)
+        plt.xlabel("Weeks", fontsize=8)
+        plt.ylabel("Tumour Volume $mm^3$", fontsize=8)
+        plt.xticks(fontsize=7.5)
+        plt.yticks(fontsize=7.5)
+        plt.xlim(0, 30)
+        plt.ylim(0, max_tumour_volume)
+        box = ax.get_position()
+        ax.set_position([box.x0 + box.height * 0.02, box.y0 + box.height * 0.05, box.width * 0.85, box.height * 0.95])
+        plt.title(f"Tumours with metastasis {i}", weight='bold', fontsize=10)
+        plt.savefig(f"figures/output/fig2supp_met_{i}.svg", dpi=500)
+        plt.clf()
+
+    for i in pd.unique(nonmet.ID):
+        subset = nonmet[nonmet.ID == i]
+
+        fig, ax = plt.subplots(1, 1, figsize=(5, 2.8))
+        sns.lineplot(data=subset, x="Weeks", y="Tumour Volume", hue="ID_rep", style="Replicates",
+                     markers=True, dashes=False, linewidth=1, markersize=5, ax=ax)
+        plt.axvline(x=14, color='red', linestyle='--', linewidth=1)
+        sns.despine()
+        plt.legend(bbox_to_anchor=(1.325, 1), frameon=False, fontsize=7)
+        plt.xlabel("Weeks", fontsize=8)
+        plt.ylabel("Tumour Volume $mm^3$", fontsize=8)
+        plt.xticks(fontsize=7.5)
+        plt.yticks(fontsize=7.5)
+        plt.xlim(0, 30)
+        plt.ylim(0, max_tumour_volume)
+        box = ax.get_position()
+        ax.set_position([box.x0 + box.height * 0.02, box.y0 + box.height * 0.05, box.width * 0.85, box.height * 0.95])
+        plt.title(f"Tumours without metastasis {i}", weight='bold', fontsize=10)
+        plt.savefig(f"figures/output/fig2supp_nonmet_{i}.svg", dpi=500)
+        plt.clf()
+
+    """
     2. Plot Fig 1 Met and nonMet
     """
 
-    fig, ax = plt.subplots(1, 1, figsize=(4.3, 2.5))
+    fig, ax = plt.subplots(1, 1, figsize=(5, 2.8))
     sns.lineplot(data=met, x="Weeks", y="Tumour Volume", hue="ID", style="Replicates",
                  markers=True, dashes=False, linewidth=1, markersize=5, ax=ax)
     plt.axvline(x=14, color='red', linestyle='--', linewidth=1)
@@ -49,10 +140,10 @@ if __name__ == '__main__':
     box = ax.get_position()
     ax.set_position([box.x0 + box.height * 0.02, box.y0 + box.height * 0.05, box.width * 0.85, box.height * 0.95])
     plt.title("Tumours with metastasis", weight='bold', fontsize=10)
-    plt.savefig("figures/output/fig2_met.png", dpi=500)
+    plt.savefig("figures/output/fig2_met.svg", dpi=500)
     plt.clf()
 
-    fig, ax = plt.subplots(1, 1, figsize=(4.3, 2.5))
+    fig, ax = plt.subplots(1, 1, figsize=(5, 2.8))
     sns.lineplot(data=nonmet, x="Weeks", y="Tumour Volume", hue="ID", style="Replicates",
                  markers=True, dashes=False, linewidth=1, markersize=5, ax=ax)
     plt.axvline(x=14, color='red', linestyle='--', linewidth=1)
@@ -67,7 +158,7 @@ if __name__ == '__main__':
     box = ax.get_position()
     ax.set_position([box.x0 + box.height * 0.02, box.y0 + box.height * 0.05, box.width * 0.85, box.height * 0.95])
     plt.title("Tumours without metastasis", weight='bold', fontsize=10)
-    plt.savefig("figures/output/fig2_nonmet.png", dpi=500)
+    plt.savefig("figures/output/fig2_nonmet.svg", dpi=500)
     plt.clf()
 
     """
@@ -75,23 +166,25 @@ if __name__ == '__main__':
     """
     fig1_markers = pd.read_csv("figures/Fig2_markers.csv", index_col=0)
 
-    fig, ax = plt.subplots(1, 1, figsize=(2.5, 2.5))
+    fig, ax = plt.subplots(1, 1, figsize=(3.5, 2.8))
     cmap = ["#5a0064d9", "#fb8811d9"]
     sns.heatmap(fig1_markers, cmap=cmap, cbar=False, linewidth=0.75)
     legend_handles = [Patch(color=cmap[True], label='Positive'),
                       Patch(color=cmap[False], label='Negative')]
-    plt.legend(handles=legend_handles, ncol=2, bbox_to_anchor=[0.5, 1.0], loc='lower center',
+    plt.legend(handles=legend_handles, ncol=2, bbox_to_anchor=[0.5, -0.45], loc='lower center',
                frameon=False, fontsize=7.5)
-    plt.xticks(rotation=90, fontsize=7.5)
+    plt.xticks(rotation=45, fontsize=7.5)
     plt.yticks(rotation=0, fontsize=7.5)
+    plt.title("TMA IHC Profiles", weight='bold', fontsize=8)
+    plt.ylabel("PDX Replicates")
     box = ax.get_position()
     ax.set_position([box.x0 + box.width * 0.2, box.y0 + box.height * 0.2, box.width * 0.85, box.height * 0.85])
-    plt.savefig("figures/output/fig2_markers.png", dpi=500)
+    plt.savefig("figures/output/fig2_markers.svg", dpi=500)
     plt.clf()
 
     fig8_919_markers = pd.read_csv("figures/Fig8_919_markers.csv", index_col=0)
 
-    fig, ax = plt.subplots(1, 1, figsize=(2.5, 1.75))
+    fig, ax = plt.subplots(1, 1, figsize=(3.5, 1.75))
     cmap = ["#5a0064d9", "#fb8811d9"]
     sns.heatmap(fig8_919_markers, cmap=cmap, cbar=False, linewidth=0.75)
     legend_handles = [Patch(color=cmap[True], label='Positive'),
@@ -101,14 +194,15 @@ if __name__ == '__main__':
     plt.xticks(rotation=90, fontsize=7.5)
     plt.yticks(rotation=0, fontsize=7.5)
     plt.title("SA919", weight='bold', fontsize=8)
+    plt.ylabel("PDX Replicates")
     box = ax.get_position()
     ax.set_position([box.x0, box.y0 + box.height * 0.35, box.width, box.height * 0.65])
-    plt.savefig("figures/output/fig8_919_markers.png", dpi=500)
+    plt.savefig("figures/output/fig8_919_markers.svg", dpi=500)
     plt.clf()
 
     fig8_535_markers = pd.read_csv("figures/Fig8_535_markers.csv", index_col=0)
 
-    fig, ax = plt.subplots(1, 1, figsize=(2.5, 1.75))
+    fig, ax = plt.subplots(1, 1, figsize=(3.5, 1.75))
     cmap = ["#5a0064d9", "#fb8811d9"]
     sns.heatmap(fig8_535_markers, cmap=cmap, cbar=False, linewidth=0.75)
     legend_handles = [Patch(color=cmap[True], label='Positive'),
@@ -118,9 +212,10 @@ if __name__ == '__main__':
     plt.xticks(rotation=90, fontsize=7.5)
     plt.yticks(rotation=0, fontsize=7.5)
     plt.title("SA535", weight='bold', fontsize=8)
+    plt.ylabel("PDX Replicates")
     box = ax.get_position()
     ax.set_position([box.x0, box.y0 + box.height * 0.35, box.width, box.height * 0.65])
-    plt.savefig("figures/output/fig8_535_markers.png", dpi=500)
+    plt.savefig("figures/output/fig8_535_markers.svg", dpi=500)
     plt.clf()
 
     """
