@@ -119,14 +119,10 @@ normalize_by_size_factor <- function(df_counts_fn, datatag, save_dir){
   print(colSums(df, na.rm = T))
   print(colnames(df))
   print(rownames(df)[1:3])
-  df_backup <- df
+  # df_backup <- df
   # df <- df[,]
-  apply(is.na(airquality),1,sum)
-  dim(airquality)
-  na_rows <- apply(is.na(airquality),1,sum)
-  names(na_rows) <- rep(1:dim(airquality)[1])
-  na_rows <- na_rows[na_rows>0]
   
+  ## Removing NA rows before normalization
   na_rows <- apply(is.na(df),1,sum)
   names(na_rows) <- rep(1:dim(df)[1])
   na_rows <- na_rows[na_rows>0]
@@ -136,16 +132,17 @@ normalize_by_size_factor <- function(df_counts_fn, datatag, save_dir){
   length(selected_rows)
   df <- df[selected_rows,]
   dim(df)
-  ref <- annotables::grch38 %>%
-    dplyr::select(ensgene,symbol,chr) %>%
-    dplyr::rename(ens_gene_id=ensgene) %>%
-    dplyr::filter(ens_gene_id %in% meta_genes$ens_gene_id)
-  ref <- ref[!duplicated(ref$ens_gene_id),]
-  dim(ref)
-  meta_genes <- meta_genes %>%
-    dplyr::left_join(ref, by='ens_gene_id')
-  dim(meta_genes)
-  sum(rownames(df)==meta_genes$ens_gene_id)==dim(df)[1]
+  
+  # ref <- annotables::grch38 %>%
+  #   dplyr::select(ensgene,symbol,chr) %>%
+  #   dplyr::rename(ens_gene_id=ensgene) %>%
+  #   dplyr::filter(ens_gene_id %in% meta_genes$ens_gene_id)
+  # ref <- ref[!duplicated(ref$ens_gene_id),]
+  # dim(ref)
+  # meta_genes <- meta_genes %>%
+  #   dplyr::left_join(ref, by='ens_gene_id')
+  # dim(meta_genes)
+  # sum(rownames(df)==meta_genes$ens_gene_id)==dim(df)[1]
   
   sce <- SingleCellExperiment::SingleCellExperiment(list(counts=as.matrix(df)))
   # rowData(sce) <- meta_genes
@@ -232,6 +229,9 @@ main <- function(){
   get_meta_samples_SA919_mixing_exp(meta_samples_fn, datatag, save_dir)
   
   ## Normalize data for GS
+  # Noted: in total of 20738 genes, there are 1252 genes with NA values in mixing exp samples
+  # but not NA in main exp. The reason maybe due to reference mapping from transcript ids
+  # into gene id. I will take a look at this later after tmr meeting but you can use this file for a draft calculation.
   datatag <- 'Mixed_Ex3_GS'
   df_counts_fn <- paste0(save_dir, datatag, '_raw_counts.csv.gz')
   df_normalized <- normalize_by_size_factor(df_counts_fn, datatag, save_dir)
