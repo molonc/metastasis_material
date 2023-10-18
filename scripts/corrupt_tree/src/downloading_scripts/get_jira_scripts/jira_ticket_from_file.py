@@ -131,4 +131,7 @@ if __name__ == '__main__':
     
     
 ### How to run script from commandline mode: 
+### yourPythonEnv yourScriptDir/jira_ticket_from_file.py --input_library_fn yourDir/dlp_hdbscan_clustering/downloading_scripts/get_jira_scripts/testing_data/library_grouping.csv --output_dir yourOutputDir
 ### /home/htran/anaconda3/envs/sisyphus38/bin/python jira_ticket_from_file.py --input_library_fn /home/htran/Projects/hakwoo_project/metastasis_material/materials/dlp_trees/SA535/library_groupings_jira_tickets.csv.gz --output_dir /home/htran/storage/raw_DLP/metastasis_DLP/SA535/testing
+
+### /home/htran/anaconda3/envs/sisyphus38/bin/python jira_ticket_from_file.py --input_library_fn /home/htran/Projects/hakwoo_project/git_repos/dlp_hdbscan_clustering/downloading_scripts/get_jira_scripts/testing_data/library_grouping.csv --output_dir /home/htran/Projects/hakwoo_project/git_repos/dlp_hdbscan_clustering/downloading_scripts/get_jira_scripts/testing_data/

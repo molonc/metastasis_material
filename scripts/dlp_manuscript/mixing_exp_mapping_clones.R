@@ -1,5 +1,5 @@
 # Mixing exp, mapping clones back to main clones exp
-
+library(dplyr)
 
 
 ## Median clonal profiles in main experiment
@@ -21,7 +21,7 @@ get_cn_profiles <- function(){
   
   return(ref_median_clones)
 }
-obs_library_id <- 'A138967B'
+# obs_library_id <- 'A138967B'
 map_clones_to_ref_labels <- function(obs_library_id, curr_cell_clones_fn, ref_cell_clones_fn){
   
   source("/home/htran/Projects/hakwoo_project/metastasis_material/scripts/corrupt_tree/src/cn_change/cn_profile_utils.R")
@@ -152,7 +152,19 @@ summary_results <- function(){
   obs_libs <- unique(lib_df$library_id)
   print(obs_libs)
   colnames(lib_df)
-  View(lib_df)
+  dim(lib_df)
+  lib_df$jira_ticket <- NULL
+  
+  jira_tickets <- data.table::fread(paste0(script_dir, 'jira_tickets_library_grouping_SA919.csv'))
+  dim(jira_tickets)
+  colnames(jira_tickets)
+  jira_tickets <- jira_tickets %>%
+    dplyr::select(library_id, jira_ticket)
+  lib_df <- lib_df %>% 
+    dplyr::left_join(jira_tickets, by='library_id')
+  data.table::fwrite(lib_df, grouping_file)
+  
+  # View(lib_df)
   qc <- data.table::fread('/home/htran/storage/datasets/metastasis_results/dlp_SA919_mixing_exp/SA919_mixing_QC_cells_2023Sep22_002931.csv.gz')
   qc$V1 <- NULL
   colnames(qc)
@@ -179,6 +191,14 @@ summary_results <- function(){
   t <- lib_df %>% 
     dplyr::select(transplanted_mouse, Expected, `Achieved Results`,prop_cell_clones)
   data.table::fwrite(t, paste0(script_dir, 'Metastasis_Hakwoo_mixing_exp_SA919_results_short_version.csv'))
+  
+  
+  results_dir <- '/home/htran/storage/datasets/metastasis_results/dlp_SA919_mixing_exp/'
+  datatag <- 'SA919_mixing'
+  metasample_fn <- paste0(results_dir, datatag,'_prop_cell_clones_final.csv.gz')
+  metasample_df <- data.table::fread(metasample_fn)
+  dim(metasample_df)  
+  View(metasample_df)
 }
 
 load_raw_nb_cells <- function(obs_libs, download_dir, save_data=T){
@@ -247,6 +267,33 @@ load_raw_nb_cells <- function(obs_libs, download_dir, save_data=T){
   print(dim(metasample_df))
 }
 
+process_prevalence_main_exp <- function(){
+  input_dir <- '/home/htran/Projects/hakwoo_project/metastasis_material/materials/dlp_trees/SA919_mixing_experiment/'
+  stat_main_exp <- data.table::fread(paste0(input_dir, 'prevalence_main_exp.csv.gz'))
+  dim(stat_main_exp)
+  colnames(stat_main_exp)
+  stat_main_exp <- stat_main_exp %>%
+    dplyr::select(clone_id, pct_cells, mainsite, transplanted_mouse)
+  unique(stat_main_exp$transplanted_mouse)
+  obs_samples1 <- c("M2164_X4_Axillary","M2112252_X7_SupraSpinal",
+                   "M2164_X4_Primary","M2112251_X7_Primary")
+  obs_samples2 <- c("M2112253_X7_Primary")
+  stat_main_exp1 <- stat_main_exp %>%
+    dplyr::filter(transplanted_mouse %in% obs_samples1)
+  
+  
+  ## Mixing with ratio 0.25 for this sample
+  stat_main_exp2 <- stat_main_exp %>%
+    dplyr::filter(transplanted_mouse %in% obs_samples2)
+  stat_main_exp2$pct_cells <- stat_main_exp2$pct_cells * 0.25
+  none_clone <- tibble::tibble(clone_id='None', pct_cells=100-sum(stat_main_exp2$pct_cells),
+                 mainsite='Primary',transplanted_mouse='M2112253_X7_Primary')
+  stat_main_exp2 <- dplyr::bind_rows(stat_main_exp2, none_clone)
+  
+  
+  stat_main <- dplyr::bind_rows(stat_main_exp1, stat_main_exp2)
+  data.table::fwrite(stat_main, paste0(input_dir, 'prevalence_main_exp_4_mixing.csv.gz'))
+}
 
 load_cell_clones_prop <- function(obs_libs, download_dir, save_data=T){
   datatag <- 'SA919_mixing'
@@ -274,21 +321,115 @@ load_cell_clones_prop <- function(obs_libs, download_dir, save_data=T){
     print(summary(as.factor(cell_clones_tmp$clone_id)))
     ## summary proportion here
     nb_cells <- dim(cell_clones_tmp)[1]
+    # cell_clones_tmp <- cell_clones_tmp %>%
+    #   dplyr::group_by(clone_id) %>%
+    #   dplyr::summarise(pct_cells=round(100*n()/nb_cells,2)) %>%
+    #   dplyr::mutate(desc=paste0(clone_id,'-',pct_cells))
+    # m <- tibble::tibble(library_id=l,prop_cell_clones=paste(cell_clones_tmp$desc, collapse = '_'))
+    # print(m)
+    
     cell_clones_tmp <- cell_clones_tmp %>%
       dplyr::group_by(clone_id) %>%
-      dplyr::summarise(pct_cells=round(100*n()/nb_cells,2)) %>%
-      dplyr::mutate(desc=paste0(clone_id,'-',pct_cells))
-    m <- tibble::tibble(library_id=l,prop_cell_clones=paste(cell_clones_tmp$desc, collapse = '_'))
-    print(m)
-    obs_metrics[[l]] <- m
+      dplyr::summarise(pct_cells=100*n()/nb_cells) #%>%
+      # dplyr::mutate(desc=paste0(clone_id,'-',pct_cells))
+    cell_clones_tmp$library_id <- l
+    obs_metrics[[l]] <- cell_clones_tmp
      
     
   }
   metasample_df <- as.data.frame(dplyr::bind_rows(obs_metrics))
+  dim(metasample_df)
+  
+  t <- lib_df %>% 
+    dplyr::select(mainsite, transplanted_mouse, library_id)
+  
+  metasample_df <- metasample_df %>%
+    left_join(t, by='library_id')
   if(save_data){
-    metasample_fn <- paste0(results_dir, datatag,'_prop_cell_clones_final.csv.gz')
+    # metasample_fn <- paste0(results_dir, datatag,'_prop_cell_clones_final.csv.gz')
+    metasample_fn <- paste0(results_dir, datatag,'_prop_cell_clones_final_long_version.csv.gz')
     data.table::fwrite(metasample_df, metasample_fn)  
   }
   
+  
+  
+}
+
+plot_mixing_exp_Fig3 <- function(){
+  datatag <- 'SA919_mixing'
+  download_dir <- '/home/htran/storage/raw_DLP/metastasis_DLP/SA919/'
+  results_dir <- '/home/htran/storage/datasets/metastasis_results/dlp_SA919_mixing_exp/'
+  script_dir <- '/home/htran/Projects/hakwoo_project/metastasis_material/materials/dlp_trees/SA919_mixing_experiment/'
+  
+  metasample_main_df <- data.table::fread(paste0(script_dir,'prevalence_main_exp_4_mixing.csv.gz'))
+  metasample_df <- data.table::fread(paste0(script_dir, datatag,'_prop_cell_clones_final_long_version.csv'))
   print(dim(metasample_df))
+  print(dim(metasample_main_df))
+  metasample_df$library_id <- NULL
+  metasample_df$transplanted_mouse <- stringr::str_sub(metasample_df$transplanted_mouse, 4, length(metasample_df$transplanted_mouse))
+  metasample_df$transplanted_mouse <- gsub(' ','',metasample_df$transplanted_mouse)
+  
+  colnames(metasample_df)
+  colnames(metasample_main_df)
+  ## Combining main and mixing prevalence for plotting
+  metasample_df <- dplyr::bind_rows(metasample_main_df, metasample_df)
+  
+  input_dir <- '/home/htran/Projects/hakwoo_project/metastasis_material/materials/dlp_trees/'
+  colors_df <- data.table::fread(paste0(input_dir, 'colorCode_clones/color_code_SA919_mixing_experiment.csv'))
+  cols_use <- colors_df$color
+  names(cols_use) <- colors_df$clone_id
+  cols_use <- c(cols_use, 'black')
+  names(cols_use) <- c(colors_df$clone_id, 'None')
+  library(ggplot2)
+  my_font <- 'Helvetica'
+  p <- ggplot(data=metasample_df, aes(x=transplanted_mouse, y=pct_cells, fill=clone_id)) +
+    geom_bar(stat="identity", width=0.3)+
+    # facet_grid(. ~ fov)+ 
+    facet_wrap(~ mainsite, strip.position = "top", nrow = 2,scales = "free_y") + #ncol = 4, 
+    theme_bw() +
+    scale_fill_manual(values=cols_use) + 
+    theme(
+      axis.text.x = element_text(size=14, angle = 90),
+      legend.position = 'none',
+      strip.background = element_rect(fill = 'white', colour = 'white'),
+      text = element_text(color="black",size = 12, hjust = 0.5, family=my_font),
+      # axis.text.x = element_blank(),
+      # axis.ticks.x = element_blank(),
+      # axis.title.x = element_blank(),
+      strip.text.x = element_text(color="black",size=14, hjust = 0, family=my_font),
+      axis.text.y = element_text(color="black",size=9, hjust = 0.5, family=my_font),
+      axis.title.y = element_text(color="black",size=11, hjust = 0.5, family=my_font),
+      axis.line = element_line(colour = "black"),
+      strip.placement = "outside",
+      # legend.position = lg_pos,
+      # legend.text=element_text(color="black",size=8, hjust = 0.5, family=my_font),
+      # legend.title=element_text(color="black",size=8, hjust = 0.5, family=my_font),
+      # legend.key.size=unit(0.3,"cm"),
+      panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank(),
+      panel.background = element_rect(fill = "white"),
+      panel.spacing = unit(c(0.1), 'cm'),
+      # legend.margin=margin(0,0,0,0),
+      # legend.box.margin=margin(-2,-2,-2,-2)
+    ) + 
+    labs(title="SA919 clonal prevalence mixing exp", x='Metastasis sites', y='Clonal proportion')
+  # p  
+  
+  ggsave(  
+    filename = paste0(script_dir,"mixing_exp_clonal_prop.svg"),  
+    plot = p,  
+    height = 6.5,  
+    width = 8.5
+    #useDingbats=F
+  )
+  ggsave(  
+    filename = paste0(script_dir,"mixing_exp_clonal_prop.png"),  
+    plot = p,  
+    height = 6.5,  
+    width = 8.5
+    #useDingbats=F
+  )
+  
+  ## To Do: need to add SA919 main exp here, so there is same scale
+  
 }
