@@ -22,7 +22,7 @@ get_meta_samples_SA919_mixing_exp <- function(meta_samples_fn, datatag, save_dir
   df <- df %>%
     dplyr::mutate(mouse_id=stringr::str_sub(Sample_Name,1, 5)) %>%
     dplyr::select(mouse_id, Bulk_RNA_ATID, Anatomical_Site, everything())
-  head(df)
+  # head(df)
   data.table::fwrite(df, paste0(save_dir, datatag, '_meta_samples.csv.gz'))
   return(df)
 }
@@ -116,9 +116,26 @@ normalize_by_size_factor <- function(df_counts_fn, datatag, save_dir){
   }
   print(df[1:2,])
   print('Sequencing depth (total UMI counts) for each sample is: ')
-  print(colSums(df))
+  print(colSums(df, na.rm = T))
   print(colnames(df))
   print(rownames(df)[1:3])
+  df_backup <- df
+  # df <- df[,]
+  apply(is.na(airquality),1,sum)
+  dim(airquality)
+  na_rows <- apply(is.na(airquality),1,sum)
+  names(na_rows) <- rep(1:dim(airquality)[1])
+  na_rows <- na_rows[na_rows>0]
+  
+  na_rows <- apply(is.na(df),1,sum)
+  names(na_rows) <- rep(1:dim(df)[1])
+  na_rows <- na_rows[na_rows>0]
+  length(na_rows)
+  selected_rows <- rep(1:dim(df)[1])
+  selected_rows <- selected_rows[!selected_rows %in% names(na_rows)]
+  length(selected_rows)
+  df <- df[selected_rows,]
+  dim(df)
   ref <- annotables::grch38 %>%
     dplyr::select(ensgene,symbol,chr) %>%
     dplyr::rename(ens_gene_id=ensgene) %>%
@@ -131,7 +148,7 @@ normalize_by_size_factor <- function(df_counts_fn, datatag, save_dir){
   sum(rownames(df)==meta_genes$ens_gene_id)==dim(df)[1]
   
   sce <- SingleCellExperiment::SingleCellExperiment(list(counts=as.matrix(df)))
-  rowData(sce) <- meta_genes
+  # rowData(sce) <- meta_genes
   # sce
   if(is.null(rownames(sce))){
     rownames(sce) <- rownames(df)
@@ -144,7 +161,8 @@ normalize_by_size_factor <- function(df_counts_fn, datatag, save_dir){
                                            assay.type="counts",
                                            name='normcounts', size_factors=sce$size_factor)
   
-  saveRDS(sce, paste0(save_dir, datatag, '_sizefactor_normalized.rds'))
+  # saveRDS(sce, paste0(save_dir, datatag, '_sizefactor_normalized.rds'))
+  
   ## Manual normalization instead of using logNormCounts function - same output
   # norm_counts_mtx <- sweep(raw_counts,2,sce$sizeFactor,FUN="/")
   # s2 <- colSums(norm_counts_mtx)
@@ -164,7 +182,7 @@ normalize_by_size_factor <- function(df_counts_fn, datatag, save_dir){
   norm_counts_mtx$ens_gene_id <- rownames(norm_counts_mtx)
   norm_counts_mtx$ens_gene_id[1:2]
   
-  data.table::fwrite(norm_counts_mtx, paste0(save_dir, datatag, '_total_sizefactor_normalized.csv.gz'))
+  data.table::fwrite(norm_counts_mtx, paste0(save_dir, datatag, '_sizefactor_normalized.csv.gz'))
   return(norm_counts_mtx)
 }
 
@@ -212,6 +230,11 @@ main <- function(){
   save_dir <- '/home/htran/storage/datasets/metastasis_results/bulk_SA919/mixing_SA919/'
   meta_samples_fn <- paste0(save_dir,'Samples-Metastasis_Hakwoo_bulkRNA_mixing_exp.csv')
   get_meta_samples_SA919_mixing_exp(meta_samples_fn, datatag, save_dir)
+  
+  ## Normalize data for GS
+  datatag <- 'Mixed_Ex3_GS'
+  df_counts_fn <- paste0(save_dir, datatag, '_raw_counts.csv.gz')
+  df_normalized <- normalize_by_size_factor(df_counts_fn, datatag, save_dir)
   
 }
 
