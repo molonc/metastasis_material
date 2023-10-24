@@ -29,7 +29,53 @@ get_meta_samples_SA919_mixing_exp <- function(meta_samples_fn, datatag, save_dir
 ## Tutorial here: https://bioconductor.org/packages/devel/bioc/vignettes/tximport/inst/doc/tximport.html
 ## Reading txt files
 # files <- file.path(dir, "kallisto", samples$run, "abundance.tsv.gz")
+get_geneId_without_version <- function(gene_ids) {  
+  labels <- sapply(strsplit(gene_ids, "\\."), function(x) {  
+    return(x[1])  
+  })  
+  return(as.character(labels))  
+}
 
+build_mapping_reference <- function(){
+  ## Best version of mapping reference between transcript and genes from annotables package
+  tx2gene1 <- annotables::grch38_tx2gene
+  colnames(tx2gene1) <- c('TXNAME','GENEID')
+  # head(tx2gene1)
+  # dim(tx2gene1)
+
+  # The most updated version: tx2gene_updated_06_Dec_2021.csv.gz
+  # ref_tx2gene_fn <- 'mydir/convert_transcript_gene/tx2gene.csv'
+  # ref_tx2gene_fn <- '/home/htran/storage/datasets/drug_resistance/rna_results/biodatabase/tx2gene_sets/tx2gene_updated_06_Dec_2021.csv.gz'
+  
+  ref_dir <- '/home/htran/storage/datasets/drug_resistance/rna_results/biodatabase/tx2gene_sets/'
+  ref_tx2gene_fn <- paste0(ref_dir, 'tx2gene.csv.gz')
+  tx2gene <- data.table::fread(ref_tx2gene_fn, header=T) %>% as.data.frame()
+  tx2gene$V1 <- NULL
+  tx2gene$TXNAME <- get_geneId_without_version(tx2gene$TXNAME)
+  tx2gene$GENEID <- get_geneId_without_version(tx2gene$GENEID)
+  extra_mapping_genes <- tx2gene %>%
+    dplyr::filter(!GENEID %in% tx2gene1$GENEID)
+  # head(extra_mapping_genes)
+  # dim(extra_mapping_genes)
+  tx2gene <- dplyr::bind_rows(tx2gene1, extra_mapping_genes)
+  dim(tx2gene)
+  head(tx2gene)
+  length(unique(tx2gene$GENEID))
+  data.table::fwrite(tx2gene, paste0(ref_dir, 'tx2gene_updated_23_Oct_2023.csv.gz'), 
+                     row.names = F)
+  # sum(!extra_mapping_genes$GENEID %in% tx2gene1$GENEID)
+  # sum(!extra_mapping_genes$TXNAME %in% tx2gene1$TXNAME)
+  # # head(tx2gene)
+  # dim(tx2gene)
+  # for(f in input_fns){
+  #   if(!file.exists(f)){
+  #     stop(paste0('Do not exist ',f))
+  #   }
+  # }
+  
+  return(tx2gene)
+  
+}
 load_raw_counts_kallisto <- function(input_dir, datatag, 
                                      save_dir, sample_ids=NULL){
   
@@ -52,25 +98,17 @@ load_raw_counts_kallisto <- function(input_dir, datatag,
   # input_fns <- paste0(input_dir, sample_ids,'/abundance.h5') #.h5 or .tsv both are fine
   # input_fns <- paste0(input_dir, sample_ids,'/abundance.h5') #.h5 or .tsv both are fine
   
-  ## Best version of mapping reference between transcript and genes from annotables package
-  tx2gene <- annotables::grch38_tx2gene
-  colnames(tx2gene) <- c('TXNAME','GENEID')
-  #meta genes, the mapping from transcript to genes
+  ## Just for testing
+  # input_fns <- input_fns[1]
+  # sample_ids <- sids[1]
+  ref_dir <- '/home/htran/storage/datasets/drug_resistance/rna_results/biodatabase/tx2gene_sets/'
+  ref_tx2gene_fn <- paste0(ref_dir, 'tx2gene_updated_23_Oct_2023.csv.gz')
+  tx2gene <- data.table::fread(ref_tx2gene_fn, header=T) %>% as.data.frame()
+  head(tx2gene)
   
-  # The most updated version: tx2gene_updated_06_Dec_2021.csv.gz
-  # ref_tx2gene_fn <- 'mydir/convert_transcript_gene/tx2gene.csv'
-  # ref_tx2gene_fn <- '/home/htran/storage/datasets/drug_resistance/rna_results/biodatabase/tx2gene_updated_06_Dec_2021.csv.gz'
-  # tx2gene <- data.table::fread(ref_tx2gene_fn, header=T) %>% as.data.frame()
-  # tx2gene$V1 <- NULL
-  # # head(tx2gene)
-  # dim(tx2gene)
-  # for(f in input_fns){
-  #   if(!file.exists(f)){
-  #     stop(paste0('Do not exist ',f))
-  #   }
-  # }
   txi <- tximport(input_fns, type = "kallisto", tx2gene = tx2gene, 
-                  ignoreAfterBar = TRUE, ignoreTxVersion=TRUE)
+                  ignoreAfterBar = T, ignoreTxVersion=T)
+  dim(txi$counts)
   # class(txi$counts)
   # head(txi$abundance)
   # class(txi$length)
@@ -238,4 +276,4 @@ main <- function(){
   
 }
 
-main()
+# main()
