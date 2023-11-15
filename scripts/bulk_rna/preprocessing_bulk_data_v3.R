@@ -277,3 +277,190 @@ main <- function(){
 }
 
 # main()
+
+get_normalized_TPM <- function(counts, lengths) {
+  print(sum(lengths==0))
+  lengths <- ifelse(lengths==0, 0.01,lengths)
+  rate = counts / lengths
+  norm_vals <- sapply(rate,function(x){
+    return(1e6*x/sum(x))
+  }) 
+  return(norm_vals)  
+}  
+
+process_metadata <- function(){
+  save_dir <- '/home/htran/storage/datasets/metastasis_results/bulk_SA919/mixing_SA919/'
+  datatag <- 'Mixed_Ex3_GS'
+  
+  meta_samples_fn <- paste0(save_dir,'Samples-Metastasis_Hakwoo_bulkRNA_mixing_exp.csv')
+  metasamples <- data.table::fread(meta_samples_fn)
+  
+  # head(metasamples)
+  colnames(metasamples) <- gsub(' ','_', colnames(metasamples))
+  metasamples$Bulk_RNA_ATID
+  # View(metasamples)
+  metasamples <- metasamples %>%
+    dplyr::filter(Bulk_RNA_ATID!='')
+  dim(metasamples) ## 13 samples
+  # View(metasamples)
+  metasamples$library_id <- sapply(strsplit(metasamples$`Library_ID(s)`,','), function(x){
+    return(as.character(x[1]))
+  })
+  # sum(metasamples$library_id %in% mixing_meta_df$library_id)
+  # metasamples$`Library_ID(s)`
+  mixing_meta_df <- data.table::fread('/home/htran/Projects/hakwoo_project/metastasis_material/materials/dlp_trees/SA919_mixing_experiment/Metastasis_Hakwoo_mixing_exp_SA919_results.csv')
+  dim(mixing_meta_df)
+  # mixing_ids_df <- data.table::fread('/home/htran/Projects/hakwoo_project/metastasis_material/materials/dlp_trees/SA919_mixing_experiment/Metastasis_Hakwoo_mixing_exp_SA919_libraryIds.csv')
+  # # View(mixing_meta_df)
+  # colnames(mixing_meta_df)
+  mixing_meta_df <- mixing_meta_df %>%
+    dplyr::select(library_id, main_clone, mainsite)
+  metasamples <- metasamples %>%
+    dplyr::left_join(mixing_meta_df, by='library_id')
+  dim(metasamples)
+  metasamples <- as.data.frame(metasamples)
+  rownames(metasamples) <- metasamples$Bulk_RNA_ATID
+  
+  # View(metasamples)
+  norm_df <- normalized_df %>%
+    tibble::column_to_rownames('ens_gene_id')
+  cols_use <- colnames(norm_df)[colnames(norm_df) %in% metasamples$Bulk_RNA_ATID]
+  norm_df <- norm_df[ ,cols_use]
+  dim(norm_df)
+  metasamples$mouse_id <- paste0('M',stringr::str_sub(metasamples$Sample_Name, 4,5))
+  colnames(metasamples)
+  
+  metasamples <- metasamples %>% 
+    dplyr::rename(pdxid=SA_ID, origin=Anatomical_Site, 
+                  sample_id=AT_ID, bulk_sid=Bulk_RNA_ATID) %>%
+    dplyr::mutate(experiment='mixing_exp')
+  
+  main_meta_df <- data.table::fread('/home/htran/Projects/hakwoo_project/metastasis_material/materials/bulkRNAseq/SA919/library_groupings_bulk_SA919_cloneIds.csv')
+  dim(main_meta_df)
+  colnames(main_meta_df)
+  main_meta_df <- main_meta_df %>% 
+    dplyr::rename(main_clone=clone_id) %>% 
+    dplyr::select(-nb_cells)  %>%
+    dplyr::mutate(experiment='main_exp')
+  
+  total_meta <- dplyr::bind_rows(main_meta_df, metasamples)
+  dim(total_meta)
+  # View(total_meta)
+  
+  data.table::fwrite(total_meta, paste0(save_dir, 'metadata_Hakwoo_bulkRNA_mixing_main_exp.csv'))
+  total_meta <- data.table::fread(paste0(save_dir, 'metadata_Hakwoo_bulkRNA_mixing_main_exp.csv'))
+  
+  total_meta$transplanted_mouse_id <- ifelse(total_meta$experiment=='main_exp','',
+                                             stringr::str_sub(total_meta$Sample_Name,4,5))
+  data.table::fwrite(total_meta, paste0(save_dir, 'metadata_Hakwoo_bulkRNA_mixing_main_exp.csv'))
+  script_dir <- '/home/htran/Projects/hakwoo_project/metastasis_material/materials/bulkRNAseq/'
+  data.table::fwrite(total_meta, paste0(script_dir, 'metadata_Hakwoo_bulkRNA_mixing_main_exp.csv'))
+  
+}
+## To Do: 
+## Get normalized data, convert it to cpm/tpm/fpkm format if needed
+## Selecting only clone C
+## Do clustering using ComplexHeatmap with Pearson correlation as distance
+## Visualize output
+get_clustering <- function(){
+  
+  
+  save_dir <- '/home/htran/storage/datasets/metastasis_results/bulk_SA919/mixing_SA919/'
+  datatag <- 'Mixed_Ex3_GS'
+  normalized_df <- data.table::fread(paste0(save_dir, datatag, '_sizefactor_normalized.csv.gz'))
+  dim(normalized_df)  
+  colnames(normalized_df)
+  
+  ## See process_metadata() above
+  total_meta <- data.table::fread(paste0(save_dir, 'metadata_Hakwoo_bulkRNA_mixing_main_exp.csv'))
+  
+  ## Just testing
+  # main_A_met <- 'SA919X4XB40503'
+  # main_A_pri <- 'SA919X4XB09563'
+  # mixing_A_pri <- 'AT24180'
+  # obs_cols <- c(main_A_met, main_A_pri, mixing_A_pri)
+  # norm_df <- norm_df[,obs_cols]
+  # dim(norm_df)
+  # ## No potential to use here
+  # cor.test(norm_df$AT24180,norm_df$SA919X4XB40503,method="spearman")
+  # cor.test(norm_df$AT24180,norm_df$SA919X4XB09563,method="spearman")
+  # rownames(norm_df)[1:5]
+  
+  ## Get gene length and normalize data
+  genes_length <- data.table::fread(paste0(save_dir, 'SA919_mixing_total_raw_length.csv.gz'))
+  dim(genes_length)
+  head(genes_length)
+  colnames(genes_length) <- c('gene_length','ens_gene_id_with_version')
+  genes_length$ens_gene_id <- get_geneId_without_version(genes_length$ens_gene_id_with_version)
+  # sum(genes_length$ens_gene_id %in% rownames(norm_df))
+  genes_length <- genes_length %>%
+    dplyr::filter(ens_gene_id %in% rownames(norm_df)) %>%
+    tibble::column_to_rownames('ens_gene_id')
+  norm_df$ens_gene_id <- rownames(norm_df)
+  norm_df$gene_length <- genes_length[rownames(norm_df),'gene_length']
+  dim(norm_df)
+  sum(is.na(norm_df$gene_length))
+  
+  norm_df <- norm_df %>%
+    dplyr::filter(!is.na(gene_length))
+  length(norm_df$SA919X4XB40503)
+  length(norm_df$gene_length)
+  norm_df$tpm_SA919X4XB40503 <- get_normalized_TPM(norm_df$SA919X4XB40503, norm_df$gene_length)
+  norm_df$tpm_SA919X4XB09563 <- get_normalized_TPM(norm_df$SA919X4XB09563, norm_df$gene_length)
+  norm_df$tpm_AT24180 <- get_normalized_TPM(norm_df$AT24180, norm_df$gene_length)
+  
+  ## Note: here we used all genes, TODO: selecting only DE genes, and redo this calculation
+  cor.test(norm_df$tpm_AT24180,norm_df$tpm_SA919X4XB40503,method="pearson")
+  cor.test(norm_df$tpm_AT24180,norm_df$tpm_SA919X4XB09563,method="pearson")
+  
+  # View(metasamples)
+  unique(metasamples$mainsite)
+  predefined_cols <- c('#EE220C','#004D80')
+  names(predefined_cols) <- c('Metastasis','Primary')
+  # colors_use <- predefined_cols[metasamples[colnames(norm_df),'mainsite']]
+  # cols_use=c("#66A61E", "#66A61E", "#666666") # green and grey
+  # names(colors_use) <- colnames(norm_df)
+  # unique(metasamples[colnames(norm_df),'main_clone'])
+  clones_color <- c('A'='#66C2A5','B'='#FC8D62','C'='#8DA0CB')
+  # colors_clone_use <- clones_color[metasamples[colnames(norm_df),'main_clone']]
+  # cols_use=c("#66A61E", "#66A61E", "#666666") # green and grey
+  # names(colors_clone_use) <- colnames(norm_df)
+  mouse_cols <- brewer.pal(8, "Accent")[1:length(unique(metasamples$mouse_id))]
+  names(mouse_cols) <- unique(metasamples$mouse_id)
+  top_anno = ComplexHeatmap::HeatmapAnnotation(MainSite = factor(metasamples[colnames(norm_df),'mainsite']),
+                                               MainClone=factor(metasamples[colnames(norm_df),'main_clone']),
+                                               MouseId=factor(metasamples[colnames(norm_df),'mouse_id']),
+                                               col = list(MainSite=predefined_cols, 
+                                                          MainClone=clones_color,
+                                                          MouseId=mouse_cols)
+                                               ) #, MainClone=colors_use
+  # library(ComplexHeatmap)
+  p <- ComplexHeatmap::Heatmap(as.matrix(norm_df), na_col = "white",
+                               # col = col_fun,
+                               show_column_names=T,
+                               show_row_names = F,
+                               cluster_rows=F,
+                               cluster_columns=T,
+                               clustering_distance_columns = "pearson",
+                               name = "Test", 
+                               # row_order = sort(rownames(test)),
+                               # row_split= samples_use,
+                               row_title_rot = 0,
+                               row_gap = unit(2, "mm"),
+                               # column_split = genes_type$gt,
+                               # column_title = paste0("Filtered Normalized Data Clustering ",datatag),
+                               column_gap = unit(2, "mm"),
+                               column_names_gp = grid::gpar(fontsize = 10),
+                               row_names_gp = grid::gpar(fontsize = 10),
+                               show_heatmap_legend = T,
+                               top_annotation=top_anno,
+                               # left_annotation = left_anno,
+                               # cell_fun = cell_func,
+                               row_dend_reorder=T
+                               )
+  # p
+  png(paste0(save_dir,datatag,"_hierarchial_clusters.png"), height = 2*800, width=2*850, res = 2*72)
+  print(p)
+  dev.off()  
+  
+}  
