@@ -28,10 +28,12 @@ get_gprofiler_pathways_obsgenes <- function(obs_genes_symb, save_dir, datatag,
   # }
   if(is.null(custom_id)){
     custom_id <- gprofiler2::upload_GMT_file(pathway_fn)  
+    print('Custom id from gprofiler is: ')
+    print(custom_id)
   }
   stat <- NULL
-  ## correction_method: one of 'fdr', 'gSCS', 'bonferroni'
-  gostres <- gprofiler2::gost(list(obs_genes_symb), organism = custom_id, correction_method='gSCS')
+  ## correction_method: one of 'fdr', 'gSCS', 'bonferroni' #'gSCS' is the most popular
+  gostres <- gprofiler2::gost(list(obs_genes_symb), organism = custom_id, correction_method='fdr')
   if(!is.null(gostres$result)){
     stat <- gostres$result
     cols_use <- c('p_value','intersection_size','precision','recall','term_id')
@@ -50,7 +52,7 @@ get_gprofiler_pathways_obsgenes <- function(obs_genes_symb, save_dir, datatag,
     }
     if(save_data){
       added_time <- gsub(':','',format(Sys.time(), "%Y%b%d_%X"))
-      data.table::fwrite(stat, paste0(save_dir, 'pathways_',added_time,'.csv.gz'))  
+      data.table::fwrite(stat, paste0(save_dir, 'pathways_',datatag, '_',added_time,'.csv.gz'))  
     }
   }  
   return(stat)
@@ -65,7 +67,9 @@ get_gprofiler_pathways <- function(genes_df, save_dir, datatag,
   
   ref_set <- fgsea::gmtPathways(pathway_fn)
   if(is.null(custom_id)){
-    custom_id <- gprofiler2::upload_GMT_file(pathway_fn)  
+    custom_id <- gprofiler2::upload_GMT_file(pathway_fn) 
+    print('Custom id from gprofiler is: ')
+    print(custom_id)
   }
   
   pathway_stat <- tibble::tibble()

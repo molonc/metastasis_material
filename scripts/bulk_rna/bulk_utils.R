@@ -11,6 +11,103 @@ suppressPackageStartupMessages({
   library(SingleCellExperiment)
   library(tximport)
 })
+options(dplyr.summarise.inform = FALSE)
+options(tidyverse.quiet = TRUE)
+
+get_gprofiler_pathways_obsgenes <- function(obs_genes_symb, save_dir, datatag, 
+                                            custom_id=NULL, pathway_fn=NULL, save_data=F){
+  library(gprofiler2)
+  if(is.null(pathway_fn)){
+    # pathway_fn = '/home/htran/storage/datasets/drug_resistance/rna_results/biodatabase/pathway_set/c2.cp.kegg.v7.1.symbols.gmt'  
+    pathway_fn = '/home/htran/storage/datasets/drug_resistance/rna_results/biodatabase/pathway_set/h.all.v7.0.symbols.gmt'  
+  }
+  
+  # ref_set <- fgsea::gmtPathways(pathway_fn)
+  # for(s in names(ref_set)){ ## just quick check the size of each set
+  #   print(s)
+  #   print(length(ref_set[[s]]))
+  # }
+  if(is.null(custom_id)){
+    custom_id <- gprofiler2::upload_GMT_file(pathway_fn)  
+    print('Custom id from gprofiler is: ')
+    print(custom_id)
+  }
+  stat <- NULL
+  ## correction_method: one of 'fdr', 'gSCS', 'bonferroni' #gSCS is the most popular one
+  gostres <- gprofiler2::gost(list(obs_genes_symb), organism = custom_id, 
+                              correction_method='fdr')
+  if(!is.null(gostres$result)){
+    stat <- gostres$result
+    cols_use <- c('p_value','intersection_size','precision','recall','term_id')
+    stat <- stat %>%
+      dplyr::select(all_of(cols_use)) %>%
+      dplyr::rename(reference_set=term_id, nb_signif_genes=intersection_size) %>%
+      dplyr::filter(p_value<0.05) # just to be sure
+    
+    # Get pathway genes 
+    for(i in seq(nrow(stat))){
+      pw_set <- stat$reference_set[i]
+      ref_genes <- ref_set[[pw_set]]
+      # obs_genes <- deg_df$gene_symbol
+      intersect_genes <- intersect(obs_genes_symb, ref_genes)
+      stat$signif_genes[i] <- paste(intersect_genes, collapse=',')
+    }
+    if(save_data){
+      added_time <- gsub(':','',format(Sys.time(), "%Y%b%d_%X"))
+      data.table::fwrite(stat, paste0(save_dir, 'pathways_',datatag,'_',added_time,'.csv.gz'))  
+    }
+  }  
+  return(stat)
+  
+}  
+get_gprofiler_pathways <- function(genes_df, save_dir, datatag, 
+                                   custom_id=NULL, pathway_fn=NULL, save_data=F){
+  library(gprofiler2)
+  if(is.null(pathway_fn)){
+    # pathway_fn = '/home/htran/storage/datasets/drug_resistance/rna_results/biodatabase/pathway_set/c2.cp.kegg.v7.1.symbols.gmt'  
+    pathway_fn = '/home/htran/storage/datasets/drug_resistance/rna_results/biodatabase/pathway_set/h.all.v7.0.symbols.gmt'  
+  }
+  
+  ref_set <- fgsea::gmtPathways(pathway_fn)
+  if(is.null(custom_id)){
+    custom_id <- gprofiler2::upload_GMT_file(pathway_fn)  
+    print('Custom id from gprofiler is: ')
+    print(custom_id)
+  }
+  
+  pathway_stat <- tibble::tibble()
+  for(gm in unique(genes_df$gene_type_module)){
+    genes_use <- genes_df %>%
+      dplyr::filter(gene_type_module==gm) %>%
+      dplyr::pull(gene_symbol)
+    ## correction_method: one of 'fdr', 'gSCS', 'bonferroni'
+    gostres <- gprofiler2::gost(list(genes_use), organism = custom_id, correction_method='gSCS')
+    if(!is.null(gostres$result)){
+      stat <- gostres$result
+      cols_use <- c('p_value','intersection_size','precision','recall','term_id')
+      stat <- stat %>%
+        dplyr::select(all_of(cols_use)) %>%
+        dplyr::rename(reference_set=term_id, nb_signif_genes=intersection_size)
+      stat$gene_type_module <- gm
+      
+      # Get pathway genes 
+      for(i in seq(nrow(stat))){
+        pw_set <- stat$reference_set[i]
+        ref_genes <- ref_set[[pw_set]]
+        # obs_genes <- deg_df$gene_symbol
+        intersect_genes <- intersect(genes_use, ref_genes)
+        stat$signif_genes[i] <- paste(intersect_genes, collapse=',')
+      }
+      if(save_data){
+        data.table::fwrite(stat, paste0(save_dir, 'gene_module_',gm,'_pathways.csv'))  
+      }
+      pathway_stat <- dplyr::bind_rows(pathway_stat, stat)
+    }
+  }
+  pathway_stat$datatag <- datatag
+  return(pathway_stat)
+}
+
 get_normalized_TPM <- function(counts, lengths) {
   print(sum(lengths==0))
   lengths <- ifelse(lengths==0, 0.01,lengths)
