@@ -1,0 +1,100 @@
+BlockID,SA ID,XenoID,Ki67 %,Damian_annotation,Histological Evidence (as recorded in Masterfile)
+2487,SA919,X0847-2112251,35,non-met,
+02487NeckM,SA919,X0847-2112251,40,met,Tumour cells in cervical (NeckM) and lumbar (SpinM) mass
+02487SpinM,SA919,X0847-2112251,35,met,Tumour cells in cervical (NeckM) and lumbar (SpinM) mass
+2488,SA919,X0847-2112252,30,non-met,
+02488NeckM,SA919,X0847-2112252,40,met,Tumour cells in cervical (NeckM) mass
+2489,SA919,X0847-2112253,1,non-met,
+02489Bone,SA919,X0847-2112253,35,met,Tumour cells in lumbar spinal mass(Bone)
+2490,SA919,X0847-2112254,50,non-met,
+02490SpinM,SA919,X0847-2112254,40,met,Tumour cells in lumbar spinal mass(SpineM)
+02495TuRec,SA535,X0011-2361,15,non-met,
+02495AxiM,SA535,X0011-2361,25,met,Tumour cells in ALN
+2496,SA535,X0011-2362,25,non-met,
+02496R.AxiM,SA535,X0011-2362,30,met,Huge mass in left inguinal area (14x12x10). Metastatic mass in both axillary area (10x8x6). ; Histology not reported
+02496L.AxiM,SA535,X0011-2362,40,met,Huge mass in left inguinal area (14x12x10). Metastatic mass in both axillary area (10x8x6). ; Histology not reported
+02496InGMass,SA535,X0011-2362,25,met,Huge mass in left inguinal area (14x12x10). Metastatic mass in both axillary area (10x8x6). ; Histology not reported
+2497,SA535,X0011-2363,25,non-met,
+02497TuRec,SA535,X0011-2363,30,non-met,
+02497ALN,SA535,X0011-2363,25,met,"Metastatic mass on left axillary area, possibly LN (ALN)"
+2498,SA535,X0011-2364,30,non-met,
+02498AxiM,SA535,X0011-2364,35,met,"Metastatic mass on left axillary area (12x10x8), possibly LN (ALN)"
+02498IngM,SA535,X0011-2364,30,met,"Metastatic mass on left inguinal area (10x8x8), similar characteristics."
+2798,SA1142,X2673-11,15,non-met,
+2800,SA1142,X2673-13,15,non-met,
+02958L.Kid,SA919,X0847-2112253M2,25,met,"Tumour cells in kidney mass, left kidney infiltrating tumour cells"
+2959,SA919,X0847-2112253M3,30,non-met,
+02959NeckM,SA919,X0847-2112253M3,35,met,"Tumour cells in neck mass, axillary mass, flank mass, abd mass, kidney mass."
+02959L.AxiM,SA919,X0847-2112253M3,35,met,"Tumour cells in neck mass, axillary mass, flank mass, abd mass, kidney mass."
+02959FlankM,SA919,X0847-2112253M3,25,met,"Tumour cells in neck mass, axillary mass, flank mass, abd mass, kidney mass."
+02959AbdM,SA919,X0847-2112253M3,35,met,"Tumour cells in neck mass, axillary mass, flank mass, abd mass, kidney mass."
+02959Kid,SA919,X0847-2112253M3,30,met,"Tumour cells in neck mass, axillary mass, flank mass, abd mass, kidney mass."
+2960,SA919,X0847-2112253M4,30,non-met,
+02960NeckM,SA919,X0847-2112253M4,30,met,Tumor cells present in neck mass
+3146,SA535,X0011-2361R2,30,non-met,
+03146AxiM,SA535,X0011-2361R2,35,met,tumor cells in axillary mass
+03146-4,SA535,X0011-2361R2,40,non-met,Code #4 =Tumour Recurrence
+3147,SA535,X0011-2361R3,35,non-met,
+03147ThorM,SA535,X0011-2361R3,0,met,Intrathoracic Mass - reported (no histology)
+3148,SA535,X0011-2361R4,55,non-met,
+02674Th,SA575,X0016-4143372,0,met,"Huge mass(8x8x6) in chest cavity, no histology reported"
+3086,SA919,X0847-216,30,non-met,
+3031,SA609,X0028-161,55,non-met,
+3032,SA609,X0028-162,55,non-met,
+3033,SA609,X0028-163,60,non-met,
+3270,SA919X4,X0847-2161,25,non-met,
+3271,SA919X4,X0847-2162,30,non-met,
+3272,SA919X4,X0847-2163,35,non-met,
+03272 AbdM,SA919X4,X0847-2163,40,met,abdominal mass and spinal mass
+03272 SpinM,SA919X4,X0847-2163,35,met,abdominal mass and spinal mass
+3273,SA919X4,X0847-2164,40,non-met,
+03273 AxiM,SA919X4,X0847-2164,35,met,"huge mass on left axillary area (14x10x10) but it does not seem to be in axillary area, more likely in subcue space outside of chest wall; no histology reported"
+03273 Lumbar,SA919X4,X0847-2164,25,met,"another smaller paraspinal mass at left retroperitoneal space, right behind left kidney; no histology reported"
+3141,SA535X4M,X0011-2361M1,35,non-met,
+03141-4,SA535X4M,X0011-2361M1,20,non-met,Code #4 =Tumour Recurrence
+3142,SA535X4M,X0011-2361M2,35,non-met,
+03142-4,SA535X4M,X0011-2361M2,20,non-met,Code #4 =Tumour Recurrence
+3143,SA535X4M,X0011-2361M3,35,non-met,
+03143-4,SA535X4M,X0011-2361M3,25,non-met,Code #4 =Tumour Recurrence
+3144,SA535X4M,X0011-2361M4,35,non-met,
+03266-4,SA535X7,X0011-2361521,30,non-met,Code #4 =Tumour Recurrence
+03266 AbdM,SA535X7,X0011-2361521,35,met,
+03267-4,SA535X7,X0011-2361522,50,non-met,Code #4 =Tumour Recurrence
+03269-4,SA535X7,X0011-2361524,50,non-met,Code #4 =Tumour Recurrence
+03269 AxiM,SA535X7,X0011-2361524,50,met,"Axillary mets, multiple lung metastasis"
+3605,SA535X6,X0011-236191,30,non-met,
+3606,SA535X6,X0011-236192,35,non-met,
+3607,SA535X6,X0011-236193,35,non-met,
+3608,SA535X6,X0011-236194,35,non-met,
+3609,SA535X6,X0011-236195,20,non-met,
+3610,SA535X6,X0011-236196,30,non-met,
+3611,SA535X6,X0011-236197,35,non-met,
+3612,SA535X6,X0011-236198,35,non-met,
+3262,SA535X5,X0011-23617,25,non-met,
+03262-4,SA535X5,X0011-23617,40,non-met,Code #4 =Tumour Recurrence
+03262 AxiM,SA535X5,X0011-23617,25,met, left axillart mets; no histology reported
+03268-4,SA535X7,X0011-2361523,40,non-met,Code #4 =Tumour Recurrence
+3269,SA535X7,X0011-2361524,30,non-met,
+3145,SA535X4R,X0011-2361R1,45,non-met,
+03145-4,SA535X4R,X0011-2361R1,35,non-met,Code #4 =Tumour Recurrence
+03145 NeckM,SA535X4R,X0011-2361R1,20,met,neck mass (8x6x4); no histology reported
+2692,SA1139,X1476-2334,50,non-met,
+3085,SA919X3,X0847-215,40,non-met,
+3087,SA919X3,X0847-217,45,non-met,
+02495 LU,SA535X4,X0011-2361,25,met,Micrometastasis in lung
+02496 LU,SA535X4,X0011-2362,30,met,Tumour cells in lung
+02958 LU,SA919X7M,X0847-2112253M2,30,met,Tumour cells in lung (extensive)
+02958 BR,SA919X7M,X0847-2112253M2,25,met,suspicious tumour cells in brain
+02959 LU,SA919X7M,X0847-2112253M3,25,met,Tumour cells in lung (extensive)
+02959 BR,SA919X7M,X0847-2112253M3,20,met,Tumour cells in CNS (separate mass)
+02960 BR,SA919X7M,X0847-2112253M4,30,met,suspicious tumor cells in brain and lung
+02960 LU,SA919X7M,X0847-2112253M4,30,met,suspicious tumor cells in brain and lung
+03145-2,SA535X4R,X0011-2361R1,35,met,Code #2 =Lung. Multiple lung metastasis
+03146-2,SA535X4R,X0011-2361R2,20,met,Code #2 =Lung. multiple lung mets
+03148-2,SA535X4R,X0011-2361R4,20,met,Code #2 =Lung. Multiple micrometastasis in lung
+02798-2,SA1142X2,X2673-11,20,met,Code #2 =Lung. Multiple metastatic lesion in lung
+02798-3,SA1142X2,X2673-11,20,met,Code #3 =Liver. Metastatic mass in liver
+02800-LI,SA1142X2,X2673-13,40,met,"Code #LI = assume liver (which is supposed to be coded LV); Metastatic lesion in liver, micrometastasis in lung"
+03141-2,SA535X4M,X0011-2361M1,30,met,Code #2 =Lung. Lung metastasis
+03142-2,SA535X4M,X0011-2361M2,20,met,Code #2 =Lung. Lung metastasis
+03143-2,SA535X4M,X0011-2361M3,20,met,Code #2 =Lung. Lung metastasis
