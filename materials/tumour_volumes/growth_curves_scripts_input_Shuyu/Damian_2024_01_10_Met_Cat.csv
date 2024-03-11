@@ -1,0 +1,149 @@
+SA_ID,Cage,Tumor_ID,Passage,Source_type,V23,V24,Histology,Damian,mainsite,plot_label,double_check,Mets_site,SQL_Barcode
+SA605,HL180312,X0046-3302,4,Primary tumor,,"distant organ(brain, lung, liver, inguinal LN_fatpad) harvested, grossly clean without metastasis, enlarged spleen/ FFPE, FFx2,VFx2 for brain, lung, liver","Negative for metastasis in liver, lung, brain.",non_met,non_met,,,"Bone,Liver",2462
+SA605,HL180312,X0046-3303,4,Primary tumor,,"distant organ(brain, lung, liver), grossly clean without metastasis, huge spleen","Micrometastasis in lung (poor fixation). No metastatic cells in liver, brain.",met,met,,"double_check,  micro met is non_met? ","Bone,Liver",2463
+SA605,HL180312,X0046-3304,4,Primary tumor,,"distant organ(brain, lung, liver, inguinal LN_fatpad) harvested, grossly clean without metastasis, enlarged spleen/ FFPE for brain, liver, lung","Micrometastasis in lung. No metastatic cells in liver, brain.",met,met,,"double_check,  micro met is non_met? ","Bone,Liver",2464
+SA919,HL180320,X0847-2112251,7,Primary tumor,"Visible mass on neck (c-spine) area on Sep24/18/PTR on Jun23/18, hard mass not attached to skin, easy to remove. minimal bleeding","distant organ(brain, lung, liver) harvested, grossly clean without metastasis, cervical mass without attachment to spine. Another mass at paraspinal left lumbar area, firmly attached to spine. FFPE:brain, lung, liver, cervical mass(10x8x8, 4x4x2), paraspinal mass(10x8x8), FFx1, VFx1 for all, VFx1 for DLP of cervical, paraspinal mass
+lab collector ID: cervical mets=5691, lumbar mets=5692
+Primary tumor VF submitted for DLP(Jan7/19), lab collector ID = 5402
+Initial material = VF 4620 ( ), 4621, 4622, TP 4618, 4619","Tumour cells in cervical (NeckM) and lumbar (SpinM) mass. No metastatic cells in liver, lung, brain.",met,met,,,"Bone,Peritoneum",2487
+SA919,HL180320,X0847-2112252,7,Primary tumor,"Head tilt to right, visible mass on neck (c-spine) area, hunched and thin on Sep24/18,  PTR on Jun26/18, hard mass not attached to skin, easy to remove. minor bleeding","distant organ(brain, lung, liver) harvested, grossly clean without metastasis, cervical mass without attachment to spine.
+FFPE:brain,lung,liver,cervical mass, Brain:FFx1,VFx1, Lung:FFx1,VFx1, cervical mass:12x10x10, TPx2,FFx1,VFx2
+Primary, cervical mets for DLP on Apr11/19","Tumour cells in cervical (NeckM) mass. No metastatic cells in liver, lung, brain.",met,met,,,"Bone,Peritoneum",2488
+SA919,HL180320,X0847-2112253,7,Primary tumor,"Hunched, dragging both hind legs on Sep24/18. PTR on Jun17/18, hard mass not attached to skin, easy to remove. minimal bleeding during surgery.","distant organ(brain, lung, liver) harvested, grossly clean without metastasis, Metastatic mass on right side of lumbar spine, outside of peritoneum, passaged. FFPE:brain,lung,liver,back mass, Brain:FFx1,VFx1, Lung:FFx1, VFx1, Liver:FFx1, Backmass:FFx1,VFx1, serial transplant
+Primary submitted for DLP Aug 15/19","Tumour cells in lumbar spinal mass(Bone). No metastatic cells in liver, lung, brain.",met,met,,,"Bone,Peritoneum",2489
+SA919,HL180320,X0847-2112254,7,Primary tumor,"Hunched and thin on Sep24/18, PTR on Jun12/18, hard mass not attached to skin, easy to remove. minor bleeding during surgery.","distant organ(brain, lung, liver) harvested, grossly clean without metastasis, Metastatic mass on lumbar spine, outside of peritoneum, similar to HL180320B. Subcutaneous mass (1mm) on back, no involvement of spine. FFPE:brain,lung,liver,back(SQ) mass, lumbar mass, Brain:FFx1,VFx1, Lung:FFx1, VFx1, Liver:FFx1, VFx1, lumbar mass: 6x6x4, FFx1, VFx1
+Primary submitted for DLP Aug 15/19","Tumour cells in lumbar spinal mass(SpineM). Neck mass does not seem to be tumour mass. No metastatic cells in liver, lung, brain.",met,met,,,"Bone,Peritoneum",2490
+SA919,HL181029,X0847-215,3,Primary tumor,"PTR on Jan24/19, Hard mass, easily removed, minor bleeding","Sick report on May28, euthanized in May30/19. No gross mets in organs. No neck or spine mass.
+Lung:FFPEx1",negative for lung,non_met,non_met,,,,3085
+SA919,HL181029,X0847-216,3,Primary tumor,"PTR on Jan20/19, Hard mass, easily removed, minor bleeding","Sick report Apr30, general illness, hunched, intermittent change of breathing/ Euth May1/19, No specific findings (No mass like lesion on cervical or lumbar area), Lung:FFPEx1",negative for lung,non_met,non_met,,,,3086
+SA919,HL181029,X0847-217,3,Primary tumor,"PTR on Jan24/19, Hard mass, easily removed, minor bleeding","Sick report from May 1/19 Wt. loss.Euth by staff on May 20/19.
+Gross mets like lesion in lungs: FFPEx1, No other abnormalities.",negative for lung,non_met,non_met,,,,3087
+SA919,HL190120,X0847-2161,4,,"PTR on Apr7/19, easily removed, minimal bleeding","Sick report on Sep6/19, hunched, ruffled, and mildly pale, orbittal tightening.
+Euth on Sep6/19, no gross mets.
+Lung:FFPEx1",,non_met,non_met,,double_check,,3270
+SA919,HL190120,X0847-2162,4,,"PTR on Apr2/19, easily removed, minor bleeding","Sick report on Aug24/19, self-isolated with a head tilt, pale, weak, not moving around, score 4.
+Euth on Aug 24/19, no gross metastasis, could not find any reason for sickness. Left lower lumbar structure was collected for histology.
+Lung:FFPE, Lumbar:FFPE",,non_met,non_met,,double_check,,3271
+SA919,HL190120,X0847-2163,4,,"PTR on Mar19/19, easily removed, minor bleeding","Euth on Jul17/19, hind leg paralysis. Small mass at right abdomen between kidney and liver (AbdM), Left paraspinal mass near left kidney without direct invasion to spine (SpinM). No definite cause found for paralysis.
+Lung:FFPEx1, AbdM:FFPEx1, SpinM:FFPEx1, FFx1, VFx2",abdominal mass and spinal mass but no lung mets,met,met,,,,3272
+SA919,HL190120,X0847-2164,4,,"PTR on Apr7/19, easily removed,minor bleeding","Sick report Aug18/19, pale, ruffled and quite weak in the hind end. Large left axillary mass
+Euth on Aug19/19, huge mass on left axillary area (14x10x10) but it does not seem to be in axillary area, more likely in subcue space outside of chest wall, another smaller paraspinal mass at left retroperitoneal space, right behind left kidney.
+Lung:FFPE, Axim:FFPEx1, FFx2, VFx4, Lumbar:FFPEx1, FFx1, VFx3",,met,met,,,,3273
+SA535,HL180326,X0011-2361,4,Primary tumor,"PTR on Jul 17/18, Hard mass, 16x12x6, easily removed, minimal bleeding","distant organ(brain, lung, liver) harvested, grossly clean without metastasis. Huge metastatic mass on left axillary area, possibly LN (ALN). Hard recurred mass on left MFP area, firmly attached to surroundings, possible invasion to muscle and spine.
+FFPEx1:Brain, Liver, Lung, ALN, Tumor recur (No FFPE for primary)
+Tumor recur:FFx2, TPx2, VFx4, REMx1
+ALN:FFx1, TPx2, VFx5, REMx1
+Lung:FFx2, VFx2, Liver:FFx2, VFx2, Brain:FFx1, VFx1
+Primary tumor VFx1 submitted for DLP (Jan7/19) lab collector ID=5391 (SA535X0011XB5391), AxiM VF submitted for DLP (Feb14/19).
+Initial material = VF 7799 (VP1, 3-303, Rack29-11), TP 7798
+Tumor recur for DLP on Apr9/19","Tumour cells in ALN, recurred tumour. Micrometastasis in lung, weird looking cells in spleen. No metastatic cells in liver, brain.",met,met,SA535X4_1,,,2495
+SA535,HL180326,X0011-2362,4,Primary tumor,"PTR on Oct 10/18, Hard mass, 12x10x10, easily removed, minor bleeding","distant organ(brain, lung, liver) harvested, grossly clean without metastasis.
+Huge mass in left inguinal area (14x12x10). Metastatic mass in both axillary area (10x8x6).
+Inguinal mass: FFPEx1, FFx2, VFx4
+left and right axillary mass: FFPEx1, FFx1, VFx2
+Lung: FFPEx1, other lobe processed to make single cell suspension
+lung + tumor cells = 2.6 x 10^6
+vs tumor cells (mouse depletion, cold protease) = 2.7 x 10^5 -> kept as VF(9117) submitted for DLP (Mar5/19)
+Rt.axillart mets submitted for DLP (Apr9/19), Prim, Lt.axillary submitted for DLP (Jun13/19)",Tumour cells in lung,met,met,SA535X4_2,,,2496
+SA535,HL180326,X0011-2363,4,Primary tumor,"PTR on Aug 7/18, Hard mass","distant organ(brain, lung, liver) harvested, grossly clean without metastasis, Enlarged spleen with focal mass, Metastatic mass on left axillary area, possibly LN (ALN). Hard recurred mass on left MFP area, firmly attached to surroundings, possible invasion to muscle and spine, Subcutaneous mass (1mm) near recurrent mass (MLN). FFPE:brain,lung,liver,tumor recur, ALN, MLN
+Brain, lung, liver:FFx1,VFx1, TuRec: 12x12x10, FFPEx1, FFx1, FF_ARCx1, TPx2, VFx4, REMx1, ALN:12x6x1, FFx1, VFx1
+Tumor recur, Axillary mets submitted for DLP on Jun27/19, FF-TR submitted for DLP nuclei on Jul3/19","Tumour cells in ALN, MLN. Micrometastatic cells in lung. Osteocytic lesion in spleen. No metastatic cells in liver, brain.",met,met,SA535X4_3,,,2497
+SA535,HL180326,X0011-2364,4,Primary tumor,"PTR on Jul 30/18, Hard mass, 14x12x10, easily removed, minimal bleeding","Distant organ(brain, lung, liver) harvested, grossly clean without metastasis, enlarged spleen. Metastatic mass on left axillary area (12x10x8), possibly LN (ALN) and left inguinal area (10x8x8), similar characteristics.
+FFPE:brain,lung,liver,axillary mass, inguinal mass
+AxiM:FFx1,TPx2,VFx4
+IngM, brain, lung, liver: FFx2, VFx2
+Axillary, Inguinal submitted for DLP on Jul 2/19","Tumor cells in Axillary, Inguinal mass. Micrometastasis (less extensive) in lung. No metastatic cells in liver, brain.",met,met,SA535X4_4,,,2498
+SA535,HL190118(1),X0011-23617,5,,"PTR on Jun12/19 (14x8x8), hard mass, easily removed, minor bleeding","Euth on Sep5/19 d/t ulcerated tumor, Small tumor recur x3 were found, left axillart mets, no other gross mets.
+Lung: FFPEx1, VF x2(Lung dissociation + Mouse depletion), 1) Live = 8.75 x 105, Dead = 4.4 x 105, viability = 66.5%, 2) Live = 7.44 x 105, Dead = 5.23 x 105, viability = 58.7%, 8.09 x 105 live cells before freezing
+TuRec: FFPEx1, FFx2, VFx2, AxiM: FFPEx1, FFx2, VFx3",,met,non_met,SA535X5_1,,,3262
+SA535,HL190118(1),X0011-23618,5,,"PTR on Jun25/19, small mass, easily removed, minor bleeding. OCTx1, FFx2, TPx2, VFx4 (no FFPE)","Euth on Oct22/19, recurred tumor, left axillary mets, single liver metastasis (~4mm),
+Lung:FFPEx1, VFx2(Lung dissociation only), Liver:FFPEx1, FFx1, VFx1(tumor dissociation kit, 1)Live = 3.4x104, Dead = 2.13x105, Total = 2.48x105, via 13.9%, 2)6.2x104, 3.16x105, 3.78x105, via 16.4%)
+TuRec:FFPEx1, OCTx1, FFx2, VFx4, AxiM:FFPEx1, OCTx1, FFx1, VFx2",,met,met,SA535X5_2,,,3263
+SA535,HL190118(1),X0011-23619,5,,"PTR on Jun4/19 (14x10x8), passaged into 4 mice + 4mice with Peter's library transduction, no FFPE","Euth on Sep16/19 d/t recurred tumor, large tumor recurrence invading into surrounding muscle and bone, no axillary mets
+Lung: FFPEx1, VF x2(Lung dissociation + Mouse depletion), 1) Live = 8.75 x 105, Dead = 4.4 x 105, viability = 66.5%, 2) Live = 7.44 x 105, Dead = 5.23 x 105, viability = 58.7%, 8.09 x 105 live cells before freezing
+TuRec: FFPEx1, FFx2, VFx2(ST), VFx2(MCS)",,non_met,non_met,SA535X5_3,,,3264
+SA535,HL190118(2),X0011-2361521,7,,"PTR on Mar12/19, hard mass, easily removed","Euth on May26/19, Recurred tumor x2 (10x10x8, 8x8x6), small axillary mets, intraabdominal mass firmly attached to lumbar spine
+Lung:FFPEx1, VFx2(only gentle macs dissociated), AbdM:FFPEx1, FFx1, VFx2, TuRec:FFPEx1, FFx2, VFx4",multiple lung metastasis,met,non_met,SA535X7_1,,,3266
+SA535,HL190118(2),X0011-2361522,7,,"PTR on Mar12/19, hard mass, easily removed","Euth on Jun27/19, Recurred tumor (10x10x10), axillary mets(8x8x8), no other gross mets.
+Lung:FFPEx1, VFx2(cold protease + gentle macs dissociated), cell count = 1) Live= 6.84 e+6, Dead=2.75 e+4, Total=6.86 e+6, Viability 99.6%, 2) Live=6.69 e+6, Dead=2.06 e+4, Total= 6.71 e+6, Viability 99.7%
+Tumor Recur:FFPEx1, VFx4, AxiM:FFPEx1, VFx2",multiple lung metastasis,met,met,SA535X7_2,,,3267
+SA535,HL190118(2),X0011-2361523,7,,"PTR on Mar12/19, hard mass, easily removed","Euth Jun2/19, Large tumor recur attached to spine, no axillary mets.
+Lung:FFPEx1, VFx2(only gentle macs), TuRec:FFPEx1, TPx2, FFx2, VFx4",multiple lung metastasis,met,met,SA535X7_3,,,3268
+SA535,HL190118(2),X0011-2361524,7,,"PTR on Mar12/19, hard mass, easily removed","Euth May10/19, Large tumor recur, small left axillary mets
+Lung:FFPEx1, Tumor recur:FFPEx1, FFx2, VFx4, AxiM:FFPEx1, VFx2","Axillary mets, multiple lung metastasis",met,non_met,SA535X7_4,,,3269
+SA535,HL190604(1),X0011-236191,6,,"PTR on Sep3/19, hard mass (20x12x12), easily removed, small separate mass attached to both skin and main mass (removed with skin), minor bledding
+FFPEx1, OCTx1, FFx2, TPx2, VFx4","Euth on Dec2/19, Tumor recur (4 small masses), Two axillary mets, intrathoracic mass.
+Lung:VFx2(gentle macs only), TuRec: OCTx1, FFx2, VFx4 (gentle macs only), AxiM:OCTx1, FFx2, VFx4 (gentle macs only), Thoracic mass(ThorM): FFPEx1",,met,met,SA535X6_1,,,3605
+SA535,HL190604(1),X0011-236192,6,,"PTR on Aug20/19, hard mass (14x10x8), easily removed, small separate mass attached to skin (removed with skin), minor bledding
+FFPEx1, OCTx1, FFx2, TPx2, VFx4","Euth on Oct28/19, Tumor recur, small liver mass, Left axillary mets
+Liver:FFPEx1, Lung: FFPEx1, VFx2(gentle macs only), TuRec: FFPEx1, OCTx1, FFx2, VFx4 (macs only), Axim: FFPEx1, OCTx1, FFx1, VFx2 (macs only)",positive for lung mets,met,met,SA535X6_2,,,3606
+SA535,HL190604(1),X0011-236193,6,,"PTR on Aug20/19, hard mass (14x8x6), easily removed, minor bledding
+FFPEx1, OCTx1, FFx2, VFx4","Euth on Dec2/19, Tumor recur x1, small axillary mass, huge intra-abdominal mass
+Lung:VFx2 (gentle macs only), TuRec: OCTx1, FFx2, VFx4, AbdM: OCTx1, FFx2, VFx4, Axim:FFPEx1",,met,met,SA535X6_3,,,3607
+SA535,HL190604(1),X0011-236194,6,,"PTR on Aug19/19,  hard mass easily removed,  minor bledding
+FFPEx1, OCTx1, FFx2, TPx2, VFx4","Euth on Nov22/19, only tumor recur, no other mets.
+Lung: VFx2 (lung dissociation + mouse depletion, count before MD: 1) Live =  1.37 x 104, Dead = 1.49 x 106, Total 1.5 x 106, viability 0.9%, 2) Live = 2.75 x 104, Dead = 3.92 x 106, Total = 3.95 x 106, via 0.67%. After MD: Live = 1.37 x 104, Dead = 4.68 x 105, Total = 4.82 x 105, via 2.86%. (approx 10% left after depletion)
+TuRec: OCTx1, FFx1 (after gentle macs), VFx2 (gentle MCS only), VFx2 (TD+MD, count before MD: 1) Live = 1.37 x 105, Dead = 3.92 x 106, Total = 4.05 x 106, via = 3.4%, 2) live = 3.72 x 105, Dead = 2.62 x 106, Total = 2.99 x 106, via 12.4%. After MD: 1) Live = 2.96 x 105, Dead = 1.37 x 105, Total = 4.34 x 105, via 68.3%, 2) live = 3.58 x 105, Dead = 3.37 x 105, Total = 6.95 x 105, via 51.5%. (approx 15% left after depletion)
+Rack13.Box08 (BOX ID 2669)",,non_met,non_met,SA535X6_4,,,3608
+SA609,HL180403,X0028-121D1323411,11,Primary tumor,,"distant organ(brain, lung, liver) harvested, grossly clean without metastasis","Negative for metastasis in liver, lung, brain.",non_met,non_met,,,Bone,2518
+SA609,HL180403,X0028-121D1323412,11,Primary tumor,,"distant organ(brain, lung, liver) harvested, grossly clean without metastasis, tumour recur","Negative for metastasis in liver, lung, brain.",non_met,non_met,,,Bone,2519
+SA609,HL180403,X0028-121D1323413,11,Primary tumor,,"distant organ(brain, lung, liver) harvested, grossly clean without metastasis","Negative for metastasis in liver, lung, brain.",non_met,non_met,,,Bone,2520
+SA609,HL180403,X0028-121D1323414,11,Primary tumor,,"distant organ(brain, lung, liver) harvested, grossly clean without metastasis","Negative for metastasis in liver, lung, brain.",non_met,non_met,,,Bone,2521
+SA609,HL181012,X0028-161,3,Primary tumor,"PTR on Dec5/18, soft tumor, easily removed, minimal bleeding","Euth on Jul25/19, no gross mets
+Lung:FFPEx1",,non_met,non_met,,double_check,,3031
+SA609,HL181012,X0028-162,3,Primary tumor,"PTR on Dec4/18, soft tumor, easily removed, minimal bleeding","Euth on Sep30/19, no gross mets
+Lung:FFPEx1",,non_met,non_met,,double_check,,3032
+SA609,HL181012,X0028-163,3,Primary tumor,"PTR on Dec4/18, soft tumor, easily removed, minimal bleeding","Euth on May1/19 d/t huge scabbed mass on Rt. Flank. Flank mass seemed like vascular structure. Liver had metastatic mass.
+Lung:FFPEx1, Liver:FFPEx1, FFx1, VFx4, Flank mass(TuRec):FFPEx1","negative for lung, liver(mass lost during fixation?), flank mass seems muscular mass? - no tumor cells in histology",unknown,met,,double_check,,3033
+SA609,HL181012,X0028-164,3,Primary tumor,"PTR on Dec3/18, soft tumor, easily removed, minimal bleeding","Found dead on Aug31/19, No gross mets on necropsy",,unknown,non_met,,,,3034
+SA609,HL190510,X0028-121D1323415,11,"TPx2,tiny pellet","PTR on Jul 8/19, large fragile mass, easily removed, minor bleeding. FFPEx1, FFx2, TPx2, VFx4","Euth on Feb5/20, no mets. Lung:FFPEx1",negative for lung mets,non_met,non_met,,,,3436
+SA609,HL190510,X0028-121D1323416,11,"VFx1,small pellet","PTR on Jun25/19, large fragile mass, easily removed, minor bleeding.FFPEx1, FFx2, TPx2, VFx4","Euth on Sep12/19, large tumor recur, no other gross mets.
+Lung:FFPEx1, TuRec: FFPEx1, OCTx1, FFx2, VFx4",negative for lung mets,non_met,non_met,,,,3437
+SA609,HL190510,X0028-121D1323417,11,VFx1 into two mice,"PTR on Jun17/19 (18x14x14), large fragile mass, easily removed, minor bleeding. OCTx1, FFx2, TPx2, VFx4","Euth on Feb5/20, no mets. Lung:FFPEx1",negative for lung mets,non_met,non_met,,,,3438
+SA609,HL190510,X0028-121D1323418,11,VFx1 into two mice,"PTR on Jun17/19 (24x10x10), large fragile mass, easily removed, minor bleeding. OCTx1, FFx2, TPx2, VFx4","Euth on Feb5/20, no mets. Lung:FFPEx1",negative for lung mets,non_met,non_met,,,,3439
+SA609,HL190514,X0028-1631,4,TPx2 into four mice,"PTR on Jul 30/19, fragile mass, easily removed, minor bleeding. FFPEx1, OCTx1, FFx2, TPx2, VFx4","Euth on Sep 3/19 d/t tumor recur (20x12x12), axillary mass
+Lung: FFPEx1, TuRec: FFPEx1, OCTx1, FFx2, VFx4, AxiM: FFPEx1, FFx2, VFx4","positive for tumor recur, axillary, lung mets",met,met,,,,3440
+SA609,HL190514,X0028-1632,4,TPx2 into four mice,"PTR on Jul 22/19, large fragile mass, easily removed, minor bleeding. FFPEx1, OCTx1, FFx2, VFx4","Euth on Feb24/20, no gross mets
+Lung:FFPEx1",1 tumor deposit in lung,met,non_met,,double_check,,3441
+SA609,HL190514,X0028-1633,4,TPx2 into four mice,"PTR on Jul 16/19, large fragile mass, easily removed, minor bleeding. (wound resuture on Jul22/19) FFPEx1, OCTx1, FFx2, TPx2, VFx4","Euth on Feb24/20, no gross mets
+Lung:FFPEx1",negative for lung mets,non_met,non_met,,,,3442
+SA609,HL190514,X0028-1634,4,TPx2 into four mice,"PTR on Jul 8/19, large fragile mass, easily removed, minor bleeding. FFPEx1, OCTx1, FFx2, TPx2, VFx4","Euth on Feb24/20, subQ mass at left flank near rib cage, no other gross mets
+Lung:FFPEx1, SubQ:FFx1, VFx3","negative for lung mets, tumor deposit in fat tissue",met,met,,,,3443
+SA604,HL180424,X0038-1246159671,10,Primary tumor,,"distant organ(brain, lung, liver, inguinal LN_fatpad) harvested, grossly clean without metastasis, enlarged spleen","Negative for metastasis in liver, lung, brain.",non_met,non_met,,,"Bone,Liver",2577
+SA604,HL180424,X0038-1246159672,10,Primary tumor,,"distant organ(brain, lung, liver, inguinal LN_fatpad) harvested, grossly clean without metastasis, enlarged spleen","Negative for metastasis in liver, lung, brain.",non_met,non_met,,,"Bone,Liver",2578
+SA604,HL180424,X0038-1246159673,10,Primary tumor,"Euthanized Nov20/18 due to time (over 16wks after PTR), No grossly abnormal findings",,"Negative for metastasis in liver, lung, brain.",non_met,non_met,,,"Bone,Liver",2579
+SA604,HL180424,X0038-1246159674,10,Primary tumor,,"distant organ(brain, lung, liver) harvested, grossly clean without metastasis, enlarged spleen, FFPEx1, FFx2, VFx2 for brain, liver, lung","Negative for metastasis in liver, lung, brain.",non_met,non_met,,,"Bone,Liver",2580
+SA1139,HL180611,X1476-2332,4,Primary tumor,"PTR on Aug14/18, Hard mass, highly vascularized, easily removed, minimal bleeding","distant organ(brain, lung, liver) harvested, grossly clean without metastasis, enlarged spleen, FFPEx1, FFx2, VFx2 for brain, liver, lung","Negative for metastasis in liver, lung, brain.",non_met,non_met,,,,2690
+SA1139,HL180611,X1476-2333,4,Primary tumor,"PTR on Sep10/18, Hard mass, highly vascularized, easily removed, minor bleeding","distant organ(brain, lung, liver) harvested, grossly clean without metastasis, FFPEx1, FFx2, VFx2 for brain, liver/ FFPEx1,FFx1,VFx2 for lung","Negative for metastasis in liver, brain.
+One micromets in lung?",unknown,non_met,,,,2691
+SA1139,HL180611,X1476-2334,4,Primary tumor,"PTR on Aug13/18, Hard mass, highly vascularized, easily removed, minimal bleeding","distant organ(brain, lung, liver) harvested, grossly clean without metastasis, enlarged spleen, FFPEx1, FFx2, VFx2 for brain, liver, lung","Negative for metastasis in liver, lung, brain.",non_met,non_met,,,,2692
+SA501,HL180621,X0662-12125,5,Primary tumor,"Euth on Nov28/18, No grossly abnormal findings in organs.FFPEx1, FFx2, VFx2 for brain, liver, lung",,,unknown,met,,double_check,,2740
+SA501,HL180621,X0662-12126,5,Primary tumor,,,"Negative for metastasis in liver, lung, brain.",non_met,non_met,,,,2741
+SA501,HL180621,X0662-12127,5,Primary tumor,Euthanized Nov21.18 due to tail vein wounds. No grossly abnormal findings in organs.,,"Negative for metastasis in liver, lung, brain.",non_met,non_met,,,,2742
+SA501,HL180621,X0662-12128,5,Primary tumor,"Euth on Nov28/18, No grossly abnormal findings in organs.FFPEx1, FFx2, VFx2 for brain, liver, lung/ 2mm sized small mass at tumor site",,"Negative for metastasis in liver, lung, brain.",non_met,non_met,,,,2743
+SA1142 (need to be checked),HL180713,X2673-11,2,Primary tumor,"PTR on Jan30/19, Small hard mass, easily removed, small bleeding","Euth on Mar26/19 due to wt loss, mild ataxia. Two small mets in liver, other organs were clean without mets.
+Brain: FFPEx1, Liver mets: FFPEx1, VFx2, Lung: VFx2 after mouse depletion (cold protease), cell count=3.64mil/ml -> 1.8mil cells in 1 VF
+Initial material: TP=7064(Rack2-Box9-C1), VF=7065 (Rack2-Box9-C2), FF=7063 (Rack2-Box9-B8)
+Primary and liver mets for DLP on May2/19, Lung mets for DLP on May17/19.
+Resubmit liver and lung (dead cell removal) on","Multiple metastatic lesion in lung, metastatic mass in liver, negative for brain",met,met,,,,2798
+SA1142,HL180713,X2673-12,2,Primary tumor,"PTR on Jan30/19, Small hard mass, easily removed, minimal bleeding","Euth on Mar26/19 due to wt loss, mild ataxia. No gross mets in organs.
+Brain, Lung, liver: FFPEx1","A few metastatic lesion in lung, Negative for liver, brain",met,met,,,,2799
+SA1142,HL180713,X2673-13,2,Primary tumor,Euthanized on Feb 6/19 due to wt loss. General illness.,"Metastatic lesion on liver, no specific findings in other organs.
+Liver:FFPEx1, FFx1, VFx1 (enough for both DLP and 10X)
+Lung: FFPEx1, VFx1, Brain: FFPEx1
+Primary and liver submitted on Dec 13/19","Metastatic lesion in liver, micrometastasis in lung, negative for brain",met,met,,,,2800
+SA1146,HL180911,X3629-15,2,,"PTR on Nov26/18, semi-solid mass, minor bleeding",,,unknown,,,,,2925
+SA1146,HL180911,X3629-16,2,,"PTR on Nov18/18, Hard, vascularized mass, 20x20x16, minor bleeding. Passaged to 4 mice.","Euth on Mar7/19, Tumor recur at Lt MFP, no gross mets in other organs
+FFPE for brain, lung, liver, tumor recur
+Tumor recur: FFPEx1, FFx1, VFx2","Negative for metastasis in brain, lung and liver, Tumor cells in recured mass",non_met,non_met,,,,2926
+SA1146,HL180911,X3629-17,2,,"PTR on Dec19/18, Hard, vascularized mass,16x16x8, difficult to remove, took more than 20 min, some bleeding",,,unknown,met,,double_check,,2927
+SA1146,HL180911,X3629-18,2,,"PTR on Nov27/18, Mass attached to abdominal wall and left thigh. Peritoneum opened during removal, not repaired. Minor bleeding.","Euth on Mar7/19, huge tumor recur (20x14x14), no gross mets in other organs
+FFPE for brain, lung, liver, tumor recur
+Tumor recur: FFPEx1, FFx2, TPx2, VFx3","Negative for metastasis in brain, lung and liver, Tumor cells in recured mass",non_met,non_met,,,,2928
+SA1146,HL181118,X3629-161,3,,"PTR on Feb6/19, Hard large mass, small bleeding","Euth on Apr28/19, huge tumor recur (26x24x20), extending into abdominal cavity. interestingly, there was no internal organ invasion. Only into surrounding muscles in pelvis area. No gross mets in other organs, no enlarged LNs in axilla or elsewhere.
+FFPE for lung, liver, tumor recur
+Tumor recur: FFPEx1, FFx2, TPx2, VFx4","tumor cells in the edge of lung? Cavity in liver, huge recurred tumor",met,non_met,,,,3153
+SA1146,HL181118,X3629-162,3,,"PTR on Jan15/19, Hard mass, minor bleeding","Euth on Jul 29/19, large tumor recur, attached to skin, ulcerated, no invasion into surroundings or peritoneum.
+Tumor recur: FFPEx1, FFx2, VFx2",,non_met,non_met,,,,3154
+SA1146,HL181118,X3629-163,3,,"PTR on Jan2/19, Hard mass, small bleeding","Euth on Jul 29/19, no tumor recur or gross metastasis. Lung:FFPEx1",,non_met,non_met,,,,3155
+SA1146,HL181118,X3629-164,3,,"PTR on Jan2/19, Hard mass, minor bleeding","Euth on Jul 29/19, no tumor recur or gross metastasis. Lung:FFPEx1",,non_met,non_met,,,,3156
