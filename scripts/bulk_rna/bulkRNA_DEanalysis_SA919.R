@@ -22,6 +22,53 @@ suppressPackageStartupMessages({
 # head(df)
 source('/home/htran/Projects/hakwoo_project/metastasis_material/scripts/bulk_rna/bulk_utils.R')
 
+plot_upSetR <- function(){
+  # Specific library
+  # BiocManager::install("UpSetR")
+  library(UpSetR)
+  
+  # Dataset
+  input <- c(
+    M.acuminata = 759,
+    P.dactylifera = 769,
+    "P.dactylifera&M.acuminata" = 467
+  )  
+  input <- c(
+    B_met_vs_B_pri_upReg = 481,
+    B_met_vs_B_pri_downReg = 259,
+    C_met_vs_B_pri_upReg = 60,
+    C_met_vs_B_pri_downReg = 41,
+    "B_met_vs_B_pri_upReg&C_met_vs_B_pri_upReg" = 50,
+    "B_met_vs_B_pri_downReg&C_met_vs_B_pri_downReg" = 24,
+    "B_met_vs_B_pri_upReg&C_met_vs_B_pri_downReg" = 1,
+    "B_met_vs_B_pri_downReg&C_met_vs_B_pri_upReg" = 0
+  )  
+  
+  # Plot
+  p_upset <- upset(fromExpression(input), 
+        # nintersects = 40, 
+        # nsets = 6, 
+        order.by = "freq", 
+        decreasing = T, 
+        # mb.ratio = c(0.6, 0.4),
+        number.angles = 0, 
+        text.scale = 1.1, 
+        point.size = 2.8, 
+        line.size = 1
+  )
+  library(grid)
+  ggsave(paste0(save_dir,"BB_CB_upset.png"),  
+         plot =  print(p_upset),  
+         height = 4,  
+         width = 5.5,  
+         # useDingbats=F,  
+         type = "cairo-png",  
+         dpi=150  
+  )
+  png(paste0(save_dir,"BB_CB_upset.png"), units = "in", height = 3.5, width = 5.5, res = 150)
+  print(p_upset)                               ## use print here
+  dev.off()
+}
 debug_DE_analysis <- function(){
   input_dir <- '/home/htran/Projects/hakwoo_project/metastasis_material/materials/bulkRNAseq/'
   bb <- data.table::fread(paste0(input_dir, 'SA919_DE_analysis/Passage7_CloneBMeta_vs_CloneBPrim_7Passage_DESeq_Sig_GS.csv'))
@@ -30,11 +77,35 @@ debug_DE_analysis <- function(){
   # dir.create(save_dir)
   dim(bb)
   dim(bc)
-  sum(abs(bc$log2FoldChange)>=1)
+  
+  
+  bb_up <- bb %>%
+    dplyr::filter(log2FoldChange>=1 & padj<0.05)
+  bb_down <- bb %>%
+    dplyr::filter(log2FoldChange<=-1 & padj<0.05)
+  bc_up <- bc %>%
+    dplyr::filter(log2FoldChange>=1 & padj<0.05)
+  bc_down <- bc %>%
+    dplyr::filter(log2FoldChange<=-1 & padj<0.05)
+  dim(bb_up)
+  dim(bb_down)
+  dim(bc_up)
+  dim(bc_down)
+  length(intersect(bb_up$Gene.name, bc_up$Gene.name))
+  length(intersect(bb_down$Gene.name, bc_down$Gene.name))
+  length(intersect(bb_down$Gene.name, bc_up$Gene.name))
+  length(intersect(bb_up$Gene.name, bc_down$Gene.name))
   bc <- bc %>%
     # dplyr::filter(!Gene.name %in% obs_genes_symb) %>%
     dplyr::rename(logFC=log2FoldChange, gene_symbol=Gene.name)
   
+  
+  ## Redo DE analysis C met vs. B pri
+  raw_counts <- data.table::fread(paste0(input_dir, 'SA919/SA919_total_raw_counts.csv.gz')) %>% as.data.frame()
+  dim(raw_counts)
+  sids <- colnames(raw_counts)[colnames(raw_counts) != 'ens_gene_id']
+  t <- raw_counts[, sids]
+  colSums(t)
 }
 get_connected_genes_network <- function(){
   ## First, for clone B, C. 
