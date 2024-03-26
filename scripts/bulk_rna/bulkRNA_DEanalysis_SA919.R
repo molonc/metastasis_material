@@ -29,11 +29,6 @@ plot_upSetR <- function(){
   
   # Dataset
   input <- c(
-    M.acuminata = 759,
-    P.dactylifera = 769,
-    "P.dactylifera&M.acuminata" = 467
-  )  
-  input <- c(
     B_met_vs_B_pri_upReg = 481,
     B_met_vs_B_pri_downReg = 259,
     C_met_vs_B_pri_upReg = 60,
