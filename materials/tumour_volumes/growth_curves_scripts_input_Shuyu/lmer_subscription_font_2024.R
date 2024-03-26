@@ -118,3 +118,8 @@ fit3 <- lmer(TumorVol_num^(1/3) ~ date_len*Damian_annotation+
 summary3_stat = summary(fit3)
 round(summary3_stat$coefficients, 3)
 
+SuppTable3 <- temp_data[, c("Tumor_ID", "SA_ID","Damian_annotation",
+                                  "PTR_Date", "TumorDate_Date",
+                                  "TumorVol_num", "date_len")]
+
+write.csv(SuppTable3, paste0(resultdir, "SuppTable3.csv"))
