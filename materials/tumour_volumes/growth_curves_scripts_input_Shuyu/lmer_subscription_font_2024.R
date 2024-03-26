@@ -109,4 +109,12 @@ print(p)
 dev.off()
 
 
+fit3 <- lmer(TumorVol_num^(1/3) ~ date_len*Damian_annotation+
+               (date_len|Tumor_ID), 
+             data = subset(temp_data,SA_ID == "SA919"),  REML = FALSE, 
+             control = lmerControl(
+               optimizer ='optimx', optCtrl=list(method='L-BFGS-B')))
+
+summary3_stat = summary(fit3)
+round(summary3_stat$coefficients, 3)
 
