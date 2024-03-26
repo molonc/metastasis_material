@@ -48,20 +48,20 @@ dim(temp_data)
 library(RColorBrewer)
 length(unique(temp_data$SA_ID))
 
-#choose the color
-color_sa = brewer.pal(length(unique(temp_data$SA_ID))+1, "BrBG")
-
-#look at the color
-plot(x = c(1:length(unique(temp_data$SA_ID))), 
-     y=c(1:length(unique(temp_data$SA_ID))), 
-     col = color_sa, pch= 16)
-#remove the color too faint
-color_sa = color_sa[-5]
-
-#check again
-plot(x = c(1:length(unique(temp_data$SA_ID))), 
-     y=c(1:length(unique(temp_data$SA_ID))), 
-     col = color_sa, pch= 16)
+# #choose the color
+# color_sa = brewer.pal(length(unique(temp_data$SA_ID))+1, "BrBG")
+# 
+# #look at the color
+# plot(x = c(1:length(unique(temp_data$SA_ID))), 
+#      y=c(1:length(unique(temp_data$SA_ID))), 
+#      col = color_sa, pch= 16)
+# #remove the color too faint
+# color_sa = color_sa[-5]
+# 
+# #check again
+# plot(x = c(1:length(unique(temp_data$SA_ID))), 
+#      y=c(1:length(unique(temp_data$SA_ID))), 
+#      col = color_sa, pch= 16)
 
 #get the max time 
 max_length = max(temp_data$date_len, na.rm = TRUE)
