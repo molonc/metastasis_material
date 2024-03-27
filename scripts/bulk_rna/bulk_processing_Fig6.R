@@ -97,7 +97,7 @@ load_data <- function(meta_samples){
   sf_df <- data.table::fread(paste0(save_dir, datatag, '_sizefactors_Scran.csv.gz'))
   
   # get_clustering(normalized_fn, save_dir, datatag)
-  
+  df_counts_fn <- paste0(save_dir, datatag,'_total_raw_counts.csv.gz')
   cts <- data.table::fread(df_counts_fn) %>% as.data.frame()
   print(dim(cts))
   head(cts)
