@@ -10,7 +10,6 @@ __MACOSX/
 *.Rdata
 *.Rout
 *.Rapp.history
-*.rds
 *.idea
 
 # mac temp files

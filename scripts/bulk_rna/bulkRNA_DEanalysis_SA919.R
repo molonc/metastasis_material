@@ -8,9 +8,9 @@ suppressPackageStartupMessages({
   # require(scales)
   # require(ComplexHeatmap)
   # require(DOSE)
-  require(enrichplot)
+  # require(enrichplot)
   require(stringr)
-  require(ggraph)
+  # require(ggraph)
   require(ggplot2)
   require(igraph)
   require(tidyverse)
@@ -385,3 +385,4 @@ get_norm_heatmap <- function(){
   dev.off()
   
 }
+

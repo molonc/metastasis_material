@@ -17,7 +17,96 @@ options(dplyr.summarise.inform = FALSE)
 options(tidyverse.quiet = TRUE)
 
 
+## To Do: get 80% of samples from cis genes 
+## and comparing with the same number of sampling trans genes. 
 
+get_bootstrap_stat_sampling <- function(cis_genes, trans_genes, 
+                                        sampling_fraction=0.7, nsamples=1000){
+  set.seed(42)
+  # if(is.null(genome_genes)){
+  #   # ref_dif <- '/home/htran/storage/datasets/drug_resistance/rna_results/biodatabase/'
+  #   # genome_genes_df <- read.csv(paste0(ref_dif, 'Symbol_ensembl.csv'), check.names = F, stringsAsFactors = F)  
+  #   # # dim(genome_genes_df)
+  #   # genome_genes <- unique(genome_genes_df$Symbol) # entire genes set
+  #   
+  #   ref <- annotables::grch38 %>%
+  #     dplyr::select(ensgene,symbol) %>%
+  #     dplyr::rename(gene_id=ensgene)
+  #   ref <- ref[!duplicated(ref$gene_id),]
+  #   genome_genes <- ref$gene_id
+  # }
+  nb_sampled_cis <- round(length(cis_genes) * sampling_fraction)
+  nb_sampled_cis <- length(cis_genes)
+  # cis_samples <- lapply(1:nsamples, function(i) sample(cis_genes, size=nb_sampled_cis, replace = T))
+  # trans_samples <- lapply(1:nsamples, function(i) sample(trans_genes, size=nb_sampled_cis, replace = T))
+  cis_samples <- list()
+  trans_samples <- list()
+  for(i in seq(nsamples)){
+    cis_samples[[i]] <- sample(cis_genes, size=nb_sampled_cis, replace = T)
+    trans_samples[[i]] <- sample(trans_genes, size=nb_sampled_cis, replace = T)
+  }
+  
+  stat_df <- tibble::tibble()
+  
+  for(k in seq(nsamples)){
+    out_stat <- ks.test(cis_samples[[k]], trans_samples[[k]], alternative='less')
+    
+    out_vals <- tibble::tibble('idx'=k, 'stat'=out_stat$statistic, 'p_val'=out_stat$p.value)
+    stat_df <- dplyr::bind_rows(stat_df, out_vals)
+  }
+  
+  stat_df <- stat_df %>%
+    dplyr::mutate(is_signf=
+      case_when(
+        p_val < 0.05 ~ 'T',
+        TRUE ~ 'F'
+      )
+    )
+  # summary(as.factor(stat_df$is_signf))
+  summary_df <- stat_df %>%
+    dplyr::group_by(is_signf) %>%
+    dplyr::summarise(nb_val=n()) %>%
+    dplyr::mutate(pct_signf=round(100*nb_val/dim(stat_df)[1]))
+  summary_df
+  # return(list(CI=as.numeric(r['our']),pval=as.numeric(pval)))
+  return(summary_df)
+}
+
+get_DE_genes_DESeq2 <- function(dds, DE_comp=c("Metastasis","Primary"),
+                                filter_genes=F, min_total_exp_samples=10){
+  
+  print(dim(dds))
+  print(sizeFactors(dds))
+  print(colData(dds))
+  ## ----prefilter----------------------------------------------------------------
+  ## filter genes function pose an issue for next step, need to debug it later
+  ## set filter_genes=F first
+  if(filter_genes){
+    # smallestGroupSize <- 3 # group untreated with 3 samples is the smallest group
+    # keep <- rowSums(counts(dds) >= 10) >= smallestGroupSize
+    keep <- rowSums(counts(dds) >= min_total_exp_samples)
+    dds <- dds[keep,]
+    print(dim(dds))  
+  }
+  print(colnames(dds))
+  ## ----factorlvl----------------------------------------------------------------
+  dds$condition <- factor(dds$condition, levels = DE_comp)
+  
+  ## ----relevel------------------------------------------------------------------
+  # dds$condition <- relevel(dds$condition, ref = "untreated")
+  
+  ## ----droplevels---------------------------------------------------------------
+  # dds$condition <- droplevels(dds$condition)
+  
+  ## ----deseq--------------------------------------------------------------------
+  ## size factors are noted in colData column
+  dds <- DESeq(dds)
+  contrast_DE_comp <- c("condition")
+  contrast_DE_comp <- c(contrast_DE_comp, DE_comp)
+  res <- results(dds, contrast=contrast_DE_comp) #c("condition","treated","untreated")
+  res$ensembl_gene_id <- rownames(res)
+  return(res)
+}
 
 ## Size factor is kept in coldata$size_factor
 create_DESeq2_obj <- function(coldata, cts, use_existing_size_factor=T){
@@ -137,9 +226,44 @@ get_vst_clustering_results <- function(dds){
   
 }
 
+# deg_df: contains 2 columns of gene_symbol, and logFC
+# gmt_fn <- paste0(ref_dif,'pathway_set/h.all.v7.0.symbols.gmt')
 
-get_gprofiler_pathways_obsgenes <- function(obs_genes_symb, save_dir, datatag, 
-                                            custom_id=NULL, pathway_fn=NULL, save_data=F){
+get_fgsea_pathways <- function(deg_df, save_dir, base_name, gmt_fn){
+  save_dir <- paste0(save_dir, base_name, '_pathways/')
+  if(!dir.exists(save_dir)){
+    dir.create(save_dir)
+  }
+  print(save_dir)
+  deg_df <- deg_df %>%
+    dplyr::select(gene_symbol, logFC) %>%
+    na.omit() %>%
+    distinct() %>%
+    group_by(gene_symbol) %>%
+    summarize(logFC=mean(logFC))
+  
+  deg_stat <- deg_df$logFC
+  names(deg_stat) <- deg_df$gene_symbol
+  
+  ref_set <- fgsea::gmtPathways(gmt_fn)
+  gsea_out <- fgsea(pathways=ref_set, stats=deg_stat)  #, scoreType = "pos"  
+  gsea_out$datatag <- base_name
+  gsea_out$signf_genes <- ''
+  for(i in rep(1:length(gsea_out$pathway), 1)){
+    signf_genes <- unlist(gsea_out$leadingEdge[[i]])
+    gsea_out$nb_signf_genes[i] <- length(unlist(signf_genes))
+    gsea_out$signf_genes[i] <- paste(signf_genes, collapse=',')  
+  }
+  gsea_out$leadingEdge <- NULL
+  gsea_out <- as.data.frame(gsea_out)
+  gsea_out <- gsea_out %>%
+    dplyr::filter(pval<0.05)
+  data.table::fwrite(gsea_out,paste0(save_dir, "signf_pathways_",base_name,".csv"))
+  return(gsea_out)
+}
+get_gprofiler_pathways_obsgenes_ <- function(obs_genes_symb, save_dir, datatag, 
+                                            custom_id=NULL, pathway_fn=NULL, 
+                                            save_data=F, correction_func='gSCS'){
   library(gprofiler2)
   if(is.null(pathway_fn)){
     # pathway_fn = '/home/htran/storage/datasets/drug_resistance/rna_results/biodatabase/pathway_set/c2.cp.kegg.v7.1.symbols.gmt'  
@@ -159,7 +283,11 @@ get_gprofiler_pathways_obsgenes <- function(obs_genes_symb, save_dir, datatag,
   stat <- NULL
   ## correction_method: one of 'fdr', 'gSCS', 'bonferroni' #gSCS is the most popular one
   gostres <- gprofiler2::gost(list(obs_genes_symb), organism = custom_id, 
-                              correction_method='fdr')
+                              correction_method=correction_func) #, significant = F
+  dim(stat)
+  # stat <- stat %>%
+  #   arrange(p_value)
+  # View(stat)
   if(!is.null(gostres$result)){
     stat <- gostres$result
     cols_use <- c('p_value','intersection_size','precision','recall','term_id')
@@ -177,8 +305,9 @@ get_gprofiler_pathways_obsgenes <- function(obs_genes_symb, save_dir, datatag,
       stat$signif_genes[i] <- paste(intersect_genes, collapse=',')
     }
     if(save_data){
-      added_time <- gsub(':','',format(Sys.time(), "%Y%b%d_%X"))
-      data.table::fwrite(stat, paste0(save_dir, 'pathways_',datatag,'_',added_time,'.csv.gz'))  
+      # added_time <- gsub(':','',format(Sys.time(), "%Y%b%d_%X"))
+      # data.table::fwrite(stat, paste0(save_dir, 'pathways_',datatag,'_',added_time,'.csv.gz'))  
+      data.table::fwrite(stat, paste0(save_dir, 'pathways_',datatag,'.csv.gz'))  
     }
   }  
   return(stat)
@@ -323,8 +452,10 @@ load_raw_counts_kallisto <- function(input_dir, datatag,
   for(s in sample_ids){
     bulk_fn1 <- paste0(input_dir, s,'/abundance.h5')
     bulk_fn2 <- paste0(input_dir, s,'_trim/abundance.h5')
+    bulk_fn3 <- paste0(input_dir, s,'/abundance.tsv')
     bulk_fn <- ifelse(file.exists(bulk_fn1),bulk_fn1,
-                      ifelse(file.exists(bulk_fn2),bulk_fn2, NULL))
+                      ifelse(file.exists(bulk_fn2),bulk_fn2, 
+                             ifelse(file.exists(bulk_fn3),bulk_fn3,NULL)))
    
    if(!is.null(bulk_fn)){
       print(paste0('Sample: ',s,', read file: ', bulk_fn))
@@ -344,10 +475,11 @@ load_raw_counts_kallisto <- function(input_dir, datatag,
   # input_fns <- input_fns[1]
   # sample_ids <- sids[1]
   ref_dir <- '/home/htran/storage/datasets/drug_resistance/rna_results/biodatabase/tx2gene_sets/'
+  ref_dir <- '/Users/miu/Documents/workspace/projects_BCCRC/hakwoo_project/metastasis_material/materials/bulkRNAseq/mapping_transcripts2gene/'
   ref_tx2gene_fn <- paste0(ref_dir, 'tx2gene_updated_23_Oct_2023.csv.gz')
   tx2gene <- data.table::fread(ref_tx2gene_fn, header=T) %>% as.data.frame()
-  print(head(tx2gene))
-  dim(tx2gene)
+  # print(head(tx2gene))
+  # dim(tx2gene)
   tx2gene <- tx2gene[!duplicated(tx2gene$TXNAME),]
   
   ## Just for testing the txtImport read file function
@@ -559,7 +691,9 @@ normalize_by_size_factor <- function(df_counts_fn, datatag, save_dir){
                                 assay.type="counts",
                                 name='normcounts', size_factors=sce$size_factor)
   
-  # saveRDS(sce, paste0(save_dir, datatag, '_sizefactor_normalized.rds'))
+  saveRDS(sce, paste0(save_dir, datatag, '_sizefactor_normalized.rds'))
+  meta_samples_df <- as.data.frame(colData(sce))
+  data.table::fwrite(meta_samples_df, paste0(save_dir, datatag, '_sizefactors.csv.gz'))
   
   ## Manual normalization instead of using logNormCounts function - same output
   # norm_counts_mtx <- sweep(raw_counts,2,sce$sizeFactor,FUN="/")

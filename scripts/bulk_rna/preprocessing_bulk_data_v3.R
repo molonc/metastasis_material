@@ -4,9 +4,9 @@ suppressPackageStartupMessages({
   library(dplyr)
   library(ggplot2)
   library(RColorBrewer)
-  # require(scales)
-  # require(ggrepel)
-  require(stringr)
+  # library(scales)
+  # library(ggrepel)
+  library(stringr)
   # library(scran)
   library(SingleCellExperiment)
   # library(tximport)
@@ -82,8 +82,8 @@ normalizing_cloneA <- function(){
   sum(df_normalized_c1$AT24180>df_normalized_c1$SA919X4XB40503)
   # TP: 129/222, FP: 93/222 genes
   
-  cor.test(df_normalized$AT24180, df_normalized$SA919X4XB09563,method="pearson")
-  cor.test(df_normalized$AT24180, df_normalized$SA919X4XB40503,method="pearson")
+  cor.test(df_normalized$AT24180, df_normalized$SA919X4XB09563, method="pearson")
+  cor.test(df_normalized$AT24180, df_normalized$SA919X4XB40503, method="pearson")
   
   ## To Do: redo analysis here using DESeq2, 
   ## Is this possible to use only 2 samples for comparisons? 
@@ -297,8 +297,6 @@ load_DE_genes_v2 <- function(){
       print(c)
     }
   }
-  dim(de_all)
-  nb_DE_genes_max
   
   ## Get statistical values
   stat <- tibble::tibble()

@@ -5,7 +5,7 @@ suppressPackageStartupMessages({
   library("DESeq2")
 })
 
-## Loading utility function
+## Loading utility functions
 script_dir <- '/home/htran/Projects/hakwoo_project/metastasis_material/'
 source(paste0(script_dir, 'scripts/bulk_rna/bulk_utils.R'))
 
@@ -40,7 +40,9 @@ load_metadata_SA919 <- function(){
 # Load raw data B, C using txImport 
 load_data <- function(meta_samples){
   input_dir <- '/home/htran/storage/rnaseq_datasets/bulk_metastasis/bulk_SA919/'
+  input_dir <- "/Users/miu/Documents/workspace/projects_BCCRC/hakwoo_project/metastasis_material/materials/bulkRNAseq/preprocessed_09April2024/"
   datatag <- 'SA919Fig6'
+  save_dir <- input_dir
   save_dir <- paste0(input_dir, 'preprocessed/')
   if(!dir.exists(save_dir)){
     dir.create(save_dir)
@@ -82,6 +84,9 @@ load_data <- function(meta_samples){
   ## Do clustering, with, and without mixing experiment, and see output. 
   ## Loading counts - output of above function, and normalize data
   df_counts_fn <- paste0(save_dir, datatag,'_total_raw_counts.csv.gz')
+  # counts_total <- data.table::fread(df_counts_fn)
+  # dim(counts_total)
+  
   data.table::fwrite(counts_total, df_counts_fn)
   # colSums(is.na(counts_total))
   # Normalize data, get size factor for each sample
@@ -235,7 +240,7 @@ get_cis_genes <- function(save_dir){
   # head(cnv)
   
   rownames(cnv) <- cnv$ensembl_gene_id
-  rv <- rowVars(as.matrix(cnv[,c(5, 6)]))  # B, C median copy number profile
+  rv <- rowVars(as.matrix(cnv[,c(5, 6)]))  # median copy number profile of clone B, C 
   # length(rv)
   cnv <- as.data.frame(cnv)
   genes_used <- cnv$ensembl_gene_id[rv>0]
