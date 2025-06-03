@@ -1,0 +1,5 @@
+https://reactome.org/download-data
+
+Functional interactions FIs:
+Version 2022: 
+https://reactome.org/download/tools/ReatomeFIs/FIsInGene_070323_with_annotations.txt.zip

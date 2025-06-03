@@ -1,0 +1,16 @@
+SA_id,Tumor_ID,sample_id,dlp_library_id,mainsite,origin,Sample_Name,list_library_id,DLP+_Status,10X_Lib_ID,10X_Status,Patient_ID,Backup_Vial_AT_ID,Processed
+SA919,X0847-21122516,AT13804,A138895B,Metastasis,posterior neck,04410 - posterior neck,"A138895B,A138916B","Sequenced,Backup","","",VBA0847,AT13805,""
+SA919,X0847-21122516,AT13582,A138967B,Primary,primary,04410 - primary,"A138967B,A138978B","Submitted for Seq,Backup","","",VBA0847,AT13583,""
+SA919,X0847-216421122521,AT11424,A130839B,Primary,primary,04342 - primary,"A130839B,A130853B","Analyzed,Backup","","",VBA0847,AT11425,Done
+SA919,X0847-216421122521,AT13688,A138912A,Metastasis,anterior neck,04342 - anterior neck,"A138912A,A138913A","Submitted for Seq,Backup","","",VBA0847,AT13689,""
+SA919,X0847-216421122521,AT13696,A130854B,Metastasis,axillary,04342 - axillary,"A130854B,A138907B","Submitted for Seq,Backup","","",VBA0847,AT13697,Done
+SA919,X0847-216421122521,AT13692,A130854A,Metastasis,lumbar,04342 - lumbar,"A130854A,A138907A","Submitted for Seq,Backup","","",VBA0847,AT13693,""
+SA919,X0847-216421122521,AT13684,A138912B,Metastasis,posterior neck,04342 - posterior neck,"A138912B,A138913B","Submitted for Seq,Backup","","",VBA0847,AT13685,""
+SA919,X0847-216421122524,AT13640,"",Metastasis,abdominal mass,04345 - abdominal mass,"Failed - see notes,Failed - see notes","Failed,Failed","","",VBA0847,AT13641,""
+SA919,X0847-216421122524,AT13638,A138963A,Metastasis,anterior neck,04345 - anterior neck,"A138963A,A138970A","GSC build,Backup","","",VBA0847,AT13639,""
+SA919,X0847-216421122524,AT13634,A138963B,Metastasis,posterior neck,04345 - posterior neck,"A138963B,A138970B","GSC build,Backup","","",VBA0847,AT13635,""
+SA919,X0847-216421122524,AT11344,A138959A,Primary,primary,04345 - primary,"A138959A,A138965A","GSC build,Backup","","",VBA0847,AT11345,""
+SA919,X0847-216421122537,AT13700,A130841A,Metastasis,lumbar,04333 - lumbar,"A130841A,A130857A","Analyzed,Backup","","",VBA0847,AT13701,Done
+SA919,X0847-216421122537,AT11367,A98166A,Primary,primary,04333 - primary,"A98166A,A98214A","Analyzed,Backup",SCRNA10X_SA_CHIP0248_001,Analyzed,VBA0847,AT11368,Done
+SA919,X0847-216421122538,AT13752,A130841B,Metastasis,axillary,04334 - axillary,"A130841B,A130857B","Analyzed,Backup","","",VBA0847,AT13753,Done
+SA919,X0847-216421122538,AT11391,A98166B,Primary,primary,04334 - primary,"A98166B,A98214B","Analyzed,Backup",SCRNA10X_SA_CHIP0248_002,Analyzed,VBA0847,AT11417,Done

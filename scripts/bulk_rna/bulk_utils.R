@@ -21,7 +21,7 @@ options(tidyverse.quiet = TRUE)
 ## and comparing with the same number of sampling trans genes. 
 
 get_bootstrap_stat_sampling <- function(cis_genes, trans_genes, 
-                                        sampling_fraction=0.7, nsamples=1000){
+                                        sampling_fraction=0.7, nsamples=1000, alternative_theory="two.sided"){
   set.seed(42)
   # if(is.null(genome_genes)){
   #   # ref_dif <- '/home/htran/storage/datasets/drug_resistance/rna_results/biodatabase/'
@@ -49,7 +49,7 @@ get_bootstrap_stat_sampling <- function(cis_genes, trans_genes,
   stat_df <- tibble::tibble()
   
   for(k in seq(nsamples)){
-    out_stat <- ks.test(cis_samples[[k]], trans_samples[[k]], alternative='less')
+    out_stat <- ks.test(cis_samples[[k]], trans_samples[[k]], alternative=alternative_theory)
     
     out_vals <- tibble::tibble('idx'=k, 'stat'=out_stat$statistic, 'p_val'=out_stat$p.value)
     stat_df <- dplyr::bind_rows(stat_df, out_vals)
@@ -66,8 +66,8 @@ get_bootstrap_stat_sampling <- function(cis_genes, trans_genes,
   summary_df <- stat_df %>%
     dplyr::group_by(is_signf) %>%
     dplyr::summarise(nb_val=n()) %>%
-    dplyr::mutate(pct_signf=round(100*nb_val/dim(stat_df)[1]))
-  summary_df
+    dplyr::mutate(p_val=1-round(nb_val/dim(stat_df)[1],4))
+  print(summary_df)
   # return(list(CI=as.numeric(r['our']),pval=as.numeric(pval)))
   return(summary_df)
 }
@@ -572,9 +572,12 @@ normalize_by_size_factor_v2 <- function(df_counts_fn, datatag, save_dir){
   if(is.null(rownames(sce))){
     rownames(sce) <- rownames(df)
   }
-  
-  sce <- scran::computeSumFactors(sce)
+  dim(sce)
+  # sce <- scran::computeSumFactors(sce)
+  sce <- scran::computeSumFactors(sce, size=100) # avoid small cells clusters, affect normalized output
   print(sce$sizeFactor)
+  # t1 <- sce$sizeFactor
+  # t2 <- sce$sizeFactor
   sce$size_factor <- sizeFactors(sce)
   sf <- sizeFactors(sce)
   names(sf) <- colnames(sce)
@@ -587,7 +590,7 @@ normalize_by_size_factor_v2 <- function(df_counts_fn, datatag, save_dir){
                                 assay.type="counts",
                                 name='normcounts', size_factors=sce$size_factor)
   
-  # saveRDS(sce, paste0(save_dir, datatag, '_sizefactor_normalized.rds'))
+  saveRDS(sce, paste0(save_dir, datatag, '_sizefactor_normalized.rds'))
   
   ## Manual normalization instead of using logNormCounts function - same output
   # norm_counts_mtx <- sweep(raw_counts,2,sce$sizeFactor,FUN="/")
@@ -683,7 +686,8 @@ normalize_by_size_factor <- function(df_counts_fn, datatag, save_dir){
   if(is.null(rownames(sce))){
     rownames(sce) <- rownames(df)
   }
-  
+  library(scran)
+  # ?scran::computeSumFactors
   sce <- scran::computeSumFactors(sce)
   print(sce$sizeFactor)
   sce$size_factor <- sizeFactors(sce)
@@ -710,6 +714,11 @@ normalize_by_size_factor <- function(df_counts_fn, datatag, save_dir){
   print('Sequencing depth (total UMI counts) for each sample after size factor normalization is: ')
   print(s2)
   dim(norm_counts_mtx)
+  # tmp <- tibble::tibble(norm_val=s2, sample_id=names(s2))
+  # tmp1 <- tibble::tibble(raw_val=s, sample_id=names(s))
+  # sequencing_depth_df <- dplyr::bind_rows(tmp, tmp1)
+  
+  
   norm_counts_mtx <- as.data.frame(norm_counts_mtx)
   norm_counts_mtx$ens_gene_id <- rownames(norm_counts_mtx)
   norm_counts_mtx$ens_gene_id[1:2]
@@ -746,4 +755,39 @@ get_mito_genes <- function(meta_genes){
   # [13] "ENSG00000228253"
   return(mt_genes_ens)
   
+}
+convert_ens_gene_2_symbol <- function(obs_genes){
+  ## Interactome database http://www.interactome-atlas.org/download
+  ref_df <- annotables::grch38 %>%
+    dplyr::select(ensgene, symbol) %>%
+    dplyr::rename(ens_gene_id=ensgene) %>%
+    dplyr::filter(symbol %in% obs_genes)
+  dim(ref_df)
+  
+  test_dir <- '~/Downloads/'
+  test_df <- data.table::fread('~/Downloads/HI-union.tsv')
+  dim(test_df)
+  head(test_df)
+  colnames(test_df) <- c('g1','g2')
+  
+  test_df <- test_df %>%
+    # as.data.frame() %>%
+    dplyr::filter(g1 %in% ref_df$ens_gene_id & 
+                    g2 %in% ref_df$ens_gene_id)
+  dim(test_df)
+  test_df <- test_df %>%
+    dplyr::left_join(ref_df, by=c('g1'='ens_gene_id')) %>%
+    dplyr::rename(g1_symbol=symbol)
+  dim(test_df)
+  test_df <- test_df %>%
+    dplyr::left_join(ref_df, by=c('g2'='ens_gene_id')) %>%
+    dplyr::rename(g2_symbol=symbol) %>%
+    dplyr::mutate(desc=paste0(g1,g2))
+  dim(test_df)
+  test_df <- test_df[!duplicated(test_df$desc),]
+  test_df <- test_df %>%
+    dplyr::select(g1_symbol, g2_symbol) %>%
+    dplyr::rename(g1=g1_symbol, g2=g2_symbol)
+  
+  head(test_df)
 }

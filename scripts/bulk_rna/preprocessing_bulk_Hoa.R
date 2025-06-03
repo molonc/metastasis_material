@@ -12,7 +12,7 @@ suppressPackageStartupMessages({
   library(tximport)
 })
 
-
+## ex: ENSG00000000419.8 --> ENSG00000000419
 get_geneId_without_version <- function(gene_ids) {  
   labels <- sapply(strsplit(gene_ids, "\\."), function(x) {  
     return(x[1])  
@@ -140,7 +140,9 @@ load_raw_counts_kallisto <- function(input_dir, datatag,
 
 ## gene_filter_thresh=30: Sleuth use the thres=5, edgeR use 10 or 15, depending number of samples, you can use 
 ## different threshold, here with 20 samples, you can use 30
-normalize_by_size_factor <- function(df_counts_fn, datatag, save_dir, gene_filter_thresh=30){
+normalize_by_size_factor <- function(df_counts_fn, datatag, 
+                                     save_dir, gene_filter_thresh=10,
+                                     mito_gene_removal=FALSE){
   # input_dir <- '/Users/htran/Documents/storage_tmp/metastasis_trees/SA919_10x/'
   
   df <- data.table::fread(df_counts_fn) %>% as.data.frame()
@@ -154,7 +156,7 @@ normalize_by_size_factor <- function(df_counts_fn, datatag, save_dir, gene_filte
   if(is.null(rownames(df))){
     stop('Need gene id in row names')
   }
-  print(df[1:2,])
+  # print(df[1:2,])
   print('Sequencing depth (total UMI counts) for each sample in raw data is: ')
   print(colSums(df, na.rm = T))
   print(colnames(df))
@@ -220,18 +222,19 @@ normalize_by_size_factor <- function(df_counts_fn, datatag, save_dir, gene_filte
   ## different threshold, here with 20 samples, you can use 30
   rs <- rowSums(norm_counts_mtx)
   raw_lg <- length(rs)
-  rs[1:10]
-  rs <- rs[rs>gene_filter_thresh]
-  filtered_nb_genes <- length(rs)
-  print(paste0('Removing #',(raw_lg-filtered_nb_genes),' genes with low expression from normalized data'))
-  print(paste0('# filtered genes: ',filtered_nb_genes))
+  if(gene_filter_thresh>0){
+    rs <- rs[rs>gene_filter_thresh]
+    filtered_nb_genes <- length(rs)
+    print(paste0('Removing #',(raw_lg-filtered_nb_genes),' genes with low expression from normalized data'))
+    print(paste0('# filtered genes: ',filtered_nb_genes))
+  }
   norm_counts_mtx$ens_gene_id <- rownames(norm_counts_mtx)
-  norm_counts_mtx$ens_gene_id[1:2]
+  # norm_counts_mtx$ens_gene_id[1:2]
   norm_counts_mtx <- norm_counts_mtx %>%
     dplyr::filter(ens_gene_id %in% names(rs))
   print(dim(norm_counts_mtx))
   
-  ## Removing mitochondrial genes from the list
+  
   meta_genes <- data.frame(ens_gene_id=norm_counts_mtx$ens_gene_id)
   ref <- annotables::grch38 %>%
     dplyr::select(ensgene, symbol) %>%
@@ -244,12 +247,15 @@ normalize_by_size_factor <- function(df_counts_fn, datatag, save_dir, gene_filte
   dim(meta_genes)
   data.table::fwrite(meta_genes, paste0(save_dir, datatag, '_filtered_genes_list.csv'))
   
-  mito_genes <- get_mito_genes(ref)
-  print('Removing mito genes from the list')
-  norm_counts_mtx <- norm_counts_mtx %>%
-    dplyr::filter(!ens_gene_id %in% mito_genes)
-  print(dim(norm_counts_mtx))
-  
+  ## Removing mitochondrial genes from the list
+  if(mito_gene_removal==T){
+    mito_genes <- get_mito_genes(ref)
+    print('Removing mito genes from the list')
+    norm_counts_mtx <- norm_counts_mtx %>%
+      dplyr::filter(!ens_gene_id %in% mito_genes)
+    print(dim(norm_counts_mtx))
+  }
+    
   data.table::fwrite(norm_counts_mtx, paste0(save_dir, datatag, '_sizefactor_normalized.csv.gz'))
   
   # dim(raw_counts)

@@ -1,0 +1,49 @@
+DriverNet output, clone C versus clone B
+
+[1] "SVIL"   "HMGCS1" "ITIH5"  "TRIO"   "ANKH"   "CAMK1D"
+
+[7] "AKR1C2" "PFKFB3" "AMACR"  "SDHA"   "PRLR"   "VIM"
+
+SVIL:
+
+[https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://pmc.ncbi.nlm.nih.gov/articles/PMC6025706/&ved=2ahUKEwiLnqfOoYSNAxVxOTQIHeNGDHoQFnoECAoQAQ&usg=AOvVaw0gVhWtxUyAFcN63371A53f](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://pmc.ncbi.nlm.nih.gov/articles/PMC6025706/&ved=2ahUKEwiLnqfOoYSNAxVxOTQIHeNGDHoQFnoECAoQAQ&usg=AOvVaw0gVhWtxUyAFcN63371A53f)
+
+HMGCS1
+
+[https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://pmc.ncbi.nlm.nih.gov/articles/PMC7281414/&ved=2ahUKEwi__PSKooSNAxU5CDQIHS6JN-kQFnoECBIQAQ&usg=AOvVaw27g5VqOtOkI1GLe7xSIwjf](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://pmc.ncbi.nlm.nih.gov/articles/PMC7281414/&ved=2ahUKEwi__PSKooSNAxU5CDQIHS6JN-kQFnoECBIQAQ&usg=AOvVaw27g5VqOtOkI1GLe7xSIwjf)
+
+ITIH5
+
+[https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.ncbi.nlm.nih.gov/gene/80760&ved=2ahUKEwjjqozM3o2NAxXAGDQIHYI6HRMQFnoECAkQAQ&usg=AOvVaw0Z_gg0Sa2wa5uyt6A6Wl2Z](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.ncbi.nlm.nih.gov/gene/80760&ved=2ahUKEwjjqozM3o2NAxXAGDQIHYI6HRMQFnoECAkQAQ&usg=AOvVaw0Z_gg0Sa2wa5uyt6A6Wl2Z)
+
+TRIO:
+
+[https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://pubmed.ncbi.nlm.nih.gov/25432929/&ved=2ahUKEwiI0fOcooSNAxVBKDQIHSGGPaAQFnoECA4QAQ&usg=AOvVaw2nQ2dTrPIvs4PUoB9aI-VM](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://pubmed.ncbi.nlm.nih.gov/25432929/&ved=2ahUKEwiI0fOcooSNAxVBKDQIHSGGPaAQFnoECA4QAQ&usg=AOvVaw2nQ2dTrPIvs4PUoB9aI-VM)
+
+ANKH
+
+CAMK1D:*CAMK1D* amplification implicated in epithelial–mesenchymal transition in basal‐like breast cancer
+
+[https://pmc.ncbi.nlm.nih.gov/articles/PMC2653212/](https://pmc.ncbi.nlm.nih.gov/articles/PMC2653212/)
+
+AKR1C2:
+
+[https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://pubmed.ncbi.nlm.nih.gov/36762781/&ved=2ahUKEwjbyszl342NAxXAIzQIHbrqBRAQFnoECA8QAQ&usg=AOvVaw0W3OhvO65jaPqRcYeTYqat](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://pubmed.ncbi.nlm.nih.gov/36762781/&ved=2ahUKEwjbyszl342NAxXAIzQIHbrqBRAQFnoECA8QAQ&usg=AOvVaw0W3OhvO65jaPqRcYeTYqat)
+
+PFKFB3: [https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://pubmed.ncbi.nlm.nih.gov/35155224/&ved=2ahUKEwjRwIS8oYSNAxVtEzQIHTjZBRgQFnoECBEQAQ&usg=AOvVaw09sZ8QVLUxjJI__A9bAmEE](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://pubmed.ncbi.nlm.nih.gov/35155224/&ved=2ahUKEwjRwIS8oYSNAxVtEzQIHTjZBRgQFnoECBEQAQ&usg=AOvVaw09sZ8QVLUxjJI__A9bAmEE)
+
+AMACR: Alpha-Methylacyl-CoA racemase: a novel tumor marker over-expressed in several human cancers and their precursor lesions
+
+[https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://pubmed.ncbi.nlm.nih.gov/12131161/&ved=2ahUKEwjVwpj-342NAxUiLzQIHaoDDfYQFnoECBAQAw&usg=AOvVaw2qoCCfbKHSWcaakINV4Lw-](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://pubmed.ncbi.nlm.nih.gov/12131161/&ved=2ahUKEwjVwpj-342NAxUiLzQIHaoDDfYQFnoECBAQAw&usg=AOvVaw2qoCCfbKHSWcaakINV4Lw-)
+
+SDHA
+
+[https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://pmc.ncbi.nlm.nih.gov/articles/PMC5527372/&ved=2ahUKEwiz1pKj4I2NAxVnIDQIHSkzJmcQFnoECAoQAQ&usg=AOvVaw0eMZIvO-8zpK5EBjmhIlZ0](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://pmc.ncbi.nlm.nih.gov/articles/PMC5527372/&ved=2ahUKEwiz1pKj4I2NAxVnIDQIHSkzJmcQFnoECAoQAQ&usg=AOvVaw0eMZIvO-8zpK5EBjmhIlZ0)
+
+PRLR:
+
+[https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://pmc.ncbi.nlm.nih.gov/articles/PMC4861375/&ved=2ahUKEwiMm7y64I2NAxX8CTQIHRFwNQkQFnoECA0QAQ&usg=AOvVaw2mHgN1g20LGRnN838cFjlm](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://pmc.ncbi.nlm.nih.gov/articles/PMC4861375/&ved=2ahUKEwiMm7y64I2NAxX8CTQIHRFwNQkQFnoECA0QAQ&usg=AOvVaw2mHgN1g20LGRnN838cFjlm)
+
+VIM: Vimentin is required for tumor progression and metastasis in a mouse model of non–small cell lung cancer
+
+[https://www.nature.com/articles/s41388-023-02703-9](https://www.nature.com/articles/s41388-023-02703-9)

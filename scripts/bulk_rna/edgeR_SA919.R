@@ -94,6 +94,7 @@ run_edgeR <- function(datatag, meta_df, input_dir, base_dir){
 
 get_sce_object <- function(dge, meta_df, save_dir, save_dge=T, tag=NULL){
   input_dir <- "/Users/miu/Documents/workspace/projects_BCCRC/hakwoo_project/metastasis_material/materials/bulkRNAseq/preprocessed_09April2024/"
+  input_dir <- "/Users/hoatran/Documents/BCCRC_projects/hakwoo_project/code/metastasis_material/materials/bulkRNAseq/preprocessed_09April2024/"
   input_data_dir <- "/Users/miu/Documents/workspace/projects_BCCRC/hakwoo_project/bulk_SA919/"
   datatag <- 'SA919Fig6'
   save_dir <- input_dir
@@ -240,10 +241,12 @@ create_edgeR_object <- function(sce){
 
 get_bootstrap_stat <- function(){
   input_dir <- "/Users/miu/Documents/workspace/projects_BCCRC/hakwoo_project/metastasis_material/materials/bulkRNAseq/preprocessed_09April2024/"
+  input_dir <- "/Users/hoatran/Documents/BCCRC_projects/hakwoo_project/code/metastasis_material/materials/bulkRNAseq/preprocessed_09April2024/"
   datatag <- 'SA919Fig6'
   save_dir <- input_dir
   meta_genes <- data.table::fread(paste0(save_dir, 'dispersion_cis_trans_genes_cloneCB.csv'))
   dim(meta_genes)
+  summary(as.factor(meta_genes$gene_type))
   cis_disp <- meta_genes %>%
     dplyr::filter(gene_type=='cis') %>%
     dplyr::pull(tagwise_dispersion)
@@ -261,6 +264,8 @@ get_bootstrap_stat <- function(){
   summary(cis_genes)
   
 }
+
+## To Do: report for clone B, and clone C separately
 get_avg_exp <- function(sce, cis_genes, meta_samples){
   
   ## Check if we have clone B, C in sce meta samples? 
@@ -290,8 +295,6 @@ get_gene_wise_dispersion_edgeR_cloneBC <- function(sce, datatag, save_dir){
   save_dir <- input_dir
   sce <- readRDS(paste0(save_dir, datatag, '_cloneBC_sce.rds'))
   dim(sce)
-  
-  
   
   dge <- create_edgeR_object(sce)
   saveRDS(dge, paste0(save_dir,'figs/',datatag,"_dge.rds"))
@@ -328,7 +331,7 @@ get_gene_wise_dispersion_edgeR_cloneBC <- function(sce, datatag, save_dir){
     meta_genes <- meta_genes %>%
       # dplyr::filter(ens_gene_id %in% bc$ens_gene_id)%>%
       dplyr::mutate(gene_type=
-                      case_when(ens_gene_id %in% cnv$ensembl_gene_id ~ 'cis',
+                      case_when(ens_gene_id %in% cnv$ensembl_gene_id ~ 'cis',  # not correct, need to intersect with DE genes
                                 TRUE ~ 'trans'))
     meta_genes$tagwise_dispersion <- round(meta_genes$tagwise_dispersion, 3)
     data.table::fwrite(meta_genes, paste0(save_dir, 'dispersion_cis_trans_genes_cloneCB.csv'))
