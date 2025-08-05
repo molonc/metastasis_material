@@ -108,7 +108,7 @@ check_associated_pathway <- function(total_df){
         print('         ')
         print(rf)  
         if(st1){
-          print('Gene is INCLUDED ')
+          print('Gene is included ')
         }else{
           print('Gene is NOT included')
         }
