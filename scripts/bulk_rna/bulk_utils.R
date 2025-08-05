@@ -261,13 +261,17 @@ get_fgsea_pathways <- function(deg_df, save_dir, base_name, gmt_fn){
   data.table::fwrite(gsea_out,paste0(save_dir, "signf_pathways_",base_name,".csv"))
   return(gsea_out)
 }
-get_gprofiler_pathways_obsgenes_ <- function(obs_genes_symb, save_dir, datatag, 
+
+# save_dir <- save_fig_dir
+# datatag <- subtag
+get_gprofiler_pathways_obsgenes <- function(obs_genes_symb, save_dir, datatag, 
                                             custom_id=NULL, pathway_fn=NULL, 
                                             save_data=F, correction_func='gSCS'){
   library(gprofiler2)
   if(is.null(pathway_fn)){
     # pathway_fn = '/home/htran/storage/datasets/drug_resistance/rna_results/biodatabase/pathway_set/c2.cp.kegg.v7.1.symbols.gmt'  
-    pathway_fn = '/home/htran/storage/datasets/drug_resistance/rna_results/biodatabase/pathway_set/h.all.v7.0.symbols.gmt'  
+    # pathway_fn = '/home/htran/storage/datasets/drug_resistance/rna_results/biodatabase/pathway_set/h.all.v7.0.symbols.gmt'  
+    pathway_fn <- '/Users/hoatran/Documents/BCCRC_projects/hakwoo_project/code/metastasis_material/materials/bulkRNAseq/pathway_set/h.all.v7.0.symbols.gmt'
   }
   
   ref_set <- fgsea::gmtPathways(pathway_fn)
@@ -284,7 +288,7 @@ get_gprofiler_pathways_obsgenes_ <- function(obs_genes_symb, save_dir, datatag,
   ## correction_method: one of 'fdr', 'gSCS', 'bonferroni' #gSCS is the most popular one
   gostres <- gprofiler2::gost(list(obs_genes_symb), organism = custom_id, 
                               correction_method=correction_func) #, significant = F
-  dim(stat)
+  # dim(stat)
   # stat <- stat %>%
   #   arrange(p_value)
   # View(stat)
@@ -309,7 +313,8 @@ get_gprofiler_pathways_obsgenes_ <- function(obs_genes_symb, save_dir, datatag,
       # data.table::fwrite(stat, paste0(save_dir, 'pathways_',datatag,'_',added_time,'.csv.gz'))  
       data.table::fwrite(stat, paste0(save_dir, 'pathways_',datatag,'.csv.gz'))  
     }
-  }  
+  }
+  # stat
   return(stat)
   
 }  

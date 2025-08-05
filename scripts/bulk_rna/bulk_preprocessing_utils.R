@@ -35,7 +35,7 @@ get_gprofiler_pathways_obsgenes <- function(obs_genes_symb, save_dir, datatag,
   stat <- NULL
   ## correction_method: one of 'fdr', 'gSCS', 'bonferroni' #gSCS is the most popular one
   gostres <- gprofiler2::gost(list(obs_genes_symb), organism = custom_id, 
-                              correction_method='fdr')
+                              correction_method='gSCS')
   if(!is.null(gostres$result)){
     stat <- gostres$result
     cols_use <- c('p_value','intersection_size','precision','recall','term_id')
@@ -53,8 +53,9 @@ get_gprofiler_pathways_obsgenes <- function(obs_genes_symb, save_dir, datatag,
       stat$signif_genes[i] <- paste(intersect_genes, collapse=',')
     }
     if(save_data){
-      added_time <- gsub(':','',format(Sys.time(), "%Y%b%d_%X"))
-      data.table::fwrite(stat, paste0(save_dir, 'pathways_',datatag,'_',added_time,'.csv.gz'))  
+      # added_time <- gsub(':','',format(Sys.time(), "%Y%b%d_%X"))
+      # data.table::fwrite(stat, paste0(save_dir, 'pathways_',datatag,'_',added_time,'.csv.gz'))
+      data.table::fwrite(stat, paste0(save_dir, datatag,'_', 'pathways.csv.gz'))  
     }
   }  
   return(stat)

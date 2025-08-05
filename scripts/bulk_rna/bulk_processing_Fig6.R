@@ -292,3 +292,4 @@ get_DE_genes_DESeq2 <- function(dds, DE_comp=c("Metastasis","Primary"),
 # Run DESeq2 for B met vs B pri, C met vs B pri, C met mix vs B pri
 # Get common cis/ trans genes 
 # Comparing results with scRNA-seq at cluster level. 
+

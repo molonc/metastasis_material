@@ -16,7 +16,7 @@ suppressPackageStartupMessages({
 ## Loading utility functions
 script_dir <- '/home/htran/Projects/hakwoo_project/metastasis_material/'
 script_dir <- '/Users/miu/Documents/workspace/projects_BCCRC/hakwoo_project/metastasis_material/'
-script_dir <- '/Users/hoatran/Documents/BCCRC_projects/hakwoo_project/code/metastasis_material/'
+script_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/'
 source(paste0(script_dir, 'scripts/bulk_rna/bulk_utils.R'))
 
 
@@ -25,6 +25,9 @@ source(paste0(script_dir, 'scripts/bulk_rna/bulk_utils.R'))
 load_input_data <- function(){
   input_dir <- "/Users/miu/Documents/workspace/projects_BCCRC/hakwoo_project/metastasis_material/materials/bulkRNAseq/preprocessed_09April2024/"
   save_dir <- "/Users/miu/Documents/workspace/projects_BCCRC/hakwoo_project/results_bulkRNAseq/"
+  
+  save_dir <- "/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/results_bulkRNAseq/"
+  
   input_data_dir <- "/Users/miu/Documents/workspace/projects_BCCRC/hakwoo_project/bulk_SA919/"
   
   datatag <- 'SA919_full'
@@ -142,6 +145,10 @@ load_input_data <- function(){
   
   print(sce)
   saveRDS(sce, paste0(save_dir, datatag, '_sce.rds'))
+  sce <- readRDS(paste0(save_dir, datatag, '_sce.rds'))
+  dim(sce)
+  colSums(normcounts(sce))
+  
 }  
 create_DESeq2_object <- function(sce){
   coldata <- colData(sce) %>% as.data.frame()
@@ -478,35 +485,7 @@ get_avg_exp <- function(sce_extract, meta_genes, obs_conds, save_dir){
   return(list(exp_df=exp_df, total_exp_df=total_exp_df))
 
 }
-viz_gene_exp_comparison <- function(df, obs_clones, legend_pos='none'){
-  # df <- total_exp_df
-  
-  ptittle <- paste0(obs_clones[2],' vs. ', obs_clones[1])
-  # Convert the variable dose from a numeric to a factor variable
-  df$chr <- as.factor(df$chr)
-  my_font <- "Helvetica"
-  p <- ggplot(df, aes(x=chr, y=gene_exp, color=obs_conds)) +
-    # geom_jitter(aes(color=obs_conds), shape=16, position=position_jitter(0.2)) +
-    geom_violin(position=position_dodge(0.8), alpha=0) +
-    geom_jitter(position=position_jitterdodge(0.2), size=0.1) +
-    # geom_boxplot(width=1)
-    theme_bw() + 
-    theme(legend.position = legend_pos,
-        panel.grid = element_blank(), 
-        text = element_text(color="black",hjust = 0.5, family=my_font),
-        axis.text.x = element_text(color="black",size=12, hjust = 0.5, family=my_font),
-        axis.title.x=element_text(color="black",size=10, hjust = 0.5, family=my_font),
-        axis.text.y = element_text(color="black",size=6, hjust = 0.5, family=my_font),
-        axis.title.y=element_text(color="black",size=10, hjust = 0.5, family=my_font)) +
-    labs(title = ptittle, x='Chr position', y= 'Log2(exp + 1)') 
-  # p
-    # geom_jitter(shape=16, position=position_jitter(0.2)) #+
-    # geom_dotplot(aes(y=len), dotsize=0.5)# + #binaxis='y', stackdir='center', 
-    # geom_boxplot(aes()width=0.1, fill="white")#+
-    # scale_fill_manual(values=c("#999999", "#E69F00", "#56B4E9"))
-  
-  return(p)
-}
+
 debug_program <- function(){
   save_dir <- '/Users/hoatran/Documents/BCCRC_projects/hakwoo_project/code/results_bulkRNAseq/SA919_full/'
   datatag <- 'SA919_full'
@@ -620,9 +599,11 @@ get_BMet_APri_dispersion <- function(sce, meta_genes, meta_df, counts_df,
   sce_extract <- sce[,sce$desc %in% obs_conds]
   dim(sce_extract)
   dim(sce)
-  res <- get_avg_exp(sce_extract, res$meta_genes, obs_conds)
+  res <- get_avg_exp(sce_extract, res$meta_genes, obs_conds, save_fig_dir)
   p <- viz_gene_exp_comparison(res$total_exp_df, obs_clones, legend_pos='none')
+  p1 <- viz_gene_exp_comparison(res$total_exp_df, obs_clones, legend_pos='bottom')
   saveRDS(p, paste0(save_fig_dir, subtag, '_gene_exp_plt.rds'))
+  saveRDS(p1, paste0(save_fig_dir, subtag, '_gene_exp_plt_with_legend.rds'))
   # View(exp_df)
   # exp_df1 <- exp_df
   # View(exp_df1)
@@ -647,7 +628,7 @@ get_CMet_APri_dispersion <- function(sce, meta_genes, meta_df, counts_df, save_d
   save_fig_dir <- paste0(save_dir, subtag, '/')
   # dir.create(save_fig_dir)
   saveRDS(dge, paste0(save_fig_dir,'dge.rds'))
-  # dge <- readRDS(paste0(save_fig_dir,'dge.rds'))
+  dge <- readRDS(paste0(save_fig_dir,'dge.rds'))
   
   ## Loading cnv file
   obs_clones <- c('A','C')
@@ -675,10 +656,11 @@ get_CMet_APri_dispersion <- function(sce, meta_genes, meta_df, counts_df, save_d
   dim(sce_extract)
   dim(sce)
   meta_genes <- res$meta_genes
-  exp_df <- get_avg_exp(sce_extract, meta_genes, obs_conds)
-  exp_df$datatag <- subtag
-  data.table::fwrite(exp_df, paste0(save_fig_dir, subtag, '_avg_gene_exp.csv.gz'))
-  # View(exp_df)
+  res <- get_avg_exp(sce_extract, res$meta_genes, obs_conds, save_fig_dir)
+  p <- viz_gene_exp_comparison(res$total_exp_df, obs_clones, legend_pos='none')
+  p1 <- viz_gene_exp_comparison(res$total_exp_df, obs_clones, legend_pos='bottom')
+  saveRDS(p, paste0(save_fig_dir, subtag, '_gene_exp_plt.rds'))
+  saveRDS(p1, paste0(save_fig_dir, subtag, '_gene_exp_plt_with_legend.rds'))
   
 }
 get_CMet_BPri_dispersion <- function(sce, meta_genes, meta_df, counts_df, save_dir, obs_conds, subtag='Cmet_Bpri'){
@@ -733,10 +715,107 @@ get_CMet_BPri_dispersion <- function(sce, meta_genes, meta_df, counts_df, save_d
   sce_extract <- sce[,sce$desc %in% obs_conds]
   dim(sce_extract)
   dim(sce)
-  exp_df <- get_avg_exp(sce_extract, res$meta_genes, obs_conds)
-  exp_df$datatag <- subtag
-  data.table::fwrite(exp_df, paste0(save_fig_dir, subtag, '_avg_gene_exp.csv.gz'))
-  # View(exp_df)
+  res <- get_avg_exp(sce_extract, res$meta_genes, obs_conds, save_fig_dir)
+  p <- viz_gene_exp_comparison(res$total_exp_df, obs_clones, legend_pos='none')
+  p1 <- viz_gene_exp_comparison(res$total_exp_df, obs_clones, legend_pos='bottom')
+  saveRDS(p, paste0(save_fig_dir, subtag, '_gene_exp_plt.rds'))
+  saveRDS(p1, paste0(save_fig_dir, subtag, '_gene_exp_plt_with_legend.rds'))
+  
+}
+viz_Fig6_partA <- function(){
+  save_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/results_bulkRNAseq/SA919_full/'
+  datatag <- 'SA919_full'
+  
+  obs_conds <- c('B_Metastasis','A_Primary')
+  subtag <- 'Bmet_Apri'
+  save_fig_dir <- paste0(save_dir, subtag, '/')
+  obs_clones <- c('A','B')
+  df <- data.table::fread(paste0(save_fig_dir, subtag, '_dispersion_cis_trans_genes.csv'))
+  dim(df)
+  head(df)
+  p1 <- viz_genewise_dispersion(df, obs_clones, legend_pos='bottom')
+  saveRDS(p1, paste0(save_fig_dir, subtag, '_gene_dispersion_with_legend.rds'))
+  p1
+  
+  obs_conds <- c('C_Metastasis','A_Primary')
+  subtag <- 'Cmet_Apri'
+  save_fig_dir <- paste0(save_dir, subtag, '/')
+  obs_clones <- c('A','C')
+  df <- data.table::fread(paste0(save_fig_dir, subtag, '_dispersion_cis_trans_genes.csv'))
+  dim(df)
+  head(df)
+  p2 <- viz_genewise_dispersion(df, obs_clones, legend_pos='bottom')
+  saveRDS(p2, paste0(save_fig_dir, subtag, '_gene_dispersion_with_legend.rds'))
+  p2
+  
+  obs_conds <- c('C_Metastasis','B_Primary')
+  subtag <- 'Cmet_Bpri'
+  save_fig_dir <- paste0(save_dir, subtag, '/')
+  obs_clones <- c('B','C')
+  df <- data.table::fread(paste0(save_fig_dir, subtag, '_dispersion_cis_trans_genes.csv'))
+  dim(df)
+  p3 <- viz_genewise_dispersion(df, obs_clones, legend_pos='bottom')
+  saveRDS(p3, paste0(save_fig_dir, subtag, '_gene_dispersion_with_legend.rds'))
+  p3
+  
+  
+  p_total_partA <- cowplot::plot_grid(p1, p2, p3, nrow=1,
+                                      rel_widths = c(1,1,1))
+  saveRDS(p_total_partA, paste0(save_dir,"figs/","gene_exp_Fig6_partA.rds"))
+  # p_total_partA <- readRDS(paste0(save_dir,"figs/","gene_exp_Fig6_partA.rds"))
+  png(paste0(save_dir,"figs/","gene_exp_Fig6_partA.png"), 
+      height = 2*270, width=2*900, res = 2*72)
+  print(p_total_partA)
+  dev.off() 
+  
+  ggsave(  
+    filename = paste0(save_dir,"figs/","gene_exp_Fig6_partA.svg"),  
+    plot = p_total_partA,  
+    height = 3.5, width = 11, dpi = 150)
+  
+}
+viz_Fig6_partB <- function(){
+  save_dir <- '/Users/hoatran/Documents/BCCRC_projects/hakwoo_project/code/results_bulkRNAseq/SA919_full/'
+  datatag <- 'SA919_full'
+  
+  obs_conds <- c('B_Metastasis','A_Primary')
+  subtag <- 'Bmet_Apri'
+  save_fig_dir <- paste0(save_dir, subtag, '/')
+  obs_clones <- c('A','B')
+  df <- data.table::fread(paste0(save_fig_dir, paste(obs_conds, collapse='_vs_'), '_total_exp.csv.gz'))
+  dim(df)
+  p1 <- viz_gene_exp_comparison(df, obs_clones, legend_pos='bottom')
+  saveRDS(p1, paste0(save_fig_dir, subtag, '_gene_exp_plt_with_legend.rds'))
+  
+  
+  obs_conds <- c('C_Metastasis','A_Primary')
+  subtag <- 'Cmet_Apri'
+  save_fig_dir <- paste0(save_dir, subtag, '/')
+  obs_clones <- c('A','C')
+  df <- data.table::fread(paste0(save_fig_dir, paste(obs_conds, collapse='_vs_'), '_total_exp.csv.gz'))
+  dim(df)
+  p2 <- viz_gene_exp_comparison(df, obs_clones, legend_pos='bottom')
+  saveRDS(p2, paste0(save_fig_dir, subtag, '_gene_exp_plt_with_legend.rds'))
+  p2
+  
+  obs_conds <- c('C_Metastasis','B_Primary')
+  subtag <- 'Cmet_Bpri'
+  save_fig_dir <- paste0(save_dir, subtag, '/')
+  obs_clones <- c('B','C')
+  df <- data.table::fread(paste0(save_fig_dir, paste(obs_conds, collapse='_vs_'), '_total_exp.csv.gz'))
+  dim(df)
+  p3 <- viz_gene_exp_comparison(df, obs_clones, legend_pos='bottom')
+  saveRDS(p3, paste0(save_fig_dir, subtag, '_gene_exp_plt_with_legend.rds'))
+  p3
+  p_total_partB <- cowplot::plot_grid(p1, p2, p3, nrow=1,
+                                      rel_widths = c(2,3.1,2))
+  saveRDS(p_total_partB, paste0(save_dir,"figs/","gene_exp_Fig6_partB.rds"))
+  p_total_partB <- readRDS(paste0(save_dir,"figs/","gene_exp_Fig6_partB.rds"))
+  png(paste0(save_dir,"figs/","gene_exp_Fig6_partB.png"), 
+      height = 2*200, width=2*650, res = 2*72)
+  print(p_total_partB)
+  dev.off() 
+  
 }
 viz_stat <- function(){
   stat_total_df <- meta_genes %>%

@@ -1,0 +1,15 @@
+gene_symbol,rank,p-value,cover_genes,chr,gene_type,A,C,description,covered_events,mut,total_events,node_degree,no.of.cases,connected.drivers,case,ens_gene_id
+GHR,1,0,"IL11,PRLR,SOCS2,IL12A",5,cis,3,4,growth hormone receptor,5,1,102,10,1,1,cloneC,ENSG00000112964
+CDH9,2,0,"FAT2,PCDHB7,PCDHB8,ACTA1,ACTC1",5,cis,3,4,cadherin 9,5,1,102,9,1,2,cloneC,ENSG00000113100
+LAMB1,3,0,"ACTN2,COL27A1",7,cis,2,3,laminin subunit beta 1,3,1,102,11,1,3,cloneC,ENSG00000091136
+CD36,4,0,"THBS4,PPARG",7,cis,2,3,CD36 molecule,3,1,102,5,1,4,cloneC,ENSG00000135218
+TERT,5,0,"ESR1,LEF1",5,cis,3,4,telomerase reverse transcriptase,3,1,102,4,1,5,cloneC,ENSG00000164362
+SEMA3A,6,0.039,"SEMA3C,DPYSL2",7,cis,2,3,semaphorin 3A,2,1,102,3,1,6,cloneC,ENSG00000075213
+HOXA9,7,0.039,MME,7,cis,2,3,homeobox A9,2,1,102,6,1,7,cloneC,ENSG00000078399
+HOXA6,8,0.039,HOXA10,7,cis,2,3,homeobox A6,2,1,102,4,1,8,cloneC,ENSG00000106006
+LYZL1,9,0.039,LYZL2,10,cis,3,4,lysozyme like 1,2,1,102,2,1,9,cloneC,ENSG00000120563
+CACNA2D1,10,0.039,PPP2R2C,7,cis,2,3,calcium voltage-gated channel auxiliary subunit alpha2delta 1,2,1,102,4,1,10,cloneC,ENSG00000153956
+GDNF,11,0.039,"FGFR1,RET",5,cis,3,4,glial cell derived neurotrophic factor,2,1,102,5,1,11,cloneC,ENSG00000168621
+GPR37,12,0.039,HSPA1B,7,cis,2,3,G protein-coupled receptor 37,2,1,102,2,1,12,cloneC,ENSG00000170775
+LMOD2,13,0.039,MYH7,7,cis,2,3,leiomodin 2,2,1,102,3,1,13,cloneC,ENSG00000170807
+HOXA11,14,0.143,"",7,cis,2,3,homeobox A11,1,1,102,1,1,14,cloneC,ENSG00000005073

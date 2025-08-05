@@ -14,12 +14,15 @@ suppressPackageStartupMessages({
 options(dplyr.summarise.inform = FALSE)
 options(tidyverse.quiet = TRUE)
 
-get_gprofiler_pathways_obsgenes <- function(obs_genes_symb, save_dir, datatag, 
+
+## correction_method: one of 'fdr', 'gSCS', 'bonferroni' #gSCS is the most popular one
+get_gprofiler_pathways_obsgenes <- function(obs_genes_symb, save_dir, datatag, correction_method='gSCS',
                                             custom_id=NULL, pathway_fn=NULL, save_data=F){
   library(gprofiler2)
   if(is.null(pathway_fn)){
     # pathway_fn = '/home/htran/storage/datasets/drug_resistance/rna_results/biodatabase/pathway_set/c2.cp.kegg.v7.1.symbols.gmt'  
-    pathway_fn = '/home/htran/storage/datasets/drug_resistance/rna_results/biodatabase/pathway_set/h.all.v7.0.symbols.gmt'  
+    # pathway_fn = '/home/htran/storage/datasets/drug_resistance/rna_results/biodatabase/pathway_set/h.all.v7.0.symbols.gmt'  
+    pathway_fn <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/materials//bulkRNAseq/pathway_set/h.all.v7.0.symbols.gmt'
   }
   
   # ref_set <- fgsea::gmtPathways(pathway_fn)
@@ -35,7 +38,7 @@ get_gprofiler_pathways_obsgenes <- function(obs_genes_symb, save_dir, datatag,
   stat <- NULL
   ## correction_method: one of 'fdr', 'gSCS', 'bonferroni' #gSCS is the most popular one
   gostres <- gprofiler2::gost(list(obs_genes_symb), organism = custom_id, 
-                              correction_method='fdr')
+                              correction_method=correction_method)
   if(!is.null(gostres$result)){
     stat <- gostres$result
     cols_use <- c('p_value','intersection_size','precision','recall','term_id')
@@ -53,11 +56,12 @@ get_gprofiler_pathways_obsgenes <- function(obs_genes_symb, save_dir, datatag,
       stat$signif_genes[i] <- paste(intersect_genes, collapse=',')
     }
     if(save_data){
-      added_time <- gsub(':','',format(Sys.time(), "%Y%b%d_%X"))
+      # added_time <- gsub(':','',format(Sys.time(), "%Y%b%d_%X"))
       data.table::fwrite(stat, paste0(save_dir, 'pathways_',datatag,'_',added_time,'.csv.gz'))  
     }
   }  
-  return(stat)
+  res <- list(stat=stat, correction_method=correction_method, custom_id=custom_id)
+  return(res)
   
 }  
 get_gprofiler_pathways <- function(genes_df, save_dir, datatag, 
