@@ -11,8 +11,7 @@ copynumber_fn <- paste0(base_dir,'materials/dlp_trees/',datatag,'/total_merged_f
 cellclone_fn <- paste0(base_dir,'materials/dlp_trees/', datatag, '/','cell_clones.csv.gz')
 library_grouping_fn <- paste0(base_dir,'materials/dlp_trees/', datatag, '/','library_groupings.csv.gz')
 # color_codes_df
-df_cnv <- get_median_genotype_v3(copynumber_fn, datatag, save_dir,
-                                 cellclone_fn, library_grouping_fn) 
+df_cnv <- get_median_genotype_v3(copynumber_fn, datatag, save_dir, cellclone_fn, library_grouping_fn) 
 dim(df_cnv)
 plt_title <- 'Pt1: DLP+ median copy number profiles'
 plt_title <- ''

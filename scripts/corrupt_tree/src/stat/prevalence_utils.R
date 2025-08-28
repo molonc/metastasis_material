@@ -2,7 +2,7 @@ suppressPackageStartupMessages({
   require("dplyr")
   require("RColorBrewer")
   require("ggplot2")
-  require("ComplexHeatmap")
+  # require("ComplexHeatmap")
 })
 clone_palette_20 <- c(
   "#be5f72", "#d74058", "#dc4229", "#a6552c", "#df956f", "#e47a33",

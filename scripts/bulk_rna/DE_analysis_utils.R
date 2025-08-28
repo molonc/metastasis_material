@@ -1,3 +1,7 @@
+
+
+
+
 create_DESeq2_object <- function(sce){
   coldata <- colData(sce) %>% as.data.frame()
   dim(coldata)
@@ -6,61 +10,47 @@ create_DESeq2_object <- function(sce){
   dds <- create_DESeq2_obj(coldata, cts, use_existing_size_factor=T)
   return(dds)
 }
-extract_DE_genes_DESeq2 <- function(dds){
-  library(DESeq2)
-  ## How to select samples here? 
-  # backup_dds <- dds
-  # dds <- backup_dds
-  input_dir <- "/Users/miu/Documents/workspace/projects_BCCRC/hakwoo_project/metastasis_material/materials/bulkRNAseq/preprocessed_09April2024/"
-  save_dir <- "/Users/miu/Documents/workspace/projects_BCCRC/hakwoo_project/results_bulkRNAseq/SA919_full/"
-  input_data_dir <- "/Users/miu/Documents/workspace/projects_BCCRC/hakwoo_project/bulk_SA919/"
-  datatag <- 'SA919_full'
-  
-  
-  subtag <- 'Bmet_Apri'
-  save_fig_dir <- paste0(save_dir, subtag, '/')
-  # dir.create(save_fig_dir)
+
+
+get_DE_results <- function(subtag, save_fig_dir, dds, meta_genes, obs_clones, exps=c('main_exp','mixing_exp')){
+    
+  filtered_conds <- c(paste0(obs_clones[2],'_Metastasis'),paste0(obs_clones[1],'_Primary'))
+  print(filtered_conds)
   meta_df <- colData(dds) %>%
     as.data.frame() %>%
     dplyr::mutate(desc=paste0(main_clone, '_',mainsite)) %>%
-    filter(desc %in% c('B_Metastasis','A_Primary'))
-  dim(meta_df)
+    filter(desc %in% filtered_conds & experiment %in% exps)
+  print('Number of observed samples:')
+  print(dim(meta_df))
+  print(meta_df)
   sids <- rownames(meta_df)
+  
+  ## Special case, only check within a mouse
+  # if(obs_clones[1]=='A' & obs_clones[2]=='A'){
+  #   input_dir <- "/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/materials/bulkRNAseq/preprocessed_09April2024/"
+  #   meta_samples <- data.table::fread(paste0(input_dir, '../metadata/metadata_Hakwoo_bulkRNA_mixing_main_exp.csv'))
+  #   dim(meta_samples)
+  #   # View(meta_samples)
+  #   meta_samples <- meta_samples %>%
+  #     dplyr::filter(experiment=='main_exp' & main_clone=='A' & pdxid=='X08472164')
+  #   sids <- meta_samples$sample_id
+  # }
   dds_tmp <- dds[,sids]
   print(sizeFactors(dds_tmp)) ## using existing size factors calculated using Scran method
-  res1 <- get_DE_genes_DESeq2(dds_tmp, DE_comp=c("Metastasis","Primary"),
+  res <- get_DE_genes_DESeq2(dds_tmp, DE_comp=c("Metastasis","Primary"),
                               filter_genes=F, min_total_exp_samples=10)
-  dim(res1)
-  res1 <- res1 %>%
+  dim(res)
+  res <- res %>%
     as.data.frame() %>%
-    filter(abs(log2FoldChange)>=1) #pvalue<0.05 & 
-  dim(res1)
-  head(res1)
-  data.table::fwrite(res1, paste0(save_fig_dir, subtag, '_DE_genes.csv.gz'))
+    filter(pvalue<0.05 & abs(log2FoldChange)>=1) # 
+  print(dim(res))
   
+  res <- res %>%
+    dplyr::left_join(meta_genes, by=c('ensembl_gene_id'='ens_gene_id'))
+  data.table::fwrite(res, paste0(save_fig_dir, subtag, '_DE_genes.csv.gz'))
   
-  subtag <- 'Cmet_Apri'
-  save_fig_dir <- paste0(save_dir, subtag, '/')
-  dir.create(save_fig_dir)
-  meta_df <- colData(dds) %>%
-    as.data.frame() %>%
-    dplyr::mutate(desc=paste0(main_clone, '_',mainsite)) %>%
-    filter(desc %in% c('C_Metastasis','A_Primary'))
-  dim(meta_df)
-  sids <- rownames(meta_df)
-  dds_tmp <- dds[,sids]
-  print(sizeFactors(dds_tmp)) ## using existing size factors calculated using Scran method
-  res2 <- get_DE_genes_DESeq2(dds_tmp, DE_comp=c("Metastasis","Primary"),
-                              filter_genes=F, min_total_exp_samples=10)
-  dim(res2)
-  res2 <- res2 %>%
-    as.data.frame() %>%
-    filter(abs(log2FoldChange)>=1) #pvalue<0.05 & 
-  dim(res2)
-  head(res2)
-  data.table::fwrite(res2, paste0(save_fig_dir, subtag, '_DE_genes.csv.gz'))
-  
-}  
+  return(res)
+}
 create_edgeR_object <- function(counts_df, meta_df){
   
   groups_use <- c('Metastasis','Primary')

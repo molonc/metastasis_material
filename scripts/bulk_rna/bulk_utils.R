@@ -105,6 +105,7 @@ get_DE_genes_DESeq2 <- function(dds, DE_comp=c("Metastasis","Primary"),
   contrast_DE_comp <- c(contrast_DE_comp, DE_comp)
   res <- results(dds, contrast=contrast_DE_comp) #c("condition","treated","untreated")
   res$ensembl_gene_id <- rownames(res)
+  DESeq2::DESeq
   return(res)
 }
 
@@ -113,7 +114,7 @@ create_DESeq2_obj <- function(coldata, cts, use_existing_size_factor=T){
   # library("DESeq2")
   cts <- cts[, rownames(coldata)]
   print(all(rownames(coldata) == colnames(cts)))
-  
+  ?DESeq2::DESeqDataSetFromMatrix
   dds <- DESeq2::DESeqDataSetFromMatrix(countData = cts,
                                 colData = coldata,
                                 design = ~ condition)
@@ -627,7 +628,7 @@ normalize_by_size_factor_v2 <- function(df_counts_fn, datatag, save_dir){
     geom_col(width = 0.3) + 
     facet_grid(~processed) + 
     theme_bw() + 
-    theme(axis.text.x = element_text(size=10, angle = 90),
+    theme(axis.text.x = element_text(size=10, angle = 90, family = "Helvetica", color="black"),
           legend.position = 'none')
   
   png(paste0(save_dir,datatag,"_sizeFactor_raw_normalized.png"), 

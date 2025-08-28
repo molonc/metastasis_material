@@ -31,7 +31,7 @@ get_median_cnv <- function(df_cnv){
   return(median_cnv)
 }
 get_median_genotype_v3 <- function(copynumber_fn, datatag, save_dir,
-                                   cellclone_fn=NULL, library_grouping_fn=NULL){
+                                   cellclone_fn=NULL, library_grouping_fn=NULL, save_data=F){
   # if(is.null(cellclone_fn)){
   #   cellclone_fn <- paste0(save_dir,'cell_clones.csv.gz')  
   # }
@@ -110,7 +110,10 @@ get_median_genotype_v3 <- function(copynumber_fn, datatag, save_dir,
   stat_cnv$end <- as.numeric(unname(sapply(regions, '[[', 3)))
   stat_cnv <- stat_cnv %>%
     dplyr::select(-chr_desc)
-  data.table::fwrite(stat_cnv, paste0(save_dir, datatag,'_median_cnv.csv'))
+  if(save_data){
+    data.table::fwrite(stat_cnv, paste0(save_dir, datatag,'_median_cnv.csv'))  
+  }
+  
   # data.table::fwrite(stat_cnv, paste0(save_dir,datatag, '_stat_median_cnv.csv'))
   # dim(stat_cnv)
   return(stat_cnv)  

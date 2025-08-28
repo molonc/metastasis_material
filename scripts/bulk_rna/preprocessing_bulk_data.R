@@ -1,15 +1,15 @@
 suppressPackageStartupMessages({
-  library(tidyverse)
+  # library(tidyverse)
   library(annotables)
   library(dplyr)
   library(ggplot2)
   library(RColorBrewer)
   # require(scales)
   # require(ggrepel)
-  require(stringr)
-  library(scran)
+  # library(stringr)
+  # library(scran)
   library(SingleCellExperiment)
-  library(tximport)
+  # library(tximport)
 })
 
 get_meta_samples_SA919_mixing_exp <- function(meta_samples_fn, datatag, save_dir){
@@ -32,7 +32,7 @@ get_meta_samples_SA919_mixing_exp <- function(meta_samples_fn, datatag, save_dir
 
 load_raw_counts_kallisto <- function(input_dir, datatag, 
                                      save_dir, sample_ids=NULL){
-  
+  library(tximport)
   if(is.null(sample_ids)){
     sample_ids <- list.files(input_dir)
   }
@@ -101,6 +101,7 @@ load_raw_counts_kallisto <- function(input_dir, datatag,
 }
 
 normalize_by_size_factor <- function(df_counts_fn, datatag, save_dir){
+  library(scran)
   # input_dir <- '/Users/htran/Documents/storage_tmp/metastasis_trees/SA919_10x/'
   
   df <- data.table::fread(df_counts_fn) %>% as.data.frame()

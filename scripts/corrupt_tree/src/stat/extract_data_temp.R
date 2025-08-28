@@ -1,5 +1,5 @@
 
-## library_groupings.csv: cells metadata, sampleid: contain passage info, pdx id: original mouse id
+## library_groupings.csv: cells metadata, sample id: contain passage info, pdx id: original mouse id
 ## main site: met or primary
 ## library labels: ignore this column - unique index for computation 
 ## library id: id of sequencing input data

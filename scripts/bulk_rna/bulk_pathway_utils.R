@@ -16,7 +16,7 @@ options(tidyverse.quiet = TRUE)
 
 
 ## correction_method: one of 'fdr', 'gSCS', 'bonferroni' #gSCS is the most popular one
-get_gprofiler_pathways_obsgenes <- function(obs_genes_symb, save_dir, datatag, correction_method='gSCS',
+get_gprofiler_pathways_obsgenes_v2 <- function(obs_genes_symb, save_dir, datatag, correction_method='gSCS',
                                             custom_id=NULL, pathway_fn=NULL, save_data=F){
   library(gprofiler2)
   if(is.null(pathway_fn)){
@@ -25,7 +25,7 @@ get_gprofiler_pathways_obsgenes <- function(obs_genes_symb, save_dir, datatag, c
     pathway_fn <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/materials//bulkRNAseq/pathway_set/h.all.v7.0.symbols.gmt'
   }
   
-  # ref_set <- fgsea::gmtPathways(pathway_fn)
+  ref_set <- fgsea::gmtPathways(pathway_fn)
   # for(s in names(ref_set)){ ## just quick check the size of each set
   #   print(s)
   #   print(length(ref_set[[s]]))
@@ -57,7 +57,8 @@ get_gprofiler_pathways_obsgenes <- function(obs_genes_symb, save_dir, datatag, c
     }
     if(save_data){
       # added_time <- gsub(':','',format(Sys.time(), "%Y%b%d_%X"))
-      data.table::fwrite(stat, paste0(save_dir, 'pathways_',datatag,'_',added_time,'.csv.gz'))  
+      # data.table::fwrite(stat, paste0(save_dir, 'pathways_',datatag,'_',added_time,'.csv.gz'))  
+      data.table::fwrite(stat, paste0(save_dir, 'pathways_',datatag,'.csv.gz'))  
     }
   }  
   res <- list(stat=stat, correction_method=correction_method, custom_id=custom_id)
@@ -125,6 +126,45 @@ get_normalized_FPKM <- function(counts, effLen)
 {
   N <- sum(counts)
   exp( log(counts) + log(1e9) - log(effLen) - log(N) )
+}
+
+viz_pathway_sets <- function(df){
+  # df <- tibble::tibble(comp=c('Clone A',rep('Clone B',3),'Clone C'),
+  #                      reference_set=c('myo','myo','apical','EMT','myo'),
+  #                      p_value=c(0.02, 0.005, 0.01, 0.01, 0.005))
+  # df$pval <- 
+  df$reference_set <- gsub('HALLMARK_','',df$reference_set)
+  df <- df %>%
+    dplyr::mutate(reference_set=
+      case_when(
+        reference_set=='EPITHELIAL_MESENCHYMAL_TRANSITION' ~ 'EPITHELIAL_\nMESENCHYMAL_\nTRANSITION',
+        reference_set=='APICAL_JUNCTION' ~ 'APICAL_\nJUNCTION',
+        TRUE ~ reference_set
+    ))
+    
+  p <- ggplot(df, aes(comp, y=reference_set)) + #, color=p_value
+    geom_point(size=5, color='red') + 
+    # scale_fill_continuous(type = "viridis") +
+    # scale_colour_gradientn(limits = c(0,0.05),
+    #                        colours=c("red","blue","white"),
+    #                        breaks = c(0, 0.03, 0.05), 
+    #                        labels = c('0','0.03','0.05')) + 
+    # scale_color_gradient2(low = "red", midpoint = 1, mid = "white", high = "blue") + 
+  
+    theme_bw() + 
+    theme(axis.text.x = element_text(size=10, angle = 30, family = "Helvetica", color="black"),
+          axis.text.y = element_text(size=10, family = "Helvetica", color="black"),
+          axis.title = element_text(size=10, family = "Helvetica", color="black")) + 
+    labs(y='Hallmark cancer pathway', x='Comparison', title = 'Significant pathways')
+    #       legend.position = 'none')
+  
+  # p
+  
+  # png(paste0(save_dir,datatag,"_sizeFactor_raw_normalized.png"), 
+  #     height = 550, width=2*750, res = 2*72)
+  # print(p)
+  # dev.off()
+  return(p)
 }
 
 get_meta_samples_SA919_mixing_exp <- function(meta_samples_fn, datatag, save_dir){

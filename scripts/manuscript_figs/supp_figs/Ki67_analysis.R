@@ -11,28 +11,49 @@ suppressPackageStartupMessages({
 
 input_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/' #scripts/bulk_rna/
 df <- data.table::fread(paste0(input_dir, 'materials/tumour_volumes/Fig2_ki67_annotation_DY.csv'))
-View(head(df))
+# View(head(df))
 colnames(df)
 
 df <- df %>%
-  dplyr::rename(percent_Ki67=`Ki67 %`, SA_id=`SA ID`) %>%
-  # dplyr::filter(!SA_id %in% c('SA575','SA609','SA1139')) %>%
-  dplyr::filter(!SA_id %in% c('SA575')) %>%
-  dplyr::mutate(SA_ids=
+  dplyr::rename(percent_Ki67=`Ki67 %`, PDX_line=`SA ID`) %>%
+  dplyr::filter(!PDX_line %in% c('SA575','SA609','SA1139')) %>%
+  # dplyr::filter(!SA_id %in% c('SA575')) %>%
+  dplyr::mutate(PDX_line=
                   case_when(
-                    grepl('SA535',SA_id) ~ 'SA535',
-                    grepl('SA919',SA_id) ~ 'SA919',
-                    grepl('SA1142',SA_id) ~ 'SA1142',
-                    TRUE ~ SA_id
+                    grepl('SA535',PDX_line) ~ 'Pt2-SA535',
+                    grepl('SA919',PDX_line) ~ 'Pt1-SA919',
+                    grepl('SA1142',PDX_line) ~ 'Pt3-SA1142',
+                    TRUE ~ PDX_line
                   ))
-unique(df$SA_ids)
-dim(df)
+unique(df$PDX_line)
+
+round(100*sum(df$percent_Ki67>0)/dim(df)[1],1)
+round(mean(df$percent_Ki67),1)
+round(sd(df$percent_Ki67),1)
+
+my_font <- "Helvetica"
 p <- ggplot(df, aes(x=Damian_annotation, y=percent_Ki67)) + #, colour = SA_id
   geom_boxplot(outlier.shape = NA)+
-  geom_jitter(size=1.8, aes(colour = SA_ids), position=position_jitter(0.2))  + 
+  geom_jitter(size=1.2, aes(colour = PDX_line, shape = PDX_line), position=position_jitter(0.2))  + 
   theme_bw() + 
-  labs(x='Tumour classification', y='% cells with Ki67')
+  labs(x='Tumour classification', y='% cells with Ki67') + 
+  theme(legend.title=element_text(color="black",size=10, hjust = 0.5, family=my_font), 
+        legend.text=element_text(color="black",size=10, hjust = 0.5, family=my_font),
+        text = element_text(color="black",size = 10, hjust = 0.5, family=my_font),
+        axis.title.x = element_text(color="black",size=10, hjust = 0.5, family=my_font), 
+        axis.title.y = element_text(color="black",size=10, hjust = 0.5, family=my_font),
+  )      +
+  coord_flip()
 p
+save_fig_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/figures/supp_figs/'
+dir.create(save_fig_dir)
+ggsave(paste0(save_fig_dir,"SUPP_Fig2_Ki67.svg"),
+       plot = p,
+       height = 2.5,
+       width = 5,
+       # useDingbats=F,
+       dpi = 150
+)
 
 p <- ggplot(df, aes(x=1, y=percent_Ki67)) + #, colour = SA_id
   geom_boxplot(outlier.shape = NA)+
@@ -57,10 +78,10 @@ var.test(percent_Ki67 ~ Damian_annotation, df, alternative = "two.sided")
 # or Method 2
 wilcox.test(df_nonmet$percent_Ki67, df_met$percent_Ki67, alternative = "two.sided")
 
-median(df_nonmet$percent_Ki67)
-sd(df_nonmet$percent_Ki67)
-median(df_met$percent_Ki67)
-sd(df_met$percent_Ki67)
+round(mean(df_nonmet$percent_Ki67),1)
+round(sd(df_nonmet$percent_Ki67),1)
+round(mean(df_met$percent_Ki67),1)
+round(sd(df_met$percent_Ki67),1)
 
 median(df$percent_Ki67)
 sd(df$percent_Ki67)

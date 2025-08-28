@@ -1,0 +1,34 @@
+library_id,transplanted_mouse,AT_ID,origin,Tumor_ID,Hoa QC,Athena QC,Total cells,Mixing experiment,Expected,Achieved Results,Noted,Sample_Name,Patient_ID,SA_ID,exp,sid1,sid1_detail,sid2,sid2_detail,out_sid,r1,r2,sample_id,mainsite,nb_filtered_cells,nb_total_cells_raw,prop_cell_clones,jira_ticket,main_clone
+A130839B,04342 - primary,AT11424,Primary,X0847-216421122521,744,769,1187,"Metastasis X4 (X0847-2164 Axim)
++ Metastasis X7 (X0847-2112252 spinal met)",1A : 1C,1.64A : 0.06B : 0.3C,A dominant in primary,04342 - primary,VBA0847,SA919,Exp1,M64,X0847-2164,M2,X0847-2112252,MIX_A130839B,1,1,AT11424,Primary,744,1187,A-82.26_C-17.74,SC-8363,A
+A130854B,04342 - axillary,AT13696,Axillary,X0847-216421122521,,,,"Metastasis X4 (X0847-2164 Axim)
++ Metastasis X7 (X0847-2112252 spinal met)",1A : 1C,"","","","","","","","","","","",,,AT13696,Metastasis,1196,1518,C-100,SC-8442,C
+A130854A,04342 - lumbar,AT13692,Lumbar,X0847-216421122521,,,,"Metastasis X4 (X0847-2164 Axim)
++ Metastasis X7 (X0847-2112252 spinal met)",1A : 1C,"","","","","","","","","","","",,,AT13692,Metastasis,567,1549,C-100,SC-8437,C
+A138912A,04342 - anterior neck,AT13688,Anterior_Neck,X0847-216421122521,,,,"Metastasis X4 (X0847-2164 Axim)
++ Metastasis X7 (X0847-2112252 spinal met)",1A : 1C,"","","","","","","","","","","",,,AT13688,Metastasis,643,1383,C-100,SC-8443,C
+A138912B,04342 - posterior neck,AT13684,Posterior_Neck,X0847-216421122521,,,,"Metastasis X4 (X0847-2164 Axim)
++ Metastasis X7 (X0847-2112252 spinal met)",1A : 1C,"","","","","","","","","","","",,,AT13684,Metastasis,615,1450,C-5.04_C1-94.96,SC-8448,C
+A138959A,04345 - primary,AT11344,Primary,X0847-216421122524,,,,"Metastasis X4 (X0847-2164 Axim)
++ Metastasis X7 (X0847-2112252 spinal met)",1A : 1C,"","","","","","","","","","","",,,AT11344,Primary,849,1202,A-81.66_C-18.34,SC-8645,A
+A138963A,04345 - anterior neck,AT13638,Anterior_Neck,X0847-216421122524,,,,"Metastasis X4 (X0847-2164 Axim)
++ Metastasis X7 (X0847-2112252 spinal met)",1A : 1C,"","","","","","","","","","","",,,AT13638,Metastasis,425,1350,C-100,SC-8511,C
+A138963B,04345 - posterior neck,AT13634,Posterior_Neck,X0847-216421122524,,,,"Metastasis X4 (X0847-2164 Axim)
++ Metastasis X7 (X0847-2112252 spinal met)",1A : 1C,"","","","","","","","","","","",,,AT13634,Metastasis,448,1216,C-100,SC-8618,C
+A98166B,04334 - primary,AT11417,Primary,X0847-216421122538,230,,,"Primary X4 2164 + Primary X7 2112253
+(1:0.25)",1A : 0.25B,1(A+ A1) : 0.25B,"A dominant as expected,
+no strong conclusion",04334 - primary,VBA0847,SA919,Exp5,M64,X0847-2164,M3,X0847-2112253,MIX_A98166B,1,0.25,AT11417,Primary,237,658,A-55.93_A0-26.69_B-17.37,SC-7907,A
+A130841B,04334 - axillary,AT13752,Axillary,X0847-216421122538,572,663,1482,"Primary X4 2164 + Primary X7 2112253
+, 1:0.25",1A : 0.25B,0.03A : 1.21B,"A dominant",04334 - axillary,VBA0847,SA919,Exp2,M64,X0847-2164,M3,X0847-2112253,MIX_A130841B,1,0.25,AT13752,Metastasis,572,1482,A-97.2_A0-2.8,SC-8370,A
+A98166A,04333 - primary,AT11368,Primary,X0847-216421122537,264,,,"Primary X4 2164 + Primary X7 2112253
+(1:0.25)",1A : 0.25B,1A : 0.05B : 0.2 C,"A dominant as expected,
+C induced here, surprisingly
+",04333 - primary,VBA0847,SA919,Exp4,M64,X0847-2164,M3,X0847-2112253,MIX_A98166A,1,0.25,AT11368,Primary,263,676,A-94.68_C-5.32,SC-7911,A
+A130841A,04333 - lumbar,AT13700,Lumbar,X0847-216421122537,418,524,1389,"Primary X4 2164 + Primary X7 2112253
+(1:0.25)",1A : 0.25B,1.25 (C+C1),"C dominant,
+support our conclusion:
+C dominant in Met",04333 - lumbar,VBA0847,SA919,Exp3,M64,X0847-2164,M3,X0847-2112253,MIX_A130841A,1,0.25,AT13700,Metastasis,418,1389,C-96.41_C1-3.59,SC-8366,C
+A138967B,04410 - primary,AT13582,Primary,X0847-21122516,,,,"Primary X7 2112251 + Supra Spinal X7 2112252
+(1:1)",1B:1C,"","","","","","","","","","","",,,AT13582,Primary,529,1220,B0-7.19_C-87.82_C0-4.99,SC-8606,C
+A138895B,04410 - posterior neck,AT13804,Posterior_Neck,X0847-21122516,,,,"Primary X7 2112251 + Supra Spinal X7 2112252
+(1:1)",1B:1C,"","","","","","","","","","","",,,AT13804,Metastasis,604,1371,C-100,SC-8529,C

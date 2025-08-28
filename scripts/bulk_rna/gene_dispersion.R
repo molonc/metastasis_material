@@ -14,8 +14,8 @@ suppressPackageStartupMessages({
 })
 
 ## Loading utility functions
-script_dir <- '/home/htran/Projects/hakwoo_project/metastasis_material/'
-script_dir <- '/Users/miu/Documents/workspace/projects_BCCRC/hakwoo_project/metastasis_material/'
+# script_dir <- '/home/htran/Projects/hakwoo_project/metastasis_material/'
+# script_dir <- '/Users/miu/Documents/workspace/projects_BCCRC/hakwoo_project/metastasis_material/'
 script_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/'
 source(paste0(script_dir, 'scripts/bulk_rna/bulk_utils.R'))
 source(paste0(script_dir, 'scripts/bulk_rna/DE_analysis_utils.R'))
@@ -741,3 +741,9 @@ summary_delta_results <- function(){
   
   
 }
+
+main <- function(){
+  load_input_data()
+}
+
+# main()
