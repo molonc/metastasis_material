@@ -129,7 +129,7 @@ check_associated_pathway <- function(total_df){
 
 summary_driver_genes_output <- function(){
   input_dir <- "/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/materials/bulkRNAseq/preprocessed_09April2024/"
-  save_dir <- paste0(input_dir, 'drivernet_demo/')
+  save_dir <- paste0(input_dir, 'drivernet_output_metastasis_proj/')
   # obs_clones <- c('B','C')
   # obs_clones <- c('A','B')
   obs_clones <- c('A','C')

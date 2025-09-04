@@ -64,13 +64,14 @@ stat_SA535_Pt2 <- function(){
     dplyr::group_by(sample_id, clone_id, pdxid) %>%
     dplyr::summarise(nb_cells=n())
   
+  # for table 5
   prevalence_df <- meta_data %>%
     dplyr::mutate(mouse_id = stringr::str_sub(pdxid, nchar(pdxid), nchar(pdxid))) %>%
     dplyr::filter(mainsite %in% c('Metastasis','Primary') & origin!='Tumor_Recur') %>%
     dplyr::mutate(sample_id=paste0(sample_id, '_mouseM',mouse_id, '_',mainsite)) %>%
     dplyr::group_by(sample_id, clone_id) %>%
     dplyr::summarise(nb_cells=n())
-  
+  dim(prevalence_df)
   length(unique(prevalence_df$sample_id))
   total_df <- prevalence_df %>%
     dplyr::group_by(sample_id) %>% #, mainsite
@@ -79,9 +80,15 @@ stat_SA535_Pt2 <- function(){
   prevalence_df <- prevalence_df %>%
     dplyr::left_join(total_df, by='sample_id') %>%
     dplyr::mutate(pct_cells=round(100*nb_cells/nb_cells_per_sample,1))
-  View(prevalence_df)
-  max(prevalence_df$pct_cells)
+  prevalence_df$nb_cells_per_sample <- NULL
   
+  prevalence_df <- prevalence_df %>%
+    dplyr::mutate(series=stringr::str_sub(sample_id, 1, 5))
+  prevalence_df$patient_ID <- 'Pt2'
+  View(head(prevalence_df))
+  max(prevalence_df$pct_cells)
+  unique(prevalence_df$series)
+  dim(prevalence_df)
   t <- prevalence_df %>%
     dplyr::filter(pct_cells>=50)
   View(t)
@@ -91,6 +98,8 @@ stat_SA535_Pt2 <- function(){
   # of polyclonality with 1-2 major clones per metastasis
   
   save_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/materials/dlp_trees/dlp_met_proj_Sean/'
+  save_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/supp_tables/'
+  data.table::fwrite(prevalence_df, paste0(save_dir, 'SuppTable5_',datatag, '_cells_proportions.csv'))
   data.table::fwrite(prevalence_df, paste0(save_dir, datatag, '_cells_proportions.csv'))
   
 }
@@ -137,7 +146,7 @@ stat_SA919_Pt1 <- function(){
     dplyr::filter(origin!='Tumor_Recur') %>%
     dplyr::mutate(passage=stringr::str_sub(sample_id,6,7)) %>%
     dplyr::mutate(mouse_id = stringr::str_sub(pdxid, nchar(pdxid)-1, nchar(pdxid))) %>%
-    dplyr::mutate(sample_id=paste0(sample_id, '_mouseM',mouse_id, '_',mainsite)) %>%
+    dplyr::mutate(sample_id=paste0(sample_id, '_mouseM',mouse_id, '_',mainsite,'_',passage)) %>%
     dplyr::group_by(sample_id, clone_id) %>% #, mainsite
     dplyr::summarise(nb_cells=n()) #%>%
   
@@ -148,8 +157,21 @@ stat_SA919_Pt1 <- function(){
   prevalence_df <- prevalence_df %>%
     dplyr::left_join(total_df, by='sample_id') %>%
     dplyr::mutate(pct_cells=round(100*nb_cells/nb_cells_per_sample,1))
+  dim(prevalence_df)
   View(prevalence_df)
   length(unique(prevalence_df$sample_id))
+  
+  prevalence_df <- prevalence_df %>%
+    dplyr::mutate(series=stringr::str_sub(sample_id, 1, 5))
+  unique(prevalence_df$series)
+  prevalence_df$patient_ID <- 'Pt1'
+  prevalence_df$nb_cells_per_sample <- NULL
+  dim(prevalence_df)
+  View(head(prevalence_df))
+  save_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/supp_tables/'
+  data.table::fwrite(prevalence_df, paste0(save_dir, 'SuppTable5_',datatag, '_cells_proportions.csv'))
+  
+  
   # prevalence_df <- meta_data %>%
   #   dplyr::group_by(clone_id, pdxid) %>% #, mainsite
   #   dplyr::summarise(nb_cells=n()) %>%
@@ -271,6 +293,18 @@ stat_SA919_Pt1 <- function(){
   
   
 } 
+create_SuppTable5 <- function(){
+  save_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/supp_tables/'
+  df1 <- data.table::fread(paste0(save_dir, 'SuppTable5_SA919_cells_proportions.csv'))
+  df2 <- data.table::fread(paste0(save_dir, 'SuppTable5_SA535_cells_proportions.csv'))
+  colnames(df2)
+  df <- dplyr::bind_rows(df1, df2)
+  data.table::fwrite(df, paste0(save_dir, 'SuppTable5_cells_proportions_3_Sept_2025.csv'))
+  
+  df1 <- data.table::fread(paste0(save_dir, 'SuppTable6_mixing_exp_SA919_results_Hakwoo_annotation.csv'))
+  paste(colnames(df1), collapse = ', ')
+  View(df1)
+}
 # obs_chrs <- c('7')
 # obs_clones <- c('A','B')
 get_CNA_change_regions_stat <- function(df_cnv, obs_clones, obs_chrs){
