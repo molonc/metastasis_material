@@ -281,7 +281,7 @@ fitclone_get_ebola_tree_conditional_pdx <- function(res, results_dir,
 # outputfile <- paste0(results_dir,'tree_viz_dream/','tree_viz_dream.png')
 # cellclones <- paste0(results_dir,'cell_clones.csv')
 # datatag <- 'SA919'
-plot_ebola_tree_condition_Shaocheng <- function(datatag, results_dir, 
+plot_summary_tree <- function(datatag, results_dir, 
                                                 outputfile, cellclones=NULL){
   
   results_dir <- paste0(results_dir,'/')
@@ -323,7 +323,7 @@ plot_ebola_tree_condition_Shaocheng <- function(datatag, results_dir,
 }  
 
 
-plot_ebola_tree_condition <- function(datatag, results_dir, outputfile, cellclones=NULL){
+plot_ebola_tree_condition <- function(datatag, results_dir, outputfile, cellclones=NULL, cloneColours=NULL){
   
   results_dir <- paste0(results_dir,'/')
   newick <- paste0(results_dir, 'tree.newick')
@@ -343,15 +343,18 @@ plot_ebola_tree_condition <- function(datatag, results_dir, outputfile, cellclon
   # cell_clones <- cell_clones[!cell_clones$clone_id %in% excluded_clones,]
   print(dim(cell_clones))
   
-  # cell_clones <- cell_clones[cell_clones$clone_id!='None',]
-  # clone_meta <- get_color_clone(cell_clones)
-  clone_meta <- get_color_clone_v2(unique(cell_clones$clone_id))
-  # plot_clone_colour(clone_meta, save_dir, datatag)
-  print(clone_meta)
+  if(is.null(cloneColours)){
+    # cell_clones <- cell_clones[cell_clones$clone_id!='None',]
+    # clone_meta <- get_color_clone(cell_clones)
+    clone_meta <- get_color_clone_v2(unique(cell_clones$clone_id))
+    # plot_clone_colour(clone_meta, save_dir, datatag)
+    print(clone_meta)
+    
+    # Get summary tree, collapse cells in 1 clone to 1 node 
+    cloneColours <- clone_meta$color
+    names(cloneColours) <- clone_meta$clone_id  
+  }
   
-  # Get summary tree, collapse cells in 1 clone to 1 node 
-  cloneColours <- clone_meta$color
-  names(cloneColours) <- clone_meta$clone_id
   # p1 <- fast_get_summary_tree(cell_clones = cell_clones, 
   #                             newick = newick, 
   #                             cloneColours = cloneColours, 
@@ -900,7 +903,8 @@ get_color_clone_v2 <- function(clone_levels){
   clone_levels <- gtools::mixedsort(clone_levels[!grepl("None", clone_levels)])
   
   ## Meta colors based on package inlmisc::GetColors(n) -- problem at installation, so keep values of color codes in csv file
-  colorcode_fn <- "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/config/colorcode.csv"
+  # colorcode_fn <- "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/config/colorcode.csv"
+  colorcode_fn <- "/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/materials/dlp_trees/colorCode_clones/color_code_SA535_cloneA.csv"
   if(file.exists(colorcode_fn)){
     color_df <- data.table::fread(colorcode_fn)
     color_df <- color_df %>%

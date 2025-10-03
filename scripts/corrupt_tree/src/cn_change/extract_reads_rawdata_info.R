@@ -5,7 +5,7 @@
 library(dplyr)
 library(tidyr)
 library(data.table)
-require("ggtree")
+# require("ggtree")
 
 f <- function(...) sprintf(...)
 u <- function(...) unique(...)
@@ -28,7 +28,9 @@ extract_gc_corrected_reads <- function(libs_listpath, rootpath, outpath) {
     }
     dat <- data.table::fread(file_path, header = TRUE) %>% as_tibble()
     
-    mat <- dat %>% dplyr::mutate(V1 = paste0(chr, '_', start, '_', end)) %>% dplyr::select(V1, copy, cell_id) %>% tidyr::pivot_wider(id_cols = c(V1), names_from = cell_id, values_from = copy)
+    mat <- dat %>%  dplyr::mutate(V1 = paste0(chr, '_', start, '_', end)) 
+      %>% dplyr::select(V1, copy, cell_id) 
+      %>% tidyr::pivot_wider(id_cols = c(V1), names_from = cell_id, values_from = copy)
     
     if (is.null(full_mat)) {
       full_mat <- mat
@@ -155,6 +157,7 @@ extract_cells_features <- function(cellclones, grouping_fn,
     dplyr::select(all_of(features_use))
   
   total_metrics$library_id <- get_library_id(total_metrics$cell_id)
+  total_metrics$sample_id <- get_sample_id(total_metrics$cell_id)
   total_metrics <- total_metrics %>%
     dplyr::group_by(library_id)%>%
     dplyr::summarise(median_nreads_per_cell=median(total_reads),
@@ -219,15 +222,15 @@ extract_cells_features_instability <- function(library_ids, results_dir,
   total_metrics <- total_metrics %>%
     dplyr::group_by(library_id)%>%
     dplyr::summarise(median_nmapped_reads_per_cell=median(total_mapped_reads),
-                     std_nmapped_reads_per_cell=sd(total_mapped_reads),
+                     std_nmapped_reads_per_cell=round(sd(total_mapped_reads),2),
                      median_nreads_per_cell=median(total_reads),
-                     std_nreads_per_cell=sd(total_reads),
+                     std_nreads_per_cell=round(sd(total_reads),2),
                      median_coverage_depth=median(coverage_depth),
-                     std_coverage_depth=sd(coverage_depth),
+                     std_coverage_depth=round(sd(coverage_depth),2),
                      median_coverage_breadth=median(coverage_breadth),
-                     std_coverage_breadth=sd(coverage_breadth),
+                     std_coverage_breadth=round(sd(coverage_breadth),2),
                      median_quality=median(quality),
-                     std_quality=sd(quality))%>%
+                     std_quality=round(sd(quality),2))%>%
     ungroup()
   
   print(summary(total_metrics$median_nreads_per_cell))
@@ -380,6 +383,196 @@ extract_n_cells <- function(grouping_fn, rootpath, outpath, datatag = NULL) {
   
   return(res)
 }
+
+extract_cells_features_manuscript <- function() {
+  
+  input_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/materials/dlp_trees/'
+  sa919_df <- data.table::fread(paste0(input_dir, 'SA919/library_groupings.csv.gz'))
+  # sa919_mixing_df <- data.table::fread(paste0(input_dir, 'SA919_mixing_experiment/Metastasis_Hakwoo_mixing_exp_SA919_results.csv'))
+  clones_sa919_df <- data.table::fread(paste0(input_dir, 'SA919/cell_clones.csv.gz'))
+  sa535_df <- data.table::fread(paste0(input_dir, 'SA535/library_groupings.csv.gz'))
+  clones_sa535_df <- data.table::fread(paste0(input_dir, 'SA535/cell_clones.csv.gz'))
+  colnames(sa919_df)
+  colnames(sa535_df)
+  dim(clones_sa919_df)
+  sa919_df <- sa919_df %>%
+    dplyr::mutate(patient_id='Pt1', SA_id='SA919')
+  sa535_df <- sa535_df %>%
+    dplyr::mutate(patient_id='Pt2', SA_id='SA535')
+  total_dlp <- dplyr::bind_rows(sa919_df, sa535_df) %>%
+    dplyr::mutate(desc=paste0(grouping, '_', sample_id)) %>%
+    dplyr::rename(library_id=grouping) %>%
+    dplyr::select(-library_labels)
+  colnames(total_dlp)
+  total_clones <- dplyr::bind_rows(clones_sa919_df, clones_sa535_df)
+  dim(total_clones)
+  # head(total_clones)
+  # key index to access other fields
+  # total_dlp$desc <- paste0(total_dlp$grouping, '_', total_dlp$sample_id)
+  
+  res <- tibble()
+  cell_features_df <- tibble()
+  for(s in total_dlp$desc) {
+    filtered_cond2 <- tibble()
+    metrics <- tibble()
+    filtered_df <- tibble()
+    nb_total_sequenced_cells <- 0
+    
+    tmp <- total_dlp %>%
+      dplyr::filter(desc==s)
+    print(s)
+    lib_id <- tmp$library_id[1]
+    sample_id <- tmp$sample_id[1]
+    
+    metrics_fn <- paste0(input_dir,'cell_metrics/metrics/',paste0(lib_id,'_metrics.csv'))
+    
+    ## Special case, 2 samples are pooled together
+    if(lib_id=='A98296A' & sample_id=='SA535X4XB05662'){
+      filtered_fn <- paste0(input_dir,'cell_metrics/filtered_cnv/','A98296A_05662_filtered_states.csv')
+    }else if(lib_id=='A98296A' & sample_id=='SA535X4XB05667'){
+      filtered_fn <- paste0(input_dir,'cell_metrics/filtered_cnv/','A98296A_05667_filtered_states.csv')
+    }else{
+      filtered_fn <- paste0(input_dir,'cell_metrics/filtered_cnv/',paste0(lib_id,'_filtered_states.csv'))
+    }
+      #
+    if (!file.exists(metrics_fn)) {
+      print(paste0('***** Metric file %s does not exist. Ignoring...', s))
+      print(lib_id)
+      # stop()
+      # next
+    }else{
+      metrics <- data.table::fread(metrics_fn) %>% as.data.frame()
+      print(dim(metrics))
+      
+    }
+    
+    if (!file.exists(filtered_fn)) {
+      print(paste0('***** Filtered file %s does not exist. Ignoring...', s))
+      print(lib_id)
+    } else{
+      filtered_df <- data.table::fread(filtered_fn) %>% as.data.frame()
+      filtered_cond2 <- total_clones %>%
+        dplyr::filter(cell_id %in% colnames(filtered_df))
+      if(dim(metrics)[1]>0){
+        nb_total_sequenced_cells <- dim(metrics)[1]
+        metrics <- metrics %>%
+          dplyr::filter(cell_id %in% colnames(filtered_df))
+        res <- dplyr::bind_rows(res, as_tibble(metrics))
+        if(lib_id=='A98232A'){
+          print('**********')
+          print(dim(metrics))
+          print(dim(filtered_df))
+        }
+      }
+    } 
+     
+    
+    # if(file.exists(filtered_fn)){
+    #   filtered_df <- read.csv(filtered_fn, header = TRUE, row.names=1, check.names=F, stringsAsFactors=F)
+    #   dim(filtered_df)
+    #   # colnames(filtered_df)[1]
+    #   # rownames(filtered_df)[1]
+    #   metrics <- metrics %>%
+    #     dplyr::filter(cell_id %in% colnames(filtered_df))
+    # }else{
+    #   print(f('Attention: do not exist filtered data for library: %s', lib_id))
+    # }
+     
+    df <- tibble::tibble(desc=s, total_sequenced_cells=nb_total_sequenced_cells,
+                         nb_cells_post_qc=dim(filtered_df)[2]-1, nb_cells_assigned_clone=dim(filtered_cond2)[1])
+    cell_features_df <- dplyr::bind_rows(cell_features_df, df)
+  }  
+  
+  dim(total_dlp)
+  dim(cell_features_df)
+  # View(cell_features_df)
+  cell_features_df$nb_cells_assigned_clone <- NULL
+  total_dlp <- total_dlp %>%
+    dplyr::left_join(cell_features_df, by='desc')
+  
+  # colnames(res)
+  
+  features_use <- c("cell_id","total_mapped_reads",
+                    "coverage_depth","total_reads","coverage_breadth","quality")
+  features_use[features_use %in% colnames(res)]
+  features_use[!features_use %in% colnames(res)]
+  total_metrics <- res %>%
+    dplyr::select(all_of(features_use))
+  
+  total_metrics$library_id <- get_library_id(total_metrics$cell_id)
+  total_metrics$sample_id <- get_sample_id(total_metrics$cell_id)
+  total_metrics$desc <- paste0(total_metrics$library_id, '_', total_metrics$sample_id)
+  total_metrics <- total_metrics %>%
+    dplyr::group_by(desc)%>%
+    dplyr::summarise(median_nmapped_reads_per_cell=median(total_mapped_reads),
+                     std_nmapped_reads_per_cell=round(sd(total_mapped_reads),3),
+                     median_nreads_per_cell=median(total_reads),
+                     std_nreads_per_cell=round(sd(total_reads),3),
+                     median_coverage_depth=round(median(coverage_depth),3),
+                     std_coverage_depth=round(sd(coverage_depth),3),
+                     median_coverage_breadth=round(median(coverage_breadth),3),
+                     std_coverage_breadth=round(sd(coverage_breadth),3),
+                     median_quality=round(median(quality),3),
+                     std_quality=round(sd(quality),3))%>%
+    ungroup()
+  
+  print(summary(total_metrics$median_nreads_per_cell))
+  print(summary(total_metrics$median_coverage_depth))
+  print(summary(total_metrics$median_coverage_breadth))
+  print(summary(total_metrics$median_quality))
+  print(dim(total_metrics))
+  # View(total_metrics)
+  colnames(total_metrics)
+  extra_metric <- tibble(desc='A98232A_SA535X4XB05649',median_nmapped_reads_per_cell=0,std_nmapped_reads_per_cell=0,
+                         median_nreads_per_cell=2647302, std_nreads_per_cell=827833.2,
+                         median_coverage_depth=0.067219,std_coverage_depth=0.02,
+                         median_coverage_breadth=0.06,std_coverage_breadth=0.02,
+                         median_quality=0.924,std_quality=0.07)
+  total_metrics <- dplyr::bind_rows(total_metrics, extra_metric)
+  total_dlp <- total_dlp %>%
+    dplyr::left_join(total_metrics, by='desc')
+  total_dlp$desc <- NULL
+  dim(total_dlp)
+  # View(total_dlp)
+  colnames(total_dlp)
+  data.table::fwrite(total_dlp, paste0(input_dir, 'cell_metrics/SuppTable4.csv'))
+  
+  
+  # manuscript
+  
+  res_tmp <- total_dlp  %>%
+    dplyr::filter(SA_id=='SA919' & nb_cells_post_qc!=0)%>%
+    dplyr::group_by(sample_id)%>%
+    dplyr::summarise(nb_cells_post_qc=sum(nb_cells_post_qc))%>%
+    dplyr::summarise(total=sum(nb_cells_post_qc),
+                     mean_cells=mean(nb_cells_post_qc),
+                     median_cells=median(nb_cells_post_qc),
+                     sd_cells=sd(nb_cells_post_qc),
+                     max_cells=max(nb_cells_post_qc),
+                     min_cells=min(nb_cells_post_qc))
+  print(paste0("For a total of ",sum(res_tmp$total)," single cells in SA919: (median = ",round(res_tmp$median_cells,2),
+               
+               ", sigma = ",round(res_tmp$sd_cells,2),", max = ",res_tmp$max_cells,
+               ", min = ",res_tmp$min_cells," per sample)."))
+  
+  res_tmp <- total_dlp  %>%
+    dplyr::filter(SA_id=='SA535' & nb_cells_post_qc!=0)%>%
+    dplyr::group_by(sample_id)%>%
+    dplyr::summarise(nb_cells_post_qc=sum(nb_cells_post_qc))%>%
+    dplyr::summarise(total=sum(nb_cells_post_qc),
+                     mean_cells=mean(nb_cells_post_qc),
+                     median_cells=median(nb_cells_post_qc),
+                     sd_cells=sd(nb_cells_post_qc),
+                     max_cells=max(nb_cells_post_qc),
+                     min_cells=min(nb_cells_post_qc))
+  print(paste0("For a total of ",sum(res_tmp$total)," single cells in SA535: (median = ",round(res_tmp$median_cells,2),
+               
+               ", sigma = ",round(res_tmp$sd_cells,2),", max = ",res_tmp$max_cells,
+               ", min = ",res_tmp$min_cells," per sample)."))
+  
+  
+}  
+
 
 
 # libs_listpath <- '/home/htran/Projects/farhia_project/fitness_material/cnv_data/SA535_all_libs.txt'

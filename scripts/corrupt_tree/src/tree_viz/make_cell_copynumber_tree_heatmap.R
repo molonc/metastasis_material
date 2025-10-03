@@ -1,14 +1,14 @@
 #!/usr/bin/env Rscript
 
 suppressMessages(library(ape))
-suppressMessages(library(argparse))
+# suppressMessages(library(argparse))
 suppressMessages(library(ComplexHeatmap))
 suppressMessages(library(dplyr))
 suppressMessages(library(ggplot2))
 suppressMessages(library(ggtree))
 suppressMessages(library(gtools))
 suppressMessages(library(RColorBrewer))
-
+ht_opt$message = FALSE
 cn_colours <- structure(
     c(
         "#3182BD", "#9ECAE1", "#CCCCCC", "#FDCC8A", "#FC8D59", "#E34A33",
@@ -25,27 +25,27 @@ clone_palette_20 <- c(
 )
 clone_none_black <- "#1B1B1B"
 
-get_args <- function() {
-    p <- ArgumentParser(description="Plot cell copynumber heatmap with tree")
-
-    p$add_argument("--tree", "-t", help="cell newick tree file")
-    p$add_argument("--copynumber", "-cn", help="cell copynumber tsv file")
-    p$add_argument("--pdf", "-o", help="output plot pdf")
-
-    p$add_argument("-c", "--clones", help="cell clone tsv file")
-    p$add_argument(
-        "-n", "--normalize-ploidy", action="store_true",
-        help="normalize all cell ploidy to 2"
-    )
-    p$add_argument(
-        "-b", "--branch-lengths", type="integer",
-        help="set all tree branch lengths to this value"
-    )
-
-    p$add_argument("--grouping_file", default=NULL, help="file with sample grouping")
-
-    return(p$parse_args())
-}
+# get_args <- function() {
+#     p <- ArgumentParser(description="Plot cell copynumber heatmap with tree")
+# 
+#     p$add_argument("--tree", "-t", help="cell newick tree file")
+#     p$add_argument("--copynumber", "-cn", help="cell copynumber tsv file")
+#     p$add_argument("--pdf", "-o", help="output plot pdf")
+# 
+#     p$add_argument("-c", "--clones", help="cell clone tsv file")
+#     p$add_argument(
+#         "-n", "--normalize-ploidy", action="store_true",
+#         help="normalize all cell ploidy to 2"
+#     )
+#     p$add_argument(
+#         "-b", "--branch-lengths", type="integer",
+#         help="set all tree branch lengths to this value"
+#     )
+# 
+#     p$add_argument("--grouping_file", default=NULL, help="file with sample grouping")
+# 
+#     return(p$parse_args())
+# }
 
 read_tsv <- function(fn, ...) {
     df <- read.delim(fn, check.names=FALSE, stringsAsFactors=FALSE, sep=",", ...)
@@ -249,6 +249,43 @@ get_ordered_cell_ids <- function(tree_plot_dat) {
 # t <- get_ordered_cell_ids(tree_plot_dat)
 # length(t)
 # sum(is.na(t))
+format_allele_copynumber <- function(copynumber, tree_plot_dat=NULL, spacer_cols=20) {
+  if (!("chr" %in% colnames(copynumber))) {
+    loci <- sapply(rownames(copynumber), strsplit, "_")
+    copynumber$chr <- unname(sapply(loci, '[[', 1))
+    copynumber$start <- as.numeric(unname(sapply(loci, '[[', 2)))
+    copynumber$end <- as.numeric(unname(sapply(loci, '[[', 3)))
+    copynumber$width <- (copynumber$end - copynumber$start + 1)
+  }
+  copynumber$chr <- gsub("chr", "", copynumber$chr)
+  # copynumber <- arrange(copynumber, as.numeric(chr), chr, start)
+  copynumber$chr_val <- ifelse(copynumber$chr=='X',23,
+                               ifelse(copynumber$chr=='Y',24,copynumber$chr))
+  print(unique(copynumber$chr_val))
+  copynumber <- arrange(copynumber, as.numeric(chr_val), chr_val, start)
+  copynumber$chr_val <- NULL    
+  
+  rownames(copynumber) <- paste0(
+    copynumber$chr, ":", copynumber$start, ":", copynumber$end
+  )
+  copynumber <- subset(copynumber, select=-c(chr, start, end, width))
+  copynumber <- as.data.frame(t(copynumber))
+  
+  if(!is.null(tree_plot_dat)){
+    copynumber <- copynumber[get_ordered_cell_ids(tree_plot_dat), ]    
+  }
+  # else{
+  ## order by clone id     
+  # }
+  
+  
+  # copynumber <- format_copynumber_values(copynumber)
+  copynumber <- space_copynumber_columns(copynumber, spacer_cols)
+  
+  return(copynumber)
+}
+
+
 format_copynumber <- function(copynumber, tree_plot_dat=NULL, spacer_cols=20) {
     if (!("chr" %in% colnames(copynumber))) {
         loci <- sapply(rownames(copynumber), strsplit, "_")
@@ -736,17 +773,19 @@ anno_mark = function(at, labels, which = c("column", "row"),
     anno@subsetable = TRUE
     return(anno)
 }
-
+# ?ComplexHeatmap::anno_mark
 make_bottom_annot <- function(copynumber) {
     chrom_label_pos <- get_chrom_label_pos(copynumber)
-    bottom_annot <- HeatmapAnnotation(chrom_labels=anno_mark(
-        at=chrom_label_pos,
+    bottom_annot <- HeatmapAnnotation(chrom_labels=ComplexHeatmap::anno_mark(
+        at=as.numeric(chrom_label_pos),
         labels=names(chrom_label_pos),
         side="bottom",
         padding=0.5, extend=0.01
     ), show_annotation_name=FALSE)
     return(bottom_annot)
 }
+
+
 
 make_copynumber_heatmap <- function(copynumber, clones, grouping_file) {
     copynumber_hm <- Heatmap(
@@ -884,7 +923,7 @@ make_copynumber_heatmap_v2 <- function(copynumber, clones, grouping_file) {
     )
     return(copynumber_hm)
 }
-
+# brlen <- NULL
 make_cell_copynumber_tree_heatmap <- function(tree, copynumber, clones,
                                               brlen, grouping_file) {
     tree <- format_tree(tree, brlen)
@@ -910,8 +949,96 @@ make_cell_copynumber_tree_heatmap <- function(tree, copynumber, clones,
     )
 }
 
+get_color_legend_ascn <- function(plotcol){
+  source('/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/scripts/corrupt_tree/src/ascn_scripts/col_palettes.R')
+  
+  cn_colours_loh <- scCNAS_colors
+  cn_colours_minorallele <- scCNminorallele_colors
+  cn_colours_phase <- scCNphase_colors
+  cn_colours_bafstate <- scBAFstate_colors
+  legendname <- ''
+  if (plotcol == "state") {
+    colvals <- cn_colours
+    legendname <- "Copy Number"
+  }
+  
+  if (plotcol == "B") {
+    colvals <- cn_colours
+    legendname <- "Copy Number\nAllele B"
+  }
+  
+  if (plotcol == "A") {
+    colvals <- cn_colours
+    legendname <- "Copy Number\nAllele A"
+  }
+  
+  if (plotcol == "state_BAF") {
+    # colvals <- cn_colours_bafstate
+    colvals <- c(`0`="#355E3B",`0.1`="#50C878",`0.2`="#96DED1",`0.3`="#A5BB8DFF", #"#A5BB8DFF"
+                 `0.4`="#BDC8B0FF",`0.5`="#D5D5D4FF",`0.6`="#B9ADC0FF",`0.7`="#9E87ACFF",
+                 `0.8`="#826298FF",`0.9`="#653E85FF", `1`="#471871FF")
+    
+    legendname <- "Allelic Imbalance"
+  }
+  
+  if (plotcol == "BAF") {
+    colvals <- circlize::colorRamp2(c(0, 0.5, 1), c(scCNphase_colors["A-Hom"], scCNphase_colors["Balanced"], scCNphase_colors["B-Hom"]))
+    legendname <- "Allelic Imbalance"
+  }
+  
+  if (plotcol == "copy") {
+    colvals <- circlize::colorRamp2(seq(0, 11, 1), scCN_colors)
+    legendname <- "Copy"
+  }
+  
+  if (plotcol == "other") {
+    colvals <- circlize::colorRamp2(c(0, maxCNcol / 2, maxCNcol), c(scCN_colors["CN0"], scCN_colors["CN3"], scCN_colors["CN11"]))
+    legendname <- "Copy"
+  }
+  
+  if (plotcol == "state_AS") {
+    colvals <- cn_colours_loh
+    legendname <- "Allele Specific Copy Number"
+  }
+  
+  if (plotcol == "state_min") {
+    colvals <- cn_colours_minorallele
+    legendname <- "Minor Allele Copy Number"
+  }
+  
+  if (plotcol == "state_phase") {
+    colvals <- cn_colours_phase
+    legendname <- "Allelic Imbalance"
+  }
+  
+  res <- list(colvals=colvals, legendname=legendname)
+  return(res)
+  
+}
+
+make_allele_copy_number_heatmap <- function(ascn_df, clones, grouping_file, plotcol='state_phase') {
+  res <- get_color_legend_ascn(plotcol)
+  print(res)
+  copynumber_hm <- Heatmap(
+    name=res$legendname,
+    as.matrix(ascn_df),
+    col=res$colvals,
+    na_col="white",
+    show_row_names=FALSE,
+    cluster_rows=FALSE,
+    cluster_columns=FALSE,
+    show_column_names=FALSE,
+    bottom_annotation=make_bottom_annot(copynumber),
+    left_annotation=make_left_annot_v2(copynumber, clones, grouping_file),
+    heatmap_legend_param=list(nrow=2),
+    use_raster=TRUE,
+    raster_quality=5
+  )
+  return(copynumber_hm)
+}
+
 make_cell_copynumber_tree_heatmap_demo <- function(tree, copynumber, clones,
-                                              brlen, grouping_file) {
+                                              brlen, grouping_file, save_dir='', datatag='') {
     tree <- format_tree(tree, brlen)
     
     tree_ggplot <- make_tree_ggplot(tree, clones)
@@ -925,6 +1052,7 @@ make_cell_copynumber_tree_heatmap_demo <- function(tree, copynumber, clones,
     
     # tree_hm <- make_corrupt_tree_heatmap(tree_ggplot)
     copynumber_hm <- make_copynumber_heatmap(copynumber, clones, grouping_file)
+    saveRDS(copynumber_hm, paste0(save_dir, datatag, '_hm.rds'))
     # h <- tree_hm + copynumber_hm
     h <- copynumber_hm
     draw(
@@ -934,38 +1062,66 @@ make_cell_copynumber_tree_heatmap_demo <- function(tree, copynumber, clones,
         heatmap_legend_side="bottom"
     )
 }
-
-main <- function() {
-    argv <- get_args()
-
-    tree <- read.tree(argv$tree)
-    print(argv$tree)
-    print(argv$copynumber)
-    copynumber <- read.csv(argv$copynumber, header=T, row.names=1, check.names = F,stringsAsFactors = FALSE)
-    # copynumber <- read_tsv(argv$copynumber)
-
-    if(argv$normalize_ploidy) {
-        print(paste(
-            "WARNING: ceiling() will be applied to non-integer copynumber",
-            "during normalization"
-        ))
-        copynumber <- normalize_cell_ploidy(copynumber)
-    }
-
-    if(!is.null(argv$clones)) {
-        # clones <- read_tsv(argv$clones)
-        clones <- read.csv(argv$clones, check.names = F,stringsAsFactors = FALSE)
-    } else {
-        clones <- NULL
-    }
-
-    # pdf(argv$pdf, width=10)
-    png(argv$pdf, height = 2*800, width=2*1400, res = 2*72)
-    make_cell_copynumber_tree_heatmap(
-        tree, copynumber, clones, argv$branch_lengths, argv$grouping_file
-    )
-    dev.off()
+# tree, ascn_state_phase, clones, plotcol='state_phase', NULL, grouping_file, save_dir, paste0(datatag, '_ascn_state_phase')
+make_allele_copynumber_tree_heatmap_demo <- function(tree, copynumber, clones, plotcol,
+                                                   brlen=NULL, grouping_file=NULL,  save_dir='', datatag='') {
+  tree <- format_tree(tree, brlen)
+  
+  tree_ggplot <- make_tree_ggplot(tree, clones)
+  copynumber <- format_allele_copynumber(copynumber, tree_ggplot$data)
+  # copynumber <- format_copynumber(copynumber)
+  if(!is.null(clones)) {
+    # clones <- format_clones(clones)
+    clones <- format_clones(clones, tree_ggplot$data)
+    # copynumber <- copynumber[,clones$cell_id]
+  }
+  
+  # tree_hm <- make_corrupt_tree_heatmap(tree_ggplot)
+  copynumber_hm <- make_allele_copy_number_heatmap(copynumber, clones, grouping_file, plotcol)
+  saveRDS(copynumber_hm, paste0(save_dir, datatag, '_hm.rds'))
+  # h <- tree_hm + copynumber_hm
+  # png(paste0(save_dir,'cell_ascn_tree_heatmap_',datatag,'_state_phase.png'), height = 2*500, width=2*700, res = 2*72)
+  h <- copynumber_hm
+  draw(
+    h,
+    padding=unit(c(2, 2, 2, 2), "mm"),
+    annotation_legend_side="right",
+    heatmap_legend_side="bottom"
+  )
+  # dev.off()
 }
+
+# main <- function() {
+#     argv <- get_args()
+# 
+#     tree <- read.tree(argv$tree)
+#     print(argv$tree)
+#     print(argv$copynumber)
+#     copynumber <- read.csv(argv$copynumber, header=T, row.names=1, check.names = F,stringsAsFactors = FALSE)
+#     # copynumber <- read_tsv(argv$copynumber)
+# 
+#     if(argv$normalize_ploidy) {
+#         print(paste(
+#             "WARNING: ceiling() will be applied to non-integer copynumber",
+#             "during normalization"
+#         ))
+#         copynumber <- normalize_cell_ploidy(copynumber)
+#     }
+# 
+#     if(!is.null(argv$clones)) {
+#         # clones <- read_tsv(argv$clones)
+#         clones <- read.csv(argv$clones, check.names = F,stringsAsFactors = FALSE)
+#     } else {
+#         clones <- NULL
+#     }
+# 
+#     # pdf(argv$pdf, width=10)
+#     png(argv$pdf, height = 2*800, width=2*1400, res = 2*72)
+#     make_cell_copynumber_tree_heatmap(
+#         tree, copynumber, clones, argv$branch_lengths, argv$grouping_file
+#     )
+#     dev.off()
+# }
 
 # main()  # comment back
 
@@ -1010,6 +1166,8 @@ demo <- function() {
     dev.off()
     
     
+    
+    
 }
 
 
@@ -1032,3 +1190,30 @@ demo <- function() {
 #     tree, copynumber, clones, NULL, grouping_file
 # )
 # dev.off()
+# res <- get_color_legend_ascn(plotcol)
+# copynumber_hm <- Heatmap(
+#   name=res$legendname,
+#   as.matrix(ascn_df),
+#   col=res$colvals,
+#   na_col="white",
+#   show_row_names=FALSE,
+#   cluster_rows=FALSE,
+#   cluster_columns=FALSE,
+#   show_column_names=FALSE,
+#   # bottom_annotation=make_bottom_annot(copynumber),
+#   # left_annotation=make_left_annot_v2(copynumber, clones, grouping_file),
+#   heatmap_legend_param=list(nrow=2),
+#   use_raster=TRUE,
+#   raster_quality=5
+# )
+# # 
+# # p1 <- grid.grabExpr(ComplexHeatmap::draw(copynumber_hm, padding = unit(c(1, 1, 1, 1), "mm")))
+# # 
+# # p_total <- cowplot::plot_grid(p1, p1)
+# # p_total
+# draw(
+#   copynumber_hm,
+#   padding=unit(c(2, 2, 2, 2), "mm"),
+#   annotation_legend_side="right",
+#   heatmap_legend_side="bottom"
+# )

@@ -34,31 +34,31 @@
 # sub_dir <- c("Tyler_whole")
 # sub_dir <- c("Tyler_2361","Tyler_2362","Tyler_2363","Tyler_2364","Tyler_whole")
 
-base_dir <- '/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/'
-sub_dir <- c("Tyler_2251","Tyler_2252","Tyler_2253","Tyler_2254","Tyler_216","Tyler_2164","SA919_Tyler_filtered")
-# s <- "Tyler_2251"
-# source_dir <- '/home/htran/Projects/hakwoo_project/corrupt_tree/src/tree_viz/'
-# source(paste0(source_dir,'trajectory_utils.R'))
+# base_dir <- '/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/'
+# sub_dir <- c("Tyler_2251","Tyler_2252","Tyler_2253","Tyler_2254","Tyler_216","Tyler_2164","SA919_Tyler_filtered")
+# # s <- "Tyler_2251"
+# # source_dir <- '/home/htran/Projects/hakwoo_project/corrupt_tree/src/tree_viz/'
+# # source(paste0(source_dir,'trajectory_utils.R'))
+# # 
+# for(s in sub_dir){
+#   s = sub_dir[7]
+#   subthres=100
+#   results_dir <- paste0(base_dir,s,"/")
 # 
-for(s in sub_dir){
-  s = sub_dir[7]
-  subthres=100
-  results_dir <- paste0(base_dir,s,"/")
-
-  cellclones <- paste0(results_dir, 'cell_clones.csv')
-  print(s)
-  # datatag <- gsub('Tyler_','SA535_',s)
-  if(s=="SA919_Tyler_filtered"){
-    datatag <- "SA919_total"
-  }
-  # datatag <-'SA919'
-  save_dir <- paste0(results_dir,'dream_tree/')
-  if (!file.exists(save_dir)){
-    dir.create(save_dir)
-  }
-  generate_tree(results_dir, save_dir, datatag, subthres)
-
-}
+#   cellclones <- paste0(results_dir, 'cell_clones.csv')
+#   print(s)
+#   # datatag <- gsub('Tyler_','SA535_',s)
+#   if(s=="SA919_Tyler_filtered"){
+#     datatag <- "SA919_total"
+#   }
+#   # datatag <-'SA919'
+#   save_dir <- paste0(results_dir,'dream_tree/')
+#   if (!file.exists(save_dir)){
+#     dir.create(save_dir)
+#   }
+#   generate_tree(results_dir, save_dir, datatag, subthres)
+# 
+# }
 
 generate_tree <- function(results_dir, save_dir, datatag = 'SA1035',subthres=20) {
   

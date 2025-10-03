@@ -1,0 +1,10 @@
+Project title: Multi-faceted metastasis decoding: clonal fitness, site pressure, and transcriptional modulation
+
+Keywords: metastasis decoding, clonal fitness, PDX,  transcriptional modulation
+
+
+Abstract
+
+The dynamics of unique pressures that evolve metastasis fitness due to genetic and non-genetic components in relationship to primary versus metastatic site has remained difficult to decipher due to the highly complex and intertwined relationship of these features to the heterogeneous clonal structures within tumors. To simplify this problem, we generated serially passaged patient-derived xenografts (PDX) that developed reproducible metastasis and examined them for robust clonal selection using DLP+ single cell genome sequencing. This clonal composition analysis identified a simpler PDX model of metastases that displayed very high intra-PDX clonal competitive fitness, marked with dominant and differential clonal sweeps at metastatic and primary sites by different clones. Further testing this fitness using the different combinations of clones’ transplantation, re-confirmed this high clonal selectivity of a metastatically fit clone at metastatic sites compared to the primary site, hence revealing copy number aberration (CNA) clonal state dependent fixed metastasis fitness. Interestingly, we found that metastatically less-fit clones can cause metastasis via transcriptional reprogramming through higher transcriptional divergence paths compared to the CNA dependent metastatically fit clone. Moreover, this transcriptional reprogramming path of metastatically less-fit clones showed evidence of convergent path as adopted by the metastatically fit clone. Overall, by testing 9 PDX lines we found two lines with reproducible metastasis which identified a model that simplified the complexities of tumor evolution during metastasis and revealed the dominant role of favorable CNA clonal structure in fixating fitness.
+
+

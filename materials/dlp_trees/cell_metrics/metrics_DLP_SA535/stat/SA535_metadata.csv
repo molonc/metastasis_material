@@ -1,0 +1,27 @@
+Sample_ID,PDX_ID,Site_origin,Grouping,DLP_jira_ticket,Library ID_DLP,dlp_results,CType
+SA535X4XB05391,X0011-2361,Primary,Primary,SC-1752,A96201B,TRUE,cell
+SA535X4XB05730,X0011-2361,Tumor recur (nuclei),Metastasis,SC-2206,A95721B,TRUE,cell
+SA535X4XB05723,X0011-2361,Axillary,Metastasis,SC-1878,A95731A,TRUE,cell
+SA535X4XB05649,X0011-2362,Primary,Primary,"SC-2297, SC-2876 (nuclei), SC-2868 (nuclei), SC-3085 (nuclei), SC-3083 (nuclei)",A98277B,C,cell
+SA535X4XB05649,X0011-2362,Primary,Primary,"SC-2297, SC-2876 (nuclei), SC-2868 (nuclei), SC-3085 (nuclei), SC-3083 (nuclei)",A98232A,TRUE,nuclei
+SA535X4XB05649,X0011-2362,Primary,Primary,"SC-2297, SC-2876 (nuclei), SC-2868 (nuclei), SC-3085 (nuclei), SC-3083 (nuclei)",A98261A,TRUE,nuclei
+SA535X4XB05649,X0011-2362,Primary,Primary,"SC-2297, SC-2876 (nuclei), SC-2868 (nuclei), SC-3085 (nuclei), SC-3083 (nuclei)",A98165A,"CHECK, have data, no filtered output found, is this because of folder name, check download_data.py",nuclei
+SA535X4XB05649,X0011-2362,Primary,Primary,"SC-2297, SC-2876 (nuclei), SC-2868 (nuclei), SC-3085 (nuclei), SC-3083 (nuclei)",A98197B,"CHECK, have data, no filtered output found, is this because of folder name, check download_data.py",nuclei
+SA535X4XB09106,X0011-2362,Right Axillary,Metastasis,"SC-2055, SC-2056",A96121A,TRUE,cell
+SA535X4XB09106,X0011-2362,Right Axillary,Metastasis,"SC-2055, SC-2056",A96253A,TRUE,cell
+SA535X4XB09109,X0011-2362,Left Axillary,Metastasis,"SC-2296, SC-2845 (nuclei), SC-3072 (nuclei)",A98277A,TRUE,cell
+SA535X4XB09109,X0011-2362,Left Axillary,Metastasis,"SC-2296, SC-2845 (nuclei), SC-3072 (nuclei)",A98254B,"CHECK, no analysis found",nuclei
+SA535X4XB09109,X0011-2362,Left Axillary,Metastasis,"SC-2296, SC-2845 (nuclei), SC-3072 (nuclei)",A98197A,"CHECK, have data, no filtered output found, is this because of folder name, check download_data.py",nuclei
+SA535X4XB09113,X0011-2362,Inguinal,Metastasis,"SC-2324, SC-2325",A98194B,"CHECK, have data, no filtered output found, is this because of folder name, check download_data.py",cell
+SA535X4XB09113,X0011-2362,Inguinal,Metastasis,"SC-2324, SC-2325",A98269A,TRUE,cell
+SA535X4XB05462,X0011-2363,Primary,Primary,"SC-2323, SC-3107, SC-3109",A98194A,TRUE,cell
+SA535X4XB05462,X0011-2363,Primary,Primary,"SC-2323, SC-3107, SC-3109",A98169A,TRUE,cell
+SA535X4XB05462,X0011-2363,Primary,Primary,"SC-2323, SC-3107, SC-3109",A98174A,TRUE,cell
+SA535X4XB05662,X0011-2363,Tumor recur (nuclei),Metastasis,SC-2461 (nuclei),A98282B,TRUE,nuclei
+SA535X4XB05667,X0011-2363,Axillary,Metastasis,"SC-2376, SC-2374",A98294B,TRUE,cell
+SA535X4XB05667,X0011-2363,Axillary,Metastasis,"SC-2376, SC-2374",A98296A,TRUE,cell
+SA535X4XB02498,X0011-2364,Primary,Primary,"SC-2222, SC-3121 (nuclei)",A95697A,TRUE,cell
+SA535X4XB02498,X0011-2364,Primary,Primary,"SC-2222, SC-3121 (nuclei)",A98163A,TRUE,nuclei
+SA535X4XB05985,X0011-2364,Axillary,Metastasis,"SC-2463, SC-2465",A98262A,TRUE,cell
+SA535X4XB05985,X0011-2364,Axillary,Metastasis,"SC-2463, SC-2465",A98303B,TRUE,cell
+SA535X4XB05989,X0011-2364,Inguinal,Metastasis,SC-2467,A98262B,TRUE,cell

@@ -38,15 +38,18 @@ print(opt$cellclones)
 print("Generating ebola tree plots...")
 # Plot ebola tree at each time point, and whole dataset
 # plot_ebola_tree_condition(opt$datatag, opt$inputdir, opt$outputfile, opt$cellclones)
-plot_ebola_tree_condition_v2(opt$datatag, opt$inputdir, opt$outputfile, opt$cellclones)
+plot_ebola_tree_condition(opt$datatag, opt$inputdir, opt$outputfile, opt$cellclones)
+
+
+plot_summary_tree(opt$datatag, opt$inputdir, opt$outputfile, opt$cellclones)
 
 
 
-# script.basename <- '/home/htran/Projects/hakwoo_project/corrupt_tree/src/tree_viz'
-# source(paste0(script.basename, "/utils.R"))
-# source(paste0(script.basename, "/trajectory_utils_v2.R"))
-# source(paste0(script.basename, "/ebola_tree_utils.R"))
-# source(paste0(script.basename, "/collapse_tree_utils.R"))
+script.basename <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/scripts/corrupt_tree/src/tree_viz'
+source(paste0(script.basename, "/utils.R"))
+source(paste0(script.basename, "/trajectory_utils_v2.R"))
+source(paste0(script.basename, "/ebola_tree_utils.R"))
+source(paste0(script.basename, "/collapse_tree_utils.R"))
 # results_dir <- '/home/htran/storage/datasets/metastasis_results/SA535_new_encoding/SA535_wholedata_v2'
 # datatag <- 'SA535'
 # outputfile <- paste0(results_dir,'/tree_viz_dream_testing/trajectory_clone_wholedata.png')
@@ -59,10 +62,10 @@ plot_ebola_tree_condition_v2(opt$datatag, opt$inputdir, opt$outputfile, opt$cell
 
 
 
+results_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/figures/fig_cnv/'
+p_tree <- readRDS(paste0(results_dir, 'summary_tree_SA535.rds'))
 
-
-
-
+p_tree
 
 
 

@@ -1,0 +1,11 @@
+library_id,transplanted_mouse,sample_id,MainSite,Tumor_ID,jira_ticket,Hoa QC,Athena QC,Total cells,Mixing experiment,Expected,Achieved Results,Noted,Sample_Name,Patient_ID,SA_ID,exp,sid1,sid1_detail,sid2,sid2_detail,out_sid,r1,r2
+A130854A,04342 - lumbar,AT13692,Lumbar,X0847-216421122521,"",,,,"Metastasis X4 (X0847-2164 Axim)
++ Metastasis X7 (X0847-2112252 spinal met)",1A : 1C,"","","","","","","","","","","",,
+A138959A,04345 - primary,AT11344,Primary,X0847-216421122524,"",,,,"Metastasis X4 (X0847-2164 Axim)
++ Metastasis X7 (X0847-2112252 spinal met)",1A : 1C,"","","","","","","","","","","",,
+A138963B,04345 - posterior neck,AT13634,Posterior_Neck,X0847-216421122524,"",,,,"Metastasis X4 (X0847-2164 Axim)
++ Metastasis X7 (X0847-2112252 spinal met)",1A : 1C,"","","","","","","","","","","",,
+A138967B,04410 - primary,AT13582,Primary,X0847-21122516,"",,,,"Primary X7 2112251 + Supra Spinal X7 2112252
+(1:1)",1B:1C,"","","","","","","","","","","",,
+A138895B,04410 - posterior neck,AT13804,Posterior_Neck,X0847-21122516,"",,,,"Primary X7 2112251 + Supra Spinal X7 2112252
+(1:1)",1B:1C,"","","","","","","","","","","",,

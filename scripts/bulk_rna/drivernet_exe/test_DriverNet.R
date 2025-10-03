@@ -191,7 +191,100 @@ summary_driver_genes_output <- function(){
   bc1$chr  
 }
 
-z
+viz_graph_results <- function(datatag, save_output_dir){
+  library(ggraph)
+  library(igraph)
+  library(tidygraph)
+  
+  input_dir <- "/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/materials/bulkRNAseq/preprocessed_09April2024/"
+  save_dir <- paste0(input_dir, 'drivernet_demo/')
+  data_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/results_bulkRNAseq/SA919_full/'
+  
+  
+  obs_clones <- c('B','C') 
+  subtag <- paste0(obs_clones[2],'met_',obs_clones[1],'pri')
+  save_output_dir <- paste0(save_dir, subtag,'/')
+  pw_df <- data.table::fread(paste0(save_output_dir, 'pathways_',subtag,'.csv.gz'))
+  drivernet_full_df <- data.table::fread(paste0(save_output_dir, 'significant_genes_DriverNet.csv'))
+  exp_df <- data.table::fread(paste0(data_dir, subtag, '/', subtag, '_DE_genes.csv.gz'))
+  print(subtag)
+  print(dim(exp_df))
+  head(exp_df)
+  pbc <- construct_genes_network(drivernet_full_df, exp_df, subtag, save_output_dir, pw_df)
+  pbc
+  
+  obs_clones <- c('A','C') 
+  subtag <- paste0(obs_clones[2],'met_',obs_clones[1],'pri')
+  save_output_dir <- paste0(save_dir, subtag,'/')
+  drivernet_full_df <- data.table::fread(paste0(save_output_dir, 'significant_genes_DriverNet.csv'))
+  exp_df <- data.table::fread(paste0(data_dir, subtag, '/', subtag, '_DE_genes.csv.gz'))
+  print(subtag)
+  print(dim(exp_df))
+  head(exp_df)
+  
+  pac <- construct_genes_network(drivernet_full_df, exp_df, subtag, save_output_dir)
+  pac
+  
+  
+  obs_clones <- c('A','B') ## check % cis genes, a trackplot
+  subtag <- paste0(obs_clones[2],'met_',obs_clones[1],'pri')
+  save_output_dir <- paste0(save_dir, subtag,'/')
+  drivernet_full_df <- data.table::fread(paste0(save_output_dir, 'significant_genes_DriverNet.csv'))
+  # edges_df <- data.table::fread(paste0(save_output_dir, 'InteractomeFI_2022_wt_Score.csv.gz'))  
+  exp_df <- data.table::fread(paste0(data_dir, subtag, '/', subtag, '_DE_genes.csv.gz'))
+  print(subtag)
+  print(dim(exp_df))
+  head(exp_df)
+  pab <- construct_genes_network(drivernet_full_df, exp_df, subtag, save_output_dir)
+  pab
+  
+  
+}
+
+viz_supp_fig6 <- function(){
+  input_dir <- "/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/materials/bulkRNAseq/preprocessed_09April2024/"
+  save_dir <- paste0(input_dir, 'drivernet_demo/')
+  
+  obs_clones <- c('B','C') 
+  subtag <- paste0(obs_clones[2],'met_',obs_clones[1],'pri')
+  save_output_dir <- paste0(save_dir, subtag,'/')
+  pbc <- readRDS(paste0(save_output_dir, subtag, '_graph.rds'))
+  ggsave(paste0(save_dir,"Fig6_partD_genes_network.svg"),
+         plot = pbc,
+         height = 6,
+         width = 11,
+         # useDingbats=F
+  )
+  
+  obs_clones <- c('A','B') ## check % cis genes, a trackplot
+  subtag <- paste0(obs_clones[2],'met_',obs_clones[1],'pri')
+  save_output_dir <- paste0(save_dir, subtag,'/')
+  pab <- readRDS(paste0(save_output_dir, subtag, '_graph.rds'))
+  
+  obs_clones <- c('A','C') ## check % cis genes, a trackplot
+  subtag <- paste0(obs_clones[2],'met_',obs_clones[1],'pri')
+  save_output_dir <- paste0(save_dir, subtag,'/')
+  pac <- readRDS(paste0(save_output_dir, subtag, '_graph.rds'))
+  
+  p_total <- cowplot::plot_grid(pab, pac, ncol=1, rel_heights = c(1, 0.65), 
+                                labels = c('A.  Clone B metastasis versus clone A primary samples',
+                                           'B.  Clone C metastasis versus clone A primary samples'))
+  
+  ggsave(paste0(save_dir,"SUPP_Fig6_genes_network.svg"),
+         plot = p_total,
+         height = 12,
+         width = 11,
+         # useDingbats=F
+  )
+  ggsave(paste0(save_dir,"SUPP_Fig6_genes_network.png"),
+         plot = p_total,
+         height = 12,
+         width = 11,
+         # useDingbats=F
+  )
+  
+}
+
 
 
 

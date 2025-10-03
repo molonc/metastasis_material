@@ -1,6 +1,6 @@
 suppressPackageStartupMessages({
   library(tidyverse)
-  library(annotables)
+  # library(annotables)
   library(dplyr)
   library(ggplot2)
   library(RColorBrewer)
@@ -16,57 +16,25 @@ suppressPackageStartupMessages({
 
 ## input, output? 
 
-viz_graph_results <- function(datatag, save_output_dir){
-  library(ggraph)
-  library(igraph)
-  library(tidygraph)
-  
-  input_dir <- "/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/materials/bulkRNAseq/preprocessed_09April2024/"
-  save_dir <- paste0(input_dir, 'drivernet_demo/')
-  obs_clones <- c('B','C') ## check % cis genes, a trackplot
-  subtag <- paste0(obs_clones[2],'met_',obs_clones[1],'pri')
-  save_output_dir <- paste0(save_dir, subtag,'/')
-  pw_df <- data.table::fread(paste0(save_output_dir, 'pathways_',subtag,'.csv.gz'))
-  # df <- data.table::fread(paste0(save_dir, 'significant_genes_DriverNet_cloneCB_v2.csv'))
-  df <- data.table::fread(paste0(save_output_dir, 'significant_genes_DriverNet.csv'))
-  # edges_df <- data.table::fread(paste0(save_output_dir, 'InteractomeFI_2022_wt_Score.csv.gz'))  
-  
-  data_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/results_bulkRNAseq/SA919_full/'
-  exp_df <- data.table::fread(paste0(data_dir, subtag, '/', subtag, '_DE_genes.csv.gz'))
-  print(subtag)
-  print(dim(exp_df))
-  head(exp_df)
-  # 
-  # dim(edges_df)  
-  # head(edges_df)
-  # dim(df)
-  # df[1:5,1:5]
-  # names(df)
-  # unique(edges_df$Direction)
-  
-  # dolphin %>% 
-  #   activate(nodes) %>%
-  #   mutate(community = as.factor(group_louvain())) %>% 
-  #   ggraph() + 
-  #   geom_edge_link() + 
-  #   geom_node_point(aes(colour = community), size = 5)
-  
-  
-  driver_df <- df %>%
-    dplyr::filter(`p-value`<0.05) %>%
-    # dplyr::select(gene_symbol, ens_gene_id) %>%
-    # dplyr::rename(name=gene_symbol) %>%
-    dplyr::mutate(gene_type='driver gene')
-  nodes_df <- df %>%
+construct_genes_network <- function(drivernet_full_df, exp_df, subtag, save_output_dir, pw_df=NULL){
+  nodes_driver_genes_df <- drivernet_full_df %>%
     # dplyr::filter(`p-value`<0.05) %>%
-    dplyr::select(gene_symbol, ens_gene_id) %>%
+    dplyr::select(gene_symbol, ens_gene_id,`p-value`) %>%
     dplyr::rename(name=gene_symbol) %>%
-    dplyr::mutate(gene_type='driver gene', label=name)
-  
+    dplyr::mutate(label=name) %>%
+    dplyr::mutate(gene_type=
+                    case_when(
+                      `p-value`<0.05 ~ 'significant driver gene',
+                      TRUE ~ 'non significant driver gene'
+                    )) %>%
+    dplyr::select(-`p-value`)
+  head(nodes_driver_genes_df)
+  unique(nodes_driver_genes_df$gene_type)
+  # Draw connection between driver gene and cover genes
   cover_genes <- c()
   edges_df <- tibble::tibble()
-  for(g in df$gene_symbol){
-    gls <- df %>%
+  for(g in drivernet_full_df$gene_symbol){
+    gls <- drivernet_full_df %>%
       dplyr::filter(gene_symbol==g) %>%
       dplyr::pull(cover_genes)
     gls <- unlist(strsplit(gls,','))
@@ -83,9 +51,10 @@ viz_graph_results <- function(datatag, save_output_dir){
     }
   }
   cover_genes <- unique(cover_genes)
-  cover_genes <- cover_genes[!cover_genes %in% nodes_df$name]
-  nodes_df2 <- tibble::tibble(name=cover_genes, gene_type='cover gene',label='') # empty label for covered genes
-  nodes_df <- dplyr::bind_rows(nodes_df, nodes_df2)
+  # to make sure cover genes are not in driver genes list, nodes in network should be unique
+  cover_genes <- cover_genes[!cover_genes %in% nodes_driver_genes_df$name]
+  nodes_cover_genes_df <- tibble::tibble(name=cover_genes, gene_type='cover gene',label='') # empty label for covered genes
+  nodes_df <- dplyr::bind_rows(nodes_driver_genes_df, nodes_cover_genes_df)
   dim(nodes_df)
   dim(edges_df)
   
@@ -97,6 +66,15 @@ viz_graph_results <- function(datatag, save_output_dir){
   # rs <- runif(dim(nodes_df)[1], 1, 4)
   # nodes_df$size <- rs
   
+  if(!'symbol' %in% colnames(exp_df)){
+    ref <- annotables::grch38 %>%
+      dplyr::select(ensgene, symbol) %>%
+      dplyr::rename(ensembl_gene_id=ensgene)
+    ref <- ref[!duplicated(ref$ensembl_gene_id),]
+    exp_df <- exp_df %>%
+      dplyr::left_join(ref, by='ensembl_gene_id')
+  }
+  
   exp_df <- exp_df %>%
     dplyr::filter(symbol %in% nodes_df$name) %>%
     dplyr::select(log2FoldChange, symbol) %>%
@@ -106,6 +84,8 @@ viz_graph_results <- function(datatag, save_output_dir){
     dplyr::left_join(exp_df, by=c('name'='symbol'))
   # sum(nodes_df$name %in% exp_df$symbol)
   # nodes_df$size # check if cover genes with smaller size to emphasize only driver genes
+  
+  ## log2FC is represented by size of circle node
   nodes_df <- nodes_df %>%
     dplyr::mutate(
       size=case_when(
@@ -117,62 +97,92 @@ viz_graph_results <- function(datatag, save_output_dir){
   nodes_df <- nodes_df %>%
     dplyr::mutate(
       size=case_when(
-        gene_type== "cover gene"  ~ 0.5, 
+        gene_type== "cover gene"  ~ 0.6, 
         TRUE ~ size
       )
     )
-    
+  
   ## Adding pathways labels here
   ## If nodes are in pathways, coloring nodes by different colors, and edge color between nodes as well
   
-  pw_total <- tibble::tibble()
-  for(rf in pw_df$reference_set){
-    pw_tmp <- pw_df %>%
-      dplyr::filter(reference_set==rf)
-    genes_used <- as.character(unlist(strsplit(pw_tmp$signif_genes, split = ',')))
-    stat_tmp <- tibble::tibble(gene_name=genes_used, pathway=rf)
-    pw_total <- dplyr::bind_rows(pw_total, stat_tmp)
-  }
-  dim(pw_total)
-  # View(pw_total)
-  pw_total <- pw_total[!duplicated(pw_total$gene_name),]
-  # nodes_df$label
-  
-  nodes_df <- nodes_df %>%
-    dplyr::left_join(pw_total, by=c('name'='gene_name')) 
-  dim(nodes_df )
-  summary(as.factor(nodes_df$pathway))
-  nodes_df <- nodes_df %>%
-    dplyr::mutate(
-      pathway=case_when(
-        !is.na(pathway) ~ pathway,
-        TRUE ~ 'no_pathway')
-    )
-  ## if genes are in pathways --> show genes name, otherwise, empty label text
-  nodes_df <- nodes_df %>%
-    dplyr::mutate(
-      label=case_when(
-        pathway!='no_pathway' ~ name,
-        TRUE ~ label
+  if(!is.null(pw_df)){
+    pw_total <- tibble::tibble()
+    for(rf in pw_df$reference_set){
+      pw_tmp <- pw_df %>%
+        dplyr::filter(reference_set==rf)
+      genes_used <- as.character(unlist(strsplit(pw_tmp$signif_genes, split = ',')))
+      stat_tmp <- tibble::tibble(gene_name=genes_used, pathway=rf)
+      pw_total <- dplyr::bind_rows(pw_total, stat_tmp)
+    }
+    dim(pw_total)
+    pw_total <- pw_total[!duplicated(pw_total$gene_name),]
+    # nodes_df$label
+    
+    nodes_df <- nodes_df %>%
+      dplyr::left_join(pw_total, by=c('name'='gene_name')) 
+    dim(nodes_df )
+    summary(as.factor(nodes_df$pathway))
+    nodes_df <- nodes_df %>%
+      dplyr::mutate(
+        pathway=case_when(
+          !is.na(pathway) ~ pathway,
+          TRUE ~ 'no_pathway')
       )
-    )
+    ## if genes are in pathways --> show genes name, otherwise, empty label text
+    nodes_df <- nodes_df %>%
+      dplyr::mutate(
+        label=case_when(
+          pathway!='no_pathway' ~ name,
+          TRUE ~ label
+        )
+      )  
+  }
+  
   dim(nodes_df)
+  unique(nodes_df$gene_type)
   # edges_df <- edges_main
   # datatag <- subtag
   pg <- viz_graph(nodes_df, edges_df, subtag, save_output_dir)
-  pg
-  ggsave(paste0(save_output_dir,subtag,"_network_2.svg"),
-         plot = pg,
-         height = 7,
-         width = 10,
-         # useDingbats=F
-  )
+  # pg
+  
   
   
   
   return(pg)
-  
 }
+
+get_genes4demo <- function(){
+  dim(nodes_df)  
+  sum(nodes_df$size>=2)
+  nodes_df1 <- nodes_df %>%
+    dplyr::filter(size>=1.5) #%>%
+    # dplyr::pull(name)
+  
+  pw_genes <- nodes_df %>%
+    dplyr::filter(pathway!='no_pathway') %>%
+    dplyr::pull(name)
+  unique(nodes_df$gene_type)
+  head(edges_df)
+  typeof(edges_df$x)
+  
+  used_genes <- nodes_df1$name
+  edges_df1 <- edges_df %>%
+    # dplyr::mutate(x = as.character(x), y=as.character(y)) %>%
+    dplyr::filter(x %in% used_genes | y %in% used_genes) # || 
+  dim(edges_df1)
+  View(edges_df1)  
+  data.table::fwrite(edges_df1, paste0(save_output_dir, 'demo_genes.csv'))
+  
+  influence_graph_df <- data.table::fread(paste0(save_output_dir, 'InteractomeFI_2022_wt_Score.csv.gz'))
+  used_genes <- c(edges_df1$x, edges_df1$y)
+  edges_df2 <- influence_graph_df %>%
+    # dplyr::mutate(x = as.character(x), y=as.character(y)) %>%
+    dplyr::filter(g1 %in% used_genes & g2 %in% used_genes)
+  dim(edges_df2)
+  View(edges_df2)
+}
+
+
 viz_graph <- function(nodes_df, edges_df, datatag, save_output_dir){
   nodes_df$pathway <- as.factor(nodes_df$pathway)
   ls_pws <- unique(nodes_df$pathway)
@@ -191,11 +201,11 @@ viz_graph <- function(nodes_df, edges_df, datatag, save_output_dir){
   # library(RColorBrewer)
   
   cols_ref <- brewer.pal(8, "Set2")
-  cols_use <- c('#D3D3D3', cols_ref[1:length(ls_pws)])
-  names(cols_use) <- c('no_pathway',as.character(ls_pws))
+  # cols_use <- c('#D3D3D3', cols_ref[1:length(ls_pws)])
+  # names(cols_use) <- c('no_pathway',as.character(ls_pws))
   
-  cols_use <- c('#b2d8b2','#800080')
-  names(cols_use) <- c("cover gene", "driver gene")
+  cols_use <- c('#27F5E0','#EEA5E2','#781768') #b2d8b2
+  names(cols_use) <- c("cover gene",'non significant driver gene', 'significant driver gene')
   # cols_use
   # summary(as.factor(edges_df$edge_type))
   # summary(as.factor(nodes_df$gene_type))
@@ -210,8 +220,8 @@ viz_graph <- function(nodes_df, edges_df, datatag, save_output_dir){
   # edges_wd <- c(0.4, 0.8, 0.9)
   # names(edges_wd) <- c('driver_cover_connected','pathway2','pathway3')
   # 
-  gt_cols <- c(0.9, 0.6)
-  names(gt_cols) <- c("driver gene","cover gene")
+  gt_cols <- c(0.6, 0.8, 1)
+  names(gt_cols) <- c("cover gene",'non significant driver gene', 'significant driver gene')
   sz <- c(0.9, 0.6)
   names(sz) <- c("driver gene","cover gene")
   # fc1 <- c('bold', 'italic')
@@ -229,10 +239,10 @@ viz_graph <- function(nodes_df, edges_df, datatag, save_output_dir){
   
   ## To do: alpha scale, gene type=signf, not signif, cover genes
   pg <- ggraph(ig, layout='kk') + 
-    geom_edge_link(alpha=.3, colour='darkgrey') + #, colour='darkgrey' aes(color = edge_type, width=edge_type)
+    geom_edge_link(alpha=.3, colour='#D3D3D3') + #, colour='darkgrey' aes(color = edge_type, width=edge_type)
     geom_node_point(aes(size=size, colour = gene_type), alpha=0.7) + #shape = gene_type, 
     geom_node_point(aes(size=size, alpha=gene_type), shape = 1) + #shape = gene_type, , colour='black'
-    geom_node_text(aes(label = label), repel=TRUE, max.overlaps = Inf, size=5.5) + 
+    geom_node_text(aes(label = label), repel=TRUE, max.overlaps = Inf, size=5) + 
     # scale_edge_colour_manual(values=edge_cols_use) + 
     # scale_edge_width_manual(values=edges_wd) + 
     # scale_size_manual(values = sz) + 
@@ -251,10 +261,10 @@ viz_graph <- function(nodes_df, edges_df, datatag, save_output_dir){
   # V(pg)$color[V(pg)$name %in% driver_df$gene_symbol] <- "red"
   
   # BiocManager::install('svglite', ask=F)
-  ggsave(  
-    filename = paste0(save_output_dir,datatag,"_graph.svg"),  
-    plot = pg,  
-    height = 8, width = 12, dpi = 150)
+  # ggsave(
+  #   filename = paste0(save_output_dir,datatag,"_graph.svg"),
+  #   plot = pg,
+  #   height = 8, width = 12, dpi = 150)
   
   saveRDS(pg, paste0(save_output_dir, datatag, '_graph.rds'))
   ## to do: significant genes with red color node
