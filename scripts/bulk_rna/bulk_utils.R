@@ -36,7 +36,7 @@ get_bootstrap_stat_sampling <- function(cis_genes, trans_genes,
   #   genome_genes <- ref$gene_id
   # }
   nb_sampled_cis <- round(length(cis_genes) * sampling_fraction)
-  nb_sampled_cis <- length(cis_genes)
+  # nb_sampled_cis <- length(cis_genes)
   # cis_samples <- lapply(1:nsamples, function(i) sample(cis_genes, size=nb_sampled_cis, replace = T))
   # trans_samples <- lapply(1:nsamples, function(i) sample(trans_genes, size=nb_sampled_cis, replace = T))
   cis_samples <- list()

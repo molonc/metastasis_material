@@ -1,0 +1,9 @@
+obs_chr,nb_genes,p_value,D_value,hypothesis,obs_condition
+7,410,8.46928494947591e-07,0.154471544715447,two-sided,B_Metastasis_vs_A_Primary
+1,26,0.621503272722498,0.166666666666667,two-sided,B_Metastasis_vs_A_Primary
+7,392,0.14442082859775,0.0884353741496599,two-sided,C_Metastasis_vs_A_Primary
+10,64,0.231586513142424,0.192708333333333,two-sided,C_Metastasis_vs_A_Primary
+5,80,0.0124800782242194,0.266666666666667,two-sided,C_Metastasis_vs_A_Primary
+1,8,0.192474192474192,0.541666666666667,two-sided,C_Metastasis_vs_A_Primary
+10,280,0.0138466729676112,0.210714285714286,two-sided,C_Metastasis_vs_B_Primary
+5,296,3.53977492257079e-06,0.334459459459459,two-sided,C_Metastasis_vs_B_Primary

@@ -321,6 +321,7 @@ viz_Fig6_partA <- function(){
     height = 3.5, width = 11, dpi = 150)
   
 }
+
 viz_Fig6_partB <- function(){
   save_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/results_bulkRNAseq/SA919_full/'
   datatag <- 'SA919_full'

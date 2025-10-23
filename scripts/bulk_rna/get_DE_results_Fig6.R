@@ -41,6 +41,7 @@ get_pathways_Fig6_partD <- function(){
   
   
 }
+
 extract_DE_genes_DESeq2 <- function(dds){
   library(DESeq2)
   ## How to select samples here? 
