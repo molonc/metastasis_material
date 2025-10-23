@@ -6,7 +6,7 @@ This repository contains all materials and scripts used in manuscript:
 Hoa Tran, Gurdeep Singh, Hakwoo Lee, Damian Yap, Eric Lee, William Daniels, Farhia Kabeer, Ciara H O’Flanagan, Vinci Au, Michael Van Vliet, Daniel Lai, Elena Zaikova, Sean Beatty, Esther Kong, Shuyu Fan, Jessica Chan,Sam Dang, Viviana Cerda, Teresa Ruiz de Algaza, Andrew Roth, Samuel Aparicio
 
 Somatic copy number mutations contribute to fitness in transplantation models of spontaneous human breast cancer metastasis.
-biorxiv preprint DOI: https://www.biorxiv.org/content/ (will update it soon)
+biorxiv preprint DOI: https://www.biorxiv.org/content/ (will update link soon)
 
 ```
 
@@ -15,9 +15,7 @@ biorxiv preprint DOI: https://www.biorxiv.org/content/ (will update it soon)
   - [Uploaded data link](#uploaded-data-link)
   - [Meta data](#meta-data)
   - [Phylogenetic tree results](#phylogenetic-tree-results)
-  - [Reference gene sets](#reference-gene-sets)
   - [Tissue screening](#tissue-screening)
-  - [Cis trans genes](#cis-trans-genes)
   - [Main figures](#main-figures)
   - [Supplementary figures](#supplementary-figures)
   - [Supplementary tables](#supplementary-tables)
@@ -47,6 +45,7 @@ The contribution of somatic gene dosage mutations (CNA) to breast cancer metasta
 
 ### Meta data
 - Library infos, primary and metastasis statuses and time series - passages are noted at [materials/dlp_trees](https://github.com/molonc/metastasis_material/tree/main/materials/dlp_trees/EGA_metastasis_project/).
+- The full details of metadata files are noted at [materials/inventory_19Mar2024](https://github.com/molonc/metastasis_material/tree/main/materials/inventory_19Mar2024)
 
 
 ### Phylogenetic tree results
@@ -60,10 +59,10 @@ The contribution of somatic gene dosage mutations (CNA) to breast cancer metasta
 - TMA score results for TMA microarray tissue screening are at file  [materials/tumour_volumes/](https://github.com/molonc/metastasis_material/tree/main/materials/tumour_volumes)
 
 ### Cis trans genes 
-- DE analysis are at [materials/cis_trans/](https://github.com/molonc/metastasis_material/tree/main/materials/) 
-- Pathway analysis results are at [materials/pathway](https://github.com/molonc/metastasis_material/tree/main/materials/)
+- DE analysis are at [materials/bulkRNAseq/](https://github.com/molonc/metastasis_material/tree/main/materials/bulkRNAseq/) 
+- Pathway analysis results are at [materials/bulkRNAseq/](https://github.com/molonc/metastasis_material/tree/main/materials/bulkRNAseq/)
 
-### Main Figures 
+### Main figures 
 - Figure files at [materials/main_figures/](https://github.com/molonc/metastasis_material/tree/main/main_figures/) 
 
 
@@ -89,13 +88,13 @@ The contribution of somatic gene dosage mutations (CNA) to breast cancer metasta
 
 ## Citation
 ```
-Farhia Kabeer, Hoa Tran, Mirela Andronescu, Gurdeep Singh, Hakwoo Lee, Sohrab Salehi, Justina Biele, Jazmine Brimhall, David Gee, Viviana Cerda, Ciara O'Flanagan, Teresa Algara, Takako Kono, Sean Beatty, Elena Zaikova, Daniel Lai, Eric Lee, Richard Moore, Andrew J. Mungall, IMAXT Consortium,  Marc William, Andrew Roth, Kieran R. Campbell, Sohrab P. Shah, Samuel Aparicio.
+Hoa Tran, Gurdeep Singh, Hakwoo Lee, Damian Yap, Eric Lee, William Daniels, Farhia Kabeer, Ciara H O’Flanagan, Vinci Au, Michael Van Vliet, Daniel Lai, Elena Zaikova, Sean Beatty, Esther Kong, Shuyu Fan, Jessica Chan,Sam Dang, Viviana Cerda, Teresa Ruiz de Algaza, Andrew Roth, Samuel Aparicio
 
-Single-cell decoding of drug induced transcriptomic reprogramming in triple negative breast cancers
-Genome Biology June 2024. 
+Somatic copy number mutations contribute to fitness in transplantation models of spontaneous human breast cancer metastasis.
+biorxiv preprint DOI: https://www.biorxiv.org/content/ (will update link soon)
 
 ```
 
 ## Licence
-[Apache licence v2.0](https://github.com/molonc/drug_resistant_material/blob/main/LICENCE)
+[Apache licence v2.0](https://github.com/molonc/metastasis_material/blob/main/LICENCE)
 
