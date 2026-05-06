@@ -125,9 +125,9 @@ summary_filtered_cells <- function(grouping_fn, input_dir,
 
 extract_cells_features <- function(cellclones, grouping_fn, 
                                    rootpath, outpath, datatag = NULL) {
-  cell_clones <- read.csv(cellclones, header=T,check.names=F, stringsAsFactors = F)
+  cell_clones <- read.csv(cellclones, header=T, check.names=F, stringsAsFactors = F)
   print(head(cell_clones))
-  grouping_df <- read.csv(grouping_fn, header=T,check.names=F, 
+  grouping_df <- read.csv(grouping_fn, header=T, check.names=F, 
                           row.names = 1, stringsAsFactors = F)
   colnames(grouping_df)[which(names(grouping_df) == "grouping")] <- "library_id"
   colnames(grouping_df)[which(names(grouping_df) == "sample_id")] <- "sample"
@@ -179,7 +179,7 @@ extract_cells_features <- function(cellclones, grouping_fn,
   data.table::fwrite(x = total_metrics, outpath)
 }  
   
-
+## Damian's project
 extract_cells_features_instability <- function(library_ids, results_dir,
                                    rootpath, outpath, datatag = NULL) {
   
@@ -525,9 +525,9 @@ extract_cells_features_manuscript <- function() {
   colnames(total_metrics)
   extra_metric <- tibble(desc='A98232A_SA535X4XB05649',median_nmapped_reads_per_cell=0,std_nmapped_reads_per_cell=0,
                          median_nreads_per_cell=2647302, std_nreads_per_cell=827833.2,
-                         median_coverage_depth=0.067219,std_coverage_depth=0.02,
-                         median_coverage_breadth=0.06,std_coverage_breadth=0.02,
-                         median_quality=0.924,std_quality=0.07)
+                         median_coverage_depth=0.067219, std_coverage_depth=0.02,
+                         median_coverage_breadth=0.06, std_coverage_breadth=0.02,
+                         median_quality=0.924, std_quality=0.07)
   total_metrics <- dplyr::bind_rows(total_metrics, extra_metric)
   total_dlp <- total_dlp %>%
     dplyr::left_join(total_metrics, by='desc')

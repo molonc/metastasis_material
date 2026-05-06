@@ -46,7 +46,7 @@ convert_newick2graphml <- function(input_file, output_file){
   tree <- read.tree(newick)
   edge_list <- tree_2_edge_list(tree)
   g <- read_ltm_tree(edge_list)
-  igraph::write.graph(g, output_file,format = 'graphml')
+  igraph::write.graph(g, output_file, format = 'graphml')
 
 }
 

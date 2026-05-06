@@ -81,3 +81,25 @@ ggsave(paste0(input_dir,"tumor_main_cubic_helvetica.png"),
        # type = "cairo-png",
        dpi=200  
 )
+
+
+
+
+## Quick debug
+input_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/materials/tumour_volumes/growth_curves_scripts_input_Shuyu/'
+df <- data.table::fread(paste0(input_dir, 'SuppTable3.csv'))
+dim(df)
+max(df$date_len)
+View(head(df))
+
+df <- data.table::fread(paste0(input_dir, 'firstcurve_data.csv'))
+length(unique(df$Tumor_ID))
+unique(df$SA_ID)
+
+meta_samples <- data.table::fread(paste0(input_dir, 'Damian_2024_01_10_Met_Cat.csv'))
+length(meta_samples$Tumor_ID)
+head(meta_samples)
+
+sum(unique(df$Tumor_ID) %in% meta_samples$Tumor_ID)
+
+

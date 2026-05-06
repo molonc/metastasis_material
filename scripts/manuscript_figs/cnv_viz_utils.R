@@ -8,7 +8,7 @@ suppressPackageStartupMessages({
   require(ggrepel)
   require(stringr)
 })
-library(extrafont)
+# library(extrafont)
 # font_import(prompt=F, paths ='/usr/share/fonts/truetype/myfonts/') # import Helvetica font
 # fonts()
 get_median_cnv <- function(df_cnv){
@@ -82,6 +82,8 @@ get_median_genotype_v3 <- function(copynumber_fn, datatag, save_dir,
     pivot_longer(!chr_desc, names_to = "cell_id", values_to = "copy_number")
   
   print(dim(cnv))
+  head(cnv)
+  length(unique(cnv$chr_desc))
   cnv <- cnv %>% left_join(cell_clones, by=c("cell_id"))
   clones_ls <- unique(cell_clones$clone_id)
   clones_ls <- clones_ls[clones_ls %in% unique(cnv$clone_id)]
@@ -92,6 +94,8 @@ get_median_genotype_v3 <- function(copynumber_fn, datatag, save_dir,
     dplyr::summarise(cnv=median(copy_number)) %>%
     dplyr::ungroup()
   dim(stat_cnv)
+  head(stat_cnv)
+  length(unique(stat_cnv$chr_desc))
   # median_cnv <- stat_cnv %>%
   #   dplyr::select(chr_desc, median_cn, clone_id, clone_label) %>%
   #   group_by(clone_label) 
@@ -110,6 +114,8 @@ get_median_genotype_v3 <- function(copynumber_fn, datatag, save_dir,
   stat_cnv$end <- as.numeric(unname(sapply(regions, '[[', 3)))
   stat_cnv <- stat_cnv %>%
     dplyr::select(-chr_desc)
+  dim(stat_cnv)
+  # length(unique(paste0(stat_cnv$chr, stat_cnv$start, stat_cnv$end)))
   if(save_data){
     data.table::fwrite(stat_cnv, paste0(save_dir, datatag,'_median_cnv.csv'))  
   }

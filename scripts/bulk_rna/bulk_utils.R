@@ -105,7 +105,7 @@ get_DE_genes_DESeq2 <- function(dds, DE_comp=c("Metastasis","Primary"),
   contrast_DE_comp <- c(contrast_DE_comp, DE_comp)
   res <- results(dds, contrast=contrast_DE_comp) #c("condition","treated","untreated")
   res$ensembl_gene_id <- rownames(res)
-  DESeq2::DESeq
+  # DESeq2::DESeq
   return(res)
 }
 

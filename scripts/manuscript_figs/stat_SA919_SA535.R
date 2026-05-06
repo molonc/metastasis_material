@@ -263,7 +263,8 @@ stat_SA919_Pt1 <- function(){
   ## Figure 3, SA919, panel A
   base_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/'
   datatag <- 'SA919'
-  save_dir <- paste0(base_dir, 'figures/fig_cnv/')
+  # save_dir <- paste0(base_dir, 'figures/fig_cnv/')
+  save_dir <- paste0(base_dir, 'supplementary_figures/temp_figures/fig_cnv/')
   copynumber_fn <- paste0(base_dir,'materials/dlp_trees/',datatag,'/total_merged_filtered_states.csv.gz')
   cellclone_fn <- paste0(base_dir,'materials/dlp_trees/', datatag, '/','cell_clones.csv.gz')
   library_grouping_fn <- paste0(base_dir,'materials/dlp_trees/', datatag, '/','library_groupings.csv.gz')
@@ -291,6 +292,14 @@ stat_SA919_Pt1 <- function(){
   statCA <- get_CNA_change_regions_stat(df_cnv, obs_clones, obs_chrs)
   
   
+  df_cnv <- data.table::fread(paste0(save_dir, datatag,'_median_cnv.csv'))  
+  dim(df_cnv)  
+  # View(head(df_cnv))
+  obs_chr <- c('1')
+  obs_clones <- c('A','B')
+  get_CNA_change_regions_observed_chr(df_cnv, obs_clones, obs_chr)
+  obs_clones <- c('A','C')
+  get_CNA_change_regions_observed_chr(df_cnv, obs_clones, obs_chr)
   
 } 
 create_SuppTable5 <- function(){
@@ -307,6 +316,32 @@ create_SuppTable5 <- function(){
 }
 # obs_chrs <- c('7')
 # obs_clones <- c('A','B')
+get_CNA_change_regions_observed_chr <- function(df_cnv, obs_clones, obs_chr){
+  cnv_vals <- df_cnv %>%
+    dplyr::filter(clone %in% obs_clones) %>%
+    # dplyr::select(clone, cnv, chr_desc) %>%
+    tidyr::pivot_wider(names_from='clone', values_from = 'cnv') %>%
+    dplyr::mutate(var_region=
+                    case_when(
+                      !!sym(obs_clones[2])-!!sym(obs_clones[1]) != 0 ~ 'change_cnv',
+                      TRUE ~ 'no_change'
+                    )) %>%
+  dplyr::filter(chr %in% obs_chr & var_region=='change_cnv')
+  dim(cnv_vals)
+  obs_chr_df <- cnv_vals %>%
+    # dplyr::filter(chr %in% obs_chrs) %>%
+    dplyr::group_by(var_region) %>%
+    dplyr::summarise(nb_regions=n(), 
+                     median_cnv_clone1=median(!!sym(obs_clones[1])),
+                     median_cnv_clone2=median(!!sym(obs_clones[2])))
+  
+  total_regions <- sum(obs_chr_df$nb_regions)
+  print(total_regions)
+  size_regions <- total_regions * 0.5
+  print(paste(obs_clones, collapse = ' vs. '))
+  print(paste0('Size of cnv change at chr ', obs_chr, ' is: ',size_regions, 'MB'))
+  
+}  
 get_CNA_change_regions_stat <- function(df_cnv, obs_clones, obs_chrs){
   
   cnv_vals <- df_cnv %>%
