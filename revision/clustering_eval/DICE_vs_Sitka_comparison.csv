@@ -1,0 +1,5 @@
+series_patientID,method,n_clusters,n_cells,pct_sampling,mean_f1,ari,matching_accuracy
+SA919 (Pt1),DICE-star,3,2543,50%,0.9925,0.9708,0.9913
+SA919 (Pt1),Sitka,3,2543,50%,0.9884,0.9667,0.9890
+SA535 (Pt2),DICE-star,3,2310,60%,0.9184,0.7277,0.9117
+SA535 (Pt2),Sitka,20,2310,60%,0.715,0.7963,0.9364

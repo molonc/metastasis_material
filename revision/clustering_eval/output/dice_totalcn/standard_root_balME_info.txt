@@ -1,0 +1,50 @@
+Distance: 	root
+Method: 	balME
+Breakpoint: 	False
+Total copy numbers: 	True
+Reading time elapsed: 	0.008314132690429688
+Dm computation time elapsed: 	0.035568952560424805
+Tree construction time elapsed: 	0.01044607162475586
+Total time elapsed: 	0.054483890533447266
+
+
+fastme stats
+
+ - FastME 2.1.6.3 - 
+
+
+Paper to be cited:
+
+FastME 2.0 - A comprehensive, accurate and fast distance-based phylogeny inference program.
+	Vincent Lefort, Richard Desper and Olivier Gascuel,
+	Molecular Biology and Evolution 32(10), 2798-800, 2015.
+
+-------------------------------------------------------------------------------
+Settings for this run:
+
+  I                                      Input data type  Matrix          
+  D                                   Number of datasets  1               
+  M                         Initial tree building method  TaxAdd_BalME    
+  N                                   NNI postprocessing  no              
+  S                                   SPR postprocessing  yes             
+
+-------------------------------------------------------------------------------
+Dataset 1
+	Tree length is 608.82095603	Before SPR:     tree length is 608.82095603
+	SPR      1: new tree length is 608.52974303
+	SPR      2: new tree length is 608.24554823
+	SPR      3: new tree length is 608.05366603
+	SPR      4: new tree length is 607.87839575
+	SPR      5: new tree length is 607.74626584
+	SPR      6: new tree length is 607.63895343
+	SPR      7: new tree length is 607.53961253
+	SPR      8: new tree length is 607.43770120
+	SPR      9: new tree length is 607.35946101
+	SPR     10: new tree length is 607.19567733
+	SPR     11: new tree length is 607.14008226
+	SPR     12: new tree length is 607.10315718
+	SPR     13: new tree length is 607.07721699
+	SPR     14: new tree length is 607.06137466
+	Performed 14 SPR(s).
+
+	Explained variance : 0.99554016

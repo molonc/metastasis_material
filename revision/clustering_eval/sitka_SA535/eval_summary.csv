@@ -1,0 +1,2 @@
+tree_file,gt_file,n_leaves,n_clades,n_clones,mean_f1,ari,nrfd,matching_accuracy
+sitka_SA535/tree.newick,sitka_SA535/kmeans/gt.tsv,3955,4537,3,0.715,0.7963,1.0,0.9364

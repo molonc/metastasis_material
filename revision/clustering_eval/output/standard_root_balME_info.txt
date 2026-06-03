@@ -1,0 +1,55 @@
+Distance: 	root
+Method: 	balME
+Breakpoint: 	False
+Total copy numbers: 	False
+Reading time elapsed: 	0.013651132583618164
+Dm computation time elapsed: 	0.06482791900634766
+Tree construction time elapsed: 	0.04464292526245117
+Total time elapsed: 	0.12328791618347168
+
+
+fastme stats
+
+ - FastME 2.1.6.3 - 
+
+
+Paper to be cited:
+
+FastME 2.0 - A comprehensive, accurate and fast distance-based phylogeny inference program.
+	Vincent Lefort, Richard Desper and Olivier Gascuel,
+	Molecular Biology and Evolution 32(10), 2798-800, 2015.
+
+-------------------------------------------------------------------------------
+Settings for this run:
+
+  I                                      Input data type  Matrix          
+  D                                   Number of datasets  1               
+  M                         Initial tree building method  TaxAdd_BalME    
+  N                                   NNI postprocessing  no              
+  S                                   SPR postprocessing  yes             
+
+-------------------------------------------------------------------------------
+Dataset 1
+	Tree length is 661.57011381	Before SPR:     tree length is 661.57011381
+	SPR      1: new tree length is 660.42747408
+	SPR      2: new tree length is 659.99951117
+	SPR      3: new tree length is 659.50610879
+	SPR      4: new tree length is 659.16646640
+	SPR      5: new tree length is 658.83414999
+	SPR      6: new tree length is 658.63457928
+	SPR      7: new tree length is 658.47245945
+	SPR      8: new tree length is 658.26131160
+	SPR      9: new tree length is 658.12074039
+	SPR     10: new tree length is 657.88291792
+	SPR     11: new tree length is 657.80792558
+	SPR     12: new tree length is 657.74618148
+	SPR     13: new tree length is 657.68692620
+	SPR     14: new tree length is 657.65958931
+	SPR     15: new tree length is 657.63526416
+	SPR     16: new tree length is 657.62079034
+	SPR     17: new tree length is 657.60860878
+	SPR     18: new tree length is 657.58268838
+	SPR     19: new tree length is 657.57532525
+	Performed 19 SPR(s).
+
+	Explained variance : 0.99664847

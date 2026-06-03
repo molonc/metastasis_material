@@ -1,0 +1,5 @@
+clone,n_true_cells,best_clade_size,precision,recall,f1
+cluster_0,1471,2495,0.5896,1.0,0.7418
+cluster_1,533,661,0.5976,0.7411,0.6616
+cluster_2,306,495,0.6,0.9706,0.7416
+Mean,,,,,0.715

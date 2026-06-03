@@ -1,0 +1,5 @@
+gt_clone,matched_sitka_clade,sitka_clade_source,n_gt_cells,n_clade_cells,overlap,precision,recall,f1
+cluster_0,sitka_clade_0,cluster_0,1471,1616,1471,0.9103,1.0,0.953
+cluster_1,sitka_clade_1,cluster_1,533,395,395,1.0,0.7411,0.8513
+cluster_2,sitka_clade_2,cluster_2,306,299,297,0.9933,0.9706,0.9818
+ACCURACY,,,,,,,,0.9364

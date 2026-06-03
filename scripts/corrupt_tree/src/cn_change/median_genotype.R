@@ -5,7 +5,9 @@ library(ComplexHeatmap)
 
 # mg_mat <- median_cnv
 # results_dir <- save_dir
-compute_dist_mat <- function(mg_mat, results_dir, use_hamming = FALSE) {
+# res <- compute_dist_mat(median_cnv, save_dir, use_hamming = T)  
+# sum(is.na(mg_mat))
+compute_dist_mat <- function(mg_mat, results_dir, use_hamming = FALSE, save_data=T) {
   # print("Testing")
   if(is.null(mg_mat)){
     # print("Testing 1")
@@ -26,7 +28,8 @@ compute_dist_mat <- function(mg_mat, results_dir, use_hamming = FALSE) {
         if (i<j) {  #(i + j)<=(n_clones+1)
           if (use_hamming) {
             distance_type='Hamming'
-            dist_to_median[j,i] <- mean(mg_mat[ ,i] != mg_mat[ ,j])
+            # dist_to_median[j,i] <- mean(mg_mat[ ,i] != mg_mat[ ,j])
+            dist_to_median[j,i] <- sum(mg_mat[ ,i] != mg_mat[ ,j])
           } else {
             distance_type='Manhattan'
             dist_to_median[j,i] <- mean(abs(mg_mat[ ,i] - mg_mat[ ,j])) #The Manhattan distance as the sum of absolute differences
@@ -39,8 +42,15 @@ compute_dist_mat <- function(mg_mat, results_dir, use_hamming = FALSE) {
     }
     rownames(dist_to_median) <- colnames(mg_mat)
     colnames(dist_to_median) <- colnames(mg_mat)
-    data.table::fwrite(as.data.frame(dist_to_median), paste0(results_dir,'cn_distance_',distance_type,'.csv'), row.names=T)
-    data.table::fwrite(out_mtx, paste0(results_dir,'cn_distance_',distance_type,'_output.csv'))
+    if(save_data){
+      data.table::fwrite(as.data.frame(dist_to_median), paste0(results_dir,'cn_distance_',distance_type,'.csv'), row.names=T)
+      data.table::fwrite(out_mtx, paste0(results_dir,'cn_distance_',distance_type,'_output.csv'))  
+      log_file <- paste0(results_dir,"log_stat.txt")
+      cat(paste0('Min:', min(dist_to_median, na.rm=T), ' Max: ',max(dist_to_median, na.rm=T),
+                 'Median: ', median(dist_to_median, na.rm=T), ' sd: ',sd(dist_to_median, na.rm=T)), file = log_file)
+      
+    }
+    
     return(list(dist_to_median=dist_to_median,out_mtx=out_mtx))
   }
   

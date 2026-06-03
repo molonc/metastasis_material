@@ -1,0 +1,1 @@
+Series: SA919  Min:135  Max: 376  Median: 245  sd: 120.65

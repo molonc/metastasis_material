@@ -1,0 +1,54 @@
+Distance: 	root
+Method: 	balME
+Breakpoint: 	True
+Total copy numbers: 	False
+Reading time elapsed: 	0.013885021209716797
+Dm computation time elapsed: 	0.06612586975097656
+Tree construction time elapsed: 	0.011126041412353516
+Total time elapsed: 	0.09128499031066895
+
+
+fastme stats
+
+ - FastME 2.1.6.3 - 
+
+
+Paper to be cited:
+
+FastME 2.0 - A comprehensive, accurate and fast distance-based phylogeny inference program.
+	Vincent Lefort, Richard Desper and Olivier Gascuel,
+	Molecular Biology and Evolution 32(10), 2798-800, 2015.
+
+-------------------------------------------------------------------------------
+Settings for this run:
+
+  I                                      Input data type  Matrix          
+  D                                   Number of datasets  1               
+  M                         Initial tree building method  TaxAdd_BalME    
+  N                                   NNI postprocessing  no              
+  S                                   SPR postprocessing  yes             
+
+-------------------------------------------------------------------------------
+Dataset 1
+	Tree length is 799.01434985	Before SPR:     tree length is 799.01434985
+	SPR      1: new tree length is 796.92543524
+	SPR      2: new tree length is 795.97163287
+	SPR      3: new tree length is 795.37008422
+	SPR      4: new tree length is 794.80667523
+	SPR      5: new tree length is 794.28077083
+	SPR      6: new tree length is 793.86178345
+	SPR      7: new tree length is 793.46795777
+	SPR      8: new tree length is 793.04888850
+	SPR      9: new tree length is 792.77571672
+	SPR     10: new tree length is 792.24012269
+	SPR     11: new tree length is 791.97407399
+	SPR     12: new tree length is 791.71444787
+	SPR     13: new tree length is 791.47225901
+	SPR     14: new tree length is 791.34660257
+	SPR     15: new tree length is 791.24341836
+	SPR     16: new tree length is 791.19899265
+	SPR     17: new tree length is 791.07553199
+	SPR     18: new tree length is 791.04614479
+	Performed 18 SPR(s).
+
+	Explained variance : 0.95102466

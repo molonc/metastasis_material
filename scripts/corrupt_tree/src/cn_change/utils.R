@@ -1017,20 +1017,24 @@ get_median_genotype_v2 <- function(datatag, results_dir, copynumber_fn=NULL, cel
     copynumber_fn <- paste0(results_dir,'total_merged_filtered_states.csv')
   }
   if(is.null(cellclone_fn)){
-    cellclone_fn <- paste0(results_dir,'cell_clones.csv')  
+    cellclone_fn <- paste0(results_dir,'cell_clones.csv.gz')  
   }
   save_dir <- paste0(results_dir,'CN_profile/')
   if(!dir.exists(save_dir)){
     dir.create(save_dir)
   }
   
-  copynumber <- read.csv(copynumber_fn, header=T, 
-                         row.names = 1, check.names = F,stringsAsFactors = FALSE)
-  
+  # copynumber <- read.csv(copynumber_fn, header=T, row.names = 1, check.names = F,stringsAsFactors = FALSE)
+  copynumber <- as.data.frame(data.table::fread(copynumber_fn))
+  rownames(copynumber) <- copynumber$V1
+  copynumber$V1 <- NULL
+  dim(copynumber)
   # cell_clones contain 2 columns of cell_id, and clone_id
   # ex:           cell_id                      clone_id
   # 1   SA535X4XB02498-A98163A-R09-C11          C
   cell_clones <- read.csv(cellclone_fn, check.names = F,stringsAsFactors = FALSE)
+  cell_clones <- cell_clones %>%
+    dplyr::filter(!clone_id %in% c('None','unassigned'))
   
   print(dim(copynumber))
   cells_use <- colnames(copynumber)[colnames(copynumber) %in% cell_clones$cell_id]
@@ -1068,7 +1072,7 @@ get_median_genotype_v2 <- function(datatag, results_dir, copynumber_fn=NULL, cel
   # median_cnv$start <- chr_infos$start
   # median_cnv$end <- chr_infos$end
   # head(median_cnv)
-  median_cnv <- median_cnv[unique(chrs$chr_desc),]
+  # median_cnv <- median_cnv[unique(chrs$chr_desc),]
   # dim(median_cnv) # SA609
   # rownames(median_cnv)[1]
   # ls_features <- c()
@@ -1080,11 +1084,20 @@ get_median_genotype_v2 <- function(datatag, results_dir, copynumber_fn=NULL, cel
   # length(ls_features)
   # median_cnv <- median_cnv[ls_features,]
   # dim(median_cnv)
-  res <- compute_dist_mat(median_cnv, save_dir, use_hamming = F)
-  head(res$dist_to_median)
+  
+  res <- NULL
+  print(distance_type)
+  print(datatag)
+  if(distance_type=='Manhattan'){
+    res <- compute_dist_mat(median_cnv, save_dir, datatag, use_hamming = F, save_data=T)  
+  }else{
+    res <- compute_dist_mat(median_cnv, save_dir, datatag, use_hamming = T, save_data=T)  
+  }
+  
+  print(res$dist_to_median)
   p <- plot_heatmap_genotype(res$dist_to_median, distance_type, datatag, save_dir)
-  res$hm <- p
-  dim(res$out_mtx)
+  # res$hm <- p
+  # dim(res$out_mtx)
   # if(calcul_distance){
   #   if(distance_type=='Hamming'){
   #     dis_mtx <- compute_dist_mat(median_cnv, save_dir, use_hamming = T)
@@ -1161,14 +1174,15 @@ detect_CN_change_v1 <- function(de, median_cnv, meta_cells, save_dir){
 get_median_genotype_v3 <- function(copynumber_fn, 
                                    datatag, save_dir,
                                    cellclone_fn=NULL, library_grouping_fn=NULL){
+  results_dir <- paste0(dirname(copynumber_fn),'/')
   if(is.null(cellclone_fn)){
-    cellclone_fn <- paste0(results_dir,'cell_clones.csv')  
+    cellclone_fn <- paste0(results_dir,'cell_clones.csv.gz')  
   }
   if(is.null(library_grouping_fn)){
-    library_grouping_fn <- paste0(results_dir,'library_groupings.csv')  
+    library_grouping_fn <- paste0(results_dir,'library_groupings.csv.gz')  
   }
   if(!dir.exists(save_dir)){
-    dir.create(save_dir)
+    dir.create(save_dir, recursive = T)
   }
   
   # copynumber <- read.csv(copynumber_fn, header=T, row.names = 1, check.names = F,stringsAsFactors = FALSE)
@@ -1209,7 +1223,7 @@ get_median_genotype_v3 <- function(copynumber_fn,
     dplyr::filter(nb_cells>=20 & clone_id !='None')
   dim(meta_cells)
   colnames(meta_cells)
-  write.csv(meta_cells, paste0(save_dir,'meta_cells.csv'), quote = F, row.names = F)
+  # write.csv(meta_cells, paste0(save_dir,'meta_cells.csv'), quote = F, row.names = F)
   
   copynumber <- copynumber[,colnames(copynumber)[colnames(copynumber) %in% cell_clones$cell_id]]
   copynumber$chr_desc <- rownames(copynumber)
@@ -1221,10 +1235,11 @@ get_median_genotype_v3 <- function(copynumber_fn,
   length(unique(cnv$cell_id))
   dim(cnv)
   colnames(cnv)
-  cnv <- cnv %>% inner_join(meta_cells, by=c("clone_id","mainsite"))
+  # cnv <- cnv %>% inner_join(meta_cells, by=c("clone_id","mainsite"))
   dim(cnv)
   
-  cnv$clone_label <- paste0(cnv$clone_id,'_',cnv$mainsite)
+  # cnv$clone_label <- paste0(cnv$clone_id,'_',cnv$mainsite)
+  cnv$clone_label <- cnv$clone_id
   length(unique(cnv$clone_label))
   
   # get median genotype 
@@ -1248,9 +1263,120 @@ get_median_genotype_v3 <- function(copynumber_fn,
     pivot_wider(names_from = clone_label, values_from = median_cn)
   
   median_cnv_pivot <- as.data.frame(median_cnv_pivot)
-  write.csv(median_cnv_pivot, paste0(save_dir,'median_cnv.csv'), quote = F, row.names = F)
-  data.table::fwrite(stat_cnv, paste0(save_dir,'stat_median_cnv.csv'), quote = F, row.names = F)
-  
+  write.csv(median_cnv_pivot, paste0(save_dir,datatag,'_pivot_median_cnv.csv'), quote = F, row.names = F)
+  data.table::fwrite(stat_cnv, paste0(save_dir,datatag,'_stat_median_cnv.csv'), quote = F, row.names = F)
+  return(stat_cnv)
 }  
 
 
+compute_dist_mat <- function(mg_mat, results_dir, datatag='', use_hamming = FALSE, save_data=T) {
+  # print("Testing")
+  if(is.null(mg_mat)){
+    # print("Testing 1")
+    # return(NULL)
+    stop('Check input data')
+  } else if(nrow(mg_mat)==1){
+    # print("Testing 2")
+    # return(matrix(0, nrow = 1, ncol = 1))
+    stop('Check input data')
+  } else{
+    # print("Testing 3")
+    clone_lbs <- colnames(mg_mat)
+    out_mtx <- tibble::tibble()
+    n_clones <- ncol(mg_mat)
+    dist_to_median <- matrix(NA, nrow = n_clones, ncol = n_clones)
+    for (j in seq(n_clones)) {
+      for (i in seq(n_clones)) {
+        if (i<j) {  #(i + j)<=(n_clones+1)
+          if (use_hamming) {
+            distance_type='Hamming'
+            # dist_to_median[j,i] <- mean(mg_mat[ ,i] != mg_mat[ ,j])
+            dist_to_median[j,i] <- sum(mg_mat[ ,i] != mg_mat[ ,j])
+          } else {
+            distance_type='Manhattan'
+            dist_to_median[j,i] <- mean(abs(mg_mat[ ,i] - mg_mat[ ,j])) #The Manhattan distance as the sum of absolute differences
+          }
+          distji <- c(clone_lbs[j],clone_lbs[i],round(dist_to_median[j,i],3))
+          names(distji) <- c('SourceClone','TargetClone','CNA_Distance')
+          out_mtx <- dplyr::bind_rows(out_mtx,distji)
+        }
+      }
+    }
+    rownames(dist_to_median) <- colnames(mg_mat)
+    colnames(dist_to_median) <- colnames(mg_mat)
+    if(save_data){
+      data.table::fwrite(as.data.frame(dist_to_median), paste0(results_dir,datatag, '_cn_distance_',distance_type,'.csv'), row.names=T)
+      data.table::fwrite(out_mtx, paste0(results_dir,datatag,'_cn_distance_',distance_type,'_output.csv'))  
+      log_file <- paste0(results_dir,datatag,"_log_stat.txt")
+      cat(paste0('Series: ', datatag,
+                 '  Min:', min(dist_to_median, na.rm=T), '  Max: ',max(dist_to_median, na.rm=T),
+                 '  Median: ', median(dist_to_median, na.rm=T), '  sd: ',round(sd(dist_to_median, na.rm=T), 2)), file = log_file)
+      
+    }
+    return(list(dist_to_median=dist_to_median,out_mtx=out_mtx))
+  }
+  
+}
+# dis_mtx is a dataframe with rownames and colnames are clone labels
+# distance_type: Manhattan or Hamming
+# dis_mtx <- res$dist_to_median
+plot_heatmap_genotype <- function(dis_mtx, distance_type, datatag, results_dir){
+  library(ComplexHeatmap)
+  cell_func = function(j, i, x, y, width, height, fill) {
+    str <- ''
+    if(!is.na(dis_mtx[i, j])){
+      if(distance_type=='Hamming'){
+        str <- sprintf("%d", dis_mtx[i, j])
+      }else{
+        str <- sprintf("%.2f", dis_mtx[i, j])  
+      }
+      
+    }
+    grid.text(str, x, y, gp = gpar(fontsize = 8))
+  }
+  # dis_mtx[dis_mtx==0]
+  # View(dis_mtx)
+  row_lbs <- as.character(rownames(dis_mtx))
+  
+  # distance between median CNA profiles of clones
+  plottitle <- paste0(distance_type," copy number distance ",datatag)
+  dis_mtx <- as.matrix(dis_mtx)
+  # if(distance_type=='Hamming'){
+  #   dis_mtx <- round(dis_mtx)
+  #   storage.mode(dis_mtx) <- "integer"
+  # }
+  # print(dis_mtx)
+  p <- ComplexHeatmap::Heatmap(dis_mtx, na_col = "white",
+                               show_column_names=T,
+                               show_row_names = T,
+                               cluster_rows=F,
+                               cluster_columns=F,
+                               name = paste0(distance_type," dist"), 
+                               # row_order = sort(rownames(test)),
+                               row_split=row_lbs,
+                               # row_title = "%s",
+                               # column_title_side = T,
+                               # row_title_rot = 90,
+                               row_names_side = "left",
+                               column_names_side = "bottom",
+                               column_names_rot = 0,
+                               row_gap = unit(1, "mm"),
+                               column_split = row_lbs,
+                               row_title = "Clones",
+                               column_title = plottitle,
+                               column_gap = unit(1, "mm"),
+                               column_names_gp = grid::gpar(fontsize = 13, fontface = "bold"),
+                               column_title_gp = gpar(fontsize = 13, fontface = "bold"),
+                               row_names_gp = grid::gpar(fontsize = 13, fontface = "bold"),
+                               show_heatmap_legend = T,
+                               # top_annotation=top_anno,
+                               # left_annotation = left_anno,
+                               cell_fun = cell_func,
+  )#row_dend_reorder=F
+  # p
+  
+  png(paste0(results_dir, datatag, distance_type,'_distance_','.png'), height = 2*500, width=2*600, res = 2*72)
+  print(p)
+  dev.off()
+  return(p)
+}
