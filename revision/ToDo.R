@@ -20,6 +20,14 @@
 ## cell copy number profiles for a representative cell in each clone.
 ## + Each cell versus median copy number profile showing a small difference of noises i.e. 2%
 
+suppressPackageStartupMessages({
+  library(annotables)
+  library(dplyr)
+  library(ggplot2)
+  library(RColorBrewer)
+  options(dplyr.summarise.inform = FALSE)
+  options(tidyverse.quiet = TRUE)
+})
 
 
 
@@ -93,10 +101,6 @@ get_representative_library <- function(datatag, copynumber_fn, save_dir, results
   
 }  
 
-## For cells in clones only, plot a boxplot
-get_cell_metrics <- function(){
-  
-}
 # https://molonc.atlassian.net/wiki/spaces/AP/pages/1879048200/DLP+GC+Normalization
 # copy: The y-axis is not “copy” but instead the raw number of reads sampled from each location of the genome
 viz_hmmcopy <- function(){
@@ -155,6 +159,8 @@ viz_hmmcopy <- function(){
   }
   cell_clones_tmp <- cell_clones %>%
     dplyr::filter(cell_id %in% unique(total_reads$cell_id))
+  
+  ## Sampling cells in each clone
   for(cl in unique(cell_clones_tmp$clone_id)){
     cell_ids <- cell_clones_tmp %>%
       dplyr::filter(clone_id==cl) %>%
@@ -168,13 +174,14 @@ viz_hmmcopy <- function(){
         dplyr::filter(cell_id == obs_cell)
       print(dim(df))
       data.table::fwrite(df, paste0(save_dir_fg, datatag, '_',obs_cell,'_clone',cl,'.csv.gz'))
-      viz_obs_cell(df, obs_cell, datatag, save_dir_fg)
+      viz_obs_cell(df, obs_cell, paste0(datatag,'_clone',cl), save_dir_fg)
     }
   }
   
   plg <- plot_CN_state_legend()
   saveRDS(plg, paste0(save_dir_fg, 'CN_state_legend.rds'))
 }
+
 
 viz_obs_cell <- function(df, obs_cell, datatag, save_dir_fg){
   # save_dir_fg <- paste0(save_dir, 'viz_cell/')
@@ -194,7 +201,7 @@ viz_obs_cell <- function(df, obs_cell, datatag, save_dir_fg){
       TRUE ~ reads
     ),
     copy=case_when(
-      copy > 15 ~ 15, 
+      copy > 11 ~ 11, 
       TRUE ~ copy
     ))
   # data.table::fwrite(df, paste0(save_dir, 'test_hmmcopy_cloneA.csv'))
@@ -210,7 +217,7 @@ viz_obs_cell <- function(df, obs_cell, datatag, save_dir_fg){
     # scale_x_continuous(expand = c(0, 0), breaks = NULL) + 
     scale_color_manual(values = cnv_cols, name = "Copy number ", breaks = names(cnv_cols)) + 
     theme(panel.spacing = unit(0.1, "lines"))
-  pr <- add_theme(pr)
+  pr <- add_theme_cnv_plot(pr)
   # pr
   ## Copy is normalized read values
   # max(df$copy, na.rm = T)
@@ -223,7 +230,7 @@ viz_obs_cell <- function(df, obs_cell, datatag, save_dir_fg){
     # scale_x_continuous(expand = c(0, 0), breaks = NULL) + 
     scale_color_manual(values = cnv_cols, name = "Copy number ", breaks = names(cnv_cols)) + 
     theme(panel.spacing = unit(0.1, "lines"))
-  pc <- add_theme(pc)
+  pc <- add_theme_cnv_plot(pc)
   # pc
   # p <- ggMarginal(p, type = "density", margins = "y", groupColour = TRUE, groupFill = TRUE)
   saveRDS(pr, paste0(save_dir_fg, obs_cell, '_',datatag,'_reads_cnv_plt.rds'))
@@ -242,45 +249,72 @@ viz_CNA_changes_distribution <- function(){
   cnv_mat <- get_CNA_change()
   dim(cnv_mat)
   # View(cnv_mat[100:150,])
+  input_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/'
+  save_dir <- paste0(input_dir,'revision/CN_profile/')
+  results_dir <- paste0(input_dir,"materials/dlp_trees/")
+  data_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/raw_dlp/SA919/'
+  source(paste0(input_dir,"scripts/corrupt_tree/src/cn_change/utils.R"))
+  
+  datatag <- 'SA919'
+  copynumber_fn <- paste0(results_dir, datatag, '/total_merged_filtered_states.csv.gz')
+  cellclone_fn <- paste0(results_dir, datatag, '/cell_clones.csv.gz')
+  
+  cell_clones <- data.table::fread(cellclone_fn) %>% as.data.frame()
+  dim(cell_clones)
+  cell_clones <- cell_clones %>%
+    dplyr::filter(!clone_id %in% c('None','unassigned'))
+  
   total_reads <- total_reads %>%
     dplyr::mutate(chr_desc=paste0(chr,'_',start,'_', end)) %>%
     dplyr::filter(chr_desc %in% cnv_mat$chr_desc)
   print(dim(total_reads)[1])
-  
+  total_reads_backup <- total_reads
+
   
   counts_df <- total_reads %>%
     dplyr::group_by(chr, cell_id) %>%
-    dplyr::summarise(total_reads=sum(reads), total_copy=sum(copy)) %>%
-    dplyr::left_join(cell_clones, by='cell_id')%>%
-    dplyr::filter(!clone_id %in% c('None','unassigned'))
-  dim(counts_df)
+    dplyr::summarise(mean_reads=round(sum(reads)/length(chr),2), 
+                     mean_copy=round(sum(copy)/length(chr),2)) %>%
+    dplyr::left_join(cell_clones, by='cell_id')
+  
+  # df <- total_reads %>%
+  #   dplyr::filter(cell_id==total_reads$cell_id[1]) %>%
+  #   dplyr::group_by(chr) %>%
+  #   dplyr::summarise(total_reads=round(sum(reads)/length(chr),2), 
+  #                    total_copy=round(sum(copy)/length(chr),2)) 
+  
+  data.table::fwrite(counts_df, paste0(save_dir, datatag, '_cn_changes_mean_reads_copy.csv'))
+  counts_df <- data.table::fread(paste0(save_dir, datatag, '_cn_changes_mean_reads_copy.csv'))
   head(counts_df)
-  data.table::fwrite(counts_df, paste0(save_dir, datatag, '_cn_changes.csv'))
-  counts_df <- data.table::fread()
-  head(counts_df)
-  p <- ggplot(counts_df, aes(clone_id, total_reads, colour = clone_id)) + 
+  p <- ggplot(counts_df, aes(clone_id, mean_reads, colour = clone_id)) + 
     geom_boxplot() + 
     facet_grid(. ~ chr, scales = "free") #, space = "free_x", switch = "x"
   p
   p <- add_theme(p)
   p
-  
-  p1 <- ggplot(counts_df, aes(clone_id, total_copy, colour = clone_id)) + 
-    geom_boxplot() + 
-    facet_grid(. ~ chr, scales = "free") #, space = "free_x", switch = "x"
-  p1d
-  dim(counts_df)[1]/3
+  counts_df1 <- counts_df %>%
+    dplyr::filter(mean_copy<5)
+  typeof(counts_df1$chr)
+  counts_df1$chr <- paste0('chr ',counts_df1$chr)
+  counts_df1$chr <- factor(counts_df1$chr, levels = c('chr 5','chr 7','chr 10'))
+  p1 <- ggplot(counts_df1, aes(clone_id, mean_copy, colour = clone_id)) + 
+    geom_boxplot(outlier.shape = NA) + 
+    facet_grid(. ~ chr, scales = "free") + #, space = "free_x", switch = "x"
+    theme_bw()
+  p1 <- add_theme(p1)
+  p1
+  saveRDS(p1, paste0(save_dir, datatag, '_cn_change_mean_copy.rds'))
 }
-add_theme <- function(cnv_plot){
+add_theme_cnv_plot <- function(cnv_plot){
   lg_pos <- "none"
   my_font <- "Helvetica"
   cnv_plot <- cnv_plot + theme(strip.background = element_rect(fill = 'white', colour = 'white'),
-                               strip.text = element_text(color="black",size=11, hjust = 0.5, family=my_font),
+                               strip.text = element_text(color="black",size=10, hjust = 0.5, family=my_font, angle = 90),
                                text = element_text(color="black",size = 11, hjust = 0.5, family=my_font),
                                axis.text.x = element_blank(),
                                axis.ticks.x = element_blank(),
-                               axis.text.y = element_text(color="black",size=9, hjust = 0.5, family=my_font),
-                               axis.title.y = element_text(color="black",size=9, hjust = 0.5, family=my_font),
+                               axis.text.y = element_text(color="black",size=11, hjust = 0.5, family=my_font),
+                               axis.title.y = element_text(color="black",size=11, hjust = 0.5, family=my_font),
                                axis.title.x = element_text(color="black",size=11, hjust = 0.5, family=my_font),
                                axis.line = element_line(colour = "black"),
                                strip.placement = "outside",
@@ -297,6 +331,35 @@ add_theme <- function(cnv_plot){
   
   cnv_plot <- cnv_plot + guides(fill = guide_legend(nrow = 1, override.aes = list(size=0.1))) + #, override.aes = list(size=1.1)
     scale_x_continuous(expand = c(0,0))
+  return(cnv_plot)
+  
+}
+add_theme <- function(cnv_plot){
+  lg_pos <- "none"
+  my_font <- "Helvetica"
+  cnv_plot <- cnv_plot + theme(strip.background = element_rect(fill = 'white', colour = 'white'),
+                               strip.text = element_text(color="black",size=12, hjust = 0.5, family=my_font),
+                               text = element_text(color="black",size = 11, hjust = 0.5, family=my_font),
+                               axis.text.x = element_text(color="black",size=13, hjust = 0.5, family=my_font),
+                               axis.ticks.x = element_blank(),
+                               axis.text.y = element_text(color="black",size=11, hjust = 0.5, family=my_font),
+                               axis.title.y = element_text(color="black",size=11, hjust = 0.5, family=my_font),
+                               axis.title.x = element_text(color="black",size=11, hjust = 0.5, family=my_font),
+                               axis.line = element_line(colour = "black"),
+                               strip.placement = "outside",
+                               legend.position = lg_pos,
+                               legend.text=element_text(color="black",size=9, hjust = 0.5, family=my_font),
+                               legend.title=element_text(color="black",size=9, hjust = 0.5, family=my_font),
+                               legend.key.size=unit(0.3,"cm"),
+                               # panel.grid.major = element_blank(),
+                               panel.grid.minor = element_blank(),
+                               # panel.background = element_rect(fill = "#F8F8F8", colour = NA),
+                               panel.spacing = unit(c(0.1), 'cm'),
+                               legend.margin=margin(0,0,0,0),
+                               legend.box.margin=margin(-2,-2,-2,-2)) # MA: was 0.2
+  
+  # cnv_plot <- cnv_plot + guides(fill = guide_legend(nrow = 1, override.aes = list(size=0.1))) + #, override.aes = list(size=1.1)
+  #   scale_x_continuous(expand = c(0,0))
   return(cnv_plot)
   
 }
@@ -350,7 +413,7 @@ get_CNA_change <- function(){
     tibble::column_to_rownames('chr_desc') %>%
     dplyr::select(-chr)
   
-  var_genes <- rowVars(as.matrix(tmp))
+  var_genes <- matrixStats::rowVars(as.matrix(tmp))
   var_genes <- var_genes[var_genes>0]
   var_genes[1:3]
   chr_cna_change <- names(var_genes)
@@ -365,4 +428,66 @@ get_CNA_change <- function(){
   return(cnv_mat)
 }
 
+## See function at: 
+# file_dir <- "/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/scripts/corrupt_tree/src/cn_change/extract_reads_rawdata_info.R"
+extract_cells_features_manuscript_v2()
 
+
+plot_R24 <- function(){
+  # ## 2 x 2 reads, copy plots for clone A, B, C
+  # [1] "SA919X4XB40509-A98217A-R22-C40" "SA919X4XB40509-A98217A-R25-C51"
+  # [3] "SA919X4XB40509-A98217A-R20-C17"
+  # [1] "SA919X7XB05691-A96204B-R37-C41" "SA919X7XB05691-A96204B-R29-C07"
+  # [3] "SA919X7XB05691-A96204B-R42-C54"
+  # [1] "SA919X7XB05588-A98299A-R12-C46" "SA919X7XB05588-A98299A-R20-C31"
+  # [3] "SA919X7XB05588-A98299A-R11-C13"
+  input_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/'
+  save_dir <- paste0(input_dir,'revision/CN_profile/')
+  save_dir_fg <- paste0(save_dir, 'viz_cell/')
+  obs_cell <- "SA919X4XB40509-A98217A-R22-C40" # clone A
+  # obs_cell <- "SA919X7XB05691-A96204B-R48-C58" # clone B
+  # obs_cell <- "SA919X7XB05588-A98299A-R05-C21" # clone C
+  cl <- 'A'
+  pr <- readRDS(paste0(save_dir_fg, obs_cell, '_',datatag,'_clone',cl,'_reads_cnv_plt.rds'))
+  pc <- readRDS(paste0(save_dir_fg, obs_cell, '_',datatag,'_clone',cl,'_copy_cnv_plt.rds'))
+  plg <- readRDS(paste0(save_dir_fg, 'CN_state_legend.rds'))
+  p_total <- cowplot::plot_grid(NULL, pr, pc, plg,NULL, ncol=1, rel_heights = c(0.05, 1,1, 0.1,0.03))
+  p_total
+  
+  ## total mapped reads for 2 series
+  p_total_reads <- readRDS(paste0(paste0(save_dir, 'cell_metrics_eval/','total_metrics_SA919_SA535_mapped_reads_plt.rds')))
+  
+  ## Copy values in chr 5, 7, 10
+  ## Output of function: viz_CNA_changes_distribution() above
+  p_cnchange_copy <- readRDS(paste0(save_dir, datatag, '_cn_change_mean_copy.rds'))
+  
+  
+  
+  ## Hamming distance between clones for 2 series 
+  ## Heatmap of 2 series 
+  distance_type='Hamming'
+  datatag <- 'SA919'
+  p_SA919 <- readRDS(paste0(save_dir, 'clone_distance/', datatag, distance_type,'_distance_clones','.rds'))
+  p_cnv <- cowplot::plot_grid(p_total_reads, p_cnchange_copy, p_SA919, ncol=3)
+  p_cnv
+  
+  datatag <- 'SA535'
+  p_SA535 <- readRDS(paste0(save_dir, 'clone_distance/', datatag, distance_type,'_distance_clones','.rds'))
+  
+  p_all <- cowplot::plot_grid(p_total, p_cnv, p_SA535, ncol=1, rel_heights = c(1,0.6, 0.8),
+                              labels = c('Raw read counts & normalized copy profiles',' ',' ')) +
+    theme(plot.background = element_rect(fill = "white", colour = "white"))
+  ggplot2::ggsave( 
+    filename = paste0(save_dir,"R24.svg"), 
+    plot = p_all,
+    height = 11, 
+    width = 9, 
+  )
+   
+  ggplot2::ggsave( 
+    filename = paste0(save_dir,"R24.png"), 
+    plot = p_all,
+    height = 11, 
+    width = 8, 
+  ) 
+}

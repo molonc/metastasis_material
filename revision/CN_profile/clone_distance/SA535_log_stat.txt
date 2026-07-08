@@ -1,0 +1,1 @@
+Series: SA535  Min:7  Max: 2151  Median: 1201  sd: 523.23

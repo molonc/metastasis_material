@@ -360,11 +360,13 @@ plot_mixing_exp_Fig3 <- function(){
   download_dir <- '/home/htran/storage/raw_DLP/metastasis_DLP/SA919/'
   results_dir <- '/home/htran/storage/datasets/metastasis_results/dlp_SA919_mixing_exp/'
   script_dir <- '/home/htran/Projects/hakwoo_project/metastasis_material/materials/dlp_trees/SA919_mixing_experiment/'
+  script_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/materials/dlp_trees/'
   
-  metasample_main_df <- data.table::fread(paste0(script_dir,'prevalence_main_exp_4_mixing.csv.gz'))
-  metasample_df <- data.table::fread(paste0(script_dir, datatag,'_prop_cell_clones_final_long_version.csv'))
+  metasample_main_df <- data.table::fread(paste0(script_dir,'SA919_mixing_experiment/','prevalence_main_exp_4_mixing.csv.gz'))
+  metasample_df <- data.table::fread(paste0(script_dir, 'SA919_mixing_experiment/', datatag,'_prop_cell_clones_final_long_version.csv'))
   print(dim(metasample_df))
   print(dim(metasample_main_df))
+  View(metasample_main_df)
   metasample_df$library_id <- NULL
   metasample_df$transplanted_mouse <- stringr::str_sub(metasample_df$transplanted_mouse, 4, length(metasample_df$transplanted_mouse))
   metasample_df$transplanted_mouse <- gsub(' ','',metasample_df$transplanted_mouse)
@@ -373,13 +375,18 @@ plot_mixing_exp_Fig3 <- function(){
   colnames(metasample_main_df)
   ## Combining main and mixing prevalence for plotting
   metasample_df <- dplyr::bind_rows(metasample_main_df, metasample_df)
-  
-  input_dir <- '/home/htran/Projects/hakwoo_project/metastasis_material/materials/dlp_trees/'
-  colors_df <- data.table::fread(paste0(input_dir, 'colorCode_clones/color_code_SA919_mixing_experiment.csv'))
+  # View(metasample_df)
+  # input_dir <- '/home/htran/Projects/hakwoo_project/metastasis_material/materials/dlp_trees/'
+  colors_df <- data.table::fread(paste0(script_dir, 'colorCode_clones/color_code_SA919_mixing_experiment.csv'))
   cols_use <- colors_df$color
   names(cols_use) <- colors_df$clone_id
   cols_use <- c(cols_use, 'black')
   names(cols_use) <- c(colors_df$clone_id, 'None')
+  
+  ## Using piechart for primary, and donut chart for met
+  viz_prop_chart()
+  
+  
   library(ggplot2)
   my_font <- 'Helvetica'
   p <- ggplot(data=metasample_df, aes(x=transplanted_mouse, y=pct_cells, fill=clone_id)) +
@@ -433,3 +440,268 @@ plot_mixing_exp_Fig3 <- function(){
   ## To Do: need to add SA919 main exp here, so there is same scale
   
 }
+
+viz_prop_chart <- function(){
+  library(ggplot2)
+  library(dplyr)
+  library(ggrepel)
+  library(tidyverse)
+  # View(metasample_df)
+  
+  ## To Do: move other clones to main clones
+  save_fig_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/main_figures/fig4_revised/'
+  dir.create(save_fig_dir)
+  colors_df <- data.table::fread(paste0(script_dir, 'colorCode_clones/color_code_SA919_mixing_experiment.csv'))
+  cols_use <- colors_df$color
+  names(cols_use) <- colors_df$clone_id
+  cols_use <- c(cols_use, 'black')
+  names(cols_use) <- c(colors_df$clone_id, 'None')
+  
+  metasample_df <- metasample_df %>%
+    dplyr::rename(sample_id=transplanted_mouse, original_clone=clone_id)
+  
+  mapping_clones <- c("A","B","C","None","C","A","A","C","B","C")
+  names(mapping_clones) <- c("A","B","C","None","C10","A01","A02","C11","B0","C0")
+  mapping_df <- tibble::tibble(clone_id=mapping_clones, original_clone=names(mapping_clones))
+  metasample_df <- metasample_df %>%
+    dplyr::left_join(mapping_df, by='original_clone')
+  unique(metasample_df$clone_id)
+  metasample_df <- metasample_df %>%
+    dplyr::group_by(sample_id, clone_id, mainsite, original_clone) %>%
+    dplyr::summarise(pct_cells=sum(pct_cells))
+  data.table::fwrite(metasample_df, paste0(save_fig_dir, 'mixing_exp_prop.csv.gz'))
+  View(metasample_df)
+  ## Main experiment
+  main_df <- data.table::fread(paste0(script_dir,'clonal_prevalence_per_sample/','SA919_cells_proportions.csv'))
+  dim(main_df)
+  head(main_df)
+  View(main_df)
+  mts <- sapply(strsplit(main_df$sample_id, '_'), function(x){
+    return(x[3])
+  })
+  main_df$mainsite <- as.character(mts)
+  # mids <- sapply(strsplit(main_df$sample_id, '_'), function(x){
+  #   return(paste0(x[2],'_',x[3]))
+  # })
+  mids <- main_df$sample_id
+  mids <- gsub('SA919','',mids)
+  mids <- gsub('mouse','',mids)
+  mids <- gsub('_Primary','P',mids)
+  mids <- gsub('_Metastasis','M',mids)
+  main_df$sample_id <- mids
+  
+  total_df <- dplyr::bind_rows(main_df, metasample_df)
+  
+  # View(total_df)
+  
+  met_plt_list <- list()
+  for(s in unique(total_df$sample_id)){
+    df <- total_df %>%
+      dplyr::filter(sample_id==s)
+    t <- sum(df$pct_cells)
+    
+    if(t>100){ # issue with round function, slightly higher than 100%
+      print(s)
+      print(t)
+      m <- max(df$pct_cells)
+      df <- df %>%
+        dplyr::mutate(pct_cells= case_when(
+          pct_cells==m ~ (pct_cells- t + 100),
+          TRUE ~ pct_cells
+        ))
+      print(sum(df$pct_cells))
+    }
+    
+    cols_use1 <- cols_use[unique(df$clone_id)]
+    # print(cols_use1)
+    df <- as.data.frame(df)
+    p <- NULL
+    if(df$mainsite[1]=='Primary'){
+      p <- clone_prevalence_piechart(df, s, save_fig_dir, cols_use1)
+    }else{
+      p <- clone_prevalence_donutchart(df, s, save_fig_dir, cols_use1)
+    }
+    met_plt_list[[s]] <- p
+  }
+  saveRDS(met_plt_list, paste0(save_fig_dir, 'SA919_met_plt_list_main_mixing.rds'))
+  # plot one with label and one without label because label change the scale of plot
+  p_total <- cowplot::plot_grid(plotlist = met_plt_list, ncol=6, labels = names(met_plt_list))
+  p_total
+  p_total_nolabel <- cowplot::plot_grid(plotlist = met_plt_list, ncol=6)
+  p_total_nolabel
+  
+  p_donut_lg <- clone_prevalence_donutchart_legend(save_fig_dir)
+  p_pie_lg <- clone_prevalence_piechart_legend(save_fig_dir)
+  
+  p_total_lg <- cowplot::plot_grid(p_pie_lg, p_donut_lg, ncol=1)
+  
+  ggsave(  
+    filename = paste0(save_fig_dir,"clonal_prop_SA919_total.svg"),  
+    plot = p_total_nolabel,  
+    height = 6.5,  
+    width = 6
+    #useDingbats=F
+  )
+  ggsave(  
+    filename = paste0(save_fig_dir,"clonal_prop_SA919_total.png"),  
+    plot = p_total,  
+    height = 10,  
+    width = 16
+    #useDingbats=F
+  )
+  ggsave(  
+    filename = paste0(save_fig_dir,"prop_mainsite_legend.svg"),  
+    plot = p_total_lg,  
+    height = 1,  
+    width = 0.5
+    #useDingbats=F
+  )
+}
+# pct_cells, clone_id, cols_use
+clone_prevalence_donutchart <- function(df, datatag, save_dir, cols_use){
+  # df <- data.frame(value = c(10, 30, 32, 28),
+  #                  clone_id = paste0("G", 1:4))
+  # Hole size
+  hsize <- 1.5
+  
+  df <- df %>% 
+    mutate(x = hsize)
+  df2 <- df %>% 
+    mutate(csum = rev(cumsum(rev(pct_cells))), 
+           pos = pct_cells/2 + lead(csum, 1),
+           pos = if_else(is.na(pos), pct_cells/2, pos))
+  
+  p <- ggplot(df, aes(x = hsize, y = pct_cells, fill = clone_id)) +
+    geom_col(color = "black") +
+    # geom_text(aes(label = pct_cells),
+    #           position = position_stack(vjust = 0.5)) +
+    coord_polar(theta = "y") +
+    # scale_fill_brewer(palette = "GnBu") +
+    scale_fill_manual(values = cols_use) + 
+    xlim(c(0.2, hsize + 0.5)) +
+    theme_void() + 
+    theme(legend.position = 'none')
+  # panel.background = element_rect(fill = "transparent", colour = NA),
+  # panel.grid = element_blank(),
+  # axis.title = element_blank(),
+  # axis.ticks = element_blank(),
+  # axis.text = element_blank()
+  # p
+  
+  # saveRDS(p, paste0(save_dir, datatag, '_donutchart.rds'))
+  return(p)
+}
+# pct_cells, clone_id, cols_use
+clone_prevalence_piechart <- function(df, datatag, save_dir, cols_use){
+  
+  
+  # df <- data.frame(pct_cells = c(15, 25, 32, 28),
+  #                  clone_id = paste0("G", 1:4))
+  # cols_use <- c('red','blue','cyan','pink')
+  # names(cols_use) <- df$clone_id
+  # Get the positions
+  df2 <- df %>% 
+    mutate(csum = rev(cumsum(rev(pct_cells))), 
+           pos = pct_cells/2 + lead(csum, 1),
+           pos = if_else(is.na(pos), pct_cells/2, pos))
+  
+  p <- ggplot(df, aes(x = "" , y = pct_cells, fill = fct_inorder(clone_id))) +
+    geom_col(width = 1, color = 1) +
+    coord_polar(theta = "y") +
+    scale_fill_manual(values = cols_use) + 
+    # scale_fill_brewer(palette = "Pastel1") +
+    # geom_text_repel(data = df2,
+    #                 aes(y = pos, label = paste0(clone_id,' ',pct_cells, "%")),
+    #                 size = 4.5, nudge_x = 1, show.legend = FALSE, segment.color = NA) +
+    # guides(fill = guide_legend(title = "clone_id")) +
+    theme_void() + 
+    theme(legend.position = 'none')
+  # p
+  # cols_use <- rep('white', 4)
+  # names(cols_use) <- df$clone_id
+  # p_legend <- ggplot(df, aes(x = "" , y = pct_cells, fill= fct_inorder(clone_id))) + #, fill = fct_inorder(clone_id))
+  #   geom_col(width = 1, color = 1) +
+  #   coord_polar(theta = "y") +
+  #   scale_fill_manual(values = cols_use)+
+  #   theme_void() + 
+  #   theme(legend.position = 'none')
+  # p_legend
+  # saveRDS(p, paste0(save_dir, datatag, '_piechart_legend_shape.rds'))
+  # saveRDS(p, paste0(save_dir, datatag, '_piechart.rds'))
+  # res <- list(p=p, p_legend=p_legend)
+  return(p)
+}
+
+clone_prevalence_piechart_legend <- function(save_dir, cols_use=NULL){
+  
+  df <- data.frame(pct_cells = c(100),
+                   clone_id = paste0("G", 1))
+  # df <- data.frame(pct_cells = c(15, 25, 32, 28),
+  #                  clone_id = paste0("G", 1:4))
+  # cols_use <- c('red','blue','cyan','pink')
+  # names(cols_use) <- df$clone_id
+  # Get the positions
+  df2 <- df %>% 
+    mutate(csum = rev(cumsum(rev(pct_cells))), 
+           pos = pct_cells/2 + lead(csum, 1),
+           pos = if_else(is.na(pos), pct_cells/2, pos))
+  
+  
+  cols_use <- rep('white', length(unique(df$clone_id)))
+  names(cols_use) <- df$clone_id
+  p_legend <- ggplot(df, aes(x = "" , y = pct_cells, fill= fct_inorder(clone_id))) + #, fill = fct_inorder(clone_id))
+    geom_col(width = 1, color = 1) +
+    coord_polar(theta = "y") +
+    scale_fill_manual(values = cols_use)+
+    theme_void() + 
+    theme(legend.position = 'none')
+  # p_legend
+  saveRDS(p_legend, paste0(save_dir, 'piechart_legend_shape.rds'))
+  
+  return(p_legend)
+}
+clone_prevalence_donutchart_legend <- function(save_dir, cols_use=NULL){
+  # Hole size
+  hsize <- 1.5
+  df <- data.frame(pct_cells = c(100),
+                   clone_id = paste0("G", 1))
+  # df <- data.frame(pct_cells = c(15, 25, 32, 28),
+  #                  clone_id = paste0("G", 1:4))
+  # cols_use <- c('red','blue','cyan','pink')
+  # names(cols_use) <- df$clone_id
+  # Get the positions
+  df2 <- df %>% 
+    mutate(csum = rev(cumsum(rev(pct_cells))), 
+           pos = pct_cells/2 + lead(csum, 1),
+           pos = if_else(is.na(pos), pct_cells/2, pos))
+  
+  
+  cols_use <- rep('white', length(unique(df$clone_id)))
+  names(cols_use) <- df$clone_id
+  # p_legend <- ggplot(df, aes(x = "" , y = pct_cells, fill= fct_inorder(clone_id))) + #, fill = fct_inorder(clone_id))
+  #   geom_col(width = 1, color = 1) +
+  #   coord_polar(theta = "y") +
+  #   scale_fill_manual(values = cols_use)+
+  #   theme_void() + 
+  #   theme(legend.position = 'none')
+  # p_legend
+  p_legend <- ggplot(df, aes(x = hsize, y = pct_cells, fill = clone_id)) +
+    geom_col(color = "black") +
+    # geom_text(aes(label = pct_cells),
+    #           position = position_stack(vjust = 0.5)) +
+    coord_polar(theta = "y") +
+    # scale_fill_brewer(palette = "GnBu") +
+    scale_fill_manual(values = cols_use) + 
+    xlim(c(0.2, hsize + 0.5)) +
+    theme(panel.background = element_rect(fill = "transparent", colour = NA),
+          panel.grid = element_blank(),
+          axis.title = element_blank(),
+          axis.ticks = element_blank(),
+          axis.text = element_blank(),
+          legend.position = 'none')
+  # p_legend
+  saveRDS(p_legend, paste0(save_dir, 'donutchart_legend_shape.rds'))  
+  
+  return(p_legend)
+}
+

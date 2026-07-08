@@ -155,7 +155,7 @@ clone_prevalence_piechart_legend <- function(save_dir, cols_use=NULL){
     theme_void() + 
     theme(legend.position = 'none')
   # p_legend
-  saveRDS(p_legend, paste0(save_dir, 'piechart_legend_shape.rds'))  
+  saveRDS(p_legend, paste0(save_dir, 'piechart_legend_shape.rds'))
   
   return(p_legend)
 }
@@ -176,14 +176,29 @@ clone_prevalence_donutchart_legend <- function(save_dir, cols_use=NULL){
   
   cols_use <- rep('white', length(unique(df$clone_id)))
   names(cols_use) <- df$clone_id
-  p_legend <- ggplot(df, aes(x = "" , y = pct_cells, fill= fct_inorder(clone_id))) + #, fill = fct_inorder(clone_id))
-    geom_col(width = 1, color = 1) +
-    coord_polar(theta = "y") +
-    scale_fill_manual(values = cols_use)+
-    theme_void() + 
-    theme(legend.position = 'none')
+  # p_legend <- ggplot(df, aes(x = "" , y = pct_cells, fill= fct_inorder(clone_id))) + #, fill = fct_inorder(clone_id))
+  #   geom_col(width = 1, color = 1) +
+  #   coord_polar(theta = "y") +
+  #   scale_fill_manual(values = cols_use)+
+  #   theme_void() + 
+  #   theme(legend.position = 'none')
   # p_legend
-  saveRDS(p_legend, paste0(save_dir, 'piechart_legend_shape.rds'))  
+  p <- ggplot(df, aes(x = hsize, y = pct_cells, fill = clone_id)) +
+    geom_col(color = "black") +
+    # geom_text(aes(label = pct_cells),
+    #           position = position_stack(vjust = 0.5)) +
+    coord_polar(theta = "y") +
+    # scale_fill_brewer(palette = "GnBu") +
+    scale_fill_manual(values = cols_use) + 
+    xlim(c(0.2, hsize + 0.5)) +
+    theme(panel.background = element_rect(fill = "white"),
+          panel.grid = element_blank(),
+          axis.title = element_blank(),
+          axis.ticks = element_blank(),
+          axis.text = element_blank(),
+          legend.position = 'none')
+  # p_legend
+  saveRDS(p_legend, paste0(save_dir, 'donutchart_legend_shape.rds'))  
   
   return(p_legend)
 }

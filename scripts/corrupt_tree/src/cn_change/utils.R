@@ -1365,16 +1365,17 @@ plot_heatmap_genotype <- function(dis_mtx, distance_type, datatag, results_dir){
                                row_title = "Clones",
                                column_title = plottitle,
                                column_gap = unit(1, "mm"),
-                               column_names_gp = grid::gpar(fontsize = 13, fontface = "bold"),
-                               column_title_gp = gpar(fontsize = 13, fontface = "bold"),
-                               row_names_gp = grid::gpar(fontsize = 13, fontface = "bold"),
+                               column_names_gp = grid::gpar(fontsize = 11), #, fontface = "bold"
+                               column_title_gp = gpar(fontsize = 11),#, fontface = "bold"
+                               row_names_gp = grid::gpar(fontsize = 11), #, fontface = "bold"
                                show_heatmap_legend = T,
                                # top_annotation=top_anno,
                                # left_annotation = left_anno,
                                cell_fun = cell_func,
   )#row_dend_reorder=F
   # p
-  
+  p1 <- grid.grabExpr(ComplexHeatmap::draw(p, padding = unit(c(1, 1, 1, 1), "mm")))
+  saveRDS(p1, paste0(results_dir, datatag, distance_type,'_distance_clones','.rds'))
   png(paste0(results_dir, datatag, distance_type,'_distance_','.png'), height = 2*500, width=2*600, res = 2*72)
   print(p)
   dev.off()

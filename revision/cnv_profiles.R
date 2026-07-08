@@ -2,7 +2,7 @@
 
 input_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/'
 source(paste0(input_dir,"scripts/corrupt_tree/src/cn_change/utils.R"))
-save_dir <- paste0(input_dir,'revision/cnv_profiles_res/')
+save_dir <- paste0(input_dir,'revision/CN_profile/')
 
 
 datatag <- 'SA535'
@@ -14,7 +14,7 @@ stat_tmp <- get_median_genotype_v3(copynumber_fn,
 dim(stat_tmp)
 head(stat_tmp)
 
-res_total <- list()
+# res_total <- list()
 series <- c('SA919','SA535')
 datatag <- 'SA919'
 input_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/'

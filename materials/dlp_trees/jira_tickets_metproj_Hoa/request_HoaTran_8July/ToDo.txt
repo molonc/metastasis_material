@@ -1,0 +1,21 @@
+
+Please help to check: 
+
+HMMcopy data: 
+In case there is a jira ticket associated with library id, pls check if we have corresponding hmmcopy files in atlas?  
+File: 
+SA1142_hmmcopy_libraryIds.csv
+SA535_hmmcopy_libraryIds_jira.csv
+SA919_hmmcopy_libraryIds_jira.csv  (note: some AX ids are noted at: AX_library_uid_SA919.txt)
+
+Issue: Daniel changed the name of files when uploading to atlas. So maybe you can look for files with ending: .reads.csv.gz, and metrics.csv.gz
+
+Pseudobulk data: 
+In case there is a jira ticket associated with library id, pls check if we have corresponding haplotype, breakpoints files in atlas? (files end with .vcf or sth similar)
+SA919_SA535_pseudobulk.csv
+
+Snv genotyping: 
+Pls check if files from 2 jira tickets are uploaded to Atlas? SC-4094, SC-4095
+SA919_SA535_snv_genotyping.csv
+
+ 
