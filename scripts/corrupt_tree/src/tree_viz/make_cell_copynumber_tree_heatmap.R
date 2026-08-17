@@ -121,13 +121,19 @@ make_clone_palette <- function(levels) {
     
     
     # Meta colors based on package inlmisc::GetColors(n) -- problem at installation, so keep values of color codes in csv file
-    colorcode_fn <- "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/config/colorcode.csv"
+    # colorcode_fn <- "/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/config/colorcode.csv"
+    colorcode_fn <- "/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/materials/dlp_trees/colorCode_clones/color_code_SA535.csv"
     if(file.exists(colorcode_fn)){
       color_df <- data.table::fread(colorcode_fn)
-      color_df <- color_df %>%
-        dplyr::filter(nb_clones==length(levels))
+      # color_df <- color_df %>%
+      #   dplyr::filter(nb_clones==length(levels))
       clone_pal <- color_df$color
-      names(clone_pal) <- levels
+      names(clone_pal) <- color_df$clone_id
+      # names(clone_pal) <- levels
+      # clone_pal <- clone_pal[levels]
+      
+      print('DEBUG xxx')
+      print(levels)
       clone_pal <- clone_pal[levels]
       return(clone_pal)
     }else{
@@ -1037,6 +1043,7 @@ make_allele_copy_number_heatmap <- function(ascn_df, clones, grouping_file, plot
   return(copynumber_hm)
 }
 
+# brlen <- NULL
 make_cell_copynumber_tree_heatmap_demo <- function(tree, copynumber, clones,
                                               brlen, grouping_file, save_dir='', datatag='') {
     tree <- format_tree(tree, brlen)
@@ -1050,17 +1057,24 @@ make_cell_copynumber_tree_heatmap_demo <- function(tree, copynumber, clones,
         # copynumber <- copynumber[,clones$cell_id]
     }
     
-    # tree_hm <- make_corrupt_tree_heatmap(tree_ggplot)
+    tree_hm <- make_corrupt_tree_heatmap(tree_ggplot)
     copynumber_hm <- make_copynumber_heatmap(copynumber, clones, grouping_file)
-    saveRDS(copynumber_hm, paste0(save_dir, datatag, '_hm.rds'))
+    # saveRDS(copynumber_hm, paste0(save_dir, datatag, '_hm.rds'))
     # h <- tree_hm + copynumber_hm
     h <- copynumber_hm
-    draw(
+    hm <- grid.grabExpr(draw(
         h,
         padding=unit(c(2, 2, 2, 2), "mm"),
         annotation_legend_side="right",
         heatmap_legend_side="bottom"
-    )
+    ))
+    # draw(
+    #   h,
+    #   padding=unit(c(2, 2, 2, 2), "mm"),
+    #   annotation_legend_side="right",
+    #   heatmap_legend_side="bottom"
+    # )
+    return(hm)
 }
 # tree, ascn_state_phase, clones, plotcol='state_phase', NULL, grouping_file, save_dir, paste0(datatag, '_ascn_state_phase')
 make_allele_copynumber_tree_heatmap_demo <- function(tree, copynumber, clones, plotcol,
@@ -1129,11 +1143,12 @@ demo <- function() {
     datatag <- 'SA919'
     datatag <- 'SA535'
     results_dir <- '/home/htran/storage/datasets/metastasis_results/SA535_new_encoding/SA535_wholedata_v2/'
-    results_dir <- '/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/'
-    copynumber_fn <- paste0(results_dir,'total_merged_filtered_states.csv')
-    clones_fn <- paste0(results_dir,'cell_clones.csv')
+    results_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/materials/dlp_trees/SA535/'
+    # results_dir <- '/home/htran/storage/datasets/metastasis_results/SA919X7_new_encoding/SA919_Tyler_wholedata/'
     
-    grouping_file <- paste0(results_dir,'library_groupings.csv')
+    copynumber_fn <- paste0(results_dir,'total_merged_filtered_states.csv.gz')
+    clones_fn <- paste0(results_dir,'cell_clones.csv.gz')
+    grouping_file <- paste0(results_dir,'library_groupings.csv.gz')
     # tree <- read.tree(tree_fn)
     copynumber <- data.table::fread(copynumber_fn) %>% as.data.frame()
     rownames(copynumber) <- copynumber$V1
@@ -1151,22 +1166,33 @@ demo <- function() {
     all_cells <- grep('cell', tree$tip.label, value = T)
     # all_cells <- grep('SA', tree$tip.label, value = T)
     length(all_cells)
-    none_cells <- clones$cell_id[!clones$cell_id %in% all_cells]
+    # none_cells <- clones$cell_id[!clones$cell_id %in% all_cells]
     none_cells <- all_cells[!all_cells %in% paste0('cell_',clones$cell_id)]
-    
     print(length(none_cells))
+    
     tree <- ape::drop.tip(tree, none_cells, trim.internal =T, collapse.singles = T)
     # tree
     save_dir <- paste0(results_dir,'prevalences/')
-    dir.create(save_dir)
+    # dir.create(save_dir)
     png(paste0(save_dir,'cell_cn_tree_heatmap_simple_',datatag,'.png'), height = 2*500, width=2*700, res = 2*72)
-    make_cell_copynumber_tree_heatmap_demo(
+    hm <- make_cell_copynumber_tree_heatmap_demo(
         tree, copynumber, clones, NULL, grouping_file
     )
+    hm_total <- cowplot::plot_grid(hm, ncol=1)
+    print(hm_total)
     dev.off()
     
+    saveRDS(hm, paste0(save_dir,'cell_cn_tree_heatmap_simple_',datatag,'_ComplexHeatmap_obj.rds'))
     
+    ggsave(paste0(save_dir,'cell_cn_tree_heatmap_simple_',datatag,'.svg'),
+           plot = hm_total,
+           height = 5.5,
+           width = 7.5,
+           dpi=150)
     
+    # tree_backup <- tree
+    # copynumber_backup <- copynumber
+    # clones_backup <- clones
     
 }
 

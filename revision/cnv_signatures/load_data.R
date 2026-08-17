@@ -288,9 +288,12 @@ viz_signatures <- function(){
     scale_fill_manual(values = clone_colors) +
     facet_wrap(~signature, nrow = 1, scales = "free_y") +
     theme_bw() +
-    theme(legend.position = 'bottom',
+    theme(axis.text.x = element_text(color="black",size=10, hjust = 0.5), 
+          axis.text.y = element_text(color="black",size=8, hjust = 0.5),
+          strip.text = element_text(color="black",size=10, hjust = 0.5),
+      legend.position = 'bottom',
           panel.grid.minor = element_blank()) + 
-    labs(title = "CN Signature Exposure by Clone",
+    labs(title = "CNA Signature Exposure by Clone",
          x = "Clone", y = "Signature Exposure")
   # p
   png(paste0(save_result_dir,datatag,'_signatures.png'),
@@ -300,7 +303,11 @@ viz_signatures <- function(){
 
   # Also save as vector graphics (.svg)
   ggsave(paste0(save_result_dir,datatag,'_signatures.svg'),
-         plot = p, width = 800/72, height = 250/72, units = "in")
+         plot = p, 
+         height = 2.8,
+         width = 7,
+         # useDingbats=F,
+         dpi=150)
 }
 
 get_signatures()

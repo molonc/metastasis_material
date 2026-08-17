@@ -1,0 +1,3 @@
+patient_id,SA_id,median_nmapped_reads_per_cell,mean_nmapped_reads_per_cell,std_nmapped_reads_per_cell,median_nreads_per_cell,std_nreads_per_cell,median_coverage_depth,std_coverage_depth,median_coverage_breadth,std_coverage_breadth,median_quality,std_quality
+Pt1,SA919,1169285.5,1463387.2,901823.67,1279674,914768.68,0.03,0.02,0.03,0.02,1,0.02
+Pt2,SA535,1995229.5,2533029.76,1791767.19,2019345,1815954.22,0.05,0.04,0.05,0.04,1,0.05

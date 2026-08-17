@@ -182,7 +182,31 @@ viz_hmmcopy <- function(){
   saveRDS(plg, paste0(save_dir_fg, 'CN_state_legend.rds'))
 }
 
+double_check_viz <- function(){
 
+  input_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/'
+  save_dir <- paste0(input_dir,'revision/CN_profile/')
+  save_dir_fg <- paste0(save_dir, 'viz_cell/')
+  datatag <- 'SA919'
+
+
+  obs_cell <- "SA919X4XB40509-A98217A-R22-C40" # clone A
+  cl <- 'A'
+  df <- data.table::fread(paste0(save_dir_fg, datatag, '_',obs_cell,'_clone',cl,'.csv.gz'))
+  viz_obs_cell(df, obs_cell, paste0(datatag,'_clone',cl), save_dir_fg)
+  
+  
+  obs_cell <- "SA919X7XB05691-A96204B-R42-C54"
+  cl <- 'B'
+  df <- data.table::fread(paste0(save_dir_fg, datatag, '_',obs_cell,'_clone',cl,'.csv.gz'))
+  viz_obs_cell(df, obs_cell, paste0(datatag,'_clone',cl), save_dir_fg)
+  
+  obs_cell <- "SA919X7XB05588-A98299A-R11-C13" # clone C
+  cl <- 'C'
+  df <- data.table::fread(paste0(save_dir_fg, datatag, '_',obs_cell,'_clone',cl,'.csv.gz'))
+  viz_obs_cell(df, obs_cell, paste0(datatag,'_clone',cl), save_dir_fg)
+
+}
 viz_obs_cell <- function(df, obs_cell, datatag, save_dir_fg){
   # save_dir_fg <- paste0(save_dir, 'viz_cell/')
   if(!dir.exists(save_dir_fg)){
@@ -195,7 +219,9 @@ viz_obs_cell <- function(df, obs_cell, datatag, save_dir_fg){
                 '10'='#C196C4','11'='#D0BAD8')
   obs_chrs <- c(1:22, "X")
   
-  df <- df %>%
+  unique(df$chr)
+  df <- df  %>%
+    dplyr::filter(chr %in% obs_chrs)%>%
     dplyr::mutate(reads=case_when(
       reads > 400 ~ 400, 
       TRUE ~ reads
@@ -204,6 +230,7 @@ viz_obs_cell <- function(df, obs_cell, datatag, save_dir_fg){
       copy > 11 ~ 11, 
       TRUE ~ copy
     ))
+  unique(df$state)
   # data.table::fwrite(df, paste0(save_dir, 'test_hmmcopy_cloneA.csv'))
   df$state <- as.character(df$state)
   levels(df$state) <- 0:(length(cnv_cols)-1)
@@ -237,12 +264,12 @@ viz_obs_cell <- function(df, obs_cell, datatag, save_dir_fg){
   saveRDS(pc, paste0(save_dir_fg, obs_cell, '_',datatag,'_copy_cnv_plt.rds'))
   
   
-  p_total <- cowplot::plot_grid(pr, pc, ncol=1)
-  # For quick demo
-  png(paste0(save_dir_fg, obs_cell, '_',datatag,'_cnv_plt.png'), 
-      height = 2*400, width=2*900,res = 2*72)
-  print(p_total)
-  dev.off()
+  # p_total <- cowplot::plot_grid(pr, pc, ncol=1)
+  # # For quick demo
+  # png(paste0(save_dir_fg, obs_cell, '_',datatag,'_cnv_plt.png'), 
+  #     height = 2*400, width=2*900,res = 2*72)
+  # print(p_total)
+  # dev.off()
 }
 viz_CNA_changes_distribution <- function(){
   ## CNA changes only
@@ -309,13 +336,14 @@ add_theme_cnv_plot <- function(cnv_plot){
   lg_pos <- "none"
   my_font <- "Helvetica"
   cnv_plot <- cnv_plot + theme(strip.background = element_rect(fill = 'white', colour = 'white'),
-                               strip.text = element_text(color="black",size=10, hjust = 0.5, family=my_font, angle = 90),
-                               text = element_text(color="black",size = 11, hjust = 0.5, family=my_font),
+                               strip.text = element_text(color="black",size=8, hjust = 0.5, family=my_font, angle = 90),
+                               text = element_text(color="black",size = 8, hjust = 0.5, family=my_font),
                                axis.text.x = element_blank(),
                                axis.ticks.x = element_blank(),
-                               axis.text.y = element_text(color="black",size=11, hjust = 0.5, family=my_font),
+                               axis.text.y = element_text(color="black",size=7, hjust = 0.5, family=my_font),
                                axis.title.y = element_text(color="black",size=11, hjust = 0.5, family=my_font),
-                               axis.title.x = element_text(color="black",size=11, hjust = 0.5, family=my_font),
+                               # axis.title.x = element_text(color="black",size=11, hjust = 0.5, family=my_font),
+                               axis.title.x =  element_blank(),
                                axis.line = element_line(colour = "black"),
                                strip.placement = "outside",
                                legend.position = lg_pos,
@@ -444,15 +472,42 @@ plot_R24 <- function(){
   input_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/'
   save_dir <- paste0(input_dir,'revision/CN_profile/')
   save_dir_fg <- paste0(save_dir, 'viz_cell/')
+  datatag <- 'SA919'
+  
+  
   obs_cell <- "SA919X4XB40509-A98217A-R22-C40" # clone A
-  # obs_cell <- "SA919X7XB05691-A96204B-R48-C58" # clone B
-  # obs_cell <- "SA919X7XB05588-A98299A-R05-C21" # clone C
   cl <- 'A'
-  pr <- readRDS(paste0(save_dir_fg, obs_cell, '_',datatag,'_clone',cl,'_reads_cnv_plt.rds'))
-  pc <- readRDS(paste0(save_dir_fg, obs_cell, '_',datatag,'_clone',cl,'_copy_cnv_plt.rds'))
+  pra <- readRDS(paste0(save_dir_fg, obs_cell, '_',datatag,'_clone',cl,'_reads_cnv_plt.rds'))
+  pca <- readRDS(paste0(save_dir_fg, obs_cell, '_',datatag,'_clone',cl,'_copy_cnv_plt.rds'))
+  
+  # obs_cell <- "SA919X7XB05691-A96204B-R29-C07" 
+  # obs_cell <- "SA919X7XB05691-A96204B-R37-C41"
+  obs_cell <- "SA919X7XB05691-A96204B-R42-C54"
+  cl <- 'B'
+  prb <- readRDS(paste0(save_dir_fg, obs_cell, '_',datatag,'_clone',cl,'_reads_cnv_plt.rds'))
+  pcb <- readRDS(paste0(save_dir_fg, obs_cell, '_',datatag,'_clone',cl,'_copy_cnv_plt.rds'))
+  
+  # pb <- cowplot::plot_grid(NULL, prb, pcb, NULL, ncol=1)
+  # pb
+    
+  
+  
+  obs_cell <- "SA919X7XB05588-A98299A-R11-C13" # clone C
+  cl <- 'C'
+  prc <- readRDS(paste0(save_dir_fg, obs_cell, '_',datatag,'_clone',cl,'_reads_cnv_plt.rds'))
+  pcc <- readRDS(paste0(save_dir_fg, obs_cell, '_',datatag,'_clone',cl,'_copy_cnv_plt.rds'))
+  
   plg <- readRDS(paste0(save_dir_fg, 'CN_state_legend.rds'))
-  p_total <- cowplot::plot_grid(NULL, pr, pc, plg,NULL, ncol=1, rel_heights = c(0.05, 1,1, 0.1,0.03))
-  p_total
+  
+  # p_total <- cowplot::plot_grid(NULL, pr, pc, plg,NULL, ncol=1, rel_heights = c(0.05, 1,1, 0.1,0.03))
+  p_total <- cowplot::plot_grid(NULL, pra, pca, 
+                                NULL, prb, pcb, 
+                                NULL, prc, pcc, 
+                                plg,NULL, ncol=1, rel_heights = c(0.1, 1, 1, 
+                                                                  0.1, 1, 1, 
+                                                                  0.1, 1, 1, 
+                                                                  0.1,0.05))
+  # p_total
   
   ## total mapped reads for 2 series
   p_total_reads <- readRDS(paste0(paste0(save_dir, 'cell_metrics_eval/','total_metrics_SA919_SA535_mapped_reads_plt.rds')))
@@ -474,14 +529,20 @@ plot_R24 <- function(){
   datatag <- 'SA535'
   p_SA535 <- readRDS(paste0(save_dir, 'clone_distance/', datatag, distance_type,'_distance_clones','.rds'))
   
-  p_all <- cowplot::plot_grid(p_total, p_cnv, p_SA535, ncol=1, rel_heights = c(1,0.6, 0.8),
-                              labels = c('Raw read counts & normalized copy profiles',' ',' ')) +
+  # p_all <- cowplot::plot_grid(p_total, p_cnv, p_SA535, ncol=1, rel_heights = c(1,0.6, 0.8),
+  #                             labels = c('Raw read counts & normalized copy profiles',' ',' ')) +
+  #   theme(plot.background = element_rect(fill = "white", colour = "white"))
+  
+  p_all <- cowplot::plot_grid(p_total, p_cnv, ncol=1, rel_heights = c(3,0.65),
+                              labels = c(' ',' ',' ')) +
     theme(plot.background = element_rect(fill = "white", colour = "white"))
+  
+  
   ggplot2::ggsave( 
-    filename = paste0(save_dir,"R24.svg"), 
+    filename = paste0(save_dir,"R24_v2.svg"), 
     plot = p_all,
     height = 11, 
-    width = 9, 
+    width = 8, 
   )
    
   ggplot2::ggsave( 

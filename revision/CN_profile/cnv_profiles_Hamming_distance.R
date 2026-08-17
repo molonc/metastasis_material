@@ -72,4 +72,30 @@ stat1 <- pt4_df %>%
 stat1
 
 
-# TO DO: get heatmap dlp
+## Get stat summary for revision manuscript
+input_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/revision/CN_profile/clone_distance/'
+distance_SA919 <- data.table::fread(paste0(input_dir,'SA919_cn_distance_Hamming_output.csv'))
+head(distance_SA919)
+distance_SA535 <- data.table::fread(paste0(input_dir,'SA535_cn_distance_Hamming_output.csv'))
+distance_stat <- distance_SA919
+distance_stat <- distance_SA535
+print(paste0("mean = ",round(mean(distance_stat$CNA_Distance)),
+             ", sigma = ",round(sd(distance_stat$CNA_Distance))))
+      
+             
+distance_stat <- distance_SA919  %>%
+  dplyr::group_by(patient_id, SA_id)%>%
+  dplyr::summarise(
+    mean_nmapped_reads_per_cell=round(mean(total_mapped_reads),2),
+    std_nmapped_reads_per_cell=round(sd(total_mapped_reads),2),
+    median_nmapped_reads_per_cell=round(median(total_mapped_reads),2),
+    median_nreads_per_cell=median(total_reads),
+    std_nreads_per_cell=round(sd(total_reads),2),
+    median_coverage_depth=round(median(coverage_depth),2),
+    std_coverage_depth=round(sd(coverage_depth),2),
+    median_coverage_breadth=round(median(coverage_breadth),2),
+    std_coverage_breadth=round(sd(coverage_breadth),2),
+    median_quality=round(median(quality),2),
+    std_quality=round(sd(quality),2))%>%
+  ungroup()
+

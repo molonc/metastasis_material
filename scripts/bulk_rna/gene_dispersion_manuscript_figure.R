@@ -182,7 +182,7 @@ get_statistical_test_gene_types <- function(meta_genes, alternative_theory="two.
 get_cis_trans_gene_type <- function(obs_clones){
   ## Loading cnv file
   # script_dir <- "/home/htran/Projects/hakwoo_project/metastasis_material/materials/bulkRNAseq/"
-  script_dir <- "/Users/miu/Documents/workspace/projects_BCCRC/hakwoo_project/metastasis_material/materials/bulkRNAseq/"
+  # script_dir <- "/Users/miu/Documents/workspace/projects_BCCRC/hakwoo_project/metastasis_material/materials/bulkRNAseq/"
   script_dir <- "/Users/hoatran/Documents/BCCRC_projects/hakwoo_project/code/metastasis_material/materials/bulkRNAseq/"
   cnv <- data.table::fread(paste0(script_dir, 'SA919_DE_analysis_DESeq2_Hoa_09April2024/mapping_gene_cnv_SA919.csv.gz'))  
   dim(cnv)

@@ -72,12 +72,16 @@ get_bootstrap_stat_sampling <- function(cis_genes, trans_genes,
   return(summary_df)
 }
 
-get_DE_genes_DESeq2 <- function(dds, DE_comp=c("Metastasis","Primary"),
-                                filter_genes=F, min_total_exp_samples=10){
+# contrast="condition", or "main_clone"
+# contrast="main_clone"
+# dds = dds_tmp, DE_comp=c(obs_clones[2], obs_clones[1]),
+# filter_genes=F, min_total_exp_samples=10, contrast=cont
+get_DE_genes_DESeq2_utils <- function(dds, DE_comp=c("Metastasis","Primary"),
+                                filter_genes=F, min_total_exp_samples=10, contrast="desc"){
   
   print(dim(dds))
-  print(sizeFactors(dds))
-  print(colData(dds))
+  # print(sizeFactors(dds))
+  # print(colData(dds))
   ## ----prefilter----------------------------------------------------------------
   ## filter genes function pose an issue for next step, need to debug it later
   ## set filter_genes=F first
@@ -88,9 +92,22 @@ get_DE_genes_DESeq2 <- function(dds, DE_comp=c("Metastasis","Primary"),
     dds <- dds[keep,]
     print(dim(dds))  
   }
-  print(colnames(dds))
+  # print(colnames(dds))
   ## ----factorlvl----------------------------------------------------------------
-  dds$condition <- factor(dds$condition, levels = DE_comp)
+  print(contrast)
+  
+  if(contrast=="desc"){
+    dds$condition <- dds$desc
+  }else{
+    stop("Check again variable condition")
+  }  
+  # if(contrast=="mainsite"){
+  #   dds$condition <- dds$mainsite
+  #   dds$condition <- factor(dds$condition, levels = DE_comp)  
+  # }else{
+  #   dds$condition <- dds$main_clone
+  #   dds$condition <- factor(dds$condition, levels = DE_comp)    
+  # }
   
   ## ----relevel------------------------------------------------------------------
   # dds$condition <- relevel(dds$condition, ref = "untreated")
@@ -100,12 +117,16 @@ get_DE_genes_DESeq2 <- function(dds, DE_comp=c("Metastasis","Primary"),
   
   ## ----deseq--------------------------------------------------------------------
   ## size factors are noted in colData column
+  # colnames(colData(dds))
   dds <- DESeq(dds)
   contrast_DE_comp <- c("condition")
   contrast_DE_comp <- c(contrast_DE_comp, DE_comp)
   res <- results(dds, contrast=contrast_DE_comp) #c("condition","treated","untreated")
   res$ensembl_gene_id <- rownames(res)
   # DESeq2::DESeq
+  # dim(res)
+  print(res)
+  # sum(abs(res$log2FoldChange)>1)
   return(res)
 }
 

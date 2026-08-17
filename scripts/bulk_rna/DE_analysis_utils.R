@@ -11,15 +11,37 @@ create_DESeq2_object <- function(sce){
   return(dds)
 }
 
-
-get_DE_results <- function(subtag, save_fig_dir, dds, meta_genes, obs_clones, exps=c('main_exp','mixing_exp')){
+# (subtag, save_fig_dir, dds, meta_genes, obs_clones, exps=c('main_exp'), filter_cond='pri_pri')
+get_DE_results <- function(subtag, save_fig_dir, dds, meta_genes, obs_clones, 
+                           exps=c('main_exp','mixing_exp'), filter_conds=c('Primary','Metastasis')){
     
-  filtered_conds <- c(paste0(obs_clones[2],'_Metastasis'),paste0(obs_clones[1],'_Primary'))
-  print(filtered_conds)
+  # if(filter_cond=='met_pri'){
+  #   filtered_conds <- c(paste0(obs_clones[2],'_Metastasis'),paste0(obs_clones[1],'_Primary'))
+  # }else{ # pri_pri, i.e B_Primary, A_Primary
+  #   filtered_conds <- c(paste0(obs_clones[2],'_Primary'),paste0(obs_clones[1],'_Primary'))
+  # }
+  if('both' %in% exps){
+    filtered_conditions <- c(paste0(obs_clones[2],'_',filter_conds[2]),
+                             paste0(obs_clones[1],'_',filter_conds[1]))
+    # print(filtered_conditions)
+    dds$desc <- paste0(dds$main_clone, '_',dds$mainsite)
+    DE_cp <- c(paste0(obs_clones[2],'_',filter_conds[2]),
+               paste0(obs_clones[1],'_',filter_conds[1]))
+    print('Including samples from both main, and mixing exps')
+  }else{
+    filtered_conditions <- c(paste0(obs_clones[2],'_',filter_conds[2],'_',exps[2]),
+                             paste0(obs_clones[1],'_',filter_conds[1],'_',exps[1]))
+    # print(filtered_conditions)
+    dds$desc <- paste0(dds$main_clone, '_',dds$mainsite,'_',dds$experiment)  
+    DE_cp <- c(paste0(obs_clones[2],'_',filter_conds[2],'_',exps[2]),
+               paste0(obs_clones[1],'_',filter_conds[1],'_',exps[1]))
+  }
+  cont <- 'desc'
+  # as.factor(dds$desc)
   meta_df <- colData(dds) %>%
     as.data.frame() %>%
-    dplyr::mutate(desc=paste0(main_clone, '_',mainsite)) %>%
-    filter(desc %in% filtered_conds & experiment %in% exps)
+    # dplyr::mutate(desc=paste0(main_clone, '_',mainsite,'_',experiment)) %>%
+    filter(desc %in% filtered_conditions)
   print('Number of observed samples:')
   print(dim(meta_df))
   print(meta_df)
@@ -36,17 +58,37 @@ get_DE_results <- function(subtag, save_fig_dir, dds, meta_genes, obs_clones, ex
   #   sids <- meta_samples$sample_id
   # }
   dds_tmp <- dds[,sids]
-  print(sizeFactors(dds_tmp)) ## using existing size factors calculated using Scran method
-  res <- get_DE_genes_DESeq2(dds_tmp, DE_comp=c("Metastasis","Primary"),
-                              filter_genes=F, min_total_exp_samples=10)
-  dim(res)
+  # print(sizeFactors(dds_tmp)) ## using existing size factors calculated using Scran method
+  # if(filter_cond=='met_pri'){
+  #   cont <- 'mainsite' #main_site
+  #   DE_cp <- c("Metastasis","Primary")
+  # }else{ # pri_pri, can be same clone, but different sites i.e A_Metastasis, A_Primary
+  #   cont <- 'main_clone'
+  #   DE_cp=c(obs_clones[2], obs_clones[1])
+  # }
+  
+  dds_tmp$desc <- factor(dds_tmp$desc, levels = DE_cp)
+  res <- get_DE_genes_DESeq2_utils(dds_tmp, DE_comp=DE_cp,
+                              filter_genes=F, min_total_exp_samples=10, contrast=cont)
+  # dim(res)
+  # head(res)
+  # class(res)
+ 
   res <- res %>%
     as.data.frame() %>%
+    dplyr::mutate(baseMean=round(baseMean, 2),
+                  log2FoldChange=round(log2FoldChange, 2),
+                  lfcSE=round(lfcSE, 2),
+                  stat=round(stat, 2))
+  data.table::fwrite(res, paste0(save_fig_dir, subtag, '_DE_genes_full.csv.gz'))
+  res <- res %>%
     filter(pvalue<0.05 & abs(log2FoldChange)>=1) # 
-  print(dim(res))
-  
+  # print(dim(res))
+  # head(res)
   res <- res %>%
     dplyr::left_join(meta_genes, by=c('ensembl_gene_id'='ens_gene_id'))
+  print('Number of significant DE genes: ')
+  print(dim(res))
   data.table::fwrite(res, paste0(save_fig_dir, subtag, '_DE_genes.csv.gz'))
   
   return(res)
@@ -168,4 +210,32 @@ get_BCV_dispersion <- function(dge, meta_genes, cis_ens_genes,
   
   res <- list(p_cistrans=p, meta_genes=meta_genes)
   return(res)
+}
+
+get_cis_trans_gene_type <- function(obs_clones){
+  ## Loading cnv file
+  # script_dir <- "/home/htran/Projects/hakwoo_project/metastasis_material/materials/bulkRNAseq/"
+  # script_dir <- "/Users/miu/Documents/workspace/projects_BCCRC/hakwoo_project/metastasis_material/materials/bulkRNAseq/"
+  script_dir <- "/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/materials/bulkRNAseq/"
+  cnv <- data.table::fread(paste0(script_dir, 'SA919_DE_analysis_DESeq2_Hoa_09April2024/mapping_gene_cnv_SA919.csv.gz'))  
+  dim(cnv)
+  cnv <- cnv[!duplicated(cnv$ensembl_gene_id),]
+  colnames(cnv)
+  # head(cnv)
+  cols_use <- c('ensembl_gene_id','gene_symbol','chr')
+  cols_use <- c(cols_use, obs_clones)
+  rownames(cnv) <- cnv$ensembl_gene_id
+  cnv <- cnv %>%
+    dplyr::select(all_of(cols_use))
+  cnv_vals <- cnv %>%
+    dplyr::select(all_of(obs_clones))
+  rv <- rowVars(as.matrix(cnv_vals))  # median copy number profile of obs clones
+  # length(rv)
+  cnv <- as.data.frame(cnv)
+  genes_used <- cnv$ensembl_gene_id[rv>0]
+  # length(genes_used)
+  cnv <- cnv %>%
+    dplyr::filter(ensembl_gene_id %in% genes_used)
+  dim(cnv)
+  return(cnv)
 }

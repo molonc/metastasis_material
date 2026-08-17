@@ -271,7 +271,11 @@ get_DE_genes_DESeq2 <- function(dds, DE_comp=c("Metastasis","Primary"),
   }
   print(colnames(dds))
   ## ----factorlvl----------------------------------------------------------------
-  dds$condition <- factor(dds$condition, levels = DE_comp)
+  v <- sum(DE_comp %in% unique(dds$condition))
+  if(v>0){
+    dds$condition <- factor(dds$condition, levels = DE_comp)
+  }
+  
   
   ## ----relevel------------------------------------------------------------------
   # dds$condition <- relevel(dds$condition, ref = "untreated")

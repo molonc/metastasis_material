@@ -4,6 +4,7 @@ suppressPackageStartupMessages({
   library(tidyr)
   library(scales)
   library(circlize)
+  library(ComplexHeatmap)
   options(dplyr.summarise.inform = FALSE)
   options(tidyverse.quiet = TRUE)
 })
@@ -86,11 +87,15 @@ viz_heatmap_frequencies <- function(prop_df, datatag, save_dir){
     grid.text(sprintf("%.4f", prop_df1[i, j]), x, y, gp = gpar(fontsize = 10))
   }
   # library(ComplexHeatmap)
-  
+  max_k <- max(prop_df$kflux, na.rm=T)
   col_fun = colorRamp2(c(0, 0.3,0.7, 1), c("#ADDFFF","cyan","#2B65EC", "#0000FF"))
   # col_fun(seq(-3, 3))
-  row_ha = rowAnnotation(Seeding_influx_estimate_kj = anno_barplot(prop_df$kflux), width = unit(5, "cm")) #foo2 = prop_df$kflux, 
-  col_ha = HeatmapAnnotation(Seeding_freq = anno_boxplot(prop_df1, height = unit(5, "cm"),col_title_rot = 90))
+  row_ha = rowAnnotation(Seeding_influx_estimate_kj = anno_barplot(prop_df$kflux, 
+                                                                   bar_width = 0.5,
+                                                                   ylim = c(0, round(max_k)+1)), width = unit(5, "cm")) #foo2 = prop_df$kflux, 
+  col_ha = HeatmapAnnotation(Seeding_freq = anno_boxplot(prop_df1,
+                                                         box_width = 0.2, height = unit(2.5, "cm"),
+                                                         col_title_rot = 90))
   p <- ComplexHeatmap::Heatmap(as.matrix(prop_df1), na_col = "white",
                                show_column_names=T,
                                show_row_names = T,
@@ -98,14 +103,14 @@ viz_heatmap_frequencies <- function(prop_df, datatag, save_dir){
                                name = "Clone Fraction", 
                                # row_order = sort(rownames(df)),
                                # row_split= annotation_row,
-                               row_title_rot = 90,
+                               # row_title_rot = 90,
                                # row_gap = unit(2, "mm"),
                                # column_split = annotation_col, 
                                # column_title = paste0(datatag, " frequencies"),
                                column_gap = unit(2, "mm"),
                                column_names_gp = grid::gpar(fontsize = 15),
                                row_names_gp = grid::gpar(fontsize = 12),
-                               show_heatmap_legend = F,
+                               show_heatmap_legend = T,
                                top_annotation=col_ha,
                                # left_annotation = left_anno,
                                right_annotation = row_ha,
@@ -121,50 +126,112 @@ viz_heatmap_frequencies <- function(prop_df, datatag, save_dir){
 
 
 # datatag <- 'SA919' 'SA535'
-plot_heatmap_prevalence <- function(datatag, results_dir){
+plot_heatmap_prevalence <- function(datatag, results_dir, input_fn){
   ## results_dir: 'yourdir/data_met_proj_v4/results/'
   # results_dir <- '/home/htran/storage/datasets/metastasis_results/math_model/data_met_proj_v4/results/'
   base_dir <- dirname(results_dir)
-  output_dir <- paste0(base_dir, '/figs/')
+  # output_dir <- paste0(base_dir, '/figs/')
+  output_dir <- paste0(base_dir, '/figs_revision/')
   if(!file.exists(output_dir)){ 
     dir.create(output_dir)
   }
   
   fns <- list.files(results_dir)
   fns <- fns[grepl(datatag, fns)]
-  print(fns)
+  if(!input_fn %in% fns){
+    stop('Check input filename. Do not exist in directory')
+  }
+  # print(fns)
   # input_fn <- 'SA919_total.csv'
   # input_fn <- 'SA535_total_raw_6.csv'
   prop_df <- data.table::fread(paste0(results_dir, input_fn)) %>% as.data.frame()
+  colnames(prop_df)
   # View(prop_df)
+  
+  ## For description in revision manuscript
+  prop_df_view <- prop_df %>%
+    dplyr::select(clone_id, kflux) %>%
+    dplyr::mutate(kflux=round(kflux,1))
+  prop_df_view
+  ## For summary values in revision manuscript
+  print(paste0("mean = ",round(mean(prop_df$kflux, na.rm=T),1),
+               ", sigma = ",round(sd(prop_df$kflux, na.rm=T),1),
+               ", min = ",round(min(prop_df$kflux, na.rm=T),1),
+               ", max = ",round(max(prop_df$kflux, na.rm=T),1)
+               ))
+  
+  
   # colnames(prop_df)
   if(datatag=='SA919'){
     label <- 'X0847' # make label shorter  
-  }else{
+  }else{ #'SA535'
     label <- '_X0011_' # make label shorter 
   }
   prop_df <- prop_df %>%
-    rename(origin=clone_id) %>%. # the true identity column name
+    rename(origin=clone_id) %>% # the true identity column name
     mutate(origin=gsub(label,'',origin))
-    
+     
+  if(datatag=='SA919'){
+    prop_df$origin <- c("#1_X4_Axillary","Primary","#1_X7_SupraSpinal",
+                        "#2_X7_SupraSpinal","#2_X4_VentralSpinal","#1_X7_VentralSpinal",
+                        "#3_X7_VentralSpinal","#4_X7_VentralSpinal")
+  } 
+  if(datatag=='SA535'){
+    prop_df$origin <- c("#1_X4_Axillary"," #3_X4_Axillary"," #2_X4_Inguinal",  
+                        "#4_X4_Inguinal","#2_X4_LeftAxillary","Primary"," #2_X4_RightAxillary")
+  } 
   phm <- viz_heatmap_frequencies(prop_df, datatag, output_dir)
   # png(paste0(output_dir,gsub('.csv','',input_fn), "_kflux_viz.png"), height = 2*400, width=2*700, res = 2*72)
   # print(phm)
   # dev.off()
+  phm_viz <- grid.grabExpr(ComplexHeatmap::draw(phm, heatmap_legend_side = "right",
+                                                padding = unit(c(3, 3, 3, 3), "mm")))
+  # p_draw <- cowplot::plot_grid(phm_viz, ncol=1)
+  # p_draw
   
   
-  ggsave(paste0(output_dir,gsub('.csv','',input_fn), "_kflux_viz.png"),
-         plot = phm,
-         height = 6,
-         width = 8,
+  saveRDS(phm_viz, paste0(output_dir, datatag, "_kflux_viz.rds"))
+  # phm_viz <- readRDS(paste0(output_dir, datatag, "_kflux_viz.rds"))
+  ggsave(paste0(output_dir, datatag, "_kflux_viz.png"),
+         plot = p_draw,
+         height = 5,
+         width = 9,
          # useDingbats=F,
-         dpi=250)
-  return(phm)
+         dpi=150)
+  ggsave(paste0(output_dir, datatag, "_kflux_viz.svg"),
+         plot = p_draw,
+         height = 5,
+         width = 9,
+         # useDingbats=F,
+         dpi=150)
+  # return(phm)
   
 }  
 
-datatag <- 'SA919'
-plot_heatmap_prevalence(datatag, results_dir)
+main <- function(){
+  datatag <- 'SA919'
+  results_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/revision/math_model/data_met_proj_v4/results/'
+  input_fn <- 'SA919_total.csv'
+  plot_heatmap_prevalence(datatag, results_dir, input_fn)
+  p919_viz <- readRDS(paste0(dirname(results_dir),'/figs_revision/', datatag, "_kflux_viz.rds"))
+  
+  datatag <- 'SA535'
+  results_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/revision/math_model/data_met_proj_v4/results/'
+  input_fn <- 'SA535_total.csv'
+  plot_heatmap_prevalence(datatag, results_dir, input_fn)
+  p535_viz <- readRDS(paste0(dirname(results_dir),'/figs_revision/', datatag, "_kflux_viz.rds"))
+  
+  
+  p_draw <- cowplot::plot_grid(NULL, p919_viz, NULL, p535_viz, ncol=1, rel_heights = c(0.1,1,0.1,1))
+  ggsave(paste0(dirname(results_dir),'/figs_revision/', datatag, "_kflux_viz_SA919_SA535.svg"),
+         plot = p_draw,
+         height = 8,
+         width = 9,
+         # useDingbats=F,
+         dpi=150)
+  
+  ## Summary values for revision manuscript
+  
+}
 
-datatag <- 'SA535'
-plot_heatmap_prevalence(datatag, results_dir)
+

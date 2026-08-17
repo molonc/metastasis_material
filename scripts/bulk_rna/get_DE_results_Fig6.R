@@ -43,7 +43,7 @@ get_pathways_Fig6_partD <- function(){
 }
 
 extract_DE_genes_DESeq2 <- function(dds){
-  library(DESeq2)
+  # library(DESeq2)
   ## How to select samples here? 
   # backup_dds <- dds
   # dds <- backup_dds
@@ -153,6 +153,16 @@ extract_DE_genes_DESeq2_cloneA <- function(){
   
   
 }
+
+## Revision, met vs. pri, and pri vs. pri
+## B met vs A pri main exp
+## B pri vs A pri main exp
+## C met vs A pri mixing exp
+## C pri vs A pri mixing exp
+##
+##
+##
+
 main(){
   ## Loading dds object
   extract_DE_genes_DESeq2(dds)
