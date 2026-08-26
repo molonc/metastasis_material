@@ -58,17 +58,94 @@ process_data <- function(dds, meta_genes, obs_clones, filter_conds, save_dir, ex
 }
 double_check <- function(){
   save_dir <- "/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/results_bulkRNAseq/SA919_full/"
-  bb <- data.table::fread(paste0(save_dir, 'Bmet_Bpri/Bmet_Bpri_DE_genes.csv.gz'))
-  cb1 <- data.table::fread(paste0(save_dir, 'Cmet_Bpri/Cmet_Bpri_DE_genes.csv.gz'))
-  dim(cb1)
-  head(cb1)
-  dim(bb)
-  bb <- bb %>%
+  save_fig_dir <- paste0(save_dir,'revision_v2/')
+  de_comps <- data.table::fread(paste0(save_dir,'list_DE_comparisons.csv'))
+  de_comps <- de_comps %>%
+    dplyr::filter(exp_cond1=='main_exp' & exp_cond2=='main_exp')
+  de_comps
+  
+  aa_v1 <- data.table::fread(paste0(save_dir, 'Amet_Apri/Amet_Apri_DE_genes.csv.gz'))
+  bb_v1 <- data.table::fread(paste0(save_dir, 'Bmet_Bpri/Bmet_Bpri_DE_genes.csv.gz'))
+  cb_v1 <- data.table::fread(paste0(save_dir, 'Cmet_Bpri/Cmet_Bpri_DE_genes.csv.gz'))
+  dim(cb_v1)
+  head(cb_v1)
+  dim(bb_v1)
+  # Comparing with submitted files 
+  v11 <- data.table::fread('/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/supplementary_tables/SuppTable7.csv')
+  summary(as.factor(v11$DE_comparison))
+  dim(v11)
+  sum(abs(v11$log2FoldChange)>1)
+  sum(abs(v11$log2FoldChange)>0.5 & abs(v11$log2FoldChange)<1)
+  dim(aa_v1)
+  dim(bb_v1)
+  dim(cb_v1)
+  sum(abs(cb_v1$log2FoldChange)>1 & abs(cb_v1$pvalue)<0.05)
+  
+  # Comparing with new files
+  de <- de_comps$desc
+  de <- "A_Metastasis_main_exp__A_Primary_main_exp"
+  aa_v2 <- data.table::fread(paste0(save_dir, de,'/',de,'_DE_genes_gene_type.csv.gz'))
+  dim(aa_v2) #591
+  dim(aa_v1) #582
+  length(intersect(aa_v2$ensembl_gene_id, aa_v1$ensembl_gene_id)) #v2 is included in v1
+  aa_v2 <- aa_v2 %>%
+    dplyr::filter(ensembl_gene_id %in% aa_v1$ensembl_gene_id)
+  data.table::fwrite(aa_v2, paste0(save_dir, de,'/',de,'_DE_genes_gene_type.csv.gz'))
+  
+  
+  de <- "B_Metastasis_main_exp__B_Primary_main_exp"
+  bb_v2 <- data.table::fread(paste0(save_dir, de,'/',de,'_DE_genes_gene_type.csv.gz'))
+  dim(bb_v2) #982
+  dim(bb_v1) #972
+  length(intersect(bb_v2$ensembl_gene_id, bb_v1$ensembl_gene_id)) #v2 is included in v1
+  bb_v2 <- bb_v2 %>%
+    dplyr::filter(ensembl_gene_id %in% bb_v1$ensembl_gene_id)
+  data.table::fwrite(bb_v2, paste0(save_dir, de,'/',de,'_DE_genes_gene_type.csv.gz'))
+  
+  
+  de <- "C_Metastasis_main_exp__B_Primary_main_exp"
+  cb_v2 <- data.table::fread(paste0(save_dir, de,'/',de,'_DE_genes_gene_type.csv.gz'))
+  dim(cb_v2) #264
+  dim(cb_v1) #2857
+  colnames(cb_v2)
+  length(intersect(cb_v2$ensembl_gene_id, cb_v1$ensembl_gene_id)) #v2 is included in v1
+  cb_v1 <- cb_v1 %>%
     filter(pvalue<0.05 & abs(log2FoldChange)>=1)
-  obs_genes_symb <- unique(cb1$symbol)
-  pw_res <- get_gprofiler_pathways_obsgenes_v2(obs_genes_symb, save_fig_dir, subtag, correction_method='gSCS',
-                                               custom_id="gp__RYib_WEFZ_gEw", pathway_fn=NULL, save_data=F)
-  sum(pw_res$stat$p_value<0.05)
+  data.table::fwrite(cb_v1, paste0(save_dir, de,'/',de,'_DE_genes_gene_type.csv.gz'))
+  
+  cb_backup <- cb_v1
+  script_dir <- "/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/materials/bulkRNAseq/"
+  meta_genes <- data.table::fread(paste0(script_dir, 'SA919_DE_analysis_DESeq2_Hoa_09April2024/meta_genes_SA919.csv.gz'))  
+  dim(meta_genes)
+  dim(cb_v1)
+  cb_v1$ens_gene_id
+  head(cb_v1)
+  colnames(meta_genes)
+  meta_genes <- meta_genes %>%
+    dplyr::select(-chr, -symbol)
+  cb_v1 <- cb_backup
+  cb_v1 <- cb_v1 %>%
+    dplyr::rename(ensembl_gene_id=ens_gene_id) %>%
+    dplyr::left_join(meta_genes, by=c('ensembl_gene_id'='ens_gene_id'))
+  data.table::fwrite(cb_v1, paste0(save_dir, de,'/',de,'_DE_genes_gene_type.csv.gz'))
+  head(cb_v1)
+  
+  cb_v1 <- cb_v1  %>%
+    dplyr::mutate(
+      gene_type = case_when(
+        C-B != 0 & !is.na(C-B) ~ 'cis_gene',
+        TRUE ~ 'trans_gene'
+      )
+    )  
+  data.table::fwrite(cb_v1, paste0(save_dir, de,'/',de,'_DE_genes_gene_type.csv.gz'))
+  
+  # bb <- bb %>%
+  #   filter(pvalue<0.05 & abs(log2FoldChange)>=1)
+  # obs_genes_symb <- unique(cb1$symbol)
+  # pw_res <- get_gprofiler_pathways_obsgenes_v2(obs_genes_symb, save_fig_dir, subtag, correction_method='gSCS',
+  #                                              custom_id="gp__RYib_WEFZ_gEw", pathway_fn=NULL, save_data=F)
+  # sum(pw_res$stat$p_value<0.05)
+  
   
 }
 
@@ -308,12 +385,206 @@ get_summary_exp <- function(){
   data.table::fwrite(common_mtx, paste0(save_dir,'stat_common_trans_revision.csv'), row.names = T)
 }
 
-viz_upsetR_annotated_genotypes <- function(genes_df, save_fig_dir, tag=''){
+get_manuscript_stat_values <- function(){
   save_dir <- "/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/results_bulkRNAseq/SA919_full/"
-  save_fig_dir <- paste0(save_dir,'revision/')
+  # save_fig_dir <- paste0(save_dir,'revision/')
+  save_fig_dir <- paste0(save_dir,'revision_v2/')
   dir.create(save_fig_dir)
+  de_comps <- data.table::fread(paste0(save_dir,'list_DE_comparisons.csv'))
+  de_comps <- de_comps %>%
+    dplyr::filter(exp_cond1=='main_exp' & exp_cond2=='main_exp')
+  de_comps
+  
+  
+  
+  ## Get SUPP Table 9
+  total_df <- tibble::tibble()
+  for(de in de_comps$desc){
+    print(de)
+    de_fn <- paste0(save_dir, de,'/',de,'_DE_genes_gene_type.csv.gz')
+    if(file.exists(de_fn)){
+      df <- data.table::fread(de_fn)
+      print(dim(df))
+      df$description <- de
+      total_df <- dplyr::bind_rows(total_df, df)  
+    }
+  }
+  dim(total_df)
+  View(head(total_df))
+  descs <- total_df$description
+  descs <- gsub('_main_exp','', descs)
+  descs <- gsub('__',' vs. ', descs)
+  descs <- gsub('_',' ', descs)
+  total_df$description <- descs
+  total_df$logFC <- NULL
+  total_df <- total_df %>%
+    dplyr::rename(copy_number_state_cloneA=A, 
+                  copy_number_state_cloneB=B,
+                  copy_number_state_cloneC=C)
+  colnames(total_df)
+  data.table::fwrite(total_df, "/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/supplementary_tables/SuppTable9.csv")
+  
+  ## Looking into specific example
+  obs_de1 <- c('B_Primary_main_exp__A_Primary_main_exp','B_Metastasis_main_exp__A_Primary_main_exp')
+  de_comps1 <- de_comps %>%
+    dplyr::filter(desc %in% obs_de1)
+  total_df <- tibble::tibble()
+  obs_gene_type <- 'cis_gene'
+  for(de in de_comps1$desc){
+    print(de)
+    de_fn <- paste0(save_dir, de,'/',de,'_DE_genes_gene_type.csv.gz')
+    if(file.exists(de_fn)){
+      df <- data.table::fread(de_fn)
+      df <- df %>%
+        dplyr::filter(gene_type==obs_gene_type)
+      print(dim(df))
+      df$desc <- de
+      total_df <- dplyr::bind_rows(total_df, df)  
+    }
+  }
+  dim(total_df)
+  # cis_pri_pri <- total_df %>%
+  #   dplyr::filter(desc=='B_Primary_main_exp__A_Primary_main_exp')
+  # cis_met_pri <- total_df %>%
+  #   dplyr::filter(desc=='B_Metastasis_main_exp__A_Primary_main_exp')
+  # common_cis <- intersect(cis_pri_pri$symbol, cis_met_pri$symbol)
+  # driver_genes <- data.table::fread('/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/supplementary_tables/SuppTable11.csv')
+  # driver_genes <- driver_genes %>%
+  #   dplyr::filter(DE_comparison=='Bmet_Apri' & gene_symbol %in% common_cis)
+  # View(driver_genes[,1:6])
+  
+  
+  stat_total_df <- tibble::tibble()
+  for(de in de_comps$desc){
+    print(de)
+    de_fn <- paste0(save_dir, de,'/',de,'_DE_genes_gene_type.csv.gz')
+    if(file.exists(de_fn)){
+      df <- data.table::fread(de_fn)
+      print(dim(df))
+      df$desc <- de
+      df <- df  %>%
+        dplyr::group_by(gene_type)  %>%
+        dplyr::summarise(nb_genes=n(),
+                         median_log2FC=round(median(abs(log2FoldChange)),1),
+                         mean_log2FC=round(mean(abs(log2FoldChange)),1),
+                         sd_log2FC=round(sd(abs(log2FoldChange)),1))
+      df$desc <- de  
+      stat_total_df <- dplyr::bind_rows(stat_total_df, df)  
+    }
+  }
+  # View(stat_total_df)
+  descs <- stat_total_df$desc
+  descs <- gsub('_main_exp','', descs)
+  descs <- gsub('__',' vs. ', descs)
+  descs <- gsub('_',' ', descs)
+  stat_total_df$desc <- descs
+  # t <- stat_total_df %>%
+  #   tidyr::pivot_wider(names_from = 'gene_type', values_from = 'nb_genes')
+  
+  data.table::fwrite(stat_total_df, paste0(save_dir,'stat_total_revision.csv')) # Supp Table 10
+  
+  cis_df <- stat_total_df %>%
+    dplyr::filter(gene_type=='cis_gene')
+  cis_df$type_comp <- c('pri_pri','met_pri','met_pri','met_pri')
+  stat_df <- cis_df %>%
+    dplyr::group_by(type_comp) %>%
+    dplyr::summarise(mean_nbGenes=round(mean(mean_log2FC),1),
+                     sd_nbGenes=round(sd(mean_log2FC),1))
+  stat_df
+  
+  trans_df <- stat_total_df %>%
+    dplyr::filter(gene_type=='trans_gene')
+  trans_df$type_comp <- c('pri_pri','met_pri','met_pri','met_pri','met_pri','met_pri')
+  stat_df <- trans_df %>%
+    dplyr::group_by(type_comp) %>%
+    dplyr::summarise(mean_nbGenes=round(mean(mean_log2FC),1),
+                     sd_nbGenes=round(sd(mean_log2FC),1))
+  stat_df
+  
+  
+  total_df <- tibble::tibble()
+  obs_gene_type <- 'cis_gene'
+  for(de in de_comps$desc){
+    print(de)
+    de_fn <- paste0(save_dir, de,'/',de,'_DE_genes_gene_type.csv.gz')
+    if(file.exists(de_fn)){
+      df <- data.table::fread(de_fn)
+      df <- df %>%
+        dplyr::filter(gene_type==obs_gene_type)
+      print(dim(df))
+      df$desc <- de
+      total_df <- dplyr::bind_rows(total_df, df)  
+    }
+  }
+  genes_df <- total_df %>%
+    dplyr::mutate(desc=gsub('_main_exp','',desc))
+  genes_df <- genes_df %>%
+    dplyr::mutate(desc=gsub('__',' vs. ',desc))
+  genes_df <- genes_df %>%
+    dplyr::mutate(desc=gsub('_',' ',desc))
+  dim(genes_df)
+  head(genes_df)
+  stat_df <- genes_df %>%
+    dplyr::group_by(desc) %>%
+    dplyr::summarise(nb_genes=n())
+  stat_df$type_comp <- c('met_pri','pri_pri','met_pri','met_pri')
+  stat_df <- stat_df %>%
+    dplyr::group_by(type_comp) %>%
+    dplyr::summarise(mean_nbGenes=round(mean(nb_genes),1),
+                     sd_nbGenes=round(sd(nb_genes),1))
+  stat_df
+  
+  
+  
+  # ordered_lbs <- c("B Primary vs. A Primary","B Metastasis vs. A Primary",
+  #                  "C Metastasis vs. A Primary","C Metastasis vs. B Primary")
+  
+  # df <- df %>%
+  #   dplyr::arrange()
+  df <- df[,c("element",ordered_lbs)]
+  
+  ## Visualizing trans genes upSetR
+  total_df <- tibble::tibble()
+  obs_gene_type <- 'trans_gene'
+  for(de in de_comps$desc){
+    print(de)
+    de_fn <- paste0(save_dir, de,'/',de,'_DE_genes_gene_type.csv.gz')
+    if(file.exists(de_fn)){
+      df <- data.table::fread(de_fn)
+      df <- df %>%
+        dplyr::filter(gene_type==obs_gene_type)
+      print(dim(df))
+      df$desc <- de
+      total_df <- dplyr::bind_rows(total_df, df)  
+    }
+  }
+  
+  dim(total_df)
+  genes_df <- total_df
+  stat_df <- genes_df %>%
+    dplyr::group_by(desc) %>%
+    dplyr::summarise(nb_genes=n())
+  stat_df$type_comp <- c('met_pri','met_pri','met_pri','pri_pri','met_pri','met_pri')
+  stat_df <- stat_df %>%
+    dplyr::group_by(type_comp) %>%
+    dplyr::summarise(mean_nbGenes=round(mean(nb_genes),1),
+                     sd_nbGenes=round(sd(nb_genes),1))
+  stat_df
+  
+}
+viz_upsetR_annotated_genotypes <- function(genes_df, save_fig_dir, tag=''){
+  
+  save_dir <- "/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/results_bulkRNAseq/SA919_full/"
+  # save_fig_dir <- paste0(save_dir,'revision/')
+  save_fig_dir <- paste0(save_dir,'revision_v2/')
+  dir.create(save_fig_dir)
+  de_comps <- data.table::fread(paste0(save_dir,'list_DE_comparisons.csv'))
+  de_comps <- de_comps %>%
+    dplyr::filter(exp_cond1=='main_exp' & exp_cond2=='main_exp')
+  de_comps
   
   ## Visualizing cis genes upSetR
+  
   total_df <- tibble::tibble()
   obs_gene_type <- 'cis_gene'
   for(de in de_comps$desc){
@@ -333,7 +604,9 @@ viz_upsetR_annotated_genotypes <- function(genes_df, save_fig_dir, tag=''){
   genes_df <- total_df %>%
     dplyr::mutate(desc=gsub('_main_exp','',desc))
   genes_df <- genes_df %>%
-    dplyr::mutate(desc=gsub('__',' vs ',desc))
+    dplyr::mutate(desc=gsub('__',' vs. ',desc))
+  genes_df <- genes_df %>%
+    dplyr::mutate(desc=gsub('_',' ',desc))
   library(UpSetR)
   # Get all unique elements across vectors
   print(dim(genes_df))
@@ -353,8 +626,8 @@ viz_upsetR_annotated_genotypes <- function(genes_df, save_fig_dir, tag=''){
   print(lbs)
   # print(head(df))
   dim(df)
-  ordered_lbs <- c("B_Primary vs A_Primary","B_Metastasis vs A_Primary",
-                   "C_Metastasis vs A_Primary","C_Metastasis vs B_Primary")
+  ordered_lbs <- c("B Primary vs. A Primary","B Metastasis vs. A Primary",
+                   "C Metastasis vs. A Primary","C Metastasis vs. B Primary")
   # df <- df %>%
   #   dplyr::arrange()
   df <- df[,c("element",ordered_lbs)]
@@ -369,7 +642,7 @@ viz_upsetR_annotated_genotypes <- function(genes_df, save_fig_dir, tag=''){
                      text.scale = 1.5,
                      point.size = 3,
                      line.size = 1.2,
-                     mainbar.y.label = "#intersect genes",
+                     mainbar.y.label = "#intersect DE genes",
                      sets.x.label = "#genes")
   print(p)
   dev.off()
@@ -398,7 +671,9 @@ viz_upsetR_annotated_genotypes <- function(genes_df, save_fig_dir, tag=''){
   genes_df <- total_df %>%
     dplyr::mutate(desc=gsub('_main_exp','',desc))
   genes_df <- genes_df %>%
-    dplyr::mutate(desc=gsub('__',' vs ',desc))
+    dplyr::mutate(desc=gsub('__',' vs. ',desc))
+  genes_df <- genes_df %>%
+    dplyr::mutate(desc=gsub('_',' ',desc))
   library(UpSetR)
   # Get all unique elements across vectors
   print(dim(genes_df))
@@ -418,9 +693,9 @@ viz_upsetR_annotated_genotypes <- function(genes_df, save_fig_dir, tag=''){
   print(lbs)
   print(head(df))
   dim(df)
-  ordered_lbs <- c("B_Primary vs A_Primary","B_Metastasis vs A_Primary",
-                   "A_Metastasis vs A_Primary","C_Metastasis vs A_Primary",
-                   "B_Metastasis vs B_Primary","C_Metastasis vs B_Primary")
+  ordered_lbs <- c("B Primary vs. A Primary","B Metastasis vs. A Primary",
+                   "A Metastasis vs. A Primary","C Metastasis vs. A Primary",
+                   "B Metastasis vs. B Primary","C Metastasis vs. B Primary")
   
   # df <- df %>%
   #   dplyr::arrange()
@@ -436,7 +711,7 @@ viz_upsetR_annotated_genotypes <- function(genes_df, save_fig_dir, tag=''){
                      text.scale = 1.5,
                      point.size = 3,
                      line.size = 1.2,
-                     mainbar.y.label = "#intersect genes",
+                     mainbar.y.label = "#intersect DE genes",
                      sets.x.label = "#genes")
   print(p)
   dev.off()
@@ -447,17 +722,17 @@ viz_upsetR_annotated_genotypes <- function(genes_df, save_fig_dir, tag=''){
   obs_gene_type <- 'cis_gene'
   cis_plt <- readRDS(paste0(save_fig_dir, obs_gene_type,"_upSetR.rds"))
 
-  svg(paste0(save_fig_dir, obs_gene_type,"_upSetR.svg"), height = 5, width = 10)
-  cis_plt
-  dev.off()
+  # svg(paste0(save_fig_dir, obs_gene_type,"_upSetR.svg"), height = 5, width = 10)
+  # cis_plt
+  # dev.off()
   
   ggsave(
     filename = paste0(save_fig_dir, obs_gene_type,"_upSetR.svg"),
     plot     = grid::grid.grabExpr(print(cis_plt), wrap.grobs = TRUE),
     device   = "svg",     # requires the svglite package
     width    = 10,
-    height   = 5,
-    units    = "in"
+    height   = 4,
+    units    = "in", dpi = 150
   )
   
   
@@ -470,8 +745,8 @@ viz_upsetR_annotated_genotypes <- function(genes_df, save_fig_dir, tag=''){
     plot     = grid::grid.grabExpr(print(trans_plt), wrap.grobs = TRUE),
     device   = "svg",     # requires the svglite package
     width    = 10,
-    height   = 6.5,
-    units    = "in"
+    height   = 6,
+    units    = "in",dpi = 150
   )
   
   
@@ -486,6 +761,19 @@ viz_upsetR_annotated_genotypes <- function(genes_df, save_fig_dir, tag=''){
     width    = 10,
     height   = 10,
     units    = "in", dpi = 150)  
+  
+  
+  
+}
+
+get_summary_manuscript_Fig4 <- function(){
+  
+  # Check old result of DE analysis, replace new file by this file
+  # Concatenate new files into existing supp table. 
+  # Cis: avg in met vs pri, compared to pri vs. pri
+  # Nb cis genes in pri vs. pri, compared to met vs. pri, % of mutation that seeded in primary samples. B vs. A
+  # Trans: avg in met vs pri, compared to pri vs. pri
+  # Trans: avg+-sd in met vs pri, compared different clones versus same clones 
   
   
   
@@ -547,8 +835,7 @@ extract_DE_genes_DESeq2_revision <- function(){
   dim(cnv)
   # head(cnv)
   ## To Do: need to add cis, trans type into DE_genes table. 
-  
-  
+
   ## stat values
   ## Total # genes, # cis genes, # trans genes
   df2_cis_total <- df2 %>%
@@ -563,7 +850,7 @@ extract_DE_genes_DESeq2_revision <- function(){
   
   median(abs(df1_trans_total$log2FoldChange))
 }  
-cis_trans_logFC <- function(){
+cis_trans_logFC_testing_only <- function(){
   
   ## Get common genes between 2 comparisons
   ## Comparing variance, and gene wise dispersion between metpri, vs pripri

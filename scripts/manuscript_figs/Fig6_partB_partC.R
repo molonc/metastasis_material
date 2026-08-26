@@ -18,6 +18,23 @@ script_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metas
 source(paste0(script_dir, 'scripts/bulk_rna/bulk_utils.R'))
 
 
+process_data_4_viz <- function(df){
+  cutoff_values <- 2
+  df <- df %>% 
+    dplyr::mutate(
+      gene_type=
+        case_when(
+          gene_type %in% c('trans','trans_whole_genome') ~ 'trans',
+          TRUE ~ gene_type))  %>% 
+    dplyr::rename(gene_wise_dispersion=tagwise_dispersion) %>% 
+    dplyr::mutate(
+      gene_wise_dispersion=
+        case_when(
+          gene_wise_dispersion > cutoff_values ~ cutoff_values, 
+          TRUE ~ gene_wise_dispersion
+        ))
+  return(df)
+}
 viz_genewise_dispersion <- function(df, obs_clones=c('B','C'), legend_pos='bottom'){
   # unique(df$gene_type)
   cutoff_values <- 2
@@ -266,7 +283,80 @@ viz_gene_exp_comparison <- function(df, obs_clones, legend_pos='bottom'){
   return(p)
 }
 
-
+viz_Fig6_partA_revision <- function(){
+  save_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/results_bulkRNAseq/SA919_full/'
+  datatag <- 'SA919_full'
+  
+  obs_conds <- c('B_Metastasis','A_Primary')
+  subtag <- 'Bmet_Apri'
+  save_fig_dir <- paste0(save_dir, subtag, '/')
+  obs_clones <- c('A','B')
+  df1 <- data.table::fread(paste0(save_fig_dir, subtag, '_dispersion_cis_trans_genes.csv'))
+  dim(df1)
+  head(df1)
+  df1 <- process_data_4_viz(df1)
+  df1$desc <- subtag
+  
+  obs_conds <- c('C_Metastasis','A_Primary')
+  subtag <- 'Cmet_Apri'
+  save_fig_dir <- paste0(save_dir, subtag, '/')
+  obs_clones <- c('A','C')
+  df2 <- data.table::fread(paste0(save_fig_dir, subtag, '_dispersion_cis_trans_genes.csv'))
+  dim(df2)
+  df2 <- process_data_4_viz(df2)
+  df2$desc <- subtag
+  
+  obs_conds <- c('C_Metastasis','B_Primary')
+  subtag <- 'Cmet_Bpri'
+  save_fig_dir <- paste0(save_dir, subtag, '/')
+  obs_clones <- c('B','C')
+  df3 <- data.table::fread(paste0(save_fig_dir, subtag, '_dispersion_cis_trans_genes.csv'))
+  dim(df3)
+  df3 <- process_data_4_viz(df3)
+  df3$desc <- subtag
+  
+  total_df <- dplyr::bind_rows(df1, df2, df3)
+  dim(total_df)
+  colnames(total_df)
+  
+  # library(ggplot2)
+  # Grouped Bar Plot
+  p <- ggplot(total_df, aes(x = factor(desc), fill = factor(gene_type))) +
+    geom_bar(position = position_dodge(preserve = "single"), color = "black") +
+    labs(x = "xxx", fill = "Gene type", y = "Gene dispersion") +
+    theme_light()
+  p  
+  total_df$gene_type
+  sum(total_df$gene_wise_dispersion>1.9)
+  
+  colors_use <- c('cis'="#702963",'trans'="#296370")
+  print(cols_use)
+  my_font <- "Helvetica"
+  p <- ggplot(total_df, aes(gene_type, gene_wise_dispersion)) + 
+    geom_boxplot(aes(fill = gene_type), width=0.4, alpha=0.7, outlier.alpha = 0) + coord_flip() + 
+    theme_bw() + 
+    # facet_wrap(~desc, nrow = 3,scales = "free",strip.position = "top") + 
+    facet_grid(desc ~ .) + 
+    scale_fill_manual(values = colors_use) + 
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+          strip.background = element_blank(), strip.placement = "outside",
+          axis.title.x = element_text(color="black",size=10, hjust = 0.5, family=my_font), 
+          axis.title.y = element_text(color="black",size=10, hjust = 0.5, family=my_font),
+          axis.text.x = element_text(color="black",size=8, hjust = 0.5, family=my_font),
+          axis.text.y = element_text(color="black",size=9, hjust = 0.5, family=my_font),
+          legend.title=element_text(color="black",size=11, hjust = 0.5, family=my_font), 
+          legend.text=element_text(color="black",size=11, hjust = 0.5, family=my_font),) + 
+    labs(x = "Gene Type", fill = "Gene Type", y = "Gene wise dispersion") 
+  ## To do: change the font size
+  # p
+  save_fig_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/metastasis_material/main_figures/fig4_revised/'
+  dir.create(save_fig_dir)
+  saveRDS(p, paste0(save_fig_dir, 'dispersion_cis_trans_genes.rds'))
+  ggsave(  
+    filename = paste0(save_fig_dir, 'dispersion_cis_trans_genes_partA.svg'),  
+    plot = p,  
+    height = 2.5, width = 5, dpi = 150)
+}  
 viz_Fig6_partA <- function(){
   save_dir <- '/Users/hoatran/Documents/projects_BCCRC/hakwoo_project/code/results_bulkRNAseq/SA919_full/'
   datatag <- 'SA919_full'

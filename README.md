@@ -84,6 +84,8 @@ The contribution of somatic gene dosage mutations (CNA) to breast cancer metasta
 ### Differential expression analysis
 - Scripts are at [scripts/bulk_rna/](https://github.com/molonc/metastasis_material/tree/main/scripts/bulk_rna/)
 
+### Tumour growth curves comparison
+- Script for linear mixed-effects model using the lme4 package 1.1.34 is at [/scripts/linear_mixed_effect_model/](https://github.com/molonc/metastasis_material/tree/main//scripts/linear_mixed_effect_model/)
 
 
 

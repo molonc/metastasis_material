@@ -278,7 +278,7 @@ stat_SA919_Pt1 <- function(){
   obs_chrs <- c('7')
   obs_clones <- c('A','B')
   statBA <- get_CNA_change_regions_stat(df_cnv, obs_clones, obs_chrs)
-  
+  statBA
   obs_chrs <- c('7')
   obs_clones <- c('A','C')
   statCA <- get_CNA_change_regions_stat(df_cnv, obs_clones, obs_chrs)
