@@ -232,7 +232,7 @@ initialization : 'FORWARD'
 ladder: 'Polynomial'
 nScans: '2000'  # default 10000, can try different values 2000, 5000
 nPassesPerScan: '1'
-nChains: '3'  # default 10
+nChains: '3'  
 nThreads: 'Fixed'
 nThreadsNumber: '16'  # default 20
 postprocessor: 'DefaultPostProcessor'

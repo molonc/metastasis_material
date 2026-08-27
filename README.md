@@ -9,7 +9,7 @@ Somatic copy number mutations contribute to fitness in transplantation models of
 biorxiv preprint DOI: https://www.biorxiv.org/content/ (will update link soon)
 
 ```
-IN EDITING...
+IN EDITING...WILL COMPLETE TUTORIALS SOON
 
 - [Overview](#overview)
 - [Materials](#materials)
@@ -77,6 +77,8 @@ The contribution of somatic gene dosage mutations (CNA) to breast cancer metasta
 ## Scripts
 ### Copy number analysis
 - Script for phylogenetic tree reconstruction, clonal analyses are at [scripts/corrupt_tree/src](https://github.com/molonc/metastasis_material/tree/main/scripts/corrupt_tree/src/)
+Full details of Sitka corrupt tree parameters are at our github page, file name: snakemake_config.yaml:
+materials/dlp_trees/SA535/config/, and materials/dlp_trees/SA919/config/
 
 ### Preprocessing functions
 - Preprocessing scripts for bulk RNA-seq analysis are at [scripts/bulk_rna/](https://github.com/molonc/metastasis_material/tree/main/scripts/bulk_rna/)
@@ -87,7 +89,8 @@ The contribution of somatic gene dosage mutations (CNA) to breast cancer metasta
 ### Tumour growth curves comparison
 - Script for linear mixed-effects model using the lme4 package 1.1.34 is at [/scripts/linear_mixed_effect_model/](https://github.com/molonc/metastasis_material/tree/main//scripts/linear_mixed_effect_model/)
 
-
+### Bootstrap statistical test
+- To Do: adding directory link to input, output, scripts here
 
 ## Citation
 ```
