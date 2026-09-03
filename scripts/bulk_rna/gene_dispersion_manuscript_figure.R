@@ -704,6 +704,7 @@ get_statistical_test_gene_types_per_chr <- function(){
   obs_clones <- c('A','B')
   exp_df <- data.table::fread(paste0(save_dir, subtag, '/', paste(obs_conds, collapse='_vs_'), '_total_exp.csv.gz'))
   dim(exp_df)
+  head(exp_df)
   resAB <- get_stat_per_chr(exp_df, obs_conds)
 
   
